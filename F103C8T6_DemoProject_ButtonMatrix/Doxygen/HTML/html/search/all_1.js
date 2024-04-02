@@ -51,8 +51,8 @@ var searchData=
   ['buttonmatrix_5fstart_48',['ButtonMatrix_start',['../group___button_matrix___source_code.html#ga8d942643ced3dc7027779617a3b42f8c',1,'ButtonMatrix_start(buttonMatrix_structTd *buttonMatrix):&#160;buttonMatrix.c'],['../group___button_matrix___header.html#ga8d942643ced3dc7027779617a3b42f8c',1,'ButtonMatrix_start(buttonMatrix_structTd *buttonMatrix):&#160;buttonMatrix.c']]],
   ['buttonmatrix_5fstructtd_49',['buttonMatrix_structTd',['../structbutton_matrix__struct_td.html',1,'buttonMatrix_structTd'],['../group___button_matrix___header.html#gadbbdcf6696963db7f2cfd30753f2966c',1,'buttonMatrix_structTd():&#160;buttonMatrix.h']]],
   ['buttonmatrix_5fupdate_50',['ButtonMatrix_update',['../group___button_matrix___header.html#ga0dfeb84f4010414af0cc3eda7098cb5a',1,'ButtonMatrix_update(buttonMatrix_structTd *buttonMatrix):&#160;buttonMatrix.c'],['../group___button_matrix___source_code.html#ga0dfeb84f4010414af0cc3eda7098cb5a',1,'ButtonMatrix_update(buttonMatrix_structTd *buttonMatrix):&#160;buttonMatrix.c']]],
-  ['buttonmute_51',['ButtonMute',['../group___main_demo.html#gac3ea81eb98d49ff0ab970e756b8c7bea',1,'main.c']]],
-  ['buttonselect_52',['ButtonSelect',['../group___main_demo.html#gab88aded8cafa3a6511fcf90d32e4f4b7',1,'main.c']]],
-  ['buttonsolo_53',['ButtonSolo',['../group___main_demo.html#ga0e26da9548686dfdc7f3d31c36578171',1,'main.c']]],
+  ['buttonmute_51',['ButtonMute',['../group___main_demo.html#gab81b83d3044c43c149d1dce61d629376',1,'main.c']]],
+  ['buttonselect_52',['ButtonSelect',['../group___main_demo.html#ga82467c302c500e0f24f6440de32d74be',1,'main.c']]],
+  ['buttonsolo_53',['ButtonSolo',['../group___main_demo.html#ga733f01243023cfeb8bd72302256f86fd',1,'main.c']]],
   ['buttonstatesoninterruptline_54',['buttonStatesOnInterruptLine',['../structbutton_matrix__struct_td.html#a2a7f2c6343bd911258696d26d7f53ba4',1,'buttonMatrix_structTd']]]
 ];

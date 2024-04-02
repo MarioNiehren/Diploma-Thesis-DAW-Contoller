@@ -106,34 +106,43 @@ buttonMatrix_structTd ButtonMatrix;
 /**
  * @brief			Objects for each Solo Button
  */
-buttonMatrix_Coordinates_Td ButtonSolo[5] = {
+buttonMatrix_Coordinates_Td ButtonSolo[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_2},
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_3},
-		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_4}
+		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_4},
+		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_5},
+		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_6},
+		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
 
 /**
  * @brief			Objects for each Mute Button
  */
-buttonMatrix_Coordinates_Td ButtonMute[5] = {
+buttonMatrix_Coordinates_Td ButtonMute[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_2},
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_3},
-		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_4}
+		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_4},
+		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_5},
+		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_6},
+		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
 
 /**
  * @brief			Objects for each Select Button
  */
-buttonMatrix_Coordinates_Td ButtonSelect[5] = {
+buttonMatrix_Coordinates_Td ButtonSelect[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_2},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_3},
-		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_4}
+		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_4},
+		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_5},
+		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_6},
+		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
 /** @} */
 /** @} */
@@ -183,15 +192,13 @@ int main(void)
   ButtonMatrix_init_Structure(&ButtonMatrix);
 
   /**
-   * @brief 		Setup interrupt pins. Remember to activate EXTI-lines and interlan pull ups.
+   * @brief 		Setup interrupt pins. Remember to activate EXTI-lines and internal pull ups with falling edge interrupt.
    * @return		unused. It could be used to setup the button coordinates.
    * @{
    */
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_13);
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_14);
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_15);
-  ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_8);
-  ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_9);
   /** @} */
 
   /**
@@ -204,15 +211,16 @@ int main(void)
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_2);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_3);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_4);
+  ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_5);
+  ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_6);
+  ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_7);
   /** @} */
 
   /** @brief		setup timer with 1ms threshold. This should result in 8ms total debounce time for each key.*/
-  ButtonMatrix_init_TimerThresholdInMs(&ButtonMatrix, 20);
+  ButtonMatrix_init_TimerThresholdInMs(&ButtonMatrix, 1);
   /** @} */
 
   ButtonMatrix_start(&ButtonMatrix);
-
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
   /** @} */
 
   /* USER CODE END 2 */
@@ -227,32 +235,32 @@ int main(void)
 			if(ButtonMatrix_check_ButtonPushed(&ButtonMatrix, &ButtonSolo[i]) == true)
 			{
 			  ButtonsSoloPushed[i] = true;
-			  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+				/* add user code here */
 			}
 			else
 			{
 				ButtonsSoloPushed[i] = false;
-				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+				/* add user code here */
 			}
 			if(ButtonMatrix_check_ButtonPushed(&ButtonMatrix, &ButtonMute[i]) == true)
 			{
 			  ButtonsMutePushed[i] = true;
-			  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+			  /* add user code here */
 			}
 			else
 			{
 				ButtonsMutePushed[i] = false;
-				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+				/* add user code here */
 			}
 			if(ButtonMatrix_check_ButtonPushed(&ButtonMatrix, &ButtonSelect[i]) == true)
 			{
 			  ButtonsSelectPushed[i] = true;
-			  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+			  /* add user code here */
 			}
 			else
 			{
 				ButtonsSelectPushed[i] = false;
-				HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+				/* add user code here */
 			}
     }
     /* USER CODE END WHILE */
