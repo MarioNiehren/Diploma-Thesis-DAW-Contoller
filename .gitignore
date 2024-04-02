@@ -1,52 +1,17 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+@@ -1,16 +0,0 @@
+**/.metadata/**
+**/.settings/**
+**/[Dd]ebug/**
+**/[Rr]elease/**
+**/[Bb]ackup/**
+**/Z-Private/**
+**/A-PDF/**
+**/CAD_CubeIDE/**
+**/DAW-Controller-backups/**
+**/Z_Legacy/**
+**/Photoshop_Sessions/**
+**/D-Graphics/**
+A-Software/DAW-Controller_Workspace/Fader_ModuleMaster_CortexM4/Core/Src/Backup
+**/Calculation/**
+**/Symbols_Footprints/**
+**/Libraries/**
