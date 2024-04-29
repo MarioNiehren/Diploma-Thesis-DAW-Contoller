@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['text_3a_0',['Text:',['../group___e_p_d___set.html#autotoc_md4',1,'']]],
+  ['the_20frame_3a_1',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md3',1,'']]],
+  ['the_20moment_3a_2',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md7',1,'']]],
+  ['threshold_3',['threshold',['../structtimer__setup__struct_td.html#ab1306e35299d8bdd10ea0adfbf9827ad',1,'timer_setup_structTd']]],
+  ['tick_5fint_5fpriority_4',['TICK_INT_PRIORITY',['../_f103_c8_t6___demo_project___e-_paper___s_s_d1681_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e',1,'TICK_INT_PRIORITY:&#160;stm32f1xx_hal_conf.h'],['../_f103_c8_t6___demo_project___button_matrix_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e',1,'TICK_INT_PRIORITY:&#160;stm32f1xx_hal_conf.h']]],
+  ['timer_5',['timer',['../structbutton_matrix__struct_td.html#a18f5c134a67570d9a5ea4e0309465702',1,'buttonMatrix_structTd']]],
+  ['timer_6',['Timer',['../group___timer.html',1,'']]],
+  ['timer_2ec_7',['timer.c',['../timer_8c.html',1,'']]],
+  ['timer_2eh_8',['timer.h',['../timer_8h.html',1,'']]],
+  ['timer_5fcheck_5ftimerelapsed_9',['timer_check_TimerElapsed',['../group___timer.html#ga09fdb1654e82b83cf44792bf4bb4b30a',1,'timer_check_TimerElapsed(timer_setup_structTd *timer):&#160;timer.c'],['../group___timer.html#ga09fdb1654e82b83cf44792bf4bb4b30a',1,'timer_check_TimerElapsed(timer_setup_structTd *timer):&#160;timer.c']]],
+  ['timer_5fset_5fthresholdms_10',['timer_set_ThresholdMS',['../group___timer.html#gaa0a07882ecef402d29d2c37164470e2d',1,'timer_set_ThresholdMS(timer_setup_structTd *timer, uint32_t threshold):&#160;timer.c'],['../group___timer.html#gaa0a07882ecef402d29d2c37164470e2d',1,'timer_set_ThresholdMS(timer_setup_structTd *timer, uint32_t threshold):&#160;timer.c']]],
+  ['timer_5fsetup_5fstructtd_11',['timer_setup_structTd',['../structtimer__setup__struct_td.html',1,'']]],
+  ['to_20generate_20an_20array_20for_20your_20bitmap_3a_12',['How to generate an array for your Bitmap:',['../group___e_p_d___g_u_i.html#autotoc_md6',1,'']]],
+  ['to_20set_20up_20before_20displaying_20the_20frame_3a_13',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md3',1,'']]],
+  ['to_20use_3a_14',['To use:',['../group___e_paper_s_s_d1681.html#autotoc_md0',1,'How to use:'],['../group___e_p_d___initialize.html#autotoc_md2',1,'How to use:'],['../group___e_p_d___process.html#autotoc_md9',1,'How to use:']]],
+  ['todo_20list_15',['Todo List',['../todo.html',1,'']]],
+  ['transmit_5fblockingspi_16',['transmit_BlockingSPI',['../group___e_p_d___source.html#ga0ec98344af72f2eec408934f8f0f4ecb',1,'EPD_1-54inch.c']]],
+  ['transmit_5fcommand_17',['transmit_Command',['../group___e_p_d___source.html#ga610e89bdfe8107f926fa215526e730fd',1,'EPD_1-54inch.c']]],
+  ['transmit_5fdata_18',['transmit_Data',['../group___e_p_d___source.html#ga8cbbadf57bf225943e397e1a243f0750',1,'EPD_1-54inch.c']]],
+  ['transmit_5fframe_19',['transmit_Frame',['../group___e_p_d___source.html#ga5143743a3936a894af72588799bcb102',1,'EPD_1-54inch.c']]],
+  ['transmit_5flut_20',['transmit_LUT',['../group___e_p_d___source.html#gacee35be7da8eec39cd6b27b310367cfa',1,'EPD_1-54inch.c']]],
+  ['turnoff_5fdisplay_21',['turnOff_Display',['../group___e_p_d___source.html#gae0f61a3fb1d88ae7b84037702adf8aa1',1,'EPD_1-54inch.c']]],
+  ['turnon_5fdisplay_22',['turnOn_Display',['../group___e_p_d___source.html#gaaf47c543b2aea22ef80feb1052f26d76',1,'EPD_1-54inch.c']]]
+];
