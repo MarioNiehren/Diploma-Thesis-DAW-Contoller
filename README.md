@@ -11,4 +11,5 @@ develop a custom DAW-Controller.
 | [E-Paper](F103C8T6_DemoProject_E-Paper_SSD1681)		| Setup and write / draw to an E-Paper Display		| STM32F103C8T6 ("Blue-Pill" board) |
 
 ## Documentation
-To read the Doxygen documentation, please copy the [HTML-folder](Doxygen/HTML/html) and open index.html inside this folder with any browser.
+To read the Doxygen documentation, please copy the [Doxygen HTML-folder](Doxygen/HTML/html) to your local system 
+and open index.html inside this folder with any browser.
