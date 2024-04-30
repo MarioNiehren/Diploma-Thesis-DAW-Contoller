@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['before_20displaying_20the_20frame_3a_0',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md3',1,'']]],
-  ['bitmap_3a_1',['How to generate an array for your Bitmap:',['../group___e_p_d___g_u_i.html#autotoc_md6',1,'']]],
+  ['before_20displaying_20the_20frame_3a_0',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md4',1,'']]],
+  ['bitmap_3a_1',['How to generate an array for your Bitmap:',['../group___e_p_d___g_u_i.html#autotoc_md7',1,'']]],
   ['buffer_2',['Buffer',['../group___e_p_d___buffer.html',1,'']]],
   ['buffer_5fcounter_5ftypedef_3',['Buffer_Counter_TypeDef',['../struct_buffer___counter___type_def.html',1,'']]],
   ['buffer_5fdescriptor_5ftypedef_4',['Buffer_Descriptor_TypeDef',['../struct_buffer___descriptor___type_def.html',1,'']]],

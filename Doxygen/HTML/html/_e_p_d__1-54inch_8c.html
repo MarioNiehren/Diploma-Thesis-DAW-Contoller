@@ -100,7 +100,7 @@ $(function(){initNavTree('_e_p_d__1-54inch_8c.html',''); initResizable(); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">Initialize E-Paper-Display</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialize</div></td></tr>
 <tr class="memitem:gac80b5bd53401269adfa339f1f32dae3c" id="r_gac80b5bd53401269adfa339f1f32dae3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_p_d___source.html#gac80b5bd53401269adfa339f1f32dae3c">EPD_init_PinDC</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD, GPIO_TypeDef *GPIO_DC, uint16_t PIN_DC)</td></tr>
 <tr class="memdesc:gac80b5bd53401269adfa339f1f32dae3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize STM32 Pin that is used for Data/Command signal. It is an Output GPIO that will be.  <br /></td></tr>
 <tr class="separator:gac80b5bd53401269adfa339f1f32dae3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,7 +222,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gac325e17d6532983c07528a8ca182750f"><td class="mdescLeft">&#160;</td><td class="mdescRight">[0x4F] set start value for the Y-Address counter  <br /></td></tr>
 <tr class="separator:gac325e17d6532983c07528a8ca182750f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Transmission Functions</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo</a></b></dt><dd>Redesign these functions to enable non blocking SPI data transmission. </dd></dl>
+<tr><td colspan="2"><div class="groupText"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo</a></b></dt><dd>Redesign these functions to enable non blocking SPI data transmission. </dd></dl>
 </div></td></tr>
 <tr class="memitem:ga0ec98344af72f2eec408934f8f0f4ecb" id="r_ga0ec98344af72f2eec408934f8f0f4ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_p_d___source.html#ga0ec98344af72f2eec408934f8f0f4ecb">transmit_BlockingSPI</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
 <tr class="memdesc:ga0ec98344af72f2eec408934f8f0f4ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit buffered data with blocking SPI transmission.  <br /></td></tr>
@@ -247,7 +247,7 @@ Functions</h2></td></tr>
 <tr class="separator:ga4ebdf1893315cd8d8a78ed30648b0e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Display Frame</div></td></tr>
 <tr class="memitem:ga009cea4cf1754c14b38426049715245a" id="r_ga009cea4cf1754c14b38426049715245a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_p_d___source.html#ga009cea4cf1754c14b38426049715245a">EPD_display_Frame</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
-<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings.  <br /></td></tr>
+<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings. This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh.  <br /></td></tr>
 <tr class="separator:ga009cea4cf1754c14b38426049715245a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab5d74c90e44518fc14f1eb4ea473176e" id="r_gab5d74c90e44518fc14f1eb4ea473176e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_p_d___source.html#gab5d74c90e44518fc14f1eb4ea473176e">display_Full</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
 <tr class="memdesc:gab5d74c90e44518fc14f1eb4ea473176e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequence to display a frame in full refresh mode.  <br /></td></tr>

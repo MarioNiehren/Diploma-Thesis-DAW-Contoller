@@ -208,7 +208,7 @@ Files</h2></td></tr>
 <tr class="memitem:gaff74cd20ca721a2e8cd9febfd31a79fc" id="r_gaff74cd20ca721a2e8cd9febfd31a79fc"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaff74cd20ca721a2e8cd9febfd31a79fc">WAVEFORM_PARTIAL</a> [159]</td></tr>
 <tr class="separator:gaff74cd20ca721a2e8cd9febfd31a79fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Initialize E-Paper-Display</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Initialize</h2></td></tr>
 <tr class="memitem:gac80b5bd53401269adfa339f1f32dae3c" id="r_gac80b5bd53401269adfa339f1f32dae3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gac80b5bd53401269adfa339f1f32dae3c">EPD_init_PinDC</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD, GPIO_TypeDef *GPIO_DC, uint16_t PIN_DC)</td></tr>
 <tr class="memdesc:gac80b5bd53401269adfa339f1f32dae3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize STM32 Pin that is used for Data/Command signal. It is an Output GPIO that will be.  <br /></td></tr>
 <tr class="separator:gac80b5bd53401269adfa339f1f32dae3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,7 +334,7 @@ Files</h2></td></tr>
 <tr class="separator:gac325e17d6532983c07528a8ca182750f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Transmission Functions</h2></td></tr>
-<tr><td class="ititle" colspan="2"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo</a></b></dt><dd>Redesign these functions to enable non blocking SPI data transmission. </dd></dl>
+<tr><td class="ititle" colspan="2"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo</a></b></dt><dd>Redesign these functions to enable non blocking SPI data transmission. </dd></dl>
 </td></tr>
 <tr class="memitem:ga0ec98344af72f2eec408934f8f0f4ecb" id="r_ga0ec98344af72f2eec408934f8f0f4ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga0ec98344af72f2eec408934f8f0f4ecb">transmit_BlockingSPI</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
 <tr class="memdesc:ga0ec98344af72f2eec408934f8f0f4ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit buffered data with blocking SPI transmission.  <br /></td></tr>
@@ -360,7 +360,7 @@ Files</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Display Frame</h2></td></tr>
 <tr class="memitem:ga009cea4cf1754c14b38426049715245a" id="r_ga009cea4cf1754c14b38426049715245a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga009cea4cf1754c14b38426049715245a">EPD_display_Frame</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
-<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings.  <br /></td></tr>
+<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings. This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh.  <br /></td></tr>
 <tr class="separator:ga009cea4cf1754c14b38426049715245a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab5d74c90e44518fc14f1eb4ea473176e" id="r_gab5d74c90e44518fc14f1eb4ea473176e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab5d74c90e44518fc14f1eb4ea473176e">display_Full</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
 <tr class="memdesc:gab5d74c90e44518fc14f1eb4ea473176e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequence to display a frame in full refresh mode.  <br /></td></tr>
@@ -620,8 +620,7 @@ Files</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Display the Frame with current settings. </p>
-<p>This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh.</p>
+<p>Display the Frame with current settings. This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh. </p>
 <dl class="section note"><dt>Note</dt><dd>This is the part of code that has to be redesigned for time critical use cases. The attempt should be to write a function that is polled in while loop and skips if the EPD is still busy or SPI transmission is not done yet.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function is blocking, as it waits for every SPI transmission to be completed and calls HAL_Delay() in the reset routine.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -668,7 +667,7 @@ Files</h2></td></tr>
 
 <p>Draw a bitmap on the display (max 200x200) </p>
 <dl class="section note"><dt>Note</dt><dd>Use <a href="https://en.radzio.dxp.pl/bitmap_converter/">LCD-Assistent</a> to generate an usable array of a Binary Bitmap. As this EPD module is white if a pixel-byte is 1, it may be required to use <a class="el" href="group___e_p_d___set.html#ga1ebdf65ba88b819041b140458f91232b" title="Invert bitmap.">EPD_set_BitmapInvert()</a> to display the image as expected.</dd></dl>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 How to generate an array for your Bitmap:</h1>
 <ol type="1">
 <li>use a graphics editor to generate a black and white bitmap (e.g. Photoshop or GIMP).<ul>
@@ -681,7 +680,7 @@ How to generate an array for your Bitmap:</h1>
 <li>Open the image in <a href="https://en.radzio.dxp.pl/bitmap_converter/">LCD-Assistent</a></li>
 <li>Use these settings:<ul>
 <li>Byte orientation: Horizontal</li>
-<li>Size: Size of the importet bitmap, max. 200x200 (other sizes not are tested!)</li>
+<li>Size: Size of the imported bitmap, max. 200x200 (other sizes not are tested!)</li>
 <li>Other:<ul>
 <li>Include size: no</li>
 <li>Size endianness: does not matter as we don`t include them</li>
@@ -1011,8 +1010,8 @@ How to generate an array for your Bitmap:</h1>
 <div class="line">  <a class="code hl_function" href="group___e_p_d___process.html#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a>(&amp;Display, hspi);</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup___e_p_d___process_html_ga8f52a5e77520e4bda16675cc16a75cb7"><div class="ttname"><a href="group___e_p_d___process.html#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a></div><div class="ttdeci">void EPD_manage_Interrupt(EPD_StructTd *EPD, SPI_HandleTypeDef *hspi)</div><div class="ttdoc">SPI interrupt management.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:1084</div></div>
-</div><!-- fragment --><p> This function handles the CS and DC Pins when the data transfer is finished.</p>
-<dl class="section note"><dt>Note</dt><dd>This function is part of the concept for future use, when all SPI will be non blocking anymore. For now it is required for <a class="el" href="group___e_p_d___process.html#ga009cea4cf1754c14b38426049715245a" title="Display the Frame with current settings.">EPD_display_Frame()</a> otherwise it will not work.</dd></dl>
+</div><!-- fragment --><p>This function handles the CS and DC Pins when the data transfer is finished.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is part of the concept for future use, when all SPI will be non blocking anymore. For now it is required for <a class="el" href="group___e_p_d___process.html#ga009cea4cf1754c14b38426049715245a" title="Display the Frame with current settings. This function will go through the complete update procedure ...">EPD_display_Frame()</a> otherwise it will not work.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EPD</td><td>pointer to the users EPD structure </td></tr>
@@ -1300,12 +1299,12 @@ How to generate an array for your Bitmap:</h1>
 <p>Write text on EPD. </p>
 <dl class="section note"><dt>Note</dt><dd>Make sure to set a font first and don't use the same color as the background.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function supports a very basic and unfinished text flow control. Try not to overflow the pixel width of the display, a it may produce corrupted text. Use <a class="el" href="group___e_p_d___set.html#gaa102673da81f307a23cc88ef1e36a550" title="Set start point for GUI functions to draw or write.">EPD_set_PixelStartPosition()</a> to place text manually. </dd></dl>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 What should work at the moment:</h1>
 <ul>
-<li>Fonts with variable widht support auto formatting. If the page is full, the rest of the text will be truncated </li>
+<li>Fonts with variable width support auto formatting. If the page is full, the rest of the text will be truncated </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 What does not work:</h1>
 <ul>
 <li>Fonts with fixed width</li>
@@ -1341,7 +1340,7 @@ What does not work:</h1>
 </div><div class="memdoc">
 
 <p>helper function to initialize the display at every refresh. This is required because E-Paper Displays go to sleep and power off when the frame is refreshed. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo</a></b></dt><dd>redesign this function to avoid blocking. Possible approach: use a schedule concept and let an update function work through this schedule. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo</a></b></dt><dd>redesign this function to avoid blocking. Possible approach: use a schedule concept and let an update function work through this schedule. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EPD</td><td>pointer to the users EPD structure </td></tr>
@@ -1563,7 +1562,7 @@ What does not work:</h1>
 </div><div class="memdoc">
 
 <p>[0x3C] Setup boarder waveform control. This will control the VBD. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo</a></b></dt><dd>find description of VBD </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo</a></b></dt><dd>find description of VBD </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EPD</td><td>pointer to the users EPD structure </td></tr>
@@ -1978,9 +1977,9 @@ What does not work:</h1>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo</a></b></dt><dd>add Error Code return to tell if the screen limit is exceeded </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo</a></b></dt><dd>add Error Code return to tell if the screen limit is exceeded </dd></dl>
 <p>1. Setup sequence how data will be written to RAM (mode 0x03)</p>
-<p>2. Calculate Hex-Numbers for RAM register settings </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo</a></b></dt><dd>Move these calculations to the RAM Command functions </dd></dl>
+<p>2. Calculate Hex-Numbers for RAM register settings </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo</a></b></dt><dd>Move these calculations to the RAM Command functions </dd></dl>
 <p>3. setup RAM</p>
 
 </div>
@@ -2141,7 +2140,7 @@ What does not work:</h1>
 <p>2. Get length of the buffered frame</p>
 <p>3. Count up buffer descriptor to the next item</p>
 <p>4. Transmit frame. Look at <a class="el" href="group___e_p_d___s_p_i___helper.html#gab806405a0eef809843c28ee1d961c797" title="Transmit Data.">SPIDMA_transmit_Data()</a> for details.</p>
-<p>5. Wait 10ms to avoid corrupted pixels at the boarder. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo</a></b></dt><dd>: find out why and how to avoid without delay </dd></dl>
+<p>5. Wait 10ms to avoid corrupted pixels at the boarder. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo</a></b></dt><dd>: find out why and how to avoid without delay </dd></dl>
 
 </div>
 </div>

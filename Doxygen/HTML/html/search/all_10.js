@@ -1,7 +1,7 @@
 var searchData=
 [
   ['set_20functions_0',['Set Functions',['../group___e_p_d___set.html',1,'']]],
-  ['set_20up_20before_20displaying_20the_20frame_3a_1',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md3',1,'']]],
+  ['set_20up_20before_20displaying_20the_20frame_3a_1',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md4',1,'']]],
   ['set_5fendoption_2',['set_EndOption',['../group___e_p_d___source.html#ga1f0a98fd5a8006274aa395a423337134',1,'EPD_1-54inch.c']]],
   ['set_5fgatedrivingvoltagecontrol_3',['set_GateDrivingVoltageControl',['../group___e_p_d___source.html#gac6adaed6ebbb3d0742c61f1dd5a1eaab',1,'EPD_1-54inch.c']]],
   ['setup_5fborderwaveformcontrol_4',['setup_BorderWaveformControl',['../group___e_p_d___source.html#ga7896750a928ce764d0dd743dc61f6f84',1,'EPD_1-54inch.c']]],
@@ -18,8 +18,8 @@ var searchData=
   ['setup_5fsourcedrivingvoltagecontrol_15',['setup_SourceDrivingVoltageControl',['../group___e_p_d___source.html#ga1abb96988830d283068122ac53057bb7',1,'EPD_1-54inch.c']]],
   ['setup_5fspecificramarea_16',['setup_SpecificRamArea',['../group___e_p_d___source.html#ga1a343810e706fb58f10dad241b0853ef',1,'EPD_1-54inch.c']]],
   ['setup_5ftemperaturesensorcontrol_17',['setup_TemperatureSensorControl',['../group___e_p_d___source.html#gacfbacfd2382edc930f30a8e694ea5ed1',1,'EPD_1-54inch.c']]],
-  ['should_20work_20at_20the_20moment_3a_18',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md7',1,'']]],
-  ['software_20parts_19',['Included Software Parts',['../index.html#autotoc_md10',1,'']]],
+  ['should_20work_20at_20the_20moment_3a_18',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md8',1,'']]],
+  ['software_20parts_19',['Included Software Parts',['../index.html#autotoc_md11',1,'']]],
   ['source_20code_20',['Source Code',['../group___e_p_d___source.html',1,'Source Code'],['../group___button_matrix___source_code.html',1,'Source Code']]],
   ['specific_20functions_21',['GUI specific functions',['../group___e_p_d___g_u_i.html',1,'']]],
   ['spi_20helper_20functions_22',['SPI helper functions',['../group___e_p_d___s_p_i___helper.html',1,'']]],

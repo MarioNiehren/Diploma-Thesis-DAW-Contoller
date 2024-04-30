@@ -138,7 +138,7 @@ var NAVTREEINDEX1 =
 "group__stm32f1xx__system.html":[2,3,0],
 "index.html":[0],
 "index.html":[],
-"index.html#autotoc_md10":[0,0],
+"index.html#autotoc_md11":[0,0],
 "pages.html":[],
 "struct_buffer___counter___type_def.html":[2,0,1,0,1],
 "struct_buffer___descriptor___type_def.html":[2,0,1,0,0],

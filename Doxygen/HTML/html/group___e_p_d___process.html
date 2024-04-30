@@ -105,7 +105,7 @@ $(function(){initNavTree('group___e_p_d___process.html',''); initResizable(); })
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga009cea4cf1754c14b38426049715245a" id="r_ga009cea4cf1754c14b38426049715245a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga009cea4cf1754c14b38426049715245a">EPD_display_Frame</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD)</td></tr>
-<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings.  <br /></td></tr>
+<tr class="memdesc:ga009cea4cf1754c14b38426049715245a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the Frame with current settings. This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh.  <br /></td></tr>
 <tr class="separator:ga009cea4cf1754c14b38426049715245a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8f52a5e77520e4bda16675cc16a75cb7" id="r_ga8f52a5e77520e4bda16675cc16a75cb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a> (<a class="el" href="struct_e_p_d___struct_td.html">EPD_StructTd</a> *EPD, SPI_HandleTypeDef *hspi)</td></tr>
 <tr class="memdesc:ga8f52a5e77520e4bda16675cc16a75cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI interrupt management.  <br /></td></tr>
@@ -113,7 +113,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>These functions are used to process the refresh of the EPD. </p>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 How to use:</h1>
 <ol type="1">
 <li>call <a class="el" href="#ga8f52a5e77520e4bda16675cc16a75cb7" title="SPI interrupt management.">EPD_manage_Interrupt()</a> in the SPI interrupt handler</li>
@@ -121,7 +121,7 @@ How to use:</h1>
 <li>prepare Frame to be displayed with <a class="el" href="group___e_p_d___g_u_i.html">GUI specific functions</a></li>
 <li>call EPD_update_Transmission() to actually show the current frame.</li>
 </ol>
-<dl class="section warning"><dt>Warning</dt><dd>This part of the module is a snapshot of a work in progress project. The SPI management takes interrupt handling already in account, but the functions itself are still blocking! You should not combine this code with time critical processes.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This part of the module is a snapshot of a work in progress project. The SPI management takes interrupt handling already in account, but the functions itself are still blocking! You should not combine this code with any time critical processes.</dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga009cea4cf1754c14b38426049715245a" name="ga009cea4cf1754c14b38426049715245a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga009cea4cf1754c14b38426049715245a">&#9670;&#160;</a></span>EPD_display_Frame()</h2>
@@ -138,8 +138,7 @@ How to use:</h1>
       </table>
 </div><div class="memdoc">
 
-<p>Display the Frame with current settings. </p>
-<p>This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh.</p>
+<p>Display the Frame with current settings. This function will go through the complete update procedure to display the current frame buffer. According to current refresh setting, the display will perform a full or a partial refresh. </p>
 <dl class="section note"><dt>Note</dt><dd>This is the part of code that has to be redesigned for time critical use cases. The attempt should be to write a function that is polled in while loop and skips if the EPD is still busy or SPI transmission is not done yet.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function is blocking, as it waits for every SPI transmission to be completed and calls HAL_Delay() in the reset routine.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -181,8 +180,8 @@ How to use:</h1>
 <div class="line">  <a class="code hl_function" href="#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a>(&amp;Display, hspi);</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup___e_p_d___process_html_ga8f52a5e77520e4bda16675cc16a75cb7"><div class="ttname"><a href="#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a></div><div class="ttdeci">void EPD_manage_Interrupt(EPD_StructTd *EPD, SPI_HandleTypeDef *hspi)</div><div class="ttdoc">SPI interrupt management.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:1084</div></div>
-</div><!-- fragment --><p> This function handles the CS and DC Pins when the data transfer is finished.</p>
-<dl class="section note"><dt>Note</dt><dd>This function is part of the concept for future use, when all SPI will be non blocking anymore. For now it is required for <a class="el" href="#ga009cea4cf1754c14b38426049715245a" title="Display the Frame with current settings.">EPD_display_Frame()</a> otherwise it will not work.</dd></dl>
+</div><!-- fragment --><p>This function handles the CS and DC Pins when the data transfer is finished.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is part of the concept for future use, when all SPI will be non blocking anymore. For now it is required for <a class="el" href="#ga009cea4cf1754c14b38426049715245a" title="Display the Frame with current settings. This function will go through the complete update procedure ...">EPD_display_Frame()</a> otherwise it will not work.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EPD</td><td>pointer to the users EPD structure </td></tr>
