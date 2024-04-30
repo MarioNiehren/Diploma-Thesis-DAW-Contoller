@@ -5,6 +5,8 @@ develop a custom DAW-Controller.
 
 ## Currently available modules:
 
-| Name			| Description										| MCU used in example	|
-| ------------- | ------------------------------------------------- | --------------------- |
-| Button Matrix | Setup and read an interrupt based button matrix 	| STM32F103C8T6 		|
+| Name			| Description										| MCU used in example				|
+| ------------- | ------------------------------------------------- | --------------------------------- |
+| Button Matrix | Setup and read an interrupt based button matrix 	| STM32F103C8T6 ("Blue-Pill" board)	|
+
+[Link Test](F103C8T6_DemoProject_ButtonMatrix)
