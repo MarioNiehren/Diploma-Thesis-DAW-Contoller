@@ -1,6 +1,10 @@
-@mainpage	Main Page
-@brief		This Library contains software that can be used to build a DAW-Controller with STM32-Microcontrollers.
+ ******************************************************************************/
+# Welcome to the DAW-Controller development library
 
-# Included Software Parts
-- \ref ButtonMatrix	"Button Matrix" <br>
-- \ref EPaperSSD1681	"E-Paper B/W with SSD1681 Driver" <br>
+This Project contains several modules for some components that are required to
+develop a custom DAW-Controller.
+
+## Currently available modules:
+
+| Name			| Description		| MCU used in example	|
+| Button Matrix | Setup and read an interrupt based button matrix | STM32F103C8T6 |
