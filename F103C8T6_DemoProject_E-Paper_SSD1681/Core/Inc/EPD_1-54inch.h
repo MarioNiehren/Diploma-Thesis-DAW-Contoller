@@ -16,6 +16,14 @@
  * 				requires some redesign to resolve timing issues of other program
  * 				components.)
  *
+ * ## Required files
+ * - EPD_1-54inch.h/.c
+ * - Buffer_Displays.h/.c
+ * - GUI.h/.c
+ * - SPI_DMA.h/.c
+ * - fonts.h
+ * 		- SegoeScript31px.c @todo Clear how font can be used in open source!
+ *
  * ## Links:
  * @anchor				DataSheet [SSD1681 data sheet](https://cdn-learn.adafruit.com/assets/assets/000/099/573/original/SSD1681.pdf)
  *
@@ -336,15 +344,17 @@ void EPD_set_PixelStartPosition(EPD_StructTd* EPD, uint16_t X, uint16_t Y);
 /* end of defgroup "Set Functions"
  ******************************************************************************/
 
-/**
+
+/***************************************************************************//**
  * @defgroup			EPD_GUI	GUI specific functions
  * @brief					Use these functions to draw or write on Bitmap.
  * @addtogroup		EPD_GUI
  * @{
- */
+ ******************************************************************************/
 
 /**
- * @brief			Clear all display pixels with currently set \ref EPD_Color_TypeDef "draw color"
+ * @brief			Clear all display pixels with currently set
+ * 						@ref EPD_Color_TypeDef "draw color"
  *
  * @note			The display will be cleared in the currently set draw color.
  *
@@ -369,20 +379,25 @@ void EPD_draw_Rectangle(EPD_StructTd* EPD, uint8_t width, uint8_t height);
  * @brief			Draw a bitmap on the display (max 200x200)
  * @note			Use [LCD-Assistent](https://en.radzio.dxp.pl/bitmap_converter/)
  * 						to generate an usable array of a Binary Bitmap.
- * 						As this EPD module is white if a pixel-byte is 1, it may be required to use EPD_set_BitmapInvert()
- * 						to display the image as expected.
+ * 						As this EPD module is white if a pixel-byte is 1, it may be
+ * 						required to use EPD_set_BitmapInvert() to display the image as
+ * 						expected.
  *
  * # How to generate an array for your Bitmap:
  *
- * 1.	use a graphics editor to generate a black and white bitmap (e.g. Photoshop or GIMP).
+ * 1.	use a graphics editor to generate a black and white bitmap (e.g. Photoshop
+ * 		 or GIMP).
  * 		- import image
- * 		- adjust contrast / brightness / saturation, etc. to get a black and white image (no grayscales!)
+ * 		- adjust contrast / brightness / saturation, etc. to get a black and white
+ * 		 	image (no grayscales!)
  * 		- scale to prefered size (max. 200x200)
  * 		- export to .bmp
- * 2.	Open the image in [LCD-Assistent](https://en.radzio.dxp.pl/bitmap_converter/)
+ * 2.	Open the image in
+ * 		[LCD-Assistent](https://en.radzio.dxp.pl/bitmap_converter/)
  * 3. Use these settings:
  * 		- Byte orientation: Horizontal
- * 		- Size: Size of the importet bitmap, max. 200x200 (other sizes not are tested!)
+ * 		- Size: Size of the imported bitmap, max. 200x200 (other sizes not are
+ * 			tested!)
  * 		- Other:
  * 			- Include size: no
  * 			- Size endianness: does not matter as we don`t include them
@@ -402,19 +417,21 @@ void EPD_draw_Bitmap(EPD_StructTd* EPD, uint8_t* Bitmap, uint16_t Width, uint16_
 
 /**
  * @brief			Write text on EPD
- * @note			Make sure to set a font first and don't use the same color as the background.
+ * @note			Make sure to set a font first and don't use the same color as the
+ * 						background.
  *
- * @warning		This function supports a very basic and unfinished text flow control.
- * 						Try not to overflow the pixel width of the display, a it may produce corrupted text.
- * 						Use EPD_set_PixelStartPosition() to place text manually.
+ * @warning		This function supports a very basic and unfinished text flow
+ * 						control. Try not to overflow the pixel width of the display, a it
+ * 						may produce corrupted text. Use EPD_set_PixelStartPosition() to
+ * 						place text manually.
  * 						# What should work at the moment:
- * 						- Fonts with variable widht support auto formatting. If the page is full,
- * 							the rest of the text will be truncated
+ * 						- Fonts with variable width support auto formatting. If the page
+ * 							is full, the rest of the text will be truncated
  * 						# What does not work:
  * 						- Fonts with fixed width
  * 						- Scrolling
- * 						- automatic frame around the text (the text will write till the last pixel
- * 							if necessary).
+ * 						- automatic frame around the text (the text will write till the
+ * 							last pixel if necessary).
  *
  * @param			EPD			pointer to the users EPD structure
  * @param			width		of the rectangle. Be careful to stay in Frame Size
@@ -425,7 +442,8 @@ void EPD_write_String(EPD_StructTd* ssd1315, char* str, uint32_t length);
 
 /**
  * @brief			Write a number on EPD
- * @note			Make sure to set a font first and don't use the same color as the background.
+ * @note			Make sure to set a font first and don't use the same color as the
+ * 						background.
  *
  * @param			EPD			pointer to the users EPD structure
  * @param			Number	to be printed.
@@ -433,9 +451,12 @@ void EPD_write_String(EPD_StructTd* ssd1315, char* str, uint32_t length);
  */
 void EPD_write_Number(EPD_StructTd* EPD, uint32_t Number);
 
-/**@}*//* end of "EPD_GUI" */
+/** @} ************************************************************************/
+/* end of name "EPD_GUI"
+ ******************************************************************************/
 
-/**
+
+/***************************************************************************//**
  * @defgroup			EPD_Process	EPD processing functions
  * @brief					These functions are used to process the refresh of the EPD
  *
@@ -445,25 +466,28 @@ void EPD_write_Number(EPD_StructTd* EPD, uint32_t Number);
  * 3. prepare Frame to be displayed with \ref EPD_GUI	"GUI specific functions"
  * 4. call EPD_update_Transmission() to actually show the current frame.
  *
- * @warning				This part of the module is a snapshot of a work in progress project.
- *                The SPI management takes interrupt handling already in account, but the functions itself are still blocking!
- *                You should not combine this code with time critical processes.
+ * @warning				This part of the module is a snapshot of a work in progress
+ * 								project. The SPI management takes interrupt handling already
+ * 								in account, but the functions itself are still blocking! You
+ * 								should not combine this code with any time critical processes.
  *
  * @addtogroup		EPD_Process
  * @{
- */
+ ******************************************************************************/
 
 /**
- * @brief			Display the Frame with current settings.
+ * @brief			Display the Frame with current settings. This function will go
+ * 						through the complete update procedure to display the current
+ * 						frame buffer. According to current refresh setting, the display
+ * 						will perform a full or a partial refresh.
  *
- * This function will go through the complete update procedure to display the current frame buffer.
- * According to current refresh setting, the display will perform a full or a partial refresh.
+ * @note			This is the part of code that has to be redesigned for time
+ * 						critical use cases. The attempt should be to write a function
+ * 						that is polled in while loop and skips if the EPD is still busy
+ * 						or SPI transmission is not done yet.
  *
- * @note			This is the part of code that has to be redesigned for time critical use cases. The attempt should be to write
- * 						a function that is polled in while loop and skips if the EPD is still busy or SPI transmission is not done yet.
- *
- * @warning		This function is blocking, as it waits for every SPI transmission to be completed and calls HAL_Delay()
- * 						in the reset routine.
+ * @warning		This function is blocking, as it waits for every SPI transmission
+ * 						to be completed and calls HAL_Delay() in the reset routine.
  *
  * @param			EPD			pointer to the users EPD structure
  * @return		none
@@ -481,19 +505,23 @@ void EPD_display_Frame(EPD_StructTd* EPD);
  *   EPD_manage_Interrupt(&Display, hspi);
  * }
  * @endcode
+ *
  * This function handles the CS and DC Pins when the data transfer is finished.
  *
- * @note			This function is part of the concept for future use, when all SPI will be non blocking anymore.
- * 						For now it is required for EPD_display_Frame() otherwise it will not work.
+ * @note			This function is part of the concept for future use, when all SPI
+ * 						will be non blocking anymore. For now it is required for
+ * 						EPD_display_Frame() otherwise it will not work.
  *
  * @param			EPD			pointer to the users EPD structure
  * @param			hspi		pointer to the handler of the interrupted SPI
  * @return		none
- *
  */
 void EPD_manage_Interrupt(EPD_StructTd* EPD, SPI_HandleTypeDef* hspi);
 
-/**@}*//* end of "EPD_Process" */
+/** @} ************************************************************************/
+/* end of name "EPD_Process"
+ ******************************************************************************/
+
 /**@}*//* end of defgroup "EPD_Header" */
 /**@}*//* end of defgroup "EPaperSSD1681" */
 
