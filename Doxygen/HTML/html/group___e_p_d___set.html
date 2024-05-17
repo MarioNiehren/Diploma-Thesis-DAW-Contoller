@@ -130,9 +130,9 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions to set settings that can be changed in running program. <br  />
  <a class="el" href="group___e_paper_s_s_d1681.html#EpdHowToUse">back to EPD main page</a>. </p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 What to set up before displaying the frame:</h1>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Text:</h2>
 <ol type="1">
 <li>Set draw color to background color</li>
@@ -142,7 +142,7 @@ Text:</h2>
 <li>Set refresh mode (only if not set already or if it should be changed) <dl class="section note"><dt>Note</dt><dd>This procedure may vary if the frame already contains image parts that should also be used, or if something should be added. </dd></dl>
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 Image:</h2>
 <ol type="1">
 <li>Invert bitmap if required</li>
@@ -315,7 +315,7 @@ Image:</h2>
 </div><div class="memdoc">
 
 <p>Set partial refresh mode. If this mode is set, all following frames will be updated in partial refresh mode. </p>
-<dl class="section warning"><dt>Warning</dt><dd>If you only use partial refresh, it may lead to burned images and gets worse in contrast over time. It is required to use Full Refresh from time to time to avoid this problem. At the moment, the complete frame will be updated. The Driver supports the update of image parts, what should reduce these problems, but this is not implemented yet. If you have problems with burned images, try to refresh the screen in full mode for a few times with a complete black or white frame. Depending on how intense the burned image is, this may take a while. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>If you only use partial refresh, it may lead to ghost images and gets worse in contrast over time. It is required to use Full Refresh from time to time to avoid this problem. At the moment, the complete frame will be updated. The Driver supports the update of image parts, what should reduce these problems, but this is not implemented yet. If you have problems with ghost images, try to refresh the screen in full mode for a few times with a complete black or white frame. Depending on how intense the ghost image is, this may take a while. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">EPD</td><td>pointer to the users EPD structure </td></tr>

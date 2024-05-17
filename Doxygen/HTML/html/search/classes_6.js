@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['writestringdescriptor_5ftypedef_0',['WriteStringDescriptor_TypeDef',['../struct_write_string_descriptor___type_def.html',1,'']]]
+  ['timer_5fsetup_5fstructtd_0',['timer_setup_structTd',['../structtimer__setup__struct_td.html',1,'']]],
+  ['tscfader_5ftypedef_1',['tscFader_TypeDef',['../structtsc_fader___type_def.html',1,'']]]
 ];

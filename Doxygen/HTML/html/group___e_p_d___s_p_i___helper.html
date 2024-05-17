@@ -124,44 +124,44 @@ Typedefs</h2></td></tr>
 typedef struct SPIDMA_GPIOs_TypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>SPIDMA_GPIOs_TypeDef</b></td></tr>
 <tr class="memdesc:ga46e25e87e02ed43038cb4fe57827b528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to store conditions for DC and CS Pins. <br /></td></tr>
 <tr class="separator:ga46e25e87e02ed43038cb4fe57827b528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0bcd76191fafcae6115d9cb3ca15b36e" id="r_ga0bcd76191fafcae6115d9cb3ca15b36e"><td class="memItemLeft" align="right" valign="top"><a id="ga0bcd76191fafcae6115d9cb3ca15b36e" name="ga0bcd76191fafcae6115d9cb3ca15b36e"></a>
-typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>SPIDMA_TypeDef</b></td></tr>
-<tr class="memdesc:ga0bcd76191fafcae6115d9cb3ca15b36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the SPI Transmission. <br /></td></tr>
-<tr class="separator:ga0bcd76191fafcae6115d9cb3ca15b36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaae6536d840ab49ae75d4f80f289cb658" id="r_gaae6536d840ab49ae75d4f80f289cb658"><td class="memItemLeft" align="right" valign="top"><a id="gaae6536d840ab49ae75d4f80f289cb658" name="gaae6536d840ab49ae75d4f80f289cb658"></a>
+typedef struct <a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SPIDMA_StructTd</b></td></tr>
+<tr class="memdesc:gaae6536d840ab49ae75d4f80f289cb658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure for the SPI Transmission. <br /></td></tr>
+<tr class="separator:gaae6536d840ab49ae75d4f80f289cb658"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Initialize</h2></td></tr>
-<tr class="memitem:gadc63ceabac1513c073b6dc2c972496f7" id="r_gadc63ceabac1513c073b6dc2c972496f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gadc63ceabac1513c073b6dc2c972496f7">SPIDMA_init_PinDC</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, GPIO_TypeDef *Port, uint16_t Pin, GPIO_PinState CommandState)</td></tr>
-<tr class="memdesc:gadc63ceabac1513c073b6dc2c972496f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Pin DC (Data/Command)  <br /></td></tr>
-<tr class="separator:gadc63ceabac1513c073b6dc2c972496f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3604f3ac325dd65619ac56701b4dd8f" id="r_gaf3604f3ac325dd65619ac56701b4dd8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf3604f3ac325dd65619ac56701b4dd8f">SPIDMA_init_PinCS</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, GPIO_TypeDef *Port, uint16_t Pin, GPIO_PinState ActiveState)</td></tr>
-<tr class="memdesc:gaf3604f3ac325dd65619ac56701b4dd8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Pin CS (Chip Select)  <br /></td></tr>
-<tr class="separator:gaf3604f3ac325dd65619ac56701b4dd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae6a7394dc0fd27ebe212816a1e307c8e" id="r_gae6a7394dc0fd27ebe212816a1e307c8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gae6a7394dc0fd27ebe212816a1e307c8e">SPIDMA_init_SPIHandle</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, SPI_HandleTypeDef *hspi)</td></tr>
-<tr class="memdesc:gae6a7394dc0fd27ebe212816a1e307c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the HAL hspi to the users SPI structure.  <br /></td></tr>
-<tr class="separator:gae6a7394dc0fd27ebe212816a1e307c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46a104414ad8e9bccfdd6860dfc8a523" id="r_ga46a104414ad8e9bccfdd6860dfc8a523"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga46a104414ad8e9bccfdd6860dfc8a523">SPIDMA_init_PinDC</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, GPIO_TypeDef *Port, uint16_t Pin, GPIO_PinState CommandState)</td></tr>
+<tr class="memdesc:ga46a104414ad8e9bccfdd6860dfc8a523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Pin DC (Data/Command)  <br /></td></tr>
+<tr class="separator:ga46a104414ad8e9bccfdd6860dfc8a523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a73d37b93c44b8b3722a10591bf4c19" id="r_ga4a73d37b93c44b8b3722a10591bf4c19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4a73d37b93c44b8b3722a10591bf4c19">SPIDMA_init_PinCS</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, GPIO_TypeDef *Port, uint16_t Pin, GPIO_PinState ActiveState)</td></tr>
+<tr class="memdesc:ga4a73d37b93c44b8b3722a10591bf4c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init Pin CS (Chip Select)  <br /></td></tr>
+<tr class="separator:ga4a73d37b93c44b8b3722a10591bf4c19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad9623c7f0d1f7f5ebe974f4e91997ec0" id="r_gad9623c7f0d1f7f5ebe974f4e91997ec0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gad9623c7f0d1f7f5ebe974f4e91997ec0">SPIDMA_init_SPIHandle</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, SPI_HandleTypeDef *hspi)</td></tr>
+<tr class="memdesc:gad9623c7f0d1f7f5ebe974f4e91997ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the HAL hspi to the users SPI structure.  <br /></td></tr>
+<tr class="separator:gad9623c7f0d1f7f5ebe974f4e91997ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Transmit SPI</h2></td></tr>
-<tr class="memitem:gab762413c0495c4fc1342cd05888d316b" id="r_gab762413c0495c4fc1342cd05888d316b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab762413c0495c4fc1342cd05888d316b">SPIDMA_transmit_Command</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, uint8_t *Data, uint16_t Length)</td></tr>
-<tr class="memdesc:gab762413c0495c4fc1342cd05888d316b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit Command.  <br /></td></tr>
-<tr class="separator:gab762413c0495c4fc1342cd05888d316b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab806405a0eef809843c28ee1d961c797" id="r_gab806405a0eef809843c28ee1d961c797"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab806405a0eef809843c28ee1d961c797">SPIDMA_transmit_Data</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, uint8_t *Data, uint16_t Length)</td></tr>
-<tr class="memdesc:gab806405a0eef809843c28ee1d961c797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit Data.  <br /></td></tr>
-<tr class="separator:gab806405a0eef809843c28ee1d961c797"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga90fb19357363708d59944399e9ca4b61" id="r_ga90fb19357363708d59944399e9ca4b61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga90fb19357363708d59944399e9ca4b61">SPIDMA_wait_WhileTransmitting</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI)</td></tr>
-<tr class="memdesc:ga90fb19357363708d59944399e9ca4b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until SPI transmission is complete.  <br /></td></tr>
-<tr class="separator:ga90fb19357363708d59944399e9ca4b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeb226424d5f38db71d691b163b7ccc74" id="r_gaeb226424d5f38db71d691b163b7ccc74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaeb226424d5f38db71d691b163b7ccc74">SPIDMA_transmit_Command</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, uint8_t *Data, uint16_t Length)</td></tr>
+<tr class="memdesc:gaeb226424d5f38db71d691b163b7ccc74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit Command.  <br /></td></tr>
+<tr class="separator:gaeb226424d5f38db71d691b163b7ccc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0efe04280ca0a806252d1f11d30fb21b" id="r_ga0efe04280ca0a806252d1f11d30fb21b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga0efe04280ca0a806252d1f11d30fb21b">SPIDMA_transmit_Data</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, uint8_t *Data, uint16_t Length)</td></tr>
+<tr class="memdesc:ga0efe04280ca0a806252d1f11d30fb21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transmit Data.  <br /></td></tr>
+<tr class="separator:ga0efe04280ca0a806252d1f11d30fb21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8f92d76181ef185616416340643af585" id="r_ga8f92d76181ef185616416340643af585"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8f92d76181ef185616416340643af585">SPIDMA_wait_WhileTransmitting</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI)</td></tr>
+<tr class="memdesc:ga8f92d76181ef185616416340643af585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until SPI transmission is complete.  <br /></td></tr>
+<tr class="separator:ga8f92d76181ef185616416340643af585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Interrupt management</h2></td></tr>
-<tr class="memitem:ga86924a51df98a67e23a6eb3e6d5a130d" id="r_ga86924a51df98a67e23a6eb3e6d5a130d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga86924a51df98a67e23a6eb3e6d5a130d">SPIDMA_manage_Interrupt</a> (<a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *SPI, SPI_HandleTypeDef *hspi)</td></tr>
-<tr class="memdesc:ga86924a51df98a67e23a6eb3e6d5a130d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to manage interrupt. Resets CS and DC Pins.  <br /></td></tr>
-<tr class="separator:ga86924a51df98a67e23a6eb3e6d5a130d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc4597aed5206e5647e83bb1813dda97" id="r_gadc4597aed5206e5647e83bb1813dda97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gadc4597aed5206e5647e83bb1813dda97">SPIDMA_manage_Interrupt</a> (<a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *SPI, SPI_HandleTypeDef *hspi)</td></tr>
+<tr class="memdesc:gadc4597aed5206e5647e83bb1813dda97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to manage interrupt. Resets CS and DC Pins.  <br /></td></tr>
+<tr class="separator:gadc4597aed5206e5647e83bb1813dda97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This module contains helper functions for E-Paper specific SPI transmission with DMA. </p>
 <p>DC and CS Pins will be handled by these helpers, so there is no need to handle them manually. These functions are optimized for the use with SPI E-Paper Modules.</p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gaf3604f3ac325dd65619ac56701b4dd8f" name="gaf3604f3ac325dd65619ac56701b4dd8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf3604f3ac325dd65619ac56701b4dd8f">&#9670;&#160;</a></span>SPIDMA_init_PinCS()</h2>
+<a id="ga4a73d37b93c44b8b3722a10591bf4c19" name="ga4a73d37b93c44b8b3722a10591bf4c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a73d37b93c44b8b3722a10591bf4c19">&#9670;&#160;</a></span>SPIDMA_init_PinCS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,7 +169,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_init_PinCS </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -213,8 +213,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="gadc63ceabac1513c073b6dc2c972496f7" name="gadc63ceabac1513c073b6dc2c972496f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadc63ceabac1513c073b6dc2c972496f7">&#9670;&#160;</a></span>SPIDMA_init_PinDC()</h2>
+<a id="ga46a104414ad8e9bccfdd6860dfc8a523" name="ga46a104414ad8e9bccfdd6860dfc8a523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga46a104414ad8e9bccfdd6860dfc8a523">&#9670;&#160;</a></span>SPIDMA_init_PinDC()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +222,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_init_PinDC </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -267,8 +267,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="gae6a7394dc0fd27ebe212816a1e307c8e" name="gae6a7394dc0fd27ebe212816a1e307c8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae6a7394dc0fd27ebe212816a1e307c8e">&#9670;&#160;</a></span>SPIDMA_init_SPIHandle()</h2>
+<a id="gad9623c7f0d1f7f5ebe974f4e91997ec0" name="gad9623c7f0d1f7f5ebe974f4e91997ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad9623c7f0d1f7f5ebe974f4e91997ec0">&#9670;&#160;</a></span>SPIDMA_init_SPIHandle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +276,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_init_SPIHandle </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -298,8 +298,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="ga86924a51df98a67e23a6eb3e6d5a130d" name="ga86924a51df98a67e23a6eb3e6d5a130d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga86924a51df98a67e23a6eb3e6d5a130d">&#9670;&#160;</a></span>SPIDMA_manage_Interrupt()</h2>
+<a id="gadc4597aed5206e5647e83bb1813dda97" name="gadc4597aed5206e5647e83bb1813dda97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadc4597aed5206e5647e83bb1813dda97">&#9670;&#160;</a></span>SPIDMA_manage_Interrupt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -307,7 +307,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_manage_Interrupt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -332,8 +332,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="gab762413c0495c4fc1342cd05888d316b" name="gab762413c0495c4fc1342cd05888d316b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab762413c0495c4fc1342cd05888d316b">&#9670;&#160;</a></span>SPIDMA_transmit_Command()</h2>
+<a id="gaeb226424d5f38db71d691b163b7ccc74" name="gaeb226424d5f38db71d691b163b7ccc74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeb226424d5f38db71d691b163b7ccc74">&#9670;&#160;</a></span>SPIDMA_transmit_Command()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,7 +341,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_transmit_Command </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -373,8 +373,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="gab806405a0eef809843c28ee1d961c797" name="gab806405a0eef809843c28ee1d961c797"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab806405a0eef809843c28ee1d961c797">&#9670;&#160;</a></span>SPIDMA_transmit_Data()</h2>
+<a id="ga0efe04280ca0a806252d1f11d30fb21b" name="ga0efe04280ca0a806252d1f11d30fb21b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0efe04280ca0a806252d1f11d30fb21b">&#9670;&#160;</a></span>SPIDMA_transmit_Data()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -382,7 +382,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_transmit_Data </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -414,8 +414,8 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
 
 </div>
 </div>
-<a id="ga90fb19357363708d59944399e9ca4b61" name="ga90fb19357363708d59944399e9ca4b61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga90fb19357363708d59944399e9ca4b61">&#9670;&#160;</a></span>SPIDMA_wait_WhileTransmitting()</h2>
+<a id="ga8f92d76181ef185616416340643af585" name="ga8f92d76181ef185616416340643af585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8f92d76181ef185616416340643af585">&#9670;&#160;</a></span>SPIDMA_wait_WhileTransmitting()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +423,7 @@ typedef struct SPIDMA_TypeDef&#160;</td><td class="memItemRight" valign="bottom"
         <tr>
           <td class="memname">void SPIDMA_wait_WhileTransmitting </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#gaae6536d840ab49ae75d4f80f289cb658">SPIDMA_StructTd</a> *</td>          <td class="paramname"><span class="paramname"><em>SPI</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

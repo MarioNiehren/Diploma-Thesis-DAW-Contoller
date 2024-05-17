@@ -2,7 +2,7 @@ var annotated_dup =
 [
     [ "Buffer_Counter_TypeDef", "struct_buffer___counter___type_def.html", null ],
     [ "Buffer_Descriptor_TypeDef", "struct_buffer___descriptor___type_def.html", null ],
-    [ "Buffer_TypeDef", "struct_buffer___type_def.html", null ],
+    [ "Buffer_StructTd", "struct_buffer___struct_td.html", null ],
     [ "buttonMatrix_Coordinates_Td", "structbutton_matrix___coordinates___td.html", "structbutton_matrix___coordinates___td" ],
     [ "buttonMatrix_init_Td", "structbutton_matrix__init___td.html", "structbutton_matrix__init___td" ],
     [ "buttonMatrix_InterruptManagement_Td", "structbutton_matrix___interrupt_management___td.html", "structbutton_matrix___interrupt_management___td" ],
@@ -13,8 +13,14 @@ var annotated_dup =
     [ "EPD_StructTd", "struct_e_p_d___struct_td.html", null ],
     [ "Fonts_Descriptor_TypeDef", "struct_fonts___descriptor___type_def.html", null ],
     [ "Fonts_TypeDef", "struct_fonts___type_def.html", null ],
+    [ "motorDC_TypeDef", "structmotor_d_c___type_def.html", null ],
+    [ "motorizedFader_TypeDef", "structmotorized_fader___type_def.html", null ],
+    [ "pidController_TypeDef", "structpid_controller___type_def.html", null ],
+    [ "pwmMotor_TypeDef", "structpwm_motor___type_def.html", null ],
     [ "SPIDMA_GPIOs_TypeDef", "struct_s_p_i_d_m_a___g_p_i_os___type_def.html", "struct_s_p_i_d_m_a___g_p_i_os___type_def" ],
     [ "SPIDMA_TypeDef", "struct_s_p_i_d_m_a___type_def.html", null ],
     [ "timer_setup_structTd", "structtimer__setup__struct_td.html", "structtimer__setup__struct_td" ],
+    [ "tscFader_TypeDef", "structtsc_fader___type_def.html", null ],
+    [ "Wiper_structTd", "struct_wiper__struct_td.html", "struct_wiper__struct_td" ],
     [ "WriteStringDescriptor_TypeDef", "struct_write_string_descriptor___type_def.html", null ]
 ];

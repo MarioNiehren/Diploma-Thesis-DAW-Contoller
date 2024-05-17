@@ -111,7 +111,7 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_buffer___counter___type_def.html">Buffer_Counter_TypeDef</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -129,54 +129,54 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga6c87c5c53d12c75d1850d53053ae26e6" id="r_ga6c87c5c53d12c75d1850d53053ae26e6"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Command</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *Command)</td></tr>
-<tr class="separator:ga6c87c5c53d12c75d1850d53053ae26e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7d3d59af507a254f78b48404ac882367" id="r_ga7d3d59af507a254f78b48404ac882367"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Data</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *Data)</td></tr>
-<tr class="separator:ga7d3d59af507a254f78b48404ac882367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2f39734248c0ce092bde480d0715aad7" id="r_ga2f39734248c0ce092bde480d0715aad7"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Frame</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *Frame)</td></tr>
-<tr class="separator:ga2f39734248c0ce092bde480d0715aad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9bfc0b887827058df0e583cdc6b7f1c9" id="r_ga9bfc0b887827058df0e583cdc6b7f1c9"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_LUT</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *LUT)</td></tr>
-<tr class="separator:ga9bfc0b887827058df0e583cdc6b7f1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7af5624ea81265f4e7630614da584779" id="r_ga7af5624ea81265f4e7630614da584779"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Desctriptor</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, <a class="el" href="struct_buffer___descriptor___type_def.html">Buffer_Descriptor_TypeDef</a> *Descriptor, uint8_t Length)</td></tr>
-<tr class="separator:ga7af5624ea81265f4e7630614da584779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1ac738d8a8ffec5cb3148de3127631a2" id="r_ga1ac738d8a8ffec5cb3148de3127631a2"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_update_Descriptor</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type)</td></tr>
-<tr class="separator:ga1ac738d8a8ffec5cb3148de3127631a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gade750e808299781e1a718ec43e967f82" id="r_gade750e808299781e1a718ec43e967f82"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_flush_Descriptor</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer)</td></tr>
-<tr class="separator:gade750e808299781e1a718ec43e967f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga92c0e6cd9aa216f812e29c2bf7540bbf" id="r_ga92c0e6cd9aa216f812e29c2bf7540bbf"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Frame</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *Data, uint32_t Size)</td></tr>
-<tr class="separator:ga92c0e6cd9aa216f812e29c2bf7540bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad80d998221f3f54afbcf16c1318c65ae" id="r_gad80d998221f3f54afbcf16c1318c65ae"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_LUT</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *Data, uint32_t Size)</td></tr>
-<tr class="separator:gad80d998221f3f54afbcf16c1318c65ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8bfd8431c74d3fce8a26a58b95bebb74" id="r_ga8bfd8431c74d3fce8a26a58b95bebb74"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Data</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t Data)</td></tr>
-<tr class="separator:ga8bfd8431c74d3fce8a26a58b95bebb74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga019245b72878aae2841c8f18d6361df5" id="r_ga019245b72878aae2841c8f18d6361df5"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Command</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t Command)</td></tr>
-<tr class="separator:ga019245b72878aae2841c8f18d6361df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga58275203cfa685ff32a1d689019d441a" id="r_ga58275203cfa685ff32a1d689019d441a"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_countUp_SendDescriptorIndex</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer)</td></tr>
-<tr class="separator:ga58275203cfa685ff32a1d689019d441a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabdd073b0d11c40e578b36b467591b223" id="r_gabdd073b0d11c40e578b36b467591b223"><td class="memItemLeft" align="right" valign="top">
-Buffer_Transmission_TypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorTypeNow</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer)</td></tr>
-<tr class="separator:gabdd073b0d11c40e578b36b467591b223"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2fa34ea6c132277ee9cb4f014aa6e891" id="r_ga2fa34ea6c132277ee9cb4f014aa6e891"><td class="memItemLeft" align="right" valign="top">
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorNumBytesNow</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer)</td></tr>
-<tr class="separator:ga2fa34ea6c132277ee9cb4f014aa6e891"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga00dd042f3b5f3eebd19f86c71e8de831" id="r_ga00dd042f3b5f3eebd19f86c71e8de831"><td class="memItemLeft" align="right" valign="top">
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorStartPositionNow</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer)</td></tr>
-<tr class="separator:ga00dd042f3b5f3eebd19f86c71e8de831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga94acb37c55230cca5f34f2904cc8c2af" id="r_ga94acb37c55230cca5f34f2904cc8c2af"><td class="memItemLeft" align="right" valign="top">
-uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_StartPointer</b> (<a class="el" href="struct_buffer___type_def.html">Buffer_TypeDef</a> *Buffer, uint8_t *BufferLocal)</td></tr>
-<tr class="separator:ga94acb37c55230cca5f34f2904cc8c2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9e3598318f38db39c227b5ee14f8ee6c" id="r_ga9e3598318f38db39c227b5ee14f8ee6c"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Command</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *Command)</td></tr>
+<tr class="separator:ga9e3598318f38db39c227b5ee14f8ee6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4d882b2419cb4b90fee58d5ee73d816d" id="r_ga4d882b2419cb4b90fee58d5ee73d816d"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Data</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *Data)</td></tr>
+<tr class="separator:ga4d882b2419cb4b90fee58d5ee73d816d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa248158fc9652c88dcf8b52c896592c2" id="r_gaa248158fc9652c88dcf8b52c896592c2"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Frame</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *Frame)</td></tr>
+<tr class="separator:gaa248158fc9652c88dcf8b52c896592c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4770abb64920d8d4567d05af52a1c0ea" id="r_ga4770abb64920d8d4567d05af52a1c0ea"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_LUT</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *LUT)</td></tr>
+<tr class="separator:ga4770abb64920d8d4567d05af52a1c0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6bd66572d46424d7cb08acb56e4b48c" id="r_gae6bd66572d46424d7cb08acb56e4b48c"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_init_Desctriptor</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, <a class="el" href="struct_buffer___descriptor___type_def.html">Buffer_Descriptor_TypeDef</a> *Descriptor, uint8_t Length)</td></tr>
+<tr class="separator:gae6bd66572d46424d7cb08acb56e4b48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5041381d357220708ce1f73fe9c88b34" id="r_ga5041381d357220708ce1f73fe9c88b34"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_update_Descriptor</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type)</td></tr>
+<tr class="separator:ga5041381d357220708ce1f73fe9c88b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac1dcdf4a6495a9894785808cba9d075e" id="r_gac1dcdf4a6495a9894785808cba9d075e"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_flush_Descriptor</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer)</td></tr>
+<tr class="separator:gac1dcdf4a6495a9894785808cba9d075e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2d4d15a8e4aeaa7c863cb29c0273cc16" id="r_ga2d4d15a8e4aeaa7c863cb29c0273cc16"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Frame</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *Data, uint32_t Size)</td></tr>
+<tr class="separator:ga2d4d15a8e4aeaa7c863cb29c0273cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab86c34d5918370d17b57e7d9c28e90df" id="r_gab86c34d5918370d17b57e7d9c28e90df"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_LUT</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *Data, uint32_t Size)</td></tr>
+<tr class="separator:gab86c34d5918370d17b57e7d9c28e90df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3176fa1261fe24dbfdecdfb36b037285" id="r_ga3176fa1261fe24dbfdecdfb36b037285"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Data</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t Data)</td></tr>
+<tr class="separator:ga3176fa1261fe24dbfdecdfb36b037285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf0292ac664eb9896e3ed9063f1ca04ca" id="r_gaf0292ac664eb9896e3ed9063f1ca04ca"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_write_Command</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t Command)</td></tr>
+<tr class="separator:gaf0292ac664eb9896e3ed9063f1ca04ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga586b5ba118d61c177dd32f00c19932dd" id="r_ga586b5ba118d61c177dd32f00c19932dd"><td class="memItemLeft" align="right" valign="top">
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_countUp_SendDescriptorIndex</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer)</td></tr>
+<tr class="separator:ga586b5ba118d61c177dd32f00c19932dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaca56c3646f3eef6821f516b29193e9f6" id="r_gaca56c3646f3eef6821f516b29193e9f6"><td class="memItemLeft" align="right" valign="top">
+Buffer_Transmission_TypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorTypeNow</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer)</td></tr>
+<tr class="separator:gaca56c3646f3eef6821f516b29193e9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5839c4ef72fb982812da102ec8d778fd" id="r_ga5839c4ef72fb982812da102ec8d778fd"><td class="memItemLeft" align="right" valign="top">
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorNumBytesNow</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer)</td></tr>
+<tr class="separator:ga5839c4ef72fb982812da102ec8d778fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f8d053d2de34940249d567461ecd7fb" id="r_ga1f8d053d2de34940249d567461ecd7fb"><td class="memItemLeft" align="right" valign="top">
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_DescriptorStartPositionNow</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer)</td></tr>
+<tr class="separator:ga1f8d053d2de34940249d567461ecd7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga086ec43bec478b7c28e8241b34a301b3" id="r_ga086ec43bec478b7c28e8241b34a301b3"><td class="memItemLeft" align="right" valign="top">
+uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer_get_StartPointer</b> (<a class="el" href="struct_buffer___struct_td.html">Buffer_StructTd</a> *Buffer, uint8_t *BufferLocal)</td></tr>
+<tr class="separator:ga086ec43bec478b7c28e8241b34a301b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section date"><dt>Date</dt><dd>Oct 19, 2023 </dd></dl>

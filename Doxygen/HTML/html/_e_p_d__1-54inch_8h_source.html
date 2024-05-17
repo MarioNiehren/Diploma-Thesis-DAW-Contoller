@@ -102,166 +102,166 @@ $(function(){initNavTree('_e_p_d__1-54inch_8h_source.html',''); initResizable();
 </div><!--header-->
 <div class="contents">
 <a href="_e_p_d__1-54inch_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/***************************************************************************/</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">/* Preprocessor directives */</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#ifndef LIB_MN_PERIPHERALS_EPD_1_54INCH_H_</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#define LIB_MN_PERIPHERALS_EPD_1_54INCH_H_</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &quot;stm32f1xx_hal.h&quot;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &quot;<a class="code" href="_g_u_i_8h.html">GUI.h</a>&quot;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &quot;<a class="code" href="_buffer___displays_8h.html">Buffer_Displays.h</a>&quot;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &quot;<a class="code" href="_s_p_i___d_m_a_8h.html">SPI_DMA.h</a>&quot;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#define EPD_1IN54_WIDTH 200</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#define EPD_1IN54_HEIGHT 200</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#define LEN_DATA_BUFFER 100</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#define LEN_COMMAND_BUFFER 100</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define LEN_BUFFER_DESCRIPTOR 50</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define LEN_FRAMEBW_BUFFER ((EPD_1IN54_WIDTH / 8) * (EPD_1IN54_HEIGHT))</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#define LEN_WAVEFORM_LUT 159</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">/* Preprocessor directives */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">/***************************************************************************/</span></div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="};">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">   77</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">   79</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">EPD_MODE_INVALID</a> = 0x00,    </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">   80</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">EPD_MODE_PARTIAL</a> = 0x01,    </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">   81</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">EPD_MODE_FULL</a> = 0x02,           </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}<a class="code hl_enumeration" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">/* Preprocessor directives */</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#ifndef LIB_MN_PERIPHERALS_EPD_1_54INCH_H_</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#define LIB_MN_PERIPHERALS_EPD_1_54INCH_H_</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &quot;stm32f1xx_hal.h&quot;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &quot;<a class="code" href="_g_u_i_8h.html">GUI.h</a>&quot;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &quot;<a class="code" href="_buffer___displays_8h.html">Buffer_Displays.h</a>&quot;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &quot;<a class="code" href="_s_p_i___d_m_a_8h.html">SPI_DMA.h</a>&quot;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#define EPD_1IN54_WIDTH 200</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#define EPD_1IN54_HEIGHT 200</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#define LEN_DATA_BUFFER 100</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#define LEN_COMMAND_BUFFER 100</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#define LEN_BUFFER_DESCRIPTOR 50</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#define LEN_FRAMEBW_BUFFER ((EPD_1IN54_WIDTH / 8) * (EPD_1IN54_HEIGHT))</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#define LEN_WAVEFORM_LUT 159</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">/* Preprocessor directives */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">/***************************************************************************/</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">   82</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">   84</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">EPD_MODE_INVALID</a> = 0x00,    </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">   85</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">EPD_MODE_PARTIAL</a> = 0x01,    </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">   86</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">EPD_MODE_FULL</a> = 0x02,           </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}<a class="code hl_enumeration" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a>;</div>
 </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="};">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">   87</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">   90</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">EPD_COLOR_INVALID</a> = 0x00,   </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">   91</a></span>  <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">EPD_COLOR_BLACK</a> = 0x01,       </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">   92</a></span>  <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">EPD_COLOR_WHITE</a> = 0x02,       </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}<a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a>;</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="};">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">   92</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">   95</a></span>    <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">EPD_COLOR_INVALID</a> = 0x00,   </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">   96</a></span>  <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">EPD_COLOR_BLACK</a> = 0x01,       </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">   97</a></span>  <a class="code hl_enumvalue" href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">EPD_COLOR_WHITE</a> = 0x02,       </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}<a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a>;</div>
 </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">/* end of name &quot;Enumerations&quot;</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">/***************************************************************************/</span></div>
-<div class="foldopen" id="foldopen00111" data-start="{" data-end="};">
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="struct_e_p_d___g_p_i_os___struct_td.html">  111</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  GPIO_TypeDef* GPIO_RST;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  uint16_t PIN_RST;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  GPIO_TypeDef* GPIO_BUSY;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  uint16_t PIN_BUSY;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}<a class="code hl_struct" href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">/* end of name &quot;Enumerations&quot;</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">/***************************************************************************/</span></div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="};">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="struct_e_p_d___g_p_i_os___struct_td.html">  116</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>{</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  GPIO_TypeDef* GPIO_RST;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  uint16_t PIN_RST;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  GPIO_TypeDef* GPIO_BUSY;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  uint16_t PIN_BUSY;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}<a class="code hl_struct" href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a>;</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="foldopen" id="foldopen00122" data-start="{" data-end="};">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="struct_e_p_d___check___struct_td.html">  122</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>{</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  <span class="keywordtype">bool</span> DeviceBusy;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  <span class="keywordtype">bool</span> Sleep;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  <span class="keywordtype">bool</span> PowerOn;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  <span class="keywordtype">bool</span> RefreshInitialized;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  <span class="keywordtype">bool</span> RAM0x26EMPTY;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}<a class="code hl_struct" href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00127" data-start="{" data-end="};">
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="struct_e_p_d___check___struct_td.html">  127</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>  <span class="keywordtype">bool</span> DeviceBusy;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>  <span class="keywordtype">bool</span> Sleep;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  <span class="keywordtype">bool</span> PowerOn;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>  <span class="keywordtype">bool</span> RefreshInitialized;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <span class="keywordtype">bool</span> RAM0x26EMPTY;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}<a class="code hl_struct" href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a>;</div>
 </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="foldopen" id="foldopen00134" data-start="{" data-end="};">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="struct_e_p_d___buffer_local___struct_td.html">  134</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>{</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  uint8_t Frame[LEN_FRAMEBW_BUFFER];</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  uint8_t LUT[LEN_WAVEFORM_LUT];</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  uint8_t Data[LEN_DATA_BUFFER];</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  uint8_t Command[LEN_COMMAND_BUFFER];</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  <a class="code hl_struct" href="struct_buffer___descriptor___type_def.html">Buffer_Descriptor_TypeDef</a> Descriptor[LEN_BUFFER_DESCRIPTOR];</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}<a class="code hl_struct" href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="foldopen" id="foldopen00139" data-start="{" data-end="};">
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="struct_e_p_d___buffer_local___struct_td.html">  139</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  uint8_t Frame[LEN_FRAMEBW_BUFFER];</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  uint8_t LUT[LEN_WAVEFORM_LUT];</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>  uint8_t Data[LEN_DATA_BUFFER];</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>  uint8_t Command[LEN_COMMAND_BUFFER];</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  <a class="code hl_struct" href="struct_buffer___descriptor___type_def.html">Buffer_Descriptor_TypeDef</a> Descriptor[LEN_BUFFER_DESCRIPTOR];</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}<a class="code hl_struct" href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a>;</div>
 </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="foldopen" id="foldopen00148" data-start="{" data-end="};">
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="struct_e_p_d___struct_td.html">  148</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>{</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <a class="code hl_struct" href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a> pins;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <a class="code hl_struct" href="struct_buffer___type_def.html">Buffer_TypeDef</a> Buffer;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <a class="code hl_struct" href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a> BufferLocal;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  <a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a> color;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>  <a class="code hl_struct" href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a> check;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  <a class="code hl_enumeration" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a> Mode;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  GUI_TypeDef GUI;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  <a class="code hl_struct" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a> SPI;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>}<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="};">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="struct_e_p_d___struct_td.html">  153</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>{</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  <a class="code hl_struct" href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a> pins;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  <a class="code hl_struct" href="struct_buffer___struct_td.html">Buffer_StructTd</a> BufferManagement;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  <a class="code hl_struct" href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a> BufferLocal;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>  <a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a> color;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  <a class="code hl_struct" href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a> check;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>  <a class="code hl_enumeration" href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a> Mode;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>  GUI_StructTd GUI;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  <a class="code hl_struct" href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_StructTd</a> SPI;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>;</div>
 </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">/* end of name &quot;Structures&quot;</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment">/***************************************************************************/</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#gac80b5bd53401269adfa339f1f32dae3c">EPD_init_PinDC</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_DC, uint16_t PIN_DC);</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga95132d656e7673f8b60574fc79b3d86f">EPD_init_PinCS</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_CS, uint16_t PIN_CS);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga452480b8f4ffec4a937f17c928830591">EPD_init_PinRST</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_RST, uint16_t PIN_RST);</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga7224dd1d48219ed7611bceb37a38cc9f">EPD_init_PinBUSY</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_BUSY, uint16_t PIN_BUSY);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#gaea9045c23fe824e858a7cb96038cee93">EPD_init_SPI</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, SPI_HandleTypeDef* hspi);</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga186a1367126864cf84aace6db44460ef">EPD_init</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">/* end of defgroup &quot;Initialize&quot;</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment">/***************************************************************************/</span></div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaf94d6963ff29db71619603fa18a70dca">EPD_set_DrawColor</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, <a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a> color);</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaf599578b18937dc1c28703f08d6682fe">EPD_set_FullRefreshMode</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gad505f91b95e0481ad137e8143873b993">EPD_set_PartRefreshMode</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">/* end of name &quot;Structures&quot;</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">/***************************************************************************/</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#gac80b5bd53401269adfa339f1f32dae3c">EPD_init_PinDC</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_DC, uint16_t PIN_DC);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga95132d656e7673f8b60574fc79b3d86f">EPD_init_PinCS</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_CS, uint16_t PIN_CS);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga452480b8f4ffec4a937f17c928830591">EPD_init_PinRST</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_RST, uint16_t PIN_RST);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga7224dd1d48219ed7611bceb37a38cc9f">EPD_init_PinBUSY</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, GPIO_TypeDef* GPIO_BUSY, uint16_t PIN_BUSY);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#gaea9045c23fe824e858a7cb96038cee93">EPD_init_SPI</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, SPI_HandleTypeDef* hspi);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___initialize.html#ga186a1367126864cf84aace6db44460ef">EPD_init</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment">/* end of defgroup &quot;Initialize&quot;</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment">/***************************************************************************/</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaf94d6963ff29db71619603fa18a70dca">EPD_set_DrawColor</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, <a class="code hl_enumeration" href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a> color);</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga1ebdf65ba88b819041b140458f91232b">EPD_set_BitmapInvert</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga29467d19c936296088f69b4d08794091">EPD_set_BitmapNoInvert</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga7def569b78caa3e8351368a62baebf18">EPD_set_Font</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, <a class="code hl_struct" href="struct_fonts___type_def.html">Fonts_TypeDef</a> Font);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaa102673da81f307a23cc88ef1e36a550">EPD_set_PixelStartPosition</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint16_t X, uint16_t Y);</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="comment">/* end of defgroup &quot;Set Functions&quot;</span></div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="comment">/***************************************************************************/</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#gac2d23249724df722480df43c7f57638d">EPD_clear</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga4ab79d81cb6dd71113e7fd1364be54da">EPD_draw_Rectangle</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint8_t width, uint8_t height);</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga2919c3558bceb66dce00803b89ce2196">EPD_draw_Bitmap</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint8_t* Bitmap, uint16_t Width, uint16_t Height);</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
-<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga65df0f4bb7206257dd6301155522509d">EPD_write_String</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* ssd1315, <span class="keywordtype">char</span>* str, uint32_t length);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaf599578b18937dc1c28703f08d6682fe">EPD_set_FullRefreshMode</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gad505f91b95e0481ad137e8143873b993">EPD_set_PartRefreshMode</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga1ebdf65ba88b819041b140458f91232b">EPD_set_BitmapInvert</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga29467d19c936296088f69b4d08794091">EPD_set_BitmapNoInvert</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#ga7def569b78caa3e8351368a62baebf18">EPD_set_Font</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, <a class="code hl_struct" href="struct_fonts___type_def.html">Fonts_TypeDef</a> Font);</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___set.html#gaa102673da81f307a23cc88ef1e36a550">EPD_set_PixelStartPosition</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint16_t X, uint16_t Y);</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="comment">/* end of defgroup &quot;Set Functions&quot;</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span><span class="comment">/***************************************************************************/</span></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#gac2d23249724df722480df43c7f57638d">EPD_clear</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga4ab79d81cb6dd71113e7fd1364be54da">EPD_draw_Rectangle</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint8_t width, uint8_t height);</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga2919c3558bceb66dce00803b89ce2196">EPD_draw_Bitmap</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint8_t* Bitmap, uint16_t Width, uint16_t Height);</div>
 <div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span> </div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#gae01b9dd52adaf53ca79d790e0b84b9e8">EPD_write_Number</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint32_t Number);</div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span> </div>
-<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span><span class="comment">/* end of name &quot;EPD_GUI&quot;</span></div>
-<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span> </div>
-<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span> </div>
-<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span><span class="comment">/***************************************************************************/</span></div>
-<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___process.html#ga009cea4cf1754c14b38426049715245a">EPD_display_Frame</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
-<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span> </div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___process.html#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, SPI_HandleTypeDef* hspi);</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span> </div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span><span class="comment">/* end of name &quot;EPD_Process&quot;</span></div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span><span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span><span class="comment">/* end of defgroup &quot;EPD_Header&quot; */</span></div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span><span class="comment">/* end of defgroup &quot;EPaperSSD1681&quot; */</span></div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span> </div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span><span class="preprocessor">#endif </span><span class="comment">/* LIB_MN_PERIPHERALS_EPD_1_54INCH_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#ga65df0f4bb7206257dd6301155522509d">EPD_write_String</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* ssd1315, <span class="keywordtype">char</span>* str, uint32_t length);</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span> </div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___g_u_i.html#gae01b9dd52adaf53ca79d790e0b84b9e8">EPD_write_Number</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, uint32_t Number);</div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span> </div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span><span class="comment">/* end of name &quot;EPD_GUI&quot;</span></div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span> </div>
+<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span> </div>
+<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span><span class="comment">/***************************************************************************/</span></div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___process.html#ga009cea4cf1754c14b38426049715245a">EPD_display_Frame</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD);</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span> </div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="keywordtype">void</span> <a class="code hl_function" href="group___e_p_d___process.html#ga8f52a5e77520e4bda16675cc16a75cb7">EPD_manage_Interrupt</a>(<a class="code hl_struct" href="struct_e_p_d___struct_td.html">EPD_StructTd</a>* EPD, SPI_HandleTypeDef* hspi);</div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span> </div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment">/* end of name &quot;EPD_Process&quot;</span></div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span> </div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span><span class="comment">/* end of defgroup &quot;EPD_Header&quot; */</span></div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span><span class="comment">/* end of defgroup &quot;EPaperSSD1681&quot; */</span></div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span><span class="preprocessor">#endif </span><span class="comment">/* LIB_MN_PERIPHERALS_EPD_1_54INCH_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="a_buffer___displays_8h_html"><div class="ttname"><a href="_buffer___displays_8h.html">Buffer_Displays.h</a></div></div>
 <div class="ttc" id="a_g_u_i_8h_html"><div class="ttname"><a href="_g_u_i_8h.html">GUI.h</a></div></div>
 <div class="ttc" id="a_s_p_i___d_m_a_8h_html"><div class="ttname"><a href="_s_p_i___d_m_a_8h.html">SPI_DMA.h</a></div></div>
@@ -270,14 +270,14 @@ $(function(){initNavTree('_e_p_d__1-54inch_8h_source.html',''); initResizable();
 <div class="ttc" id="agroup___e_p_d___g_u_i_html_ga65df0f4bb7206257dd6301155522509d"><div class="ttname"><a href="group___e_p_d___g_u_i.html#ga65df0f4bb7206257dd6301155522509d">EPD_write_String</a></div><div class="ttdeci">void EPD_write_String(EPD_StructTd *ssd1315, char *str, uint32_t length)</div><div class="ttdoc">Write text on EPD.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:283</div></div>
 <div class="ttc" id="agroup___e_p_d___g_u_i_html_gac2d23249724df722480df43c7f57638d"><div class="ttname"><a href="group___e_p_d___g_u_i.html#gac2d23249724df722480df43c7f57638d">EPD_clear</a></div><div class="ttdeci">void EPD_clear(EPD_StructTd *EPD)</div><div class="ttdoc">Clear all display pixels with currently set draw color.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:265</div></div>
 <div class="ttc" id="agroup___e_p_d___g_u_i_html_gae01b9dd52adaf53ca79d790e0b84b9e8"><div class="ttname"><a href="group___e_p_d___g_u_i.html#gae01b9dd52adaf53ca79d790e0b84b9e8">EPD_write_Number</a></div><div class="ttdeci">void EPD_write_Number(EPD_StructTd *EPD, uint32_t Number)</div><div class="ttdoc">Write a number on EPD.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:289</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_ga3a8beeca961bfba9fd9c43223c0be48c"><div class="ttname"><a href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a></div><div class="ttdeci">EPD_Mode_Td</div><div class="ttdoc">Enumerations to describe the active EPD-Refresh mode.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:78</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_ga890341388764b30df60255fd715a22c7"><div class="ttname"><a href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a></div><div class="ttdeci">EPD_Color_Td</div><div class="ttdoc">Enumerations to describe the pixel color.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:89</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">EPD_MODE_INVALID</a></div><div class="ttdeci">@ EPD_MODE_INVALID</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:79</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">EPD_MODE_FULL</a></div><div class="ttdeci">@ EPD_MODE_FULL</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:81</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">EPD_MODE_PARTIAL</a></div><div class="ttdeci">@ EPD_MODE_PARTIAL</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:80</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">EPD_COLOR_BLACK</a></div><div class="ttdeci">@ EPD_COLOR_BLACK</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:91</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">EPD_COLOR_INVALID</a></div><div class="ttdeci">@ EPD_COLOR_INVALID</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:90</div></div>
-<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">EPD_COLOR_WHITE</a></div><div class="ttdeci">@ EPD_COLOR_WHITE</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:92</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_ga3a8beeca961bfba9fd9c43223c0be48c"><div class="ttname"><a href="group___e_p_d___header.html#ga3a8beeca961bfba9fd9c43223c0be48c">EPD_Mode_Td</a></div><div class="ttdeci">EPD_Mode_Td</div><div class="ttdoc">Enumerations to describe the active EPD-Refresh mode.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:83</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_ga890341388764b30df60255fd715a22c7"><div class="ttname"><a href="group___e_p_d___header.html#ga890341388764b30df60255fd715a22c7">EPD_Color_Td</a></div><div class="ttdeci">EPD_Color_Td</div><div class="ttdoc">Enumerations to describe the pixel color.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:94</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca414ae261e2c52d98cba087c865a2c0b7">EPD_MODE_INVALID</a></div><div class="ttdeci">@ EPD_MODE_INVALID</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:84</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48ca4c6042fe403aef6bf183ae56aa1e65ac">EPD_MODE_FULL</a></div><div class="ttdeci">@ EPD_MODE_FULL</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:86</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d"><div class="ttname"><a href="group___e_p_d___header.html#gga3a8beeca961bfba9fd9c43223c0be48cace9010521e13620be66fa4e57288146d">EPD_MODE_PARTIAL</a></div><div class="ttdeci">@ EPD_MODE_PARTIAL</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:85</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ab11961320c6c95d6dc213a489210dd24">EPD_COLOR_BLACK</a></div><div class="ttdeci">@ EPD_COLOR_BLACK</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:96</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7ac623a1fc454c6a293550bb3ebe19e67e">EPD_COLOR_INVALID</a></div><div class="ttdeci">@ EPD_COLOR_INVALID</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:95</div></div>
+<div class="ttc" id="agroup___e_p_d___header_html_gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6"><div class="ttname"><a href="group___e_p_d___header.html#gga890341388764b30df60255fd715a22c7af76d9c53e8abd98991f9cc1d12a81de6">EPD_COLOR_WHITE</a></div><div class="ttdeci">@ EPD_COLOR_WHITE</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:97</div></div>
 <div class="ttc" id="agroup___e_p_d___initialize_html_ga186a1367126864cf84aace6db44460ef"><div class="ttname"><a href="group___e_p_d___initialize.html#ga186a1367126864cf84aace6db44460ef">EPD_init</a></div><div class="ttdeci">void EPD_init(EPD_StructTd *EPD)</div><div class="ttdoc">Initialize E-Paper. This will link parts of the EPD structure to some helper structures and sets EPD-...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:168</div></div>
 <div class="ttc" id="agroup___e_p_d___initialize_html_ga452480b8f4ffec4a937f17c928830591"><div class="ttname"><a href="group___e_p_d___initialize.html#ga452480b8f4ffec4a937f17c928830591">EPD_init_PinRST</a></div><div class="ttdeci">void EPD_init_PinRST(EPD_StructTd *EPD, GPIO_TypeDef *GPIO_RST, uint16_t PIN_RST)</div><div class="ttdoc">Initialize STM32 Pin that is used to reset EPD. It is an Output GPIO that will be:</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:145</div></div>
 <div class="ttc" id="agroup___e_p_d___initialize_html_ga7224dd1d48219ed7611bceb37a38cc9f"><div class="ttname"><a href="group___e_p_d___initialize.html#ga7224dd1d48219ed7611bceb37a38cc9f">EPD_init_PinBUSY</a></div><div class="ttdeci">void EPD_init_PinBUSY(EPD_StructTd *EPD, GPIO_TypeDef *GPIO_BUSY, uint16_t PIN_BUSY)</div><div class="ttdoc">Initialize STM32 Pin that is used to check if the EPD is busy. It is an Input GPIO that will be:</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:155</div></div>
@@ -294,11 +294,11 @@ $(function(){initNavTree('_e_p_d__1-54inch_8h_source.html',''); initResizable();
 <div class="ttc" id="agroup___e_p_d___set_html_gaf599578b18937dc1c28703f08d6682fe"><div class="ttname"><a href="group___e_p_d___set.html#gaf599578b18937dc1c28703f08d6682fe">EPD_set_FullRefreshMode</a></div><div class="ttdeci">void EPD_set_FullRefreshMode(EPD_StructTd *EPD)</div><div class="ttdoc">Set Full Refresh mode. If this mode is set, all following frames will be updated in full refresh mode...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:219</div></div>
 <div class="ttc" id="agroup___e_p_d___set_html_gaf94d6963ff29db71619603fa18a70dca"><div class="ttname"><a href="group___e_p_d___set.html#gaf94d6963ff29db71619603fa18a70dca">EPD_set_DrawColor</a></div><div class="ttdeci">void EPD_set_DrawColor(EPD_StructTd *EPD, EPD_Color_Td color)</div><div class="ttdoc">Set color to draw. If the color is white, bits in the frame buffer will be 1. If the color is black,...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.c:202</div></div>
 <div class="ttc" id="astruct_buffer___descriptor___type_def_html"><div class="ttname"><a href="struct_buffer___descriptor___type_def.html">Buffer_Descriptor_TypeDef</a></div><div class="ttdef"><b>Definition</b> Buffer_Displays.h:33</div></div>
-<div class="ttc" id="astruct_buffer___type_def_html"><div class="ttname"><a href="struct_buffer___type_def.html">Buffer_TypeDef</a></div><div class="ttdef"><b>Definition</b> Buffer_Displays.h:48</div></div>
-<div class="ttc" id="astruct_e_p_d___buffer_local___struct_td_html"><div class="ttname"><a href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a></div><div class="ttdoc">This structure contains arrays to buffer data for SPI.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:135</div></div>
-<div class="ttc" id="astruct_e_p_d___check___struct_td_html"><div class="ttname"><a href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a></div><div class="ttdoc">This structure is a check-list for several states of the EPD.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:123</div></div>
-<div class="ttc" id="astruct_e_p_d___g_p_i_os___struct_td_html"><div class="ttname"><a href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a></div><div class="ttdoc">This structure stores EPD-Pins that are not part of the SPI transmission. CS, DC, MOSI and Clock are ...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:112</div></div>
-<div class="ttc" id="astruct_e_p_d___struct_td_html"><div class="ttname"><a href="struct_e_p_d___struct_td.html">EPD_StructTd</a></div><div class="ttdoc">This is the Main Structure of the Display. The user has to declare an object of this type for each us...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:149</div></div>
+<div class="ttc" id="astruct_buffer___struct_td_html"><div class="ttname"><a href="struct_buffer___struct_td.html">Buffer_StructTd</a></div><div class="ttdef"><b>Definition</b> Buffer_Displays.h:48</div></div>
+<div class="ttc" id="astruct_e_p_d___buffer_local___struct_td_html"><div class="ttname"><a href="struct_e_p_d___buffer_local___struct_td.html">EPD_BufferLocal_StructTd</a></div><div class="ttdoc">This structure contains arrays to buffer data for SPI.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:140</div></div>
+<div class="ttc" id="astruct_e_p_d___check___struct_td_html"><div class="ttname"><a href="struct_e_p_d___check___struct_td.html">EPD_Check_StructTd</a></div><div class="ttdoc">This structure is a check-list for several states of the EPD.</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:128</div></div>
+<div class="ttc" id="astruct_e_p_d___g_p_i_os___struct_td_html"><div class="ttname"><a href="struct_e_p_d___g_p_i_os___struct_td.html">EPD_GPIOs_StructTd</a></div><div class="ttdoc">This structure stores EPD-Pins that are not part of the SPI transmission. CS, DC, MOSI and Clock are ...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:117</div></div>
+<div class="ttc" id="astruct_e_p_d___struct_td_html"><div class="ttname"><a href="struct_e_p_d___struct_td.html">EPD_StructTd</a></div><div class="ttdoc">This is the Main Structure of the Display. The user has to declare an object of this type for each us...</div><div class="ttdef"><b>Definition</b> EPD_1-54inch.h:154</div></div>
 <div class="ttc" id="astruct_fonts___type_def_html"><div class="ttname"><a href="struct_fonts___type_def.html">Fonts_TypeDef</a></div><div class="ttdef"><b>Definition</b> fonts.h:53</div></div>
 <div class="ttc" id="astruct_s_p_i_d_m_a___type_def_html"><div class="ttname"><a href="struct_s_p_i_d_m_a___type_def.html">SPIDMA_TypeDef</a></div><div class="ttdoc">Structure for the SPI Transmission.</div><div class="ttdef"><b>Definition</b> SPI_DMA.h:52</div></div>
 </div><!-- fragment --></div><!-- contents -->

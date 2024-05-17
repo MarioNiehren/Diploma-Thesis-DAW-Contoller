@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['now_0',['now',['../structtimer__setup__struct_td.html#af3b02aa145449f7d5e805478a67e80e7',1,'timer_setup_structTd']]],
-  ['numdrivelines_1',['numDriveLines',['../structbutton_matrix__init___td.html#a455af9295ea96b0f6750d6dd5942bb55',1,'buttonMatrix_init_Td']]],
-  ['numinterruptlines_2',['numInterruptLines',['../structbutton_matrix__init___td.html#a47fe8aea3bf0f3dcffc1a3ef29ef5ba6',1,'buttonMatrix_init_Td']]]
+  ['inactive_5fcs_0',['Inactive_CS',['../struct_s_p_i_d_m_a___g_p_i_os___type_def.html#ac99042cd18c7976fb3f2557732011738',1,'SPIDMA_GPIOs_TypeDef']]],
+  ['init_1',['init',['../structbutton_matrix__struct_td.html#a639fed13b105947ff81b874f95e0033d',1,'buttonMatrix_structTd']]],
+  ['interrupt_2',['interrupt',['../structbutton_matrix__struct_td.html#a4980097af528bf7b577dc78a1a32f5e9',1,'buttonMatrix_structTd']]],
+  ['interrupted_3',['Interrupted',['../struct_wiper__struct_td.html#a00985c471387db9713c60017ca1d3584',1,'Wiper_structTd']]],
+  ['interruptedpins_4',['interruptedPins',['../structbutton_matrix___interrupt_management___td.html#aae7c0be9dfc2e5a99e1381f5d232c88e',1,'buttonMatrix_InterruptManagement_Td']]]
 ];

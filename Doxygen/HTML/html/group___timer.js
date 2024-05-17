@@ -1,6 +1,7 @@
 var group___timer =
 [
-    [ "timer.h", "timer_8h.html", null ],
+    [ "timer.h", "_f103_c8_t6___demo_project___button_matrix_2_core_2_inc_2timer_8h.html", null ],
+    [ "timer.h", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2timer_8h.html", null ],
     [ "timer_setup_structTd", "structtimer__setup__struct_td.html", [
       [ "now", "structtimer__setup__struct_td.html#af3b02aa145449f7d5e805478a67e80e7", null ],
       [ "old", "structtimer__setup__struct_td.html#ae33be949db32774e9f412affb241bf1f", null ],

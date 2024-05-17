@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 
 <p>Draw a bitmap on the display (max 200x200) </p>
 <dl class="section note"><dt>Note</dt><dd>Use <a href="https://en.radzio.dxp.pl/bitmap_converter/">LCD-Assistent</a> to generate an usable array of a Binary Bitmap. As this EPD module is white if a pixel-byte is 1, it may be required to use <a class="el" href="group___e_p_d___set.html#ga1ebdf65ba88b819041b140458f91232b" title="Invert bitmap.">EPD_set_BitmapInvert()</a> to display the image as expected.</dd></dl>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 How to generate an array for your Bitmap:</h1>
 <ol type="1">
 <li>use a graphics editor to generate a black and white bitmap (e.g. Photoshop or GIMP).<ul>
@@ -322,12 +322,12 @@ How to generate an array for your Bitmap:</h1>
 <p>Write text on EPD. </p>
 <dl class="section note"><dt>Note</dt><dd>Make sure to set a font first and don't use the same color as the background.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>This function supports a very basic and unfinished text flow control. Try not to overflow the pixel width of the display, a it may produce corrupted text. Use <a class="el" href="group___e_p_d___set.html#gaa102673da81f307a23cc88ef1e36a550" title="Set start point for GUI functions to draw or write.">EPD_set_PixelStartPosition()</a> to place text manually. </dd></dl>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 What should work at the moment:</h1>
 <ul>
 <li>Fonts with variable width support auto formatting. If the page is full, the rest of the text will be truncated </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 What does not work:</h1>
 <ul>
 <li>Fonts with fixed width</li>
