@@ -56,16 +56,16 @@ typedef struct
   uint8_t SendDescriptorIndex;
   Buffer_Counter_TypeDef NumBytes;
   bool empty;
-}Buffer_TypeDef;
+}Buffer_StructTd;
 
 /***************************************************************************************************
  * BEGIN: Functions initialize.
  ***************************************************************************************************/
-void Buffer_init_Command(Buffer_TypeDef* Buffer, uint8_t* Command);
-void Buffer_init_Data(Buffer_TypeDef* Buffer, uint8_t* Data);
-void Buffer_init_Frame(Buffer_TypeDef* Buffer, uint8_t* Frame);
-void Buffer_init_LUT(Buffer_TypeDef* Buffer, uint8_t* LUT);
-void Buffer_init_Desctriptor(Buffer_TypeDef* Buffer, Buffer_Descriptor_TypeDef* Descriptor, uint8_t Length);
+void Buffer_init_Command(Buffer_StructTd* Buffer, uint8_t* Command);
+void Buffer_init_Data(Buffer_StructTd* Buffer, uint8_t* Data);
+void Buffer_init_Frame(Buffer_StructTd* Buffer, uint8_t* Frame);
+void Buffer_init_LUT(Buffer_StructTd* Buffer, uint8_t* LUT);
+void Buffer_init_Desctriptor(Buffer_StructTd* Buffer, Buffer_Descriptor_TypeDef* Descriptor, uint8_t Length);
 /***************************************************************************************************
  * END: Functions initialize.
  ***************************************************************************************************/
@@ -73,8 +73,8 @@ void Buffer_init_Desctriptor(Buffer_TypeDef* Buffer, Buffer_Descriptor_TypeDef* 
 /***************************************************************************************************
  * BEGIN: Functions to describe Buffer.
  ***************************************************************************************************/
-void Buffer_update_Descriptor(Buffer_TypeDef* Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type);
-void Buffer_flush_Descriptor(Buffer_TypeDef* Buffer);
+void Buffer_update_Descriptor(Buffer_StructTd* Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type);
+void Buffer_flush_Descriptor(Buffer_StructTd* Buffer);
 /***************************************************************************************************
  * END: Functions to describe Buffer.
  ***************************************************************************************************/
@@ -82,10 +82,10 @@ void Buffer_flush_Descriptor(Buffer_TypeDef* Buffer);
 /***************************************************************************************************
  * BEGIN: Functions to write to Buffer.
  ***************************************************************************************************/
-void Buffer_write_Frame(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size);
-void Buffer_write_LUT(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size);
-void Buffer_write_Data(Buffer_TypeDef* Buffer, uint8_t Data);
-void Buffer_write_Command(Buffer_TypeDef* Buffer, uint8_t Command);
+void Buffer_write_Frame(Buffer_StructTd* Buffer, uint8_t* Data, uint32_t Size);
+void Buffer_write_LUT(Buffer_StructTd* Buffer, uint8_t* Data, uint32_t Size);
+void Buffer_write_Data(Buffer_StructTd* Buffer, uint8_t Data);
+void Buffer_write_Command(Buffer_StructTd* Buffer, uint8_t Command);
 /***************************************************************************************************
  * END: Functions to write to Buffer.
  ***************************************************************************************************/
@@ -93,7 +93,7 @@ void Buffer_write_Command(Buffer_TypeDef* Buffer, uint8_t Command);
 /***************************************************************************************************
  * BEGIN: Functions to update Values.
  ***************************************************************************************************/
-void Buffer_countUp_SendDescriptorIndex(Buffer_TypeDef* Buffer);
+void Buffer_countUp_SendDescriptorIndex(Buffer_StructTd* Buffer);
 /***************************************************************************************************
  * END: Functions to update Values.
  ***************************************************************************************************/
@@ -101,10 +101,10 @@ void Buffer_countUp_SendDescriptorIndex(Buffer_TypeDef* Buffer);
 /***************************************************************************************************
  * BEGIN: Functions get informations about Buffer.
  ***************************************************************************************************/
-Buffer_Transmission_TypeDef Buffer_get_DescriptorTypeNow(Buffer_TypeDef* Buffer);
-uint16_t Buffer_get_DescriptorNumBytesNow(Buffer_TypeDef* Buffer);
-uint16_t Buffer_get_DescriptorStartPositionNow(Buffer_TypeDef* Buffer);
-uint8_t* Buffer_get_StartPointer(Buffer_TypeDef* Buffer, uint8_t* BufferLocal);
+Buffer_Transmission_TypeDef Buffer_get_DescriptorTypeNow(Buffer_StructTd* Buffer);
+uint16_t Buffer_get_DescriptorNumBytesNow(Buffer_StructTd* Buffer);
+uint16_t Buffer_get_DescriptorStartPositionNow(Buffer_StructTd* Buffer);
+uint8_t* Buffer_get_StartPointer(Buffer_StructTd* Buffer, uint8_t* BufferLocal);
 /***************************************************************************************************
  * END: Functions get informations about Buffer.
  ***************************************************************************************************/

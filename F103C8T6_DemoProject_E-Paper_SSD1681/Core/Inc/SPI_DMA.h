@@ -53,7 +53,7 @@ typedef struct SPIDMA_TypeDef
   SPI_HandleTypeDef* hspi;
   SPIDMA_GPIOs_TypeDef Pins;
   bool Busy;
-}SPIDMA_TypeDef;
+}SPIDMA_StructTd;
 
 /***************************************************************************//**
  * @name			Initialize
@@ -73,7 +73,7 @@ typedef struct SPIDMA_TypeDef
  * 							@arg	GPIO_PIN_RESET	if command mode is low active
  * @return		none
  */
-void SPIDMA_init_PinDC(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState CommandState);
+void SPIDMA_init_PinDC(SPIDMA_StructTd* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState CommandState);
 
 /**
  * @brief			Init Pin CS (Chip Select)
@@ -88,7 +88,7 @@ void SPIDMA_init_PinDC(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GP
  * 							@arg	GPIO_PIN_RESET	if the target device low active
  * @return		none
  */
-void SPIDMA_init_PinCS(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState ActiveState);
+void SPIDMA_init_PinCS(SPIDMA_StructTd* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState ActiveState);
 
 /**
  * @brief			Link the HAL hspi to the users SPI structure
@@ -96,7 +96,7 @@ void SPIDMA_init_PinCS(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GP
  * @param			SPI		pointer to the users SPI structure (not the HAL-SPI handle!)
  * @param			hspi	HAL-SPI handle used for SPI data transmission.
  */
-void SPIDMA_init_SPIHandle(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi);
+void SPIDMA_init_SPIHandle(SPIDMA_StructTd* SPI, SPI_HandleTypeDef* hspi);
 
 /** @} ************************************************************************/
 /* end of name "Initialize"
@@ -115,7 +115,7 @@ void SPIDMA_init_SPIHandle(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi);
  * @param			Length	size of the data block to be sent
  * @return		none
  */
-void SPIDMA_transmit_Command(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length);
+void SPIDMA_transmit_Command(SPIDMA_StructTd* SPI, uint8_t* Data, uint16_t Length);
 
 /**
  * @brief			Transmit Data
@@ -124,7 +124,7 @@ void SPIDMA_transmit_Command(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length
  * @param			Length	size of the data block to be sent
  * @return		none
  */
-void SPIDMA_transmit_Data(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length);
+void SPIDMA_transmit_Data(SPIDMA_StructTd* SPI, uint8_t* Data, uint16_t Length);
 
 /**
  * @brief			Wait until SPI transmission is complete
@@ -132,7 +132,7 @@ void SPIDMA_transmit_Data(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length);
  * @param			SPI		pointer to the users SPI structure
  * @return		none
  */
-void SPIDMA_wait_WhileTransmitting(SPIDMA_TypeDef* SPI);
+void SPIDMA_wait_WhileTransmitting(SPIDMA_StructTd* SPI);
 
 /** @} ************************************************************************/
 /* end of name "Transmit SPI"
@@ -149,7 +149,7 @@ void SPIDMA_wait_WhileTransmitting(SPIDMA_TypeDef* SPI);
  * @param			SPI		pointer to the users SPI structure
  * @param			hspi	pointer to interrupted HAL-SPI handle
  */
-void SPIDMA_manage_Interrupt(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi);
+void SPIDMA_manage_Interrupt(SPIDMA_StructTd* SPI, SPI_HandleTypeDef* hspi);
 
 /** @} ************************************************************************/
 /* end of name "Interrupt management"

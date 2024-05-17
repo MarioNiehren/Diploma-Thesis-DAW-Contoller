@@ -443,6 +443,8 @@ int main(void)
   EPD_set_PixelStartPosition(&Display, 10, 10);
   char* txt1 = "Done!";
   EPD_write_String(&Display, txt1, strlen(txt1));
+  char* txt2 = "2nd Text";
+  EPD_write_String(&Display, txt2, strlen(txt2));
 
   EPD_set_PartRefreshMode(&Display);
   EPD_display_Frame(&Display);

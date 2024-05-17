@@ -172,15 +172,15 @@ void EPD_init(EPD_StructTd* EPD)
   /** @internal		2. Link Frame Buffer to \ref GUI_DrawModule "GUI Module". */
   GUI_init_Buffer(&EPD->GUI, EPD->BufferLocal.Frame);
 	/** @internal		3. link Command Buffer to the \ref EPD_Buffer "Buffer helper". */
-  Buffer_init_Command(&EPD->Buffer, EPD->BufferLocal.Command);
+  Buffer_init_Command(&EPD->BufferManagement, EPD->BufferLocal.Command);
 	/** @internal		4. link Data Buffer to the \ref EPD_Buffer "Buffer helper". */
-  Buffer_init_Data(&EPD->Buffer, EPD->BufferLocal.Data);
+  Buffer_init_Data(&EPD->BufferManagement, EPD->BufferLocal.Data);
 	/** @internal		5. link Frame Buffer to the \ref EPD_Buffer "Buffer helper". */
-  Buffer_init_Frame(&EPD->Buffer, EPD->BufferLocal.Frame);
+  Buffer_init_Frame(&EPD->BufferManagement, EPD->BufferLocal.Frame);
 	/** @internal		6. link LUT Buffer to the \ref EPD_Buffer "Buffer helper". */
-  Buffer_init_LUT(&EPD->Buffer, EPD->BufferLocal.LUT);
+  Buffer_init_LUT(&EPD->BufferManagement, EPD->BufferLocal.LUT);
 	/** @internal		7. link Descriptor array to the \ref EPD_Buffer "Buffer helper". */
-  Buffer_init_Desctriptor(&EPD->Buffer, EPD->BufferLocal.Descriptor, LEN_BUFFER_DESCRIPTOR);
+  Buffer_init_Desctriptor(&EPD->BufferManagement, EPD->BufferLocal.Descriptor, LEN_BUFFER_DESCRIPTOR);
   /** @internal		8. link GUI structure of EPD structure to \ref GUI_DrawModule "GUI Module"*/
   GUI_init(&EPD->GUI);
   /** @internal		9. Set start conditions of EPD Structure */
@@ -317,10 +317,10 @@ void EPD_write_Number(EPD_StructTd* EPD, uint32_t Number)
  */
 void setup_DriverOutputControl(EPD_StructTd* EPD, uint8_t A0to7, uint8_t A8, uint8_t B0to2)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x01);
-  Buffer_write_Data(&EPD->Buffer, A0to7);  /* POR: 0xC7 */
-  Buffer_write_Data(&EPD->Buffer, A8);  /* POR: 0x00 */
-  Buffer_write_Data(&EPD->Buffer, B0to2);    /* POR: 0x00 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x01);
+  Buffer_write_Data(&EPD->BufferManagement, A0to7);  /* POR: 0xC7 */
+  Buffer_write_Data(&EPD->BufferManagement, A8);  /* POR: 0x00 */
+  Buffer_write_Data(&EPD->BufferManagement, B0to2);    /* POR: 0x00 */
 }
 
 /**
@@ -332,8 +332,8 @@ void setup_DriverOutputControl(EPD_StructTd* EPD, uint8_t A0to7, uint8_t A8, uin
  */
 void set_GateDrivingVoltageControl(EPD_StructTd* EPD, uint8_t value)
 {
-	Buffer_write_Command(&EPD->Buffer, 0x03);
-	Buffer_write_Data(&EPD->Buffer, value);
+	Buffer_write_Command(&EPD->BufferManagement, 0x03);
+	Buffer_write_Data(&EPD->BufferManagement, value);
 }
 
 /**
@@ -347,10 +347,10 @@ void set_GateDrivingVoltageControl(EPD_StructTd* EPD, uint8_t value)
  */
 void setup_SourceDrivingVoltageControl(EPD_StructTd* EPD, uint8_t VSH1, uint8_t VSH2, uint8_t VSL)
 {
-	Buffer_write_Command(&EPD->Buffer, 0x04);
-	Buffer_write_Data(&EPD->Buffer, VSH1);
-	Buffer_write_Data(&EPD->Buffer, VSH2);
-	Buffer_write_Data(&EPD->Buffer, VSL);
+	Buffer_write_Command(&EPD->BufferManagement, 0x04);
+	Buffer_write_Data(&EPD->BufferManagement, VSH1);
+	Buffer_write_Data(&EPD->BufferManagement, VSH2);
+	Buffer_write_Data(&EPD->BufferManagement, VSL);
 }
 
 /**
@@ -362,8 +362,8 @@ void setup_SourceDrivingVoltageControl(EPD_StructTd* EPD, uint8_t VSH1, uint8_t 
  */
 void activate_DeepSleepMode(EPD_StructTd* EPD, uint8_t type)
 {
-	Buffer_write_Command(&EPD->Buffer, 0x10);
-	Buffer_write_Data(&EPD->Buffer, type);
+	Buffer_write_Command(&EPD->BufferManagement, 0x10);
+	Buffer_write_Data(&EPD->BufferManagement, type);
 }
 
 /**
@@ -374,8 +374,8 @@ void activate_DeepSleepMode(EPD_StructTd* EPD, uint8_t type)
  */
 void setup_DataEntryMode(EPD_StructTd* EPD, uint8_t Setting)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x11);
-  Buffer_write_Data(&EPD->Buffer, Setting);  /* POR: 0x03 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x11);
+  Buffer_write_Data(&EPD->BufferManagement, Setting);  /* POR: 0x03 */
 }
 
 /**
@@ -386,7 +386,7 @@ void setup_DataEntryMode(EPD_StructTd* EPD, uint8_t Setting)
  */
 void reset_Software(EPD_StructTd* EPD)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x12);
+  Buffer_write_Command(&EPD->BufferManagement, 0x12);
 }
 
 /**
@@ -397,8 +397,8 @@ void reset_Software(EPD_StructTd* EPD)
  */
 void setup_TemperatureSensorControl(EPD_StructTd* EPD, uint8_t Sensor)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x18);
-  Buffer_write_Data(&EPD->Buffer, Sensor);  /* POR: 0x48 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x18);
+  Buffer_write_Data(&EPD->BufferManagement, Sensor);  /* POR: 0x48 */
 }
 
 /**
@@ -409,9 +409,9 @@ void setup_TemperatureSensorControl(EPD_StructTd* EPD, uint8_t Sensor)
  */
 void write_TemperatureRegister(EPD_StructTd* EPD, uint8_t MSB, uint8_t LSB)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x1A);
-  Buffer_write_Data(&EPD->Buffer, MSB);  /* POR: 0x7F*/
-  Buffer_write_Data(&EPD->Buffer, LSB);  /* POR: 0xF0*/
+  Buffer_write_Command(&EPD->BufferManagement, 0x1A);
+  Buffer_write_Data(&EPD->BufferManagement, MSB);  /* POR: 0x7F*/
+  Buffer_write_Data(&EPD->BufferManagement, LSB);  /* POR: 0xF0*/
 }
 
 /**
@@ -422,7 +422,7 @@ void write_TemperatureRegister(EPD_StructTd* EPD, uint8_t MSB, uint8_t LSB)
  */
 void activate_Master(EPD_StructTd* EPD)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x20);
+  Buffer_write_Command(&EPD->BufferManagement, 0x20);
 }
 
 /**
@@ -435,8 +435,8 @@ void activate_Master(EPD_StructTd* EPD)
  */
 void setup_DisplayUpdateControl2(EPD_StructTd* EPD, uint8_t Sequence)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x22);
-  Buffer_write_Data(&EPD->Buffer, Sequence);
+  Buffer_write_Command(&EPD->BufferManagement, 0x22);
+  Buffer_write_Data(&EPD->BufferManagement, Sequence);
 }
 
 /**
@@ -451,8 +451,8 @@ void setup_DisplayUpdateControl2(EPD_StructTd* EPD, uint8_t Sequence)
  */
 void write_BufferToRAM0x24(EPD_StructTd* EPD, uint8_t* Data, uint16_t Length)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x24);
-  Buffer_write_Frame(&EPD->Buffer, Data, Length);
+  Buffer_write_Command(&EPD->BufferManagement, 0x24);
+  Buffer_write_Frame(&EPD->BufferManagement, Data, Length);
 }
 
 /**
@@ -465,8 +465,8 @@ void write_BufferToRAM0x24(EPD_StructTd* EPD, uint8_t* Data, uint16_t Length)
  */
 void write_BufferToRAM0x26(EPD_StructTd* EPD, uint8_t* Data, uint16_t Length)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x26);
-  Buffer_write_Frame(&EPD->Buffer, Data, Length);
+  Buffer_write_Command(&EPD->BufferManagement, 0x26);
+  Buffer_write_Frame(&EPD->BufferManagement, Data, Length);
 }
 
 /**
@@ -478,8 +478,8 @@ void write_BufferToRAM0x26(EPD_StructTd* EPD, uint8_t* Data, uint16_t Length)
  */
 void write_VCOMRegister(EPD_StructTd* EPD, uint8_t value)
 {
-	Buffer_write_Command(&EPD->Buffer, 0x2C);
-	Buffer_write_Data(&EPD->Buffer, value);
+	Buffer_write_Command(&EPD->BufferManagement, 0x2C);
+	Buffer_write_Data(&EPD->BufferManagement, value);
 }
 
 /**
@@ -492,12 +492,12 @@ void write_VCOMRegister(EPD_StructTd* EPD, uint8_t value)
 void load_LUT(EPD_StructTd* EPD, uint8_t* lut)
 {
   uint8_t tmp_TxLUT[153];
-  Buffer_write_Command(&EPD->Buffer, 0x32);
+  Buffer_write_Command(&EPD->BufferManagement, 0x32);
   for(uint8_t i = 0; i < 153; i++)
   {
     tmp_TxLUT[i] = lut[i];
   }
-  Buffer_write_LUT(&EPD->Buffer, tmp_TxLUT, 153);
+  Buffer_write_LUT(&EPD->BufferManagement, tmp_TxLUT, 153);
 }
 
 /**
@@ -510,8 +510,8 @@ void load_LUT(EPD_StructTd* EPD, uint8_t* lut)
  */
 void setup_BorderWaveformControl(EPD_StructTd* EPD, uint8_t BorderWaveform)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x3C);
-  Buffer_write_Data(&EPD->Buffer, BorderWaveform);  /* POR: 0xC0 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x3C);
+  Buffer_write_Data(&EPD->BufferManagement, BorderWaveform);  /* POR: 0xC0 */
 }
 
 /**
@@ -523,8 +523,8 @@ void setup_BorderWaveformControl(EPD_StructTd* EPD, uint8_t BorderWaveform)
  */
 void set_EndOption(EPD_StructTd* EPD, uint8_t data)
 {
-	Buffer_write_Command(&EPD->Buffer, 0x3F);
-	Buffer_write_Data(&EPD->Buffer, data);
+	Buffer_write_Command(&EPD->BufferManagement, 0x3F);
+	Buffer_write_Data(&EPD->BufferManagement, data);
 }
 
 /**
@@ -536,9 +536,9 @@ void set_EndOption(EPD_StructTd* EPD, uint8_t data)
  */
 void setup_RamXAddressStartEnd(EPD_StructTd* EPD, uint8_t Start, uint8_t End)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x44);
-  Buffer_write_Data(&EPD->Buffer, Start); /* POR: 0x00 */
-  Buffer_write_Data(&EPD->Buffer, End);   /* POR: 0x15 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x44);
+  Buffer_write_Data(&EPD->BufferManagement, Start); /* POR: 0x00 */
+  Buffer_write_Data(&EPD->BufferManagement, End);   /* POR: 0x15 */
 }
 
 /**
@@ -552,11 +552,11 @@ void setup_RamXAddressStartEnd(EPD_StructTd* EPD, uint8_t Start, uint8_t End)
  */
 void setup_RamYAddressStartEnd(EPD_StructTd* EPD, uint8_t StartLSB, uint8_t StartMSB, uint8_t EndLSB, uint8_t EndMSB)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x45);
-  Buffer_write_Data(&EPD->Buffer, StartLSB);  /* POR: 0x00 */
-  Buffer_write_Data(&EPD->Buffer, StartMSB);  /* POR: 0x00 */
-  Buffer_write_Data(&EPD->Buffer, EndLSB);    /* POR: 0x27 */
-  Buffer_write_Data(&EPD->Buffer, EndMSB);    /* POR: 0x01 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x45);
+  Buffer_write_Data(&EPD->BufferManagement, StartLSB);  /* POR: 0x00 */
+  Buffer_write_Data(&EPD->BufferManagement, StartMSB);  /* POR: 0x00 */
+  Buffer_write_Data(&EPD->BufferManagement, EndLSB);    /* POR: 0x27 */
+  Buffer_write_Data(&EPD->BufferManagement, EndMSB);    /* POR: 0x01 */
 }
 
 /**
@@ -567,8 +567,8 @@ void setup_RamYAddressStartEnd(EPD_StructTd* EPD, uint8_t StartLSB, uint8_t Star
  */
 void setup_RamXAddressCounter(EPD_StructTd* EPD, uint8_t Value)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x4E);
-  Buffer_write_Data(&EPD->Buffer, Value); /* POR: 0x00 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x4E);
+  Buffer_write_Data(&EPD->BufferManagement, Value); /* POR: 0x00 */
 }
 
 /**
@@ -579,9 +579,9 @@ void setup_RamXAddressCounter(EPD_StructTd* EPD, uint8_t Value)
  */
 void setup_RamYAddressCounter(EPD_StructTd* EPD, uint8_t InitialSettingsLSB, uint8_t InitialSettingsMSB)
 {
-  Buffer_write_Command(&EPD->Buffer, 0x4F);
-  Buffer_write_Data(&EPD->Buffer, InitialSettingsLSB);  /* POR: 0x00 */
-  Buffer_write_Data(&EPD->Buffer, InitialSettingsMSB);  /* POR: 0x00 */
+  Buffer_write_Command(&EPD->BufferManagement, 0x4F);
+  Buffer_write_Data(&EPD->BufferManagement, InitialSettingsLSB);  /* POR: 0x00 */
+  Buffer_write_Data(&EPD->BufferManagement, InitialSettingsMSB);  /* POR: 0x00 */
 }
 
 /** @} ************************************************************************/
@@ -613,7 +613,7 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
 {
 	/** @internal			1.	Check if while loop is still valid: enter loop if Buffer
 	 * 										is not empty, otherwise leave function */
-  while(Buffer_get_DescriptorTypeNow(&EPD->Buffer) != BUFFER_EMPTY)
+  while(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) != BUFFER_EMPTY)
   {
   	/** @internal			*Transmission scheme:*
   	 * 								-	wait as long as EPD is busy
@@ -621,7 +621,7 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
   	 * 								- wait until SPI transmission is complete	*/
     /** @internal			2.	if scheduled buffer element is a Command: process
      * 										*Transmission scheme* for command */
-    if(Buffer_get_DescriptorTypeNow(&EPD->Buffer) == BUFFER_COMMAND)
+    if(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) == BUFFER_COMMAND)
     {
       wait_WhileBusy(EPD);
       transmit_Command(EPD);
@@ -629,7 +629,7 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
     }
     /** @internal			3.	if scheduled buffer element is data: process
      * 										*Transmission scheme* for data */
-    if(Buffer_get_DescriptorTypeNow(&EPD->Buffer) == BUFFER_DATA)
+    if(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) == BUFFER_DATA)
     {
       wait_WhileBusy(EPD);
       transmit_Data(EPD);
@@ -637,7 +637,7 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
     }
     /** @internal			4.	if scheduled buffer element is a frame: process
      * 										*Transmission scheme* for frame */
-    if(Buffer_get_DescriptorTypeNow(&EPD->Buffer) == BUFFER_FRAME)
+    if(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) == BUFFER_FRAME)
     {
       wait_WhileBusy(EPD);
       transmit_Frame(EPD);
@@ -645,7 +645,7 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
     }
     /** @internal			5.	if scheduled buffer element is a LUT: process
      * 										*Transmission scheme* for LUT */
-    if(Buffer_get_DescriptorTypeNow(&EPD->Buffer) == BUFFER_LUT)
+    if(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) == BUFFER_LUT)
     {
       wait_WhileBusy(EPD);
       transmit_LUT(EPD);
@@ -653,9 +653,9 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
     }
     /** @internal			2.	if nothing is buffered anymore: reset buffer
      * 										descriptor */
-    if(Buffer_get_DescriptorTypeNow(&EPD->Buffer) == BUFFER_EMPTY)
+    if(Buffer_get_DescriptorTypeNow(&EPD->BufferManagement) == BUFFER_EMPTY)
     {
-      Buffer_flush_Descriptor(&EPD->Buffer);
+      Buffer_flush_Descriptor(&EPD->BufferManagement);
     }
   }
 }
@@ -668,11 +668,11 @@ void transmit_BlockingSPI(EPD_StructTd* EPD)
 void transmit_Command(EPD_StructTd* EPD)
 {
   /** @internal			1.	Get start pointer of the buffered command */
-  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->Buffer, EPD->BufferLocal.Command);
+  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->BufferManagement, EPD->BufferLocal.Command);
   /** @internal			2.	Get length of the buffered commmand */
-  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->Buffer);
+  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->BufferManagement);
   /** @internal			3.	Count up buffer descriptor to the next item */
-  Buffer_countUp_SendDescriptorIndex(&EPD->Buffer);
+  Buffer_countUp_SendDescriptorIndex(&EPD->BufferManagement);
   /** @internal			4.	Transmit Command. Look at SPIDMA_transmit_Command() for
    * 										details. */
   SPIDMA_transmit_Command(&EPD->SPI, tmp_StartPointer, tmp_Length);
@@ -686,11 +686,11 @@ void transmit_Command(EPD_StructTd* EPD)
 void transmit_Data(EPD_StructTd* EPD)
 {
 	/** @internal			1.	Get start pointer of the buffered data */
-  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->Buffer, EPD->BufferLocal.Data);
+  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->BufferManagement, EPD->BufferLocal.Data);
   /** @internal			2.	Get length of the buffered data */
-  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->Buffer);
+  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->BufferManagement);
   /** @internal			3.	Count up buffer descriptor to the next item */
-  Buffer_countUp_SendDescriptorIndex(&EPD->Buffer);
+  Buffer_countUp_SendDescriptorIndex(&EPD->BufferManagement);
   /** @internal			4.	Transmit Data. Look at SPIDMA_transmit_Data() for
    * 										details. */
   SPIDMA_transmit_Data(&EPD->SPI, tmp_StartPointer, tmp_Length);
@@ -705,11 +705,11 @@ void transmit_Data(EPD_StructTd* EPD)
 void transmit_Frame(EPD_StructTd* EPD)
 {
 	/** @internal			1.	Get start pointer of the buffered frame */
-  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->Buffer, EPD->BufferLocal.Frame);
+  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->BufferManagement, EPD->BufferLocal.Frame);
   /** @internal			2.	Get length of the buffered frame */
-  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->Buffer);
+  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->BufferManagement);
   /** @internal			3.	Count up buffer descriptor to the next item */
-  Buffer_countUp_SendDescriptorIndex(&EPD->Buffer);
+  Buffer_countUp_SendDescriptorIndex(&EPD->BufferManagement);
   /** @internal			4.	Transmit frame. Look at SPIDMA_transmit_Data() for
    * 										details. */
   SPIDMA_transmit_Data(&EPD->SPI, tmp_StartPointer, tmp_Length);
@@ -726,11 +726,11 @@ void transmit_Frame(EPD_StructTd* EPD)
 void transmit_LUT(EPD_StructTd* EPD)
 {
 	/** @internal			1.	Get start pointer of the buffered LUT */
-  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->Buffer, EPD->BufferLocal.LUT);
+  uint8_t* tmp_StartPointer = Buffer_get_StartPointer(&EPD->BufferManagement, EPD->BufferLocal.LUT);
   /** @internal			2.	Get length of the buffered LUT */
-  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->Buffer);
+  uint16_t tmp_Length = Buffer_get_DescriptorNumBytesNow(&EPD->BufferManagement);
   /** @internal			3.	Count up buffer descriptor to the next item */
-  Buffer_countUp_SendDescriptorIndex(&EPD->Buffer);
+  Buffer_countUp_SendDescriptorIndex(&EPD->BufferManagement);
   /** @internal			4.	Transmit LUT. Look at SPIDMA_transmit_Data() for
    * 										details. */
   SPIDMA_transmit_Data(&EPD->SPI, tmp_StartPointer, tmp_Length);
@@ -832,7 +832,7 @@ void display_Full(EPD_StructTd* EPD)
 	setup_FullRefreshMode(EPD);
 	/** @internal			2.	Write buffered Frame to RAM 0x24 because we are in B/W
 	 * 										mode. */
-	write_BufferToRAM0x24(EPD, EPD->Buffer.Frame, (EPD->GUI.WidthBytes * EPD->GUI.Height));
+	write_BufferToRAM0x24(EPD, EPD->BufferManagement.Frame, (EPD->GUI.WidthBytes * EPD->GUI.Height));
 	/** @internal			3.	Setup Display Update Control 2 with 0xF7 */
   setup_DisplayUpdateControl2(EPD, 0xF7);
   /** @internal			4.	Activate EPD-Master [Command 0x20] to start the
@@ -851,7 +851,7 @@ void display_Part(EPD_StructTd* EPD)
 	setup_PartialRefreshMode(EPD);
 	/** @internal			2.	Write buffered Frame to RAM 0x24 because we are in B/W
 	 * 										mode. */
-	write_BufferToRAM0x24(EPD, EPD->Buffer.Frame, (EPD->GUI.WidthBytes * EPD->GUI.Height));
+	write_BufferToRAM0x24(EPD, EPD->BufferManagement.Frame, (EPD->GUI.WidthBytes * EPD->GUI.Height));
 	/** @internal			3.	Setup Display Update Control 2 with 0xC7 */
   setup_DisplayUpdateControl2(EPD, 0xCF);
   /** @internal			4.	Activate EPD-Master [Command 0x20] to start the

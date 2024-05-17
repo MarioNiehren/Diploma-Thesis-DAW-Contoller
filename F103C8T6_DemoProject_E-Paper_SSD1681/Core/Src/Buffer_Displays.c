@@ -10,26 +10,26 @@
 /***************************************************************************************************
  * BEGIN: Functions initialize.
  ***************************************************************************************************/
-void Buffer_init_Command(Buffer_TypeDef* Buffer, uint8_t* Command)
+void Buffer_init_Command(Buffer_StructTd* Buffer, uint8_t* Command)
 {
   Buffer->Command = Command;
 }
-void Buffer_init_Data(Buffer_TypeDef* Buffer, uint8_t* Data)
+void Buffer_init_Data(Buffer_StructTd* Buffer, uint8_t* Data)
 {
   Buffer->Data = Data;
 }
 
-void Buffer_init_Frame(Buffer_TypeDef* Buffer, uint8_t* Frame)
+void Buffer_init_Frame(Buffer_StructTd* Buffer, uint8_t* Frame)
 {
   Buffer->Frame = Frame;
 }
 
-void Buffer_init_LUT(Buffer_TypeDef* Buffer, uint8_t* LUT)
+void Buffer_init_LUT(Buffer_StructTd* Buffer, uint8_t* LUT)
 {
   Buffer->LUT = LUT;
 }
 
-void Buffer_init_Desctriptor(Buffer_TypeDef* Buffer, Buffer_Descriptor_TypeDef* Descriptor, uint8_t Length)
+void Buffer_init_Desctriptor(Buffer_StructTd* Buffer, Buffer_Descriptor_TypeDef* Descriptor, uint8_t Length)
 {
   Buffer->Descriptor = Descriptor;
   Buffer->LengthDescriptor = Length;
@@ -44,7 +44,7 @@ void Buffer_init_Desctriptor(Buffer_TypeDef* Buffer, Buffer_Descriptor_TypeDef* 
 /***************************************************************************************************
  * BEGIN: Functions to describe Buffer.
  ***************************************************************************************************/
-void Buffer_update_Descriptor(Buffer_TypeDef* Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type)
+void Buffer_update_Descriptor(Buffer_StructTd* Buffer, uint16_t NumBytes, uint32_t BufferPos, Buffer_Transmission_TypeDef Type)
 {
   Buffer->Descriptor[Buffer->DescriptorIndex].NumBytes = NumBytes;
   Buffer->Descriptor[Buffer->DescriptorIndex].Type = Type;
@@ -52,7 +52,7 @@ void Buffer_update_Descriptor(Buffer_TypeDef* Buffer, uint16_t NumBytes, uint32_
   Buffer->DescriptorIndex++;
 }
 
-void Buffer_flush_Descriptor(Buffer_TypeDef* Buffer)
+void Buffer_flush_Descriptor(Buffer_StructTd* Buffer)
 {
   for(uint8_t i = 0x00; i < Buffer->LengthDescriptor; i++)
   {
@@ -78,7 +78,7 @@ void Buffer_flush_Descriptor(Buffer_TypeDef* Buffer)
 /***************************************************************************************************
  * BEGIN: Functions to write to Buffer.
  ***************************************************************************************************/
-void Buffer_write_Frame(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size)
+void Buffer_write_Frame(Buffer_StructTd* Buffer, uint8_t* Data, uint32_t Size)
 {
   uint32_t tmp_BufferStartPos = Buffer->NumBytes.Frame;
   for(uint32_t i = 0; i < Size; i++)
@@ -90,7 +90,7 @@ void Buffer_write_Frame(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size)
   Buffer_update_Descriptor(Buffer, Size, tmp_BufferStartPos, BUFFER_FRAME);
 }
 
-void Buffer_write_LUT(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size)
+void Buffer_write_LUT(Buffer_StructTd* Buffer, uint8_t* Data, uint32_t Size)
 {
   uint32_t tmp_BufferStartPos = Buffer->NumBytes.LUT;
   for(uint32_t i = 0; i < Size; i++)
@@ -102,7 +102,7 @@ void Buffer_write_LUT(Buffer_TypeDef* Buffer, uint8_t* Data, uint32_t Size)
   Buffer_update_Descriptor(Buffer, Size, tmp_BufferStartPos, BUFFER_LUT);
 }
 
-void Buffer_write_Data(Buffer_TypeDef* Buffer, uint8_t Data)
+void Buffer_write_Data(Buffer_StructTd* Buffer, uint8_t Data)
 {
   uint32_t tmp_BufferStartPos = Buffer->NumBytes.Data;
   Buffer->Data[Buffer->NumBytes.Data] = Data;
@@ -111,7 +111,7 @@ void Buffer_write_Data(Buffer_TypeDef* Buffer, uint8_t Data)
   Buffer_update_Descriptor(Buffer, 1, tmp_BufferStartPos, BUFFER_DATA);
 }
 
-void Buffer_write_Command(Buffer_TypeDef* Buffer, uint8_t Command)
+void Buffer_write_Command(Buffer_StructTd* Buffer, uint8_t Command)
 {
   uint32_t tmp_BufferStartPos = Buffer->NumBytes.Command;
   Buffer->Command[Buffer->NumBytes.Command] = Command;
@@ -129,7 +129,7 @@ void Buffer_write_Command(Buffer_TypeDef* Buffer, uint8_t Command)
 /***************************************************************************************************
  * BEGIN: Functions to update Values.
  ***************************************************************************************************/
-void Buffer_countUp_SendDescriptorIndex(Buffer_TypeDef* Buffer)
+void Buffer_countUp_SendDescriptorIndex(Buffer_StructTd* Buffer)
 {
   Buffer->SendDescriptorIndex++;
 }
@@ -143,22 +143,22 @@ void Buffer_countUp_SendDescriptorIndex(Buffer_TypeDef* Buffer)
 /***************************************************************************************************
  * BEGIN: Functions get informations about Buffer.
  ***************************************************************************************************/
-Buffer_Transmission_TypeDef Buffer_get_DescriptorTypeNow(Buffer_TypeDef* Buffer)
+Buffer_Transmission_TypeDef Buffer_get_DescriptorTypeNow(Buffer_StructTd* Buffer)
 {
   return Buffer->Descriptor[Buffer->SendDescriptorIndex].Type;
 }
 
-uint16_t Buffer_get_DescriptorNumBytesNow(Buffer_TypeDef* Buffer)
+uint16_t Buffer_get_DescriptorNumBytesNow(Buffer_StructTd* Buffer)
 {
   return Buffer->Descriptor[Buffer->SendDescriptorIndex].NumBytes;
 }
 
-uint16_t Buffer_get_DescriptorStartPositionNow(Buffer_TypeDef* Buffer)
+uint16_t Buffer_get_DescriptorStartPositionNow(Buffer_StructTd* Buffer)
 {
   return Buffer->Descriptor[Buffer->SendDescriptorIndex].BufferStartPos;
 }
 
-uint8_t* Buffer_get_StartPointer(Buffer_TypeDef* Buffer, uint8_t* BufferLocal)
+uint8_t* Buffer_get_StartPointer(Buffer_StructTd* Buffer, uint8_t* BufferLocal)
 {
   uint16_t tmp_StartPos = Buffer_get_DescriptorStartPositionNow(Buffer);
   return &BufferLocal[tmp_StartPos];

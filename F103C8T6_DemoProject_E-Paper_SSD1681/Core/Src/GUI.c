@@ -10,7 +10,7 @@
 /***************************************************************************************************
  * BEGIN: Functions to initialize GUI.
  ***************************************************************************************************/
-void GUI_init_Size(GUI_TypeDef* GUI, uint16_t Width, uint16_t Height)
+void GUI_init_Size(GUI_StructTd* GUI, uint16_t Width, uint16_t Height)
 {
   GUI->Width = Width;
   GUI->Height = Height;
@@ -20,12 +20,12 @@ void GUI_init_Size(GUI_TypeDef* GUI, uint16_t Width, uint16_t Height)
   GUI->Line.Width = 0x01;
 }
 
-void GUI_init_Buffer(GUI_TypeDef* GUI, uint8_t* Buffer)
+void GUI_init_Buffer(GUI_StructTd* GUI, uint8_t* Buffer)
 {
   GUI->Buffer = Buffer;
 }
 
-void GUI_init(GUI_TypeDef* GUI)
+void GUI_init(GUI_StructTd* GUI)
 {
   GUI->Invert = GUI_NO_INVERT;
 }
@@ -41,36 +41,36 @@ void GUI_init(GUI_TypeDef* GUI)
  * BEGIN: Functions to set struct characteristics.
  ***************************************************************************************************/
 /* Functions to set characteristics for individual pixels */
-void GUI_set_PixelStateToDraw(GUI_TypeDef* GUI, GUI_PixelState_TypeDef PixelState)
+void GUI_set_PixelStateToDraw(GUI_StructTd* GUI, GUI_PixelState_TypeDef PixelState)
 {
   GUI->PixelState = PixelState;
 }
 
 /* Functions to set characteristics for drawing lines */
-void GUI_set_LineWidth(GUI_TypeDef* GUI, uint8_t Width)
+void GUI_set_LineWidth(GUI_StructTd* GUI, uint8_t Width)
 {
   GUI->Line.Width = Width;
 }
 
-void GUI_set_LineDirection(GUI_TypeDef* GUI, GUI_Direction_TypeDef Direction)
+void GUI_set_LineDirection(GUI_StructTd* GUI, GUI_Direction_TypeDef Direction)
 {
   GUI->Line.Direction = Direction;
 }
 
 /* Functions to navigate in Buffer */
-void GUI_set_StartPoint(GUI_TypeDef* GUI, uint16_t X, uint16_t Y)
+void GUI_set_StartPoint(GUI_StructTd* GUI, uint16_t X, uint16_t Y)
 {
   GUI->Start.X = X;
   GUI->Start.Y = Y;
   GUI->PositionResetRequest = true;
 }
 
-void GUI_set_Invert(GUI_TypeDef* GUI, GUI_Invert_TypeDef Invert)
+void GUI_set_Invert(GUI_StructTd* GUI, GUI_Invert_TypeDef Invert)
 {
   GUI->Invert = Invert;
 }
 
-void GUI_set_Font(GUI_TypeDef* GUI, Fonts_TypeDef Font)
+void GUI_set_Font(GUI_StructTd* GUI, Fonts_TypeDef Font)
 {
   GUI->Font = Font;
 }
@@ -84,7 +84,7 @@ void GUI_set_Font(GUI_TypeDef* GUI, Fonts_TypeDef Font)
 /***************************************************************************************************
  * BEGIN: Functions to design GUI.
  ***************************************************************************************************/
-void GUI_draw_Pixel(GUI_TypeDef* GUI, uint16_t X, uint16_t Y)
+void GUI_draw_Pixel(GUI_StructTd* GUI, uint16_t X, uint16_t Y)
 {
   if(GUI->PixelState == GUI_PIXEL_SET)
   {
@@ -96,7 +96,7 @@ void GUI_draw_Pixel(GUI_TypeDef* GUI, uint16_t X, uint16_t Y)
   }
 }
 
-void GUI_draw_Line(GUI_TypeDef* GUI,  uint16_t X, uint16_t Y, uint16_t Length)
+void GUI_draw_Line(GUI_StructTd* GUI,  uint16_t X, uint16_t Y, uint16_t Length)
 {
   if(GUI->Line.Direction == GUI_HORIZONTAL)
   {
@@ -123,7 +123,7 @@ void GUI_draw_Line(GUI_TypeDef* GUI,  uint16_t X, uint16_t Y, uint16_t Length)
 }
 
 
-void GUI_draw_Rectangle(GUI_TypeDef* GUI, uint8_t Width, uint8_t Height)
+void GUI_draw_Rectangle(GUI_StructTd* GUI, uint8_t Width, uint8_t Height)
 {
   /* Top line */
   GUI_set_LineDirection(GUI, GUI_HORIZONTAL);
@@ -175,14 +175,14 @@ void GUI_draw_Rectangle(GUI_TypeDef* GUI, uint8_t Width, uint8_t Height)
  */
 
 /* Prototypes */
-GUI_PixelState_TypeDef get_PixelStateDraw(GUI_TypeDef* GUI);
-GUI_PixelState_TypeDef get_PixelStateErase(GUI_TypeDef* GUI);
-uint8_t get_CurrentWidth(GUI_TypeDef* GUI, uint32_t IndexNow);
-uint32_t get_CurrentBitmapIndex(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t IndexNow);
-uint32_t get_CurrentDoubleWord(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t IndexNow, uint32_t IndexOffset);
-uint32_t get_CurrentMSBCompare(GUI_TypeDef* GUI, uint8_t WidthNow);
+GUI_PixelState_TypeDef get_PixelStateDraw(GUI_StructTd* GUI);
+GUI_PixelState_TypeDef get_PixelStateErase(GUI_StructTd* GUI);
+uint8_t get_CurrentWidth(GUI_StructTd* GUI, uint32_t IndexNow);
+uint32_t get_CurrentBitmapIndex(GUI_StructTd* GUI, uint8_t WidthNow, uint32_t IndexNow);
+uint32_t get_CurrentDoubleWord(GUI_StructTd* GUI, uint8_t WidthNow, uint32_t IndexNow, uint32_t IndexOffset);
+uint32_t get_CurrentMSBCompare(GUI_StructTd* GUI, uint8_t WidthNow);
 
-void write_ASCII(GUI_TypeDef* GUI, uint8_t Sign, int8_t OffsetASCII)
+void write_ASCII(GUI_StructTd* GUI, uint8_t Sign, int8_t OffsetASCII)
 {
 	if(GUI->PositionResetRequest == true)
 	{
@@ -223,7 +223,7 @@ void write_ASCII(GUI_TypeDef* GUI, uint8_t Sign, int8_t OffsetASCII)
   GUI->PositionNow.X += tmp_WidthNow - 1;
 }
 
-GUI_PixelState_TypeDef get_PixelStateDraw(GUI_TypeDef* GUI)
+GUI_PixelState_TypeDef get_PixelStateDraw(GUI_StructTd* GUI)
 {
   GUI_PixelState_TypeDef tmp_PixelStateDraw;
   if(GUI->PixelState == GUI_PIXEL_SET)
@@ -237,7 +237,7 @@ GUI_PixelState_TypeDef get_PixelStateDraw(GUI_TypeDef* GUI)
   return tmp_PixelStateDraw;
 }
 
-GUI_PixelState_TypeDef get_PixelStateErase(GUI_TypeDef* GUI)
+GUI_PixelState_TypeDef get_PixelStateErase(GUI_StructTd* GUI)
 {
   GUI_PixelState_TypeDef tmp_PixelStateErase;
   if(GUI->PixelState == GUI_PIXEL_SET)
@@ -252,7 +252,7 @@ GUI_PixelState_TypeDef get_PixelStateErase(GUI_TypeDef* GUI)
 }
 
 
-uint8_t get_CurrentWidth(GUI_TypeDef* GUI, uint32_t IndexNow)
+uint8_t get_CurrentWidth(GUI_StructTd* GUI, uint32_t IndexNow)
 {
   uint8_t tmp_CurrentWidth = 0x00;
   if(GUI->Font.Widthtype == FONTS_VARIABLE_WIDTH)
@@ -266,7 +266,7 @@ uint8_t get_CurrentWidth(GUI_TypeDef* GUI, uint32_t IndexNow)
   return tmp_CurrentWidth;
 }
 
-uint32_t get_CurrentBitmapIndex(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t IndexNow)
+uint32_t get_CurrentBitmapIndex(GUI_StructTd* GUI, uint8_t WidthNow, uint32_t IndexNow)
 {
   uint32_t tmp_BitmapIndex = 0x00;
   if(GUI->Font.Widthtype == FONTS_VARIABLE_WIDTH)
@@ -291,7 +291,7 @@ uint32_t get_CurrentBitmapIndex(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t Ind
   return tmp_BitmapIndex;
 }
 
-uint32_t get_CurrentDoubleWord(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t IndexNow, uint32_t IndexOffset)
+uint32_t get_CurrentDoubleWord(GUI_StructTd* GUI, uint8_t WidthNow, uint32_t IndexNow, uint32_t IndexOffset)
 {
   uint32_t tmp_CurrentDoubleWord = 0x0000;
   if(WidthNow < 8)
@@ -314,7 +314,7 @@ uint32_t get_CurrentDoubleWord(GUI_TypeDef* GUI, uint8_t WidthNow, uint32_t Inde
   return tmp_CurrentDoubleWord;
 }
 
-uint32_t get_CurrentMSBCompare(GUI_TypeDef* GUI, uint8_t WidthNow)
+uint32_t get_CurrentMSBCompare(GUI_StructTd* GUI, uint8_t WidthNow)
 {
   uint32_t tmp_CurrentMSBCompare = 0x0000;
   if(WidthNow < 8)
@@ -339,13 +339,13 @@ uint32_t get_CurrentMSBCompare(GUI_TypeDef* GUI, uint8_t WidthNow)
 
 
 
-void GUI_write_Character(GUI_TypeDef* GUI, char chr)
+void GUI_write_Character(GUI_StructTd* GUI, char chr)
 {
   int8_t tmp_OffsetASCII = -32;
   write_ASCII(GUI, chr, tmp_OffsetASCII);
 }
 
-void GUI_write_Digit(GUI_TypeDef* GUI, Fonts_TypeDef Font, uint8_t Digit)
+void GUI_write_Digit(GUI_StructTd* GUI, Fonts_TypeDef Font, uint8_t Digit)
 {
   int8_t tmp_OffsetASCII = 16;
   write_ASCII(GUI, Digit, tmp_OffsetASCII);
@@ -362,14 +362,14 @@ typedef struct
 }WriteStringDescriptor_TypeDef;
 
 /* Prototypes */
-void analyze_String(GUI_TypeDef* GUI, char* str, uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor);
-bool check_XPxLimitReached(GUI_TypeDef* GUI);
-bool check_YPxLimitReached(GUI_TypeDef* GUI);
-void autoset_CoordinatesForStartPoint(GUI_TypeDef* GUI);
-void autoset_CoordinatesForNewLine(GUI_TypeDef* GUI);
-void write_CharacterToTheRightPosition(GUI_TypeDef* GUI, char* str,  uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor);
+void analyze_String(GUI_StructTd* GUI, char* str, uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor);
+bool check_XPxLimitReached(GUI_StructTd* GUI);
+bool check_YPxLimitReached(GUI_StructTd* GUI);
+void autoset_CoordinatesForStartPoint(GUI_StructTd* GUI);
+void autoset_CoordinatesForNewLine(GUI_StructTd* GUI);
+void write_CharacterToTheRightPosition(GUI_StructTd* GUI, char* str,  uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor);
 
-void GUI_write_String(GUI_TypeDef* GUI, char* str, uint32_t Length)
+void GUI_write_String(GUI_StructTd* GUI, char* str, uint32_t Length)
 {
   WriteStringDescriptor_TypeDef StringDescriptor[Length];
   analyze_String(GUI, str, Length, StringDescriptor);
@@ -378,7 +378,7 @@ void GUI_write_String(GUI_TypeDef* GUI, char* str, uint32_t Length)
   write_CharacterToTheRightPosition(GUI, str,  Length, StringDescriptor);
 }
 
-void analyze_String(GUI_TypeDef* GUI, char* str, uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor)
+void analyze_String(GUI_StructTd* GUI, char* str, uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor)
 {
   uint32_t LengthCount = 0x00;
   uint16_t ElementCnt = 0x00;
@@ -442,7 +442,7 @@ void analyze_String(GUI_TypeDef* GUI, char* str, uint32_t Length, WriteStringDes
   }
 }
 
-void write_CharacterToTheRightPosition(GUI_TypeDef* GUI, char* str,  uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor)
+void write_CharacterToTheRightPosition(GUI_StructTd* GUI, char* str,  uint32_t Length, WriteStringDescriptor_TypeDef* Descriptor)
 {
   uint16_t CharCount = 0x00;
   uint16_t ElementCount = 0x00;
@@ -517,7 +517,7 @@ void write_CharacterToTheRightPosition(GUI_TypeDef* GUI, char* str,  uint32_t Le
   }
 #endif
 }
-bool check_XPxLimitReached(GUI_TypeDef* GUI)
+bool check_XPxLimitReached(GUI_StructTd* GUI)
 {
   bool limitReached = false;
   if(GUI->PositionNow.X >= GUI->Width - GUI->Start.X + 1 - 8)
@@ -526,7 +526,7 @@ bool check_XPxLimitReached(GUI_TypeDef* GUI)
   }
   return limitReached;
 }
-bool check_YPxLimitReached(GUI_TypeDef* GUI)
+bool check_YPxLimitReached(GUI_StructTd* GUI)
 {
   bool limitReached = false;
   if((GUI->PositionNow.Y + GUI->Font.Height) > (GUI->Height - GUI->Start.Y))
@@ -536,13 +536,13 @@ bool check_YPxLimitReached(GUI_TypeDef* GUI)
   return limitReached;
 }
 
-void autoset_CoordinatesForStartPoint(GUI_TypeDef* GUI)
+void autoset_CoordinatesForStartPoint(GUI_StructTd* GUI)
 {
   GUI->PositionNow.X = GUI->Start.X;
   GUI->PositionNow.Y = GUI->Start.Y;
 }
 
-void autoset_CoordinatesForNewLine(GUI_TypeDef* GUI)
+void autoset_CoordinatesForNewLine(GUI_StructTd* GUI)
 {
   GUI->PositionNow.X = GUI->Start.X;
   GUI->PositionNow.Y = GUI->PositionNow.Y + GUI->Font.Height;
@@ -551,7 +551,7 @@ void autoset_CoordinatesForNewLine(GUI_TypeDef* GUI)
 
 
 
-void GUI_write_Number(GUI_TypeDef* GUI, uint32_t Number)
+void GUI_write_Number(GUI_StructTd* GUI, uint32_t Number)
 {
   uint8_t tmp_Digit[10];
   uint8_t tmp_DigitCounter = 0x00;
@@ -569,7 +569,7 @@ void GUI_write_Number(GUI_TypeDef* GUI, uint32_t Number)
   }
 }
 
-void GUI_draw_Bitmap(GUI_TypeDef* GUI, uint8_t* Bitmap, uint16_t Width, uint16_t Height)
+void GUI_draw_Bitmap(GUI_StructTd* GUI, uint8_t* Bitmap, uint16_t Width, uint16_t Height)
 {
   uint16_t tmp_BytesWidth = (Width % 8 == 0) ? (Width / 8) : (Width / 8 + 1);
   uint32_t tmp_BitmapIndex = 0x0000;
@@ -591,7 +591,7 @@ void GUI_draw_Bitmap(GUI_TypeDef* GUI, uint8_t* Bitmap, uint16_t Width, uint16_t
   }
 }
 
-void GUI_clear(GUI_TypeDef* GUI)
+void GUI_clear(GUI_StructTd* GUI)
 {
   uint32_t tmp_FrameIndex = 0x0000;
 
@@ -628,11 +628,11 @@ void GUI_clear(GUI_TypeDef* GUI)
 /***************************************************************************************************
  * BEGIN: Functions get information about GUI.
  ***************************************************************************************************/
-uint16_t GUI_get_StartPositionX(GUI_TypeDef* GUI)
+uint16_t GUI_get_StartPositionX(GUI_StructTd* GUI)
 {
   return GUI->Start.X;
 }
-uint16_t GUI_get_StartPositionY(GUI_TypeDef* GUI)
+uint16_t GUI_get_StartPositionY(GUI_StructTd* GUI)
 {
   return GUI->Start.Y;
 }
@@ -653,7 +653,7 @@ uint16_t limit_CoordinateOnFrameBorderMin(uint16_t Coordinate)
   return returnValue;
 }
 
-uint16_t GUI_limit_XOnFrameBorders(GUI_TypeDef* GUI, uint16_t X)
+uint16_t GUI_limit_XOnFrameBorders(GUI_StructTd* GUI, uint16_t X)
 {
   uint16_t tmp_LimitMax = GUI->Width - 1;
   uint16_t tmp_Xnow = limit_CoordinateOnFrameBorderMin(X);
@@ -663,7 +663,7 @@ uint16_t GUI_limit_XOnFrameBorders(GUI_TypeDef* GUI, uint16_t X)
   return tmp_Xnow;
 }
 
-uint16_t GUI_limit_YOnFrameBorders(GUI_TypeDef* GUI, uint16_t Y)
+uint16_t GUI_limit_YOnFrameBorders(GUI_StructTd* GUI, uint16_t Y)
 {
   uint16_t tmp_LimitMax = GUI->Height - 1;
   uint16_t tmp_Xnow = limit_CoordinateOnFrameBorderMin(Y);
@@ -687,7 +687,7 @@ uint16_t limit_LengthInFrameBorderMax(uint16_t LimitedCoordinate, uint16_t Lengt
   return returnValue;
 }
 
-uint16_t GUI_limit_WidthOnFrameBorders(GUI_TypeDef* GUI, uint16_t X, uint16_t Width)
+uint16_t GUI_limit_WidthOnFrameBorders(GUI_StructTd* GUI, uint16_t X, uint16_t Width)
 {
   uint16_t tmp_XNow = GUI_limit_XOnFrameBorders(GUI, X);
   uint16_t tmp_WidthNow = limit_LengthOnFrameBorderMin(X, Width);
@@ -695,7 +695,7 @@ uint16_t GUI_limit_WidthOnFrameBorders(GUI_TypeDef* GUI, uint16_t X, uint16_t Wi
   return tmp_WidthNow;
 }
 
-uint16_t GUI_limit_HeightOnFrameBorders(GUI_TypeDef* GUI, uint16_t Y, uint16_t Height)
+uint16_t GUI_limit_HeightOnFrameBorders(GUI_StructTd* GUI, uint16_t Y, uint16_t Height)
 {
   uint16_t tmp_YNow = GUI_limit_YOnFrameBorders(GUI, Y);
   uint16_t tmp_HeightNow = limit_LengthOnFrameBorderMin(Y, Height);

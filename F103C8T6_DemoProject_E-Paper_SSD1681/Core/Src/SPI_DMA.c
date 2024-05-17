@@ -14,7 +14,7 @@
  * @{
  ******************************************************************************/
 
-void SPIDMA_init_PinDC(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState CommandState)
+void SPIDMA_init_PinDC(SPIDMA_StructTd* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState CommandState)
 {
 	/** @internal		1.	Save DC Port to SPI structure */
   SPI->Pins.GPIO_DC = Port;
@@ -37,7 +37,7 @@ void SPIDMA_init_PinDC(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GP
   HAL_GPIO_WritePin(SPI->Pins.GPIO_DC, SPI->Pins.PIN_DC, SPI->Pins.DataState_DC);
 }
 
-void SPIDMA_init_PinCS(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState ActiveState)
+void SPIDMA_init_PinCS(SPIDMA_StructTd* SPI, GPIO_TypeDef* Port, uint16_t Pin, GPIO_PinState ActiveState)
 {
 	/** @internal		1.	Save CS Port to SPI structure */
   SPI->Pins.GPIO_CS = Port;
@@ -60,7 +60,7 @@ void SPIDMA_init_PinCS(SPIDMA_TypeDef* SPI, GPIO_TypeDef* Port, uint16_t Pin, GP
   HAL_GPIO_WritePin(SPI->Pins.GPIO_CS, SPI->Pins.PIN_CS, SPI->Pins.Inactive_CS);
 }
 
-void SPIDMA_init_SPIHandle(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi)
+void SPIDMA_init_SPIHandle(SPIDMA_StructTd* SPI, SPI_HandleTypeDef* hspi)
 {
 	/** @internal		1. Store HAL hspi pointer to the users SPI structure. */
   SPI->hspi = hspi;
@@ -76,7 +76,7 @@ void SPIDMA_init_SPIHandle(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi)
  * @{
  ******************************************************************************/
 
-void SPIDMA_transmit_Command(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length)
+void SPIDMA_transmit_Command(SPIDMA_StructTd* SPI, uint8_t* Data, uint16_t Length)
 {
 	/** @internal			1.	Set CS-Pin to active state */
   HAL_GPIO_WritePin(SPI->Pins.GPIO_CS, SPI->Pins.PIN_CS, SPI->Pins.Active_CS);
@@ -88,7 +88,7 @@ void SPIDMA_transmit_Command(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length
   HAL_SPI_Transmit_DMA(SPI->hspi, Data, Length);
 }
 
-void SPIDMA_transmit_Data(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length)
+void SPIDMA_transmit_Data(SPIDMA_StructTd* SPI, uint8_t* Data, uint16_t Length)
 {
 	/** @internal			1.	Set CS-Pin to active state */
   HAL_GPIO_WritePin(SPI->Pins.GPIO_CS, SPI->Pins.PIN_CS, SPI->Pins.Active_CS);
@@ -100,7 +100,7 @@ void SPIDMA_transmit_Data(SPIDMA_TypeDef* SPI, uint8_t* Data, uint16_t Length)
   HAL_SPI_Transmit_DMA(SPI->hspi, Data, Length);
 }
 
-void SPIDMA_wait_WhileTransmitting(SPIDMA_TypeDef* SPI)
+void SPIDMA_wait_WhileTransmitting(SPIDMA_StructTd* SPI)
 {
 	/** @internal			1.	Stay in while loop until SPI is not busy anymore */
   while(SPI->Busy == true)
@@ -119,7 +119,7 @@ void SPIDMA_wait_WhileTransmitting(SPIDMA_TypeDef* SPI)
  * @{
  ******************************************************************************/
 
-void SPIDMA_manage_Interrupt(SPIDMA_TypeDef* SPI, SPI_HandleTypeDef* hspi)
+void SPIDMA_manage_Interrupt(SPIDMA_StructTd* SPI, SPI_HandleTypeDef* hspi)
 {
 	/** @internal			1.	Check if interrupted HAL-SPI handle is valid. Leave function if not. */
   if(hspi->Instance == SPI->hspi->Instance)
