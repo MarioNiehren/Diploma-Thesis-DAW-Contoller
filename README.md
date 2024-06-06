@@ -44,3 +44,10 @@ and open index.html inside this folder with any browser.
     <td>STM32L053R8T6 (Nucleo Board)</td>
   </tr>
 </table> 
+
+| TABLE  | NUMBER | RELATIONSHIPS |
+| ------ | ------ | ------------- |
+| TABLEA | NUM001 | TABLE2        | 
+|        |        | TABLE4        |
+|        |        | TABLE7        |
+| TABLEB | NUM002 | TABLEA        |
