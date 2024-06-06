@@ -12,7 +12,7 @@ develop a custom DAW-Controller.
 | [Motorized Fader](L053R8T6_DemoProject_MotorizedFader)| Setup a and use a Motorized fader with:			| STM32L053R8T6 (Nucleo Board)		|
 														| TB6612FNG Motor Driver, 							|
 														| ADC, 												|
-| [Motorized Fader](L053R8T6_DemoProject_MotorizedFader)| Setup a and use a Motorized fader with:			| STM32L053R8T6 (Nucleo Board)		|
+| [Motorized Fader](L053R8T6_DemoProject_MotorizedFader)| Setup a and use a Motorized fader with: <ul><li>ADC using DMA</li><li>TB6612FNG motor driver with interrupt based PWM</li><li>PID with anti wind up and low pass for the D Term</li><li>Touch Sensor using STM32 TSC Control (no STM middleware used here.)</li></ul> 			| STM32L053R8T6 (Nucleo Board)		|
 
 ## Documentation
 To read the Doxygen documentation, please copy the [Doxygen HTML-folder](Doxygen/HTML/html) to your local system 
