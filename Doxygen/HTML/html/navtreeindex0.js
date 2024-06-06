@@ -154,12 +154,14 @@ var NAVTREEINDEX0 =
 "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2main_8c.html#a1730ffe1e560465665eb47d9264826f9":[4,0,2,0,1,3,0],
 "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2main_8c.html#a70af21c671abfcc773614a9a4f63d920":[4,0,2,0,1,3,2],
 "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[4,0,2,0,1,3,1],
-"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2syscalls_8c.html":[4,0,2,0,1,6],
-"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2sysmem_8c.html":[4,0,2,0,1,7],
-"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2sysmem_8c.html#a68125648bcce70b6bb3aa0be50e99700":[4,0,2,0,1,7,0],
-"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2timer_8c.html":[4,0,2,0,1,10],
+"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2syscalls_8c.html":[4,0,2,0,1,7],
+"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2sysmem_8c.html":[4,0,2,0,1,8],
+"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2sysmem_8c.html#a68125648bcce70b6bb3aa0be50e99700":[4,0,2,0,1,8,0],
+"_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2timer_8c.html":[4,0,2,0,1,12],
 "_s_p_i___d_m_a_8c.html":[4,0,1,0,1,2],
 "_s_p_i___d_m_a_8h.html":[2,0,1,2,0],
+"_t_b6612_f_n_g___motor_driver_8c.html":[2,3,2,1,0],
+"_t_b6612_f_n_g___motor_driver_8h.html":[2,3,2,0,0],
 "adc_8c.html":[4,0,2,0,1,0],
 "adc_8c.html#a3f61f2c2af0f122f81a87af8ad7b4360":[4,0,2,0,1,0,0],
 "adc_8c.html#ac3139540667c403c5dfd37a99c610b1c":[4,0,2,0,1,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "group___button_matrix___header.html#ga2a68885cfffb8cb7eab4379babc304be":[2,1,0,5],
 "group___button_matrix___header.html#ga73586ffd3cbe74e3e72be5cf7319b025":[2,1,0,11],
 "group___button_matrix___header.html#ga7953036b1213ed5b2b8786b0c882aa00":[2,1,0,7],
-"group___button_matrix___header.html#ga8c2b7efdf8441aa8bfebf94a2b2617e1":[2,1,0,16],
-"group___button_matrix___header.html#ga8d942643ced3dc7027779617a3b42f8c":[2,1,0,18],
-"group___button_matrix___header.html#gaa0f14192ec546f89d5abbdeeead55255":[2,1,0,17]
+"group___button_matrix___header.html#ga8c2b7efdf8441aa8bfebf94a2b2617e1":[2,1,0,16]
 };

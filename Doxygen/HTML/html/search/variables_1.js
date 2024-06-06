@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['bufferdma_0',['BufferDMA',['../struct_wiper__struct_td.html#a9fc1a8506b3cc5ec414ffd4b381f0b76',1,'Wiper_structTd']]],
+  ['bufferdma_0',['BufferDMA',['../struct_wiper___a_d_cdescriptor__struct_td.html#a33c026ef3464e6be89f6c8ac0f24f2f0',1,'Wiper_ADCdescriptor_structTd']]],
   ['buttonmatrix_1',['ButtonMatrix',['../group___main_demo.html#gae4dd43c7d2e3306636db525e3249b1a5',1,'main.c']]],
   ['buttonmute_2',['ButtonMute',['../group___main_demo.html#gab81b83d3044c43c149d1dce61d629376',1,'main.c']]],
   ['buttonselect_3',['ButtonSelect',['../group___main_demo.html#ga82467c302c500e0f24f6440de32d74be',1,'main.c']]],

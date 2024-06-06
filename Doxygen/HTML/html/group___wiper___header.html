@@ -116,8 +116,16 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:gaefaa9e5288b9ef7da21f894a38dcfbb5" id="r_gaefaa9e5288b9ef7da21f894a38dcfbb5"><td class="memItemLeft" align="right" valign="top"><a id="gaefaa9e5288b9ef7da21f894a38dcfbb5" name="gaefaa9e5288b9ef7da21f894a38dcfbb5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_ALL_ADC_CHANNELS</b>&#160;&#160;&#160;19</td></tr>
+<tr class="memdesc:gaefaa9e5288b9ef7da21f894a38dcfbb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of available ADC channels of the MCU. Change this value if the used MCU offers more channels. <br /></td></tr>
+<tr class="separator:gaefaa9e5288b9ef7da21f894a38dcfbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3c114292578f2c874fc0a04494864940" id="r_ga3c114292578f2c874fc0a04494864940"><td class="memItemLeft" align="right" valign="top"><a id="ga3c114292578f2c874fc0a04494864940" name="ga3c114292578f2c874fc0a04494864940"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_ALL_ADC_ON_MCU</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga3c114292578f2c874fc0a04494864940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of available ADCs (not ADC channels!) <br /></td></tr>
+<tr class="separator:ga3c114292578f2c874fc0a04494864940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3992a43fac1d452edf605ff497a25030" id="r_ga3992a43fac1d452edf605ff497a25030"><td class="memItemLeft" align="right" valign="top"><a id="ga3992a43fac1d452edf605ff497a25030" name="ga3992a43fac1d452edf605ff497a25030"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUMBER_OF_SAMPLES</b>&#160;&#160;&#160;100</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUMBER_OF_SAMPLES</b>&#160;&#160;&#160;150</td></tr>
 <tr class="memdesc:ga3992a43fac1d452edf605ff497a25030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define for the number of sampled values. If the smooth value is not clean enough, increase this number. Be careful that the ADC does not get to slow by using to many samples. <br /></td></tr>
 <tr class="separator:ga3992a43fac1d452edf605ff497a25030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -138,18 +146,48 @@ typedef struct Wiper_structTd&#160;</td><td class="memItemRight" valign="bottom"
 <tr class="memdesc:ga6ea4077964bf0c78ed5cb2e918fe07e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set hysteresis settings to default.  <br /></td></tr>
 <tr class="separator:ga6ea4077964bf0c78ed5cb2e918fe07e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Calibrate</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Use this function to calibrate the wiper</p>
+<dl class="section note"><dt>Note</dt><dd>These functions are not essential, but may be helpful to improve the performance. </dd></dl>
+<h1><a class="anchor" id="autotoc_md27"></a>
+How to calibrate:</h1>
+<h2><a class="anchor" id="autotoc_md28"></a>
+Hardware (if possible):</h2>
+<ul>
+<li>make sure that the ADC is working with a clean Vref </li>
+</ul>
+<h2><a class="anchor" id="autotoc_md29"></a>
+Software:</h2>
+<ol type="1">
+<li>Change HAL-Settings to get as close as possible to the preferred result. Where to adapt:<ul>
+<li>HCLK (if it can be changed without affecting other components) and / or Prescaler to reduce clock of ADC</li>
+<li>Sampling Time</li>
+</ul>
+</li>
+<li>Change define of <a class="el" href="#ga3992a43fac1d452edf605ff497a25030">NUMBER_OF_SAMPLES</a> until value is closer to the preferred result</li>
+<li>Change hysteresis threshold to reduce noise</li>
+<li>Change deviation threshold to get closer to the exact value inside the hysteresis range. </li>
+</ol>
+</td></tr>
+<tr class="memitem:ga1e29bd553a21cdf0ceb9d3c14b45a755" id="r_ga1e29bd553a21cdf0ceb9d3c14b45a755"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga1e29bd553a21cdf0ceb9d3c14b45a755">Wiper_calibrate_HysteresisThreshold</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper, uint8_t Threshold)</td></tr>
+<tr class="memdesc:ga1e29bd553a21cdf0ceb9d3c14b45a755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the hysteresis threshold.  <br /></td></tr>
+<tr class="separator:ga1e29bd553a21cdf0ceb9d3c14b45a755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4493630c4a3361e1b45694ded6d1fe6" id="r_gab4493630c4a3361e1b45694ded6d1fe6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab4493630c4a3361e1b45694ded6d1fe6">Wiper_calibrate_HysteresisDeviationThreshold</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper, uint8_t Threshold)</td></tr>
+<tr class="memdesc:gab4493630c4a3361e1b45694ded6d1fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the Deviation Threshold. This will define, when the value will be corrected, if the value thrifts inside the hysteresis threshold.  <br /></td></tr>
+<tr class="separator:gab4493630c4a3361e1b45694ded6d1fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Process ADC</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>Use these functions to control the ADC </p>
 </td></tr>
-<tr class="memitem:ga8fe3862c1caeefe1b8e440bc9874fb37" id="r_ga8fe3862c1caeefe1b8e440bc9874fb37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8fe3862c1caeefe1b8e440bc9874fb37">Wiper_start</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper)</td></tr>
-<tr class="memdesc:ga8fe3862c1caeefe1b8e440bc9874fb37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the ADC over DMA conversion. Call this function once when the ADC should start.  <br /></td></tr>
-<tr class="separator:ga8fe3862c1caeefe1b8e440bc9874fb37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaeea156de4d31dc81a088d25c14a21a0e" id="r_gaeea156de4d31dc81a088d25c14a21a0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaeea156de4d31dc81a088d25c14a21a0e">Wiper_update</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper)</td></tr>
-<tr class="memdesc:gaeea156de4d31dc81a088d25c14a21a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function periodically in while function to check the wiper if new ADC values are available and to smooth them.  <br /></td></tr>
-<tr class="separator:gaeea156de4d31dc81a088d25c14a21a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaafa469c55f68c991b40d566d6ea92ed8" id="r_gaafa469c55f68c991b40d566d6ea92ed8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaafa469c55f68c991b40d566d6ea92ed8">Wiper_manage_Interrupt</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper, ADC_HandleTypeDef *hadc)</td></tr>
-<tr class="memdesc:gaafa469c55f68c991b40d566d6ea92ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper module.  <br /></td></tr>
-<tr class="separator:gaafa469c55f68c991b40d566d6ea92ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98a7e3568b3c8c797e29f3178f370f52" id="r_ga98a7e3568b3c8c797e29f3178f370f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga98a7e3568b3c8c797e29f3178f370f52">Wiper_start_All</a> (void)</td></tr>
+<tr class="memdesc:ga98a7e3568b3c8c797e29f3178f370f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the ADC over DMA conversion. Call this function once when the ADC should start.  <br /></td></tr>
+<tr class="separator:ga98a7e3568b3c8c797e29f3178f370f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4520e2fb456df3472ea105accd8e29fe" id="r_ga4520e2fb456df3472ea105accd8e29fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4520e2fb456df3472ea105accd8e29fe">Wiper_update_All</a> (void)</td></tr>
+<tr class="memdesc:ga4520e2fb456df3472ea105accd8e29fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function periodically in while function to fill the wipers with samples from the DMA buffer.  <br /></td></tr>
+<tr class="separator:ga4520e2fb456df3472ea105accd8e29fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5e2f11d13d6a2aabb6f4f5cd18a01966" id="r_ga5e2f11d13d6a2aabb6f4f5cd18a01966"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a> (ADC_HandleTypeDef *hadc)</td></tr>
+<tr class="memdesc:ga5e2f11d13d6a2aabb6f4f5cd18a01966"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper module.  <br /></td></tr>
+<tr class="separator:ga5e2f11d13d6a2aabb6f4f5cd18a01966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Get Functions</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>Use these functions to get values from the Wiper </p>
@@ -164,6 +202,72 @@ typedef struct Wiper_structTd&#160;</td><td class="memItemRight" valign="bottom"
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Study this part for a quick overview of wiper functions. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gab4493630c4a3361e1b45694ded6d1fe6" name="gab4493630c4a3361e1b45694ded6d1fe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab4493630c4a3361e1b45694ded6d1fe6">&#9670;&#160;</a></span>Wiper_calibrate_HysteresisDeviationThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Wiper_calibrate_HysteresisDeviationThreshold </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Threshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calibrate the Deviation Threshold. This will define, when the value will be corrected, if the value thrifts inside the hysteresis threshold. </p>
+<p>Default: 200</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Wiper</td><td>pointer to the users wiper structure </td></tr>
+    <tr><td class="paramname">Threshold</td><td>of the deviation. All values that are not equal to the current value are counted in separate counters, depending if they are lower or higher. If the counter of one direction + this threshold gets bigger then the counter of the other direction, the current value will be adjusted (+1 or -1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+<p>1. Copy Threshold to Hyst_DeviationThreshold of the wiper structure</p>
+
+</div>
+</div>
+<a id="ga1e29bd553a21cdf0ceb9d3c14b45a755" name="ga1e29bd553a21cdf0ceb9d3c14b45a755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e29bd553a21cdf0ceb9d3c14b45a755">&#9670;&#160;</a></span>Wiper_calibrate_HysteresisThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Wiper_calibrate_HysteresisThreshold </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Threshold</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calibrate the hysteresis threshold. </p>
+<p>Default: 4</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Wiper</td><td>pointer to the users wiper structure </td></tr>
+    <tr><td class="paramname">Threshold</td><td>of the hysteresis. The hysteresis range will be from the current value - Threshold until the current value + Threshold. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+<p>1. Copy Threshold to Hyst_Threshold of the wiper structure</p>
+
+</div>
+</div>
 <a id="ga2b14f1d1a5a0e563fcc51f48172778bf" name="ga2b14f1d1a5a0e563fcc51f48172778bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga2b14f1d1a5a0e563fcc51f48172778bf">&#9670;&#160;</a></span>Wiper_get_RawValue()</h2>
 
@@ -238,13 +342,14 @@ typedef struct Wiper_structTd&#160;</td><td class="memItemRight" valign="bottom"
 </div><div class="memdoc">
 
 <p>Link HAL-ADC-handle used for wiper. </p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 How to setup ADC for this module:</h1>
 <ul>
 <li>Control the speed of your ADC with the prescaler.</li>
-<li><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo</a></b></dt><dd>Add ADC Setup here!!</dd></dl>
+<li><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo</a></b></dt><dd>Add ADC Setup here!!</dd></dl>
 </li>
 </ul>
+<dl class="section warning"><dt>Warning</dt><dd>It is necessary to initialize the ADC in the same order as the channels of the ADC are set up. So ADC1 Ch1 first and ADCx Chx last. Otherwise the ADC value will be written to the wrong wiper structure. It is no problem to skip channels if they are not in use (The skipped channels must not be set up in Cube MX!).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Wiper</td><td>pointer to the users wiper structure </td></tr>
@@ -253,7 +358,11 @@ How to setup ADC for this module:</h1>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
-<p>Link HAL-ADC-Handle to the Wiper Structure.</p>
+<p>1. Check if the ADC-handler is already linked.</p><ul>
+<li>if yes: find the valid ADC index of the internal structure.</li>
+<li>if no: find the next free ADC index and link the ADC handle to the structure</li>
+</ul>
+<p>2. Link the ADC relevant parts of the Wiper structure to the internal structure at the valid ADC index.</p>
 
 </div>
 </div>
@@ -280,11 +389,12 @@ How to setup ADC for this module:</h1>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+<p>1. Store default hysteresis values to wiper structure.</p>
 
 </div>
 </div>
-<a id="gaafa469c55f68c991b40d566d6ea92ed8" name="gaafa469c55f68c991b40d566d6ea92ed8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaafa469c55f68c991b40d566d6ea92ed8">&#9670;&#160;</a></span>Wiper_manage_Interrupt()</h2>
+<a id="ga5e2f11d13d6a2aabb6f4f5cd18a01966" name="ga5e2f11d13d6a2aabb6f4f5cd18a01966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5e2f11d13d6a2aabb6f4f5cd18a01966">&#9670;&#160;</a></span>Wiper_manage_Interrupt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,12 +402,8 @@ How to setup ADC for this module:</h1>
         <tr>
           <td class="memname">void Wiper_manage_Interrupt </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">ADC_HandleTypeDef *</td>          <td class="paramname"><span class="paramname"><em>hadc</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">ADC_HandleTypeDef *</td>          <td class="paramname"><span class="paramname"><em>hadc</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -305,32 +411,31 @@ How to setup ADC for this module:</h1>
 <p>Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper module. </p>
 <p>Here is an example: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)</div>
 <div class="line">{</div>
-<div class="line">  <a class="code hl_function" href="#gaafa469c55f68c991b40d566d6ea92ed8">Wiper_manage_Interrupt</a>(&amp;UsersWhiper, hadc);</div>
+<div class="line">  <a class="code hl_function" href="#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a>(&amp;UsersWhiper, hadc);</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___wiper___header_html_gaafa469c55f68c991b40d566d6ea92ed8"><div class="ttname"><a href="#gaafa469c55f68c991b40d566d6ea92ed8">Wiper_manage_Interrupt</a></div><div class="ttdeci">void Wiper_manage_Interrupt(Wiper_structTd *Wiper, ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper modul...</div><div class="ttdef"><b>Definition</b> wiper.c:221</div></div>
+<div class="ttc" id="agroup___wiper___header_html_ga5e2f11d13d6a2aabb6f4f5cd18a01966"><div class="ttname"><a href="#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a></div><div class="ttdeci">void Wiper_manage_Interrupt(ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper modul...</div><div class="ttdef"><b>Definition</b> wiper.c:484</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Wiper</td><td>pointer to the users wiper structure </td></tr>
     <tr><td class="paramname">hadc</td><td>pointer to the HAL generated ADC-handle of the ADC that is used for the wiper </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
-<p>1. Check if interrupt occurred on the wipers ADC. If not -&gt; leave function.</p>
-<p>2. Set interrupt flag</p>
+<p>1. Loop through all active ADCs</p>
+<p>2. If current ADC matches hadc, set interrupt flag</p>
 
 </div>
 </div>
-<a id="ga8fe3862c1caeefe1b8e440bc9874fb37" name="ga8fe3862c1caeefe1b8e440bc9874fb37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga8fe3862c1caeefe1b8e440bc9874fb37">&#9670;&#160;</a></span>Wiper_start()</h2>
+<a id="ga98a7e3568b3c8c797e29f3178f370f52" name="ga98a7e3568b3c8c797e29f3178f370f52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga98a7e3568b3c8c797e29f3178f370f52">&#9670;&#160;</a></span>Wiper_start_All()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Wiper_start </td>
+          <td class="memname">void Wiper_start_All </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -344,39 +449,43 @@ How to setup ADC for this module:</h1>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
-<p>1. Declare variable with the length of bytes to be buffered by DMA. We have 12Bit ADC, so we need 2 bytes.</p>
-<p>2. Start ADC in DMA mode and link wiper-&gt;value to DMA to buffer data from Peripheral to Memory</p>
+<p>1. Loop through all active ADCs</p>
+<p>2. Start ADC on DMA for each active ADC</p>
 
 </div>
 </div>
-<a id="gaeea156de4d31dc81a088d25c14a21a0e" name="gaeea156de4d31dc81a088d25c14a21a0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaeea156de4d31dc81a088d25c14a21a0e">&#9670;&#160;</a></span>Wiper_update()</h2>
+<a id="ga4520e2fb456df3472ea105accd8e29fe" name="ga4520e2fb456df3472ea105accd8e29fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4520e2fb456df3472ea105accd8e29fe">&#9670;&#160;</a></span>Wiper_update_All()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Wiper_update </td>
+          <td class="memname">void Wiper_update_All </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Call this function periodically in while function to check the wiper if new ADC values are available and to smooth them. </p>
+<p>Call this function periodically in while function to fill the wipers with samples from the DMA buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Wiper</td><td>pointer to the users wiper structure </td></tr>
+    <tr><td class="paramname">none</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
-<p>1. Check if a new ADC Value is available. if not -&gt; leave function.</p>
-<p>2. Reset Interrupt flag</p>
-<p>3. Copy the new value to the sample array</p>
-<p>4. Calculate the new smoothed value</p>
-<p>5. Restart ADC conversion</p>
+<p>1. Loop through all active ADCs. Inside the loop:</p>
+<p>2. Check if the current ADC was interrupted.</p><ul>
+<li>If no: leave function.</li>
+</ul>
+<p>3. Reset Interrupt Flag of current ADC</p>
+<p>4. loop trough all active channels of the current ADC</p>
+<p>5. Store the data of the DMA buffer to the wiper that belongs to the current channel</p>
+<p>6. Calculate the smoothed value for the wiper that belongs to the current channel</p>
+<p>7. Restart the ADC-DMA of the currently interrupted ADC as we are in single conservation mode.</p>
 
 </div>
 </div>

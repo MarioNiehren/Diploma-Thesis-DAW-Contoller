@@ -1,25 +1,6 @@
 var searchData=
 [
-  ['wait_5fwhilebusy_0',['wait_WhileBusy',['../group___e_p_d___source.html#ga7561007082ac0e1aeec3b7408c86f2d9',1,'EPD_1-54inch.c']]],
-  ['what_20does_20not_20work_3a_1',['What does not work:',['../group___e_p_d___g_u_i.html#autotoc_md11',1,'']]],
-  ['what_20should_20work_20at_20the_20moment_3a_2',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md10',1,'']]],
-  ['what_20to_20set_20up_20before_20displaying_20the_20frame_3a_3',['What to set up before displaying the frame:',['../group___e_p_d___set.html#autotoc_md6',1,'']]],
-  ['wiper_20module_4',['Wiper module',['../group___wiper_motor_fader.html',1,'']]],
-  ['wiper_2ec_5',['wiper.c',['../wiper_8c.html',1,'']]],
-  ['wiper_2eh_6',['wiper.h',['../wiper_8h.html',1,'']]],
-  ['wiper_5fget_5frawvalue_7',['Wiper_get_RawValue',['../group___wiper___header.html#ga2b14f1d1a5a0e563fcc51f48172778bf',1,'Wiper_get_RawValue(Wiper_structTd *Wiper):&#160;wiper.c'],['../group___wiper___source.html#ga2b14f1d1a5a0e563fcc51f48172778bf',1,'Wiper_get_RawValue(Wiper_structTd *Wiper):&#160;wiper.c']]],
-  ['wiper_5fget_5fsmoothvalue_8',['Wiper_get_SmoothValue',['../group___wiper___header.html#ga124ac40da48f0c8394f841632409401a',1,'Wiper_get_SmoothValue(Wiper_structTd *Wiper):&#160;wiper.c'],['../group___wiper___source.html#ga124ac40da48f0c8394f841632409401a',1,'Wiper_get_SmoothValue(Wiper_structTd *Wiper):&#160;wiper.c']]],
-  ['wiper_5finit_5fadc_9',['Wiper_init_ADC',['../group___wiper___header.html#ga3769a4718f132d3298e7c6a9456667e9',1,'Wiper_init_ADC(Wiper_structTd *Wiper, ADC_HandleTypeDef *hadc):&#160;wiper.c'],['../group___wiper___source.html#ga3769a4718f132d3298e7c6a9456667e9',1,'Wiper_init_ADC(Wiper_structTd *Wiper, ADC_HandleTypeDef *hadc):&#160;wiper.c']]],
-  ['wiper_5finit_5fhysteresis_10',['Wiper_init_Hysteresis',['../group___wiper___header.html#ga6ea4077964bf0c78ed5cb2e918fe07e7',1,'Wiper_init_Hysteresis(Wiper_structTd *Wiper):&#160;wiper.c'],['../group___wiper___source.html#ga6ea4077964bf0c78ed5cb2e918fe07e7',1,'Wiper_init_Hysteresis(Wiper_structTd *Wiper):&#160;wiper.c']]],
-  ['wiper_5fmanage_5finterrupt_11',['Wiper_manage_Interrupt',['../group___wiper___header.html#gaafa469c55f68c991b40d566d6ea92ed8',1,'Wiper_manage_Interrupt(Wiper_structTd *Wiper, ADC_HandleTypeDef *hadc):&#160;wiper.c'],['../group___wiper___source.html#gaafa469c55f68c991b40d566d6ea92ed8',1,'Wiper_manage_Interrupt(Wiper_structTd *Wiper, ADC_HandleTypeDef *hadc):&#160;wiper.c']]],
-  ['wiper_5fstart_12',['Wiper_start',['../group___wiper___header.html#ga8fe3862c1caeefe1b8e440bc9874fb37',1,'Wiper_start(Wiper_structTd *Wiper):&#160;wiper.c'],['../group___wiper___source.html#ga8fe3862c1caeefe1b8e440bc9874fb37',1,'Wiper_start(Wiper_structTd *Wiper):&#160;wiper.c']]],
-  ['wiper_5fstructtd_13',['Wiper_structTd',['../struct_wiper__struct_td.html',1,'']]],
-  ['wiper_5fupdate_14',['Wiper_update',['../group___wiper___header.html#gaeea156de4d31dc81a088d25c14a21a0e',1,'Wiper_update(Wiper_structTd *Wiper):&#160;wiper.c'],['../group___wiper___source.html#gaeea156de4d31dc81a088d25c14a21a0e',1,'Wiper_update(Wiper_structTd *Wiper):&#160;wiper.c']]],
-  ['work_20at_20the_20moment_3a_15',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md10',1,'']]],
-  ['work_3a_16',['What does not work:',['../group___e_p_d___g_u_i.html#autotoc_md11',1,'']]],
-  ['write_5fbuffertoram0x24_17',['write_BufferToRAM0x24',['../group___e_p_d___source.html#ga70054806d97c2587f8e5fa37dd2e6793',1,'EPD_1-54inch.c']]],
-  ['write_5fbuffertoram0x26_18',['write_BufferToRAM0x26',['../group___e_p_d___source.html#ga54d794cf416ecba9217028485dfdc673',1,'EPD_1-54inch.c']]],
-  ['write_5ftemperatureregister_19',['write_TemperatureRegister',['../group___e_p_d___source.html#gad160c94006ac15e40ec0fb694926f75e',1,'EPD_1-54inch.c']]],
-  ['write_5fvcomregister_20',['write_VCOMRegister',['../group___e_p_d___source.html#gad5dec0d07839d90968cc755f0a5ed65b',1,'EPD_1-54inch.c']]],
-  ['writestringdescriptor_5ftypedef_21',['WriteStringDescriptor_TypeDef',['../struct_write_string_descriptor___type_def.html',1,'']]]
+  ['valueraw_0',['ValueRaw',['../struct_wiper__struct_td.html#ae2dc05b47f55b7221af7458ed299e22f',1,'Wiper_structTd']]],
+  ['valuesmooth_1',['ValueSmooth',['../struct_wiper__struct_td.html#a632f189012c4ae75e0598631d0217e36',1,'Wiper_structTd']]],
+  ['vdd_5fvalue_2',['VDD_VALUE',['../_f103_c8_t6___demo_project___e-_paper___s_s_d1681_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#aae550dad9f96d52cfce5e539adadbbb4',1,'VDD_VALUE:&#160;stm32f1xx_hal_conf.h'],['../_f103_c8_t6___demo_project___button_matrix_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#aae550dad9f96d52cfce5e539adadbbb4',1,'VDD_VALUE:&#160;stm32f1xx_hal_conf.h'],['../stm32l0xx__hal__conf_8h.html#aae550dad9f96d52cfce5e539adadbbb4',1,'VDD_VALUE:&#160;stm32l0xx_hal_conf.h']]]
 ];

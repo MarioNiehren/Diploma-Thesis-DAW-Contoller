@@ -102,13 +102,16 @@ $(function(){initNavTree('_l053_r8_t6___demo_project___motorized_fader_2_core_2_
 
 <p>: Main program body  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="wiper_8h_source.html">wiper.h</a>&gt;</code><br />
-<code>#include &quot;main.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="adc_8h_source.html">adc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="dma_8h_source.html">dma.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tim_8h_source.html">tim.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tsc_8h_source.html">tsc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gpio_8h_source.html">gpio.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wiper_8h_source.html">wiper.h</a>&quot;</code><br />
+<code>#include &quot;tscButton.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="_t_b6612_f_n_g___motor_driver_8h_source.html">TB6612FNG_MotorDriver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pid_controller_8h_source.html">pidController.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -127,12 +130,24 @@ Functions</h2></td></tr>
 <tr class="memitem:af20a88180db1113be1e89266917d148b" id="r_af20a88180db1113be1e89266917d148b"><td class="memItemLeft" align="right" valign="top"><a id="af20a88180db1113be1e89266917d148b" name="af20a88180db1113be1e89266917d148b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_ADC_ConvCpltCallback</b> (ADC_HandleTypeDef *hadc)</td></tr>
 <tr class="separator:af20a88180db1113be1e89266917d148b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefd02cc87dae8da7cd9ba0482e68113" id="r_afefd02cc87dae8da7cd9ba0482e68113"><td class="memItemLeft" align="right" valign="top"><a id="afefd02cc87dae8da7cd9ba0482e68113" name="afefd02cc87dae8da7cd9ba0482e68113"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_TSC_ConvCpltCallback</b> (TSC_HandleTypeDef *htsc)</td></tr>
+<tr class="separator:afefd02cc87dae8da7cd9ba0482e68113"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a3cb5bc7c4ed152e8cae9458f39315dc2" id="r_a3cb5bc7c4ed152e8cae9458f39315dc2"><td class="memItemLeft" align="right" valign="top"><a id="a3cb5bc7c4ed152e8cae9458f39315dc2" name="a3cb5bc7c4ed152e8cae9458f39315dc2"></a>
-<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Wiper</b></td></tr>
-<tr class="separator:a3cb5bc7c4ed152e8cae9458f39315dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85919a257f510631aa921938af0d06df" id="r_a85919a257f510631aa921938af0d06df"><td class="memItemLeft" align="right" valign="top"><a id="a85919a257f510631aa921938af0d06df" name="a85919a257f510631aa921938af0d06df"></a>
+<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Wiper</b> [2]</td></tr>
+<tr class="separator:a85919a257f510631aa921938af0d06df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0024af5628269bc19b9bcdf550c52e9d" id="r_a0024af5628269bc19b9bcdf550c52e9d"><td class="memItemLeft" align="right" valign="top"><a id="a0024af5628269bc19b9bcdf550c52e9d" name="a0024af5628269bc19b9bcdf550c52e9d"></a>
+<a class="el" href="struct_t_s_c_button__struct_td.html">TSCButton_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TSCButton</b> [2]</td></tr>
+<tr class="separator:a0024af5628269bc19b9bcdf550c52e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640f6d211231675b838b0c446ba76580" id="r_a640f6d211231675b838b0c446ba76580"><td class="memItemLeft" align="right" valign="top"><a id="a640f6d211231675b838b0c446ba76580" name="a640f6d211231675b838b0c446ba76580"></a>
+<a class="el" href="struct_t_b6612_f_n_g_motor_driver__struct_td.html">TB6612FNGMotorDriver_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Motor</b> [2]</td></tr>
+<tr class="separator:a640f6d211231675b838b0c446ba76580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe618a6e3bfe35ed38e7110c1d4a04fd" id="r_afe618a6e3bfe35ed38e7110c1d4a04fd"><td class="memItemLeft" align="right" valign="top"><a id="afe618a6e3bfe35ed38e7110c1d4a04fd" name="afe618a6e3bfe35ed38e7110c1d4a04fd"></a>
+<a class="el" href="struct_p_i_d__struct_td.html">PID_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PID</b> [2]</td></tr>
+<tr class="separator:afe618a6e3bfe35ed38e7110c1d4a04fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>: Main program body </p>

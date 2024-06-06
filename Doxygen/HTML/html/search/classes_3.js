@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['motordc_5ftypedef_0',['motorDC_TypeDef',['../structmotor_d_c___type_def.html',1,'']]],
-  ['motorizedfader_5ftypedef_1',['motorizedFader_TypeDef',['../structmotorized_fader___type_def.html',1,'']]]
+  ['motorizedfader_5finternal_5fstructtd_0',['MotorizedFader_internal_structTd',['../struct_motorized_fader__internal__struct_td.html',1,'']]],
+  ['motorizedfader_5fstructtd_1',['MotorizedFader_structTd',['../struct_motorized_fader__struct_td.html',1,'']]]
 ];
