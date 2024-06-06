@@ -9,9 +9,6 @@ develop a custom DAW-Controller.
 | ----------------------------------------------------- | ------------------------------------------------- | --------------------------------- |
 | [Button Matrix](F103C8T6_DemoProject_ButtonMatrix)	| Setup and read an interrupt based button matrix 	| STM32F103C8T6 ("Blue-Pill" board)	|
 | [E-Paper](F103C8T6_DemoProject_E-Paper_SSD1681)		| Setup and write / draw to an E-Paper Display		| STM32F103C8T6 ("Blue-Pill" board) |
-| [Motorized Fader](L053R8T6_DemoProject_MotorizedFader)| Setup a and use a Motorized fader with:			| STM32L053R8T6 (Nucleo Board)		|
-														| TB6612FNG Motor Driver, 							|
-														| ADC, 												|
 | [Motorized Fader](L053R8T6_DemoProject_MotorizedFader)| Setup a and use a Motorized fader with: <ul><li>ADC using DMA</li><li>TB6612FNG motor driver with interrupt based PWM</li><li>PID with anti wind up and low pass for the D Term</li><li>Touch Sensor using STM32 TSC Control (no STM middleware used here.)</li></ul> 			| STM32L053R8T6 (Nucleo Board)		|
 
 ## Documentation
