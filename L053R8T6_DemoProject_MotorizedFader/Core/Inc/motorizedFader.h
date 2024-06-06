@@ -1,56 +1,147 @@
 /***************************************************************************//**
- * @defgroup				MotorFader	Motorized Fader
- * @brief						This module can be used to program an Fader with DC-Motor.
+ * @defgroup        MotorFader  Motorized Fader
+ * @brief           This module can be used to program an Fader with DC-Motor.
  *
- * motorizedFader.h
+ * # How to use:
+ * @todo!!!
  *
- *  Created on: Sep 4, 2023
- *      Author: Mario Niehren
+ * # Links
+ * @todo!!!
+ *
+ * @defgroup        MotorFader_Header      Header
+ * @brief           Study this part for a quick overview.
+ *
+ * @addtogroup      MotorFader
+ * @{
+ *
+ * @addtogroup      MotorFader_Header
+ * @{
+ *
+ * @file            motorizedFader.h
+ *
+ * @date            Sep 4, 2023
+ * @author          Mario Niehren
  ******************************************************************************/
+
 #ifndef INC_FADER_MOTORIZEDFADER_H_
 #define INC_FADER_MOTORIZEDFADER_H_
 
-#include "main.h"
-
 #include <math.h>
-#include <wiper.h>
-#include "motorDC.h"
+
+#include "tscButton.h"
+#include "TB6612FNG_MotorDriver.h"
+#include "wiper.h"
 #include "pidController.h"
-#include "tscFader.h"
 
-#define NUMBER_OF_FADERS 8
+/**
+ * @brief     This number can be changed according to the users requirements.
+ *            Make sure it is equal or higher than the actual used faders.
+ */
+#define NUMBER_OF_MOTORIZED_FADERS 8
 
+/***************************************************************************//**
+ * @name      Structures and Enumerations
+ * @{
+ ******************************************************************************/
+
+/**
+ * @brief     Main structure to store all data for the fader. The user has to
+ *            declare one object of this data type for each fader.
+ */
 typedef struct
 {
-  Wiper_structTd  whiper;
-  motorDC_TypeDef motor;
-  pidController_TypeDef pidControl;
-  tscFader_TypeDef touchSensor;
+  Wiper_structTd  Wiper;
+  TB6612FNGMotorDriver_structTd Motor;
+  PID_structTd PID;
+  TSCButton_structTd TouchSense;
   uint16_t targetValue;
 
-}motorizedFader_TypeDef;
+}MotorizedFader_structTd;
 
-void motorizedFader_initWhiper_LimitsMinMax(motorizedFader_TypeDef* fader, uint16_t valueMin, uint16_t valueMax);
-void motorizedFader_initWhiper_MuxAddress(motorizedFader_TypeDef* fader, uint8_t muxAddress);
-void motorizedFader_init_Whiper_ADC(motorizedFader_TypeDef* fader, ADC_HandleTypeDef* handle);
-void motorizedFader_initMotor_PWM(motorizedFader_TypeDef* fader, TIM_HandleTypeDef* handle, uint16_t pwmChannel);
+/** @} ************************************************************************/
+/* end of name "Structures and Enumerations"
+ ******************************************************************************/
 
 
-void motorizedFader_initPID_KpKiKd(motorizedFader_TypeDef* fader, double Kp, double Ki, double Kd);
-void motorizedFader_initPID_ValueLimitMinMax(motorizedFader_TypeDef* fader, int valueMin, int valueMax);
-void motorizedFader_initPID_TauLowPass(motorizedFader_TypeDef* fader, double tauLowPass);
-void motorizedFader_initPID_SampleTime(motorizedFader_TypeDef* fader, uint16_t sampleTime);
-void motorizedFader_initPID_Hysteresis(motorizedFader_TypeDef* fader, uint16_t hystThresh);
-void motorizedFader_initPID_StructDefault(motorizedFader_TypeDef* fader);
+/***************************************************************************//**
+ * @name      Initialize Structure
+ * @brief     Use these functions to initialize the faders data structure.
+ * @{
+ ******************************************************************************/
 
-void motorizedFader_initTouchSensor_MuxAddress(motorizedFader_TypeDef* fader, uint8_t muxAddress);
-void motorizedFader_initTouchSensor_Threshold(motorizedFader_TypeDef* fader, uint16_t threshValue);
+void MotorizedFader_init_Structure(MotorizedFader_structTd* Fader);
 
-void motorizedFader_start(motorizedFader_TypeDef* fader);
+/** @} ************************************************************************/
+/* end of name "Initialize Structure"
+ ******************************************************************************/
 
-void motorizedFader_update(motorizedFader_TypeDef* fader, uint8_t numFader);
-void motorizedFader_moveFaderToValue(motorizedFader_TypeDef* fader, uint16_t value);
-void motorizedFader_moveFaderToValueFixedCCR(motorizedFader_TypeDef* fader, uint16_t target, uint16_t CCR);
-uint16_t motorizedFader_returnWhiperValue(motorizedFader_TypeDef* fader);
+
+/***************************************************************************//**
+ * @name      Initialize Wiper
+ * @brief     Use these functions to initialize the faders wiper.
+ * @{
+ ******************************************************************************/
+
+void MotorizedFader_init_Whiper(MotorizedFader_structTd* Fader, ADC_HandleTypeDef* Handle);
+
+/** @} ************************************************************************/
+/* end of name "Initialize Wiper"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize Touch Sense Controller
+ * @brief     Use these functions to initialize the faders TSC.
+ * @{
+ ******************************************************************************/
+
+void MotorizedFader_init_TouchTSC(MotorizedFader_structTd* fader, TSC_HandleTypeDef* htsc, uint32_t IOChannel);
+void MotorizedFader_init_TouchThreshold(MotorizedFader_structTd* fader, uint16_t threshold);
+void MotorizedFader_init_TouchDischargeTimeMsAll(uint8_t value);
+
+/** @} ************************************************************************/
+/* end of name "Initialize Touch Sense Controller"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize Motor
+ * @brief     Use these functions to initialize the faders TSC.
+ * @{
+ ******************************************************************************/
+
+void MotorizedFader_init_MotorPinIn1(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
+void MotorizedFader_init_MotorPinIn2(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
+void MotorizedFader_init_MotorPinSTBY(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
+
+/** @} ************************************************************************/
+/* end of name "Initialize Motor"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize PID
+ * @brief     Use these functions to initialize the PID controller that controls
+ *            the motor.
+ * @{
+ ******************************************************************************/
+
+void MotorizedFader_init_PID(MotorizedFader_structTd* Fader);
+void MotorizedFader_init_PIDMaxCCR(MotorizedFader_structTd* Fader, uint16_t MaxCCR);
+void MotorizedFader_init_PIDKpKiKd(MotorizedFader_structTd* Fader, double Kp, double Ki, double Kd);
+void MotorizedFader_init_PIDLowPass(MotorizedFader_structTd* Fader, double Tau);
+void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint32_t SampleTime);
+
+/** @} ************************************************************************/
+/* end of name "Initialize PID"
+ ******************************************************************************/
+
+
+void motorizedFader_start(MotorizedFader_structTd* fader);
+
+void motorizedFader_update(MotorizedFader_structTd* fader, uint8_t numFader);
+
+/**@}*//* end of defgroup "MotorFader_Header" */
+/**@}*//* end of defgroup "MotorFader" */
 
 #endif /* INC_FADER_MOTORIZEDFADER_H_ */

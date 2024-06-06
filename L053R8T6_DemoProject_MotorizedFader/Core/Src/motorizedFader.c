@@ -8,207 +8,190 @@
 
 #include <motorizedFader.h>
 
-
-/*
- * BEGIN: Functions for initialization
- */
-void motorizedFader_initWhiper_LimitsMinMax(motorizedFader_TypeDef* fader, uint16_t valueMin, uint16_t valueMax)
+typedef struct
 {
-  whiper_init_valueLimitsMinMax(&fader->whiper, valueMin, valueMax);
+  /** Array to store pointers to all initialized faders */
+  MotorizedFader_structTd* InitializedFaders[NUMBER_OF_MOTORIZED_FADERS];
+  uint16_t  NumInitializedFaders;   /**<  Number of the actual initialized
+                                          faders */
+}MotorizedFader_internal_structTd;
 
-}
-void motorizedFader_initWhiper_MuxAddress(motorizedFader_TypeDef* fader, uint8_t muxAddress)
+MotorizedFader_internal_structTd FadersInternal = {0};
+
+/***************************************************************************//**
+ * @name      Initialize Structure
+ * @brief     Use these functions to initialize the faders internal structure.
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_init_Structure(MotorizedFader_structTd* Fader)
 {
-  whiper_init_muxAddress(&fader->whiper, muxAddress);
-}
-
-void motorizedFader_init_Whiper_ADC(motorizedFader_TypeDef* fader, ADC_HandleTypeDef* handle)
-{
-  Wiper_init_ADC(&fader->whiper, fader->whiper.handle);
-}
-
-void motorizedFader_initMotor_PWM(motorizedFader_TypeDef* fader, TIM_HandleTypeDef* handle, uint16_t pwmChannel)
-{
-  motorDC_init_PWM(&fader->motor, handle, pwmChannel);
-}
-
-
-void motorizedFader_initPID_KpKiKd(motorizedFader_TypeDef* fader, double Kp, double Ki, double Kd)
-{
-  pidController_setKp(&fader->pidControl, Kp);
-  pidController_setKi(&fader->pidControl, Ki);
-  pidController_setKd(&fader->pidControl, Kd);
+  uint16_t Index = FadersInternal.NumInitializedFaders;
+  FadersInternal.InitializedFaders[Index] = Fader;
+  FadersInternal.NumInitializedFaders++;
 }
 
-void motorizedFader_initPID_ValueLimitMinMax(motorizedFader_TypeDef* fader, int valueMin, int valueMax)
+/** @} ************************************************************************/
+/* end of name "Initialize Structure"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize Wiper
+ * @brief     Use these functions to initialize the faders wiper.
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_init_Whiper(MotorizedFader_structTd* Fader, ADC_HandleTypeDef* Handle)
 {
-  pidController_setValueMin(&fader->pidControl, valueMin);
-  pidController_setValueMax(&fader->pidControl, valueMax);
+  /** @internal     1.  init ADC. For details look at Wiper_init_ADC() */
+  Wiper_init_ADC(&Fader->Wiper, Handle);
+  /** @internal     2.  init adc hysteresis. For details look at
+   *                    Wiper_init_Hysteresis() */
+  Wiper_init_Hysteresis(&Fader->Wiper);
 }
 
-void motorizedFader_initPID_TauLowPass(motorizedFader_TypeDef* fader, double tauLowPass)
+/** @} ************************************************************************/
+/* end of name "Initialize Wiper"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize Touch Sense Controller
+ * @brief     Use these functions to initialize the faders TSC.
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_init_TouchTSC(MotorizedFader_structTd* fader, TSC_HandleTypeDef* htsc, uint32_t IOChannel)
 {
-  pidController_setLowPass(&fader->pidControl, tauLowPass);
-}
-void motorizedFader_initPID_StructDefault(motorizedFader_TypeDef* fader)
-{
-  pidController_init(&fader->pidControl);
+  /** @internal     1.  init TSC. For details look at TSCButton_init_TSC() */
+  TSCButton_init_TSC(&fader->TouchSense, htsc, IOChannel);
 }
 
-void motorizedFader_initTouchSensor_MuxAddress(motorizedFader_TypeDef* fader, uint8_t muxAddress)
+/* Description in .h */
+void MotorizedFader_init_TouchThreshold(MotorizedFader_structTd* fader, uint16_t threshold)
 {
-  tscFader_initMuxAddress(&fader->touchSensor, muxAddress);
+  /** @internal     1.  init TSC threshold For details look at
+   *                    TSCButton_init_Threshold() */
+  TSCButton_init_Threshold(&fader->TouchSense, threshold);
 }
 
-void motorizedFader_initTouchSensor_Threshold(motorizedFader_TypeDef* fader, uint16_t threshValue)
+/* Description in .h */
+void MotorizedFader_init_TouchDischargeTimeMsAll(uint8_t value)
 {
-  tscFader_initThreshold(&fader->touchSensor, threshValue);
+  TSCButton_init_DischargeTimeMsAll(value);
 }
 
-void motorizedFader_initPID_SampleTime(motorizedFader_TypeDef* fader, uint16_t sampleTime)
+/** @} ************************************************************************/
+/* end of name "Initialize Touch Sense Controller"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize Motor
+ * @brief     Use these functions to initialize the faders TSC.
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_init_MotorPinIn1(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin)
 {
-  pidController_setSampleTime(&fader->pidControl, sampleTime);
+  MotorDriver_init_PinIn1(&Fader->Motor, GPIO, Pin);
 }
 
-void motorizedFader_initPID_Hysteresis(motorizedFader_TypeDef* fader, uint16_t hystThresh)
+/* Description in .h */
+void MotorizedFader_init_MotorPinIn2(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin)
 {
-  pidController_setHysteresis(&fader->pidControl, hystThresh);
+  MotorDriver_init_PinIn2(&Fader->Motor, GPIO, Pin);
 }
-/*
- * END: Functions for initialization
- */
 
-/*
- * BEGIN: Functions to start fader components
- */
-bool sharedComponentsStarted = false;
-void motorizedFader_start(motorizedFader_TypeDef* fader)
+/* Description in .h */
+void MotorizedFader_init_MotorPinSTBY(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin)
 {
-  motorDC_startPwmTimer(&fader->motor);
-  if(sharedComponentsStarted == false)
+  MotorDriver_init_PinSTBY(&Fader->Motor, GPIO, Pin);
+}
+
+/* Description in .h */
+void MotorizedFader_init_PWM(MotorizedFader_structTd* Fader, TIM_HandleTypeDef* htim, uint16_t Channel)
+{
+  MotorDriver_init_PWM(&Fader->Motor, htim, Channel);
+}
+
+/** @} ************************************************************************/
+/* end of name "Initialize Motor"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Initialize PID
+ * @brief     Use these functions to initialize the PID controller that controls
+ *            the motor.
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_init_PID(MotorizedFader_structTd* Fader)
+{
+  PID_init(&Fader->PID);
+}
+
+/* Description in .h */
+void MotorizedFader_init_PIDMaxCCR(MotorizedFader_structTd* Fader, uint16_t MaxCCR)
+{
+  /** @internal     1.  Setup PID Output limits with -CCR to CCR. "-"
+   *                    indicates the down direction. */
+  PID_set_OutputMinMax(&Fader->PID, (double)-MaxCCR, (double)MaxCCR);
+}
+
+/* Description in .h */
+void MotorizedFader_init_PIDKpKiKd(MotorizedFader_structTd* Fader, double Kp, double Ki, double Kd)
+{
+  PID_set_KpKiKd(&Fader->PID, Kp, Ki, Kd);
+}
+
+/* Description in .h */
+void MotorizedFader_init_PIDLowPass(MotorizedFader_structTd* Fader, double Tau)
+{
+  PID_set_LowPass(&Fader->PID, Tau);
+}
+
+/* Description in .h */
+void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint32_t SampleTime)
+{
+  PID_set_SampleTimeInMs(&Fader->PID, SampleTime);
+}
+/** @} ************************************************************************/
+/* end of name "Initialize PID"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Process
+ * @brief     Use these functions to process all faders
+ * @{
+ ******************************************************************************/
+void MotorizedFader_start_All()
+{
+  TSCButton_start_All();
+  Wiper_start_All();
+
+  uint16_t NumFaders = FadersInternal.NumInitializedFaders;
+  uint16_t Index = 0;
+  for(Index = 0; Index < NumFaders; Index++)
   {
-    whiper_start(&fader->whiper);
-    tscFader_startMux(&fader->whiper);
-    tscFader_Discharge();
-    tscFader_start_IT();
-    sharedComponentsStarted = true;
-  }
-}
-/*
- * END: Functions to start fader components
- */
-
-/*
- * BEGIN: Functions to update faders
- */
-
-void resetAndBlockPidIfFaderTouched(motorizedFader_TypeDef* fader);
-void update_MuxedWhiperAndTouch(motorizedFader_TypeDef* fader, uint8_t numFader);
-void motorizedFader_update(motorizedFader_TypeDef* fader, uint8_t numFader)
-{
-  for(int i = 0; i < numFader; i++)
-  {
-    calculate_SmoothValue(&fader->whiper);
-    resetAndBlockPidIfFaderTouched(&fader[i]);
-    fader[i].pidControl.output = pidController_compute(&fader[i].pidControl, fader[i].whiper.ValueSmooth);
-  }
-  update_MuxedWhiperAndTouch(fader, numFader);
-}
-
-uint8_t muxWhiper_AddressCounter = 0x00;
-uint8_t muxTouch_AddressCounter = 0x00;
-void update_MuxedWhiperAndTouch(motorizedFader_TypeDef* fader, uint8_t numFader)
-{
-  if(whiper_checkIfInterrupted(&fader->whiper) == true)
-  {
-    whiper_stop_IT(&fader->whiper);
-    whiper_updateSample(&fader[muxWhiper_AddressCounter].whiper);
-    muxWhiper_AddressCounter ++;
-    if(muxWhiper_AddressCounter == numFader)
-    {
-      muxWhiper_AddressCounter = 0;
-    }
-    whiper_resetInterrupt(&fader->whiper);
-    whiper_start(&fader->whiper);
-  }
-  if(tscFader_checkIfInterrupted() == true)
-  {
-    tscFader_stop_IT();
-    tscFader_updateState(&fader[muxTouch_AddressCounter].touchSensor);
-    muxTouch_AddressCounter ++;
-    if(muxTouch_AddressCounter == numFader)
-    {
-      muxTouch_AddressCounter = 0;
-    }
-    tscFader_resetInterrupt();
-    tscFader_Discharge();
-    tscFader_start_IT();
-  }
-}
-
-void resetAndBlockPidIfFaderTouched(motorizedFader_TypeDef* fader)
-{
-  if((fader->touchSensor.state == tsl_touched) && (fader->pidControl.blocked == false))
-  {
-    pidController_reset(&fader->pidControl);
-    fader->pidControl.blocked = true;
-  }
-  else if((fader->touchSensor.state == tsl_released) && (fader->pidControl.blocked == true))
-  {
-    fader->pidControl.blocked = false;
-  }
-}
-/*
- * END: Functions to update faders
- */
-
-/*
- * BEGIN: Functions to access faders
- */
-void motorizedFader_moveFaderToValue(motorizedFader_TypeDef* fader, uint16_t value)
-{
-  pidController_setTarget(&fader->pidControl, value);
-
-  int newCCR = round(fader->pidControl.output);
-
-  if(newCCR > 0 && (fader->touchSensor.state == tsl_released))
-  {
-    motorDC_moveUp(&fader->motor, newCCR);
-  }
-  else if(newCCR < 0 && (fader->touchSensor.state == tsl_released))
-  {
-    uint16_t newCCR_amount = -1 * newCCR;
-    motorDC_moveDown(&fader->motor, newCCR_amount);
-  }
-  else
-  {
-    motorDC_stopMoving(&fader->motor);
-  }
-}
-
-void motorizedFader_moveFaderToValueFixedCCR(motorizedFader_TypeDef* fader, uint16_t target, uint16_t CCR)
-{
-  if((fader->whiper.ValueSmooth < target) && (fader->touchSensor.state == tsl_released))
-  {
-    motorDC_moveUp(&fader->motor, CCR);
-  }
-  else if((fader->whiper.ValueSmooth > target) && (fader->touchSensor.state == tsl_released))
-  {
-    motorDC_moveDown(&fader->motor, CCR);
-  }
-  else
-  {
-    motorDC_stopMoving(&fader->motor);
+    MotorizedFader_structTd* Fader = FadersInternal.InitializedFaders[Index];
+    MotorDriver_start_PWM(&Fader->Motor);
   }
 }
 
-
-uint16_t motorizedFader_returnWhiperValue(motorizedFader_TypeDef* fader)
+void MotorizedFader_update_All()
 {
-  uint16_t returnValue = fader->whiper.ValueSmooth;
-  return returnValue;
+  Wiper_update_All();
+  TSCButton_update_All();
 }
-
-/*
- * BEGIN: Functions to access faders
- */
+/** @} ************************************************************************/
+/* end of name "Process"
+ ******************************************************************************/

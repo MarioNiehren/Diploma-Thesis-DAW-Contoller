@@ -15,7 +15,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "stm32L0xx_hal.h"
+#include "stm32l0xx_hal.h"
 
 /**
  * @name		Structure of a Timer

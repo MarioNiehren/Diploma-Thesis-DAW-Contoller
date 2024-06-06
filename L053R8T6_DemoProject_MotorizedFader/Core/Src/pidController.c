@@ -1,267 +1,301 @@
-/*
- * pidController.c
+/***************************************************************************//**
+ * @defgroup        PID_Source      Source
+ * @brief           Study this part for details.
  *
- *  Created on: Sep 5, 2023
- *      Author: Mario Niehren
- */
+ * @addtogroup      MotorFader
+ * @{
+ *
+ * @addtogroup      PID_Controller
+ * @{
+ *
+ * @addtogroup      PID_Source
+ * @{
+ *
+ * @file            pidController.c
+ *
+ * @date            Sep 5, 2023
+ * @author          Mario Niehren
+ ******************************************************************************/
 
 #include <pidController.h>
+#include <math.h>
 
-/*
- *  BEGIN: Functions for initialization and Setup
- */
-void pidController_setValueMax(pidController_TypeDef* pid, int value)
+/***************************************************************************//**
+ * @name      Initialize
+ * @brief     Use these functions to initialize the PID controller
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void PID_init(PID_structTd* pid)
 {
-  pid->value_max = value;
+  pid->DTerm = 0.0;
+  pid->ITerm = 0.0;
+  pid->OutputRaw = 0.0;
 }
 
-void pidController_setValueMin(pidController_TypeDef* pid, int value)
+/** @} ************************************************************************/
+/* end of name "Initialize"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      (Re-)Set Functions
+ * @brief     Use these functions to set or reset parameters
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void PID_set_OutputMinMax(PID_structTd* PID, double Min, double Max)
 {
-  pid->value_min = value;
+  PID->OutputMin = Min;
+  PID->OutputMax = Max;
 }
 
-void pidController_setKp(pidController_TypeDef* pid, double value)
+/* Description in .h */
+void PID_set_KpKiKd(PID_structTd* PID, double Kp, double Ki, double Kd)
 {
-  pid->Kp = value;
+  PID->Kp = Kp;
+  PID->Ki = Ki;
+  PID->Kd = Kd;
 }
 
-void pidController_setKi(pidController_TypeDef* pid, double value)
+/* Description in .h */
+void PID_set_LowPass(PID_structTd* PID, double Tau)
 {
-  pid->Ki = value;
+  PID->TauLowPass = Tau;
 }
 
-void pidController_setKd(pidController_TypeDef* pid, double value)
+/* Description in .h */
+void PID_set_SampleTimeInMs(PID_structTd* PID, uint32_t Threshold)
 {
-  pid->Kd = value;
+  /** @internal     1.  Set Threshold to the Timer */
+  timer_set_ThresholdMS(&PID->SampleTimer, Threshold);
+  /** @internal     2.  Store threshold value local for PID calculations */
+  PID->SampleTime = Threshold;
 }
 
-void pidController_setHysteresis(pidController_TypeDef* pid, uint16_t value)
+/* Description in .h */
+void PID_set_Target(PID_structTd* PID, double setpoint)
 {
-  pid->hysteresis = value;
+  PID->Setpoint = setpoint;
 }
 
-void pidController_setLowPass(pidController_TypeDef* pid, double value)
+/* Description in .h */
+void PID_reset(PID_structTd* pid)
 {
-  pid->tauLowPass = value;
+  pid->Sample = 0x00;
+  pid->PTerm = 0.00;
+  pid->ITerm = 0.00;
+  pid->DTerm = 0.00;
+  pid->Error = 0.00;
+  pid->OutputRaw = 0.00;
 }
 
-void pidController_setSampleTime(pidController_TypeDef* pid, uint16_t value)
-{
-  pid->sampleTime = value;
-}
+/** @} ************************************************************************/
+/* end of name "(Re-)Set Functions"
+ ******************************************************************************/
 
-void pidController_init(pidController_TypeDef* pid)
-{
-  pid->differentiator = 0.0;
-  pid->error_old = 0.0;
-  pid->integrator = 0.0;
-  pid->output = 0.0;
-  pid->sample_old = 0.00;
-}
 
-void pidController_setTarget(pidController_TypeDef* pid, uint16_t setpoint)
-{
-  pid->setpoint = setpoint;
-}
-/*
- *  END: Functions for initialization and Setup
- */
+/***************************************************************************//**
+ * @name      Process
+ * @brief     Use these functions to calculate the PID
+ * @{
+ ******************************************************************************/
 
-/*
- *  BEGIN: Functions to compute PID
- */
-bool check_hysteresis(pidController_TypeDef* pid);
-void reset_outputIfTimerEllapsed(pidController_TypeDef* pid);
-void reset_hysteresis(pidController_TypeDef* pid);
-void compute_error(pidController_TypeDef* pid);
-void compute_proportional(pidController_TypeDef* pid);
-void compute_integrator(pidController_TypeDef* pid);
-void compute_differentiator(pidController_TypeDef* pid);
-void compute_output(pidController_TypeDef* pid);
-void store_errorAndSample(pidController_TypeDef* pid);
+/** @cond *//* Function Prototypes */
+double calculate_Error(PID_structTd* pid, double sample);
+double calculate_PTerm(PID_structTd* pid, double Error);
+double calculate_ITermWithAntiWindup(PID_structTd* pid, double PTerm, double Error);
+double calculate_DTermWithLowPass(PID_structTd* pid, double sample);
+double limit_Output(double Output, double Min, double Max);
+/** @endcond *//* Function Prototypes */
 
-double pidController_compute(pidController_TypeDef* pid, uint16_t sample)
+/* Description in .h */
+void PID_update(PID_structTd* pid, double sample)
 {
-  pid->timer.threshold = pid->sampleTime;
-  pid->sample = sample;
-  if(timer_check_TimerElapsed(&pid->timer) && (pid->blocked == false))
+  /** @internal     1. Check it Sample-Time elapsed. Leave function if not!*/
+  if(timer_check_TimerElapsed(&pid->SampleTimer))
   {
-    /* check hysteresis */
-    if(check_hysteresis(pid) == true)
-    {
-      reset_outputIfTimerEllapsed(pid);
-    }
-    else
-    {
-      reset_hysteresis(pid);
-      compute_error(pid);
-      compute_proportional(pid);
-      compute_integrator(pid);
-      compute_differentiator(pid);
-      compute_output(pid);
-      store_errorAndSample(pid);
-    }
-  }
-  return pid->output;
-}
+    double OutputMin = pid->OutputMin;
+    double OutputMax = pid->OutputMax;
 
-bool check_hysteresis(pidController_TypeDef* pid)
-{
-  bool returnValue = false;
-  if((pid->sample <= (pid->setpoint + pid->hysteresis)) && (pid->sample >= (pid->setpoint - pid->hysteresis)))
-  {
-    returnValue = true;
-  }
-  return returnValue;
-}
+    /** @internal     2.  Calculate error between set point and current sample */
+    double Error = calculate_Error(pid, sample);
 
+    /** @internal     3.  Calculate proportional Term */
+    double PTerm = calculate_PTerm(pid, Error);
 
-void reset_outputIfTimerEllapsed(pidController_TypeDef* pid)
-{
-  pid->timerHyst.threshold = 0x05;
-  if(timer_check_TimerElapsed(&pid->timerHyst) == true)
-  {
-    pid->output = 0.00f;
-  }
-}
+    /** @internal     4.  Calculate integral Term with anti wind up */
+    double ITerm =  calculate_ITermWithAntiWindup(pid, PTerm, Error);
 
-void reset_hysteresis(pidController_TypeDef* pid)
-{
-  timer_reset(&pid->timerHyst);
-}
-void compute_error(pidController_TypeDef* pid)
-{
-  pid->error = pid->setpoint - pid->sample;
-}
-void compute_proportional(pidController_TypeDef* pid)
-{
-  pid->proportional = pid->Kp * pid->error;
-}
+    /** @internal     5.  Calculate derivative Term with low pass to avoid
+     *                    noise */
+    double DTerm =  calculate_DTermWithLowPass(pid, sample);
 
-/*
- * BEGIN: Functions for the integrator
- */
-void compute_integratorAntiWindup(pidController_TypeDef* pid);
-void clampIntegrator(pidController_TypeDef* pid);
-void compute_integrator(pidController_TypeDef* pid)
-{
-  pid->integrator = pid->integrator + 0.5 * pid->Ki * pid->sampleTime * (pid->error + pid->error_old);
-  compute_integratorAntiWindup(pid);
-  clampIntegrator(pid);
-}
-void compute_integratorAntiWindup(pidController_TypeDef* pid)
-{
-  if(pid->value_max > pid->proportional)
-    {
-      pid->integrator_max = pid->value_max + pid->proportional;
-    }
-    else
-    {
-      pid->integrator_max = 0.0;
-    }
-    if(pid->value_min < pid->proportional)
-    {
-      pid->integrator_min = pid->value_min - pid->proportional;
-    }
-    else
-    {
-      pid->integrator_min = 0.0;
-    }
-}
-void clampIntegrator(pidController_TypeDef* pid)
-{
-  if(pid->integrator > pid->integrator_max)
-  {
-    pid->integrator = pid->integrator_max;
-  }
-  else if(pid->integrator < pid->integrator_min)
-  {
-    pid->integrator = pid->integrator_min;
+    /** @internal     6.  calculate output value */
+    double Output = PTerm + ITerm + DTerm;
+
+    /** @internal     7.  limit output value */
+    Output = limit_Output(Output, OutputMin, OutputMax);
+
+    /** @internal     8.  save output to users PID structure (raw and round) */
+    pid->OutputRaw = Output;
+    pid->OutputRound = round(Output);
   }
 }
-/*
- * END: Functions for the integrator
- */
 
-/*
- * BEGIN: Functions for the differentiator
+/**
+ * @brief     calculate error of between input value and set point.
+ * @param     PID     pointer to the users PID structure
+ * @param     Sample  of the current input value
+ * @return    Error value
  */
-double compute_Numerator_differentiatorPortion(pidController_TypeDef* pid);
-double compute_Numerator_lowPassPortion(pidController_TypeDef* pid);
-void compute_differentiator(pidController_TypeDef* pid)
+double calculate_Error(PID_structTd* pid, double Sample)
 {
-  pid->differentiator = (compute_Numerator_differentiatorPortion(pid) + compute_Numerator_lowPassPortion(pid))
-                      / (2.0 * pid->tauLowPass + pid->sampleTime);
+  double Error = 0.0;
+  double Setpoint = pid->Setpoint;
+  /** @internal     1.  Calculate Error */
+  Error = Setpoint - Sample;
+  /** @internal     2.  Save error for the next calculation cycle. */
+  pid->PrevError = pid->Error;
+  pid->Error = Error;
+
+  return Error;
 }
 
-double compute_Numerator_differentiatorPortion(pidController_TypeDef* pid)
-{
-  double returnValue = 0.00;
-  returnValue = 2.0 * pid->Kd * (pid->sample - pid->sample_old);
-  return returnValue;
-}
-
-double compute_Numerator_lowPassPortion(pidController_TypeDef* pid)
-{
-  double returnValue = 0.00;
-  returnValue = (2.0 * pid->tauLowPass - pid->sampleTime) * pid->differentiator;
-  return returnValue;
-}
-
-/*
- * END: Functions for the differentiator
+/**
+ * @brief     Calculate the proportional Term of the PID controller.
+ * @param     PID     pointer to the users PID structure
+ * @param     Error   of the current calculation process
+ * @return    P-Term
  */
+double calculate_PTerm(PID_structTd* pid, double Error)
+{
+  double PTerm = 0.0;
+  double Kp = pid->Kp;
+  /** @internal     1.  Calculate P-Term */
+  PTerm = Kp * Error;
 
-/*
- * BEGIN: Functions for the pid output
- */
-void clamp_output(pidController_TypeDef* pid);
-void compute_output(pidController_TypeDef* pid)
-{
-  pid->output = pid->proportional + pid->integrator + pid->differentiator;
-  clamp_output(pid);
+  pid->PTerm = PTerm;
+
+  return  PTerm;
 }
-void clamp_output(pidController_TypeDef* pid)
+
+/**
+ * @brief     Calculate the integral Term of the PID controller with anti wind
+ *            up.
+ * @param     PID     pointer to the users PID structure
+ * @param     PTerm   proportional term of the current calculation cycle
+ * @param     Error   of the current calculation process
+ * @return    I-Term with anti wind-up
+ */
+double calculate_ITermWithAntiWindup(PID_structTd* pid, double PTerm, double Error)
 {
-  if(pid->output > pid->value_max)
+  double ITerm     = 0.0;
+  double ITermMin  = 0.0;
+  double ITermMax  = 0.0;
+  double PrevITerm  = pid->ITerm;
+  double SampleTime = pid->SampleTime;
+  double Ki         = pid->Ki;
+  double OutputMin  = pid->OutputMin;
+  double OutputMax  = pid->OutputMax;
+  double PrevError  = pid->PrevError;
+
+  /** @internal     1.  Calculate Integral term */
+  ITerm = PrevITerm + 0.5 * Ki * SampleTime * (Error + PrevError);
+
+  /** @internal     2.  Calculate I-Term limits for anti wind-up */
+  if(OutputMin < PTerm)
   {
-    pid->output = pid->value_max;
+    ITermMin = OutputMin - PTerm;
   }
-  else if(pid->output < pid->value_min)
+  if(OutputMax > PTerm)
   {
-    pid->output = pid->value_min;
+    ITermMax = OutputMax + PTerm;
   }
-}
-/*
- * END: Functions for the pid output
- */
 
-/*
- * BEGIN: Functions for value storage
+  /** @internal     3.  Limit I-Term if necessary */
+  ITerm = fmax(ITerm, ITermMin);
+  ITerm = fmin(ITerm, ITermMax);
+
+  /** @internal     4.  Save I-Term for next calculation cycle */
+  pid->ITerm = ITerm;
+  
+  return ITerm;
+}
+
+/**
+ * @brief     Calculate derivative term with low pass to avoid noise.
+ * @param     PID     pointer to the users PID structure
+ * @param     Sample  of the current input value
+ * @return    D-Term
  */
-void store_errorAndSample(pidController_TypeDef* pid)
+double calculate_DTermWithLowPass(PID_structTd* pid, double sample)
 {
-  pid->error_old = pid->error;
-  pid->sample_old = pid->sample;
+  double SampleTime = pid->SampleTime;
+  double PrevSample = pid->Sample;
+  double TauLowPass = pid->TauLowPass;
+  double DTerm = 0.0;
+  double PrevDTerm = pid->DTerm;
+  double Kd = pid->Kd;
+
+  double NumeratorDifferentiatorPortion = -2.0 * Kd * (sample - PrevSample);
+  double NumeratorLowPassPortion = (2.0 * TauLowPass - SampleTime) * PrevDTerm;
+
+  DTerm = (NumeratorDifferentiatorPortion + NumeratorLowPassPortion)
+                        / (2.0 * TauLowPass + SampleTime);
+
+  pid->Sample = sample;
+  pid->DTerm = DTerm;
+
+  return DTerm;
 }
-/*
- * END: Functions for value storage
- */
 
-/*
- *  BEGIN: Functions to compute PID
+/**
+ * @brief     Limit Output
+ * @param     Output  of current calculation cycle without limits.
+ * @param     Min     output value
+ * @param     Max     output value
+ * @return    limited PID output
  */
-
-void pidController_reset(pidController_TypeDef* pid)
+double limit_Output(double Output, double Min, double Max)
 {
-  pid->sample = 0x00;
-  pid->sample_old = 0x00;
-  pid->proportional = 0.00;
-  pid->integrator = 0.00;
-  pid->integrator_min = 0.00;
-  pid->integrator_max = 0.00;
-  pid->differentiator = 0.00;
-  pid->error = 0.00;
-  pid->error_old = 0.00;
-  pid->output = 0.00;
+  double OutputLimited = Output;
+
+  OutputLimited = fmax(OutputLimited, Min);
+  OutputLimited = fmin(OutputLimited, Max);
+
+  return OutputLimited;
 }
+
+/** @} ************************************************************************/
+/* end of name "Process"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Get Functions
+ * @brief     Use these functions get values from the PID
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+double PID_get_OutputRaw(PID_structTd* PID)
+{
+  return  PID->OutputRaw;
+}
+
+/* Description in .h */
+int PID_get_OutputRound(PID_structTd* PID)
+{
+  return  PID->OutputRound;
+}
+
+/** @} ************************************************************************/
+/* end of name "Get Functions"
+ ******************************************************************************/
+
+/**@}*//* end of defgroup "PID_Source" */
+/**@}*//* end of defgroup "PID_Controller" */
+/**@}*//* end of defgroup "MotorFader" */

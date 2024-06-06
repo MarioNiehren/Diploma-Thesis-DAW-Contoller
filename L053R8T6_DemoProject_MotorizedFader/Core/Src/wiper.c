@@ -16,25 +16,192 @@
 
 #include <wiper.h>
 
+/**
+ * @brief     Structure that contains all data for an ADC.
+ */
+typedef struct
+{
+  ADC_HandleTypeDef*  hadc;         /**<  HAL-handle of the ADC */
+  bool            hadcInterrupted;  /**<  Flag to mark an interrupt */
+  uint16_t        BufferDMA[NUM_ALL_ADC_CHANNELS];  /**< DMA will use this
+                                          buffer to store the ADC data of each
+                                          channel. */
+  Wiper_structTd* InitializedWipers[NUM_ALL_ADC_CHANNELS];  /**< Pointers to all
+                                          initialized wipers on this ADC */
+  uint8_t         NumUsedChannels;  /**<  Number of used channels of this ADC.
+                                          This is equal to the number of
+                                          initialized wipers on this ADC */
+
+}Wiper_ADCdescriptor_structTd;
+
+/**
+ * @brief     Structure that contains all active ADCs. This is for internal
+ *            use only.
+ */
+typedef struct
+{
+  Wiper_ADCdescriptor_structTd ADCs[NUM_ALL_ADC_ON_MCU];  /**<  Pointer to all
+                                           available ADCs on the used STM32
+                                           microcontroller */
+  uint8_t   NumADCs;                  /**< Number of actually used ADCs*/
+}Wiper_Internal_StructTd;
+
+/**
+ * @brief     Object of Wiper_Internal_StructTd type to store data needed inside
+ *            this module.
+ */
+Wiper_Internal_StructTd WiperInternal = {0};
+
 /***************************************************************************//**
  * @name			Initialize
  * @brief			Use these functions to initialize the wiper of the fader
  * @{
  ******************************************************************************/
+
+/** @cond *//* Function Prototypes */
+bool check_ADCAlreadyInUse(ADC_HandleTypeDef* hadc);
+uint8_t get_ValidADCIndex(ADC_HandleTypeDef* hadc);
+uint8_t get_NextFreeADCIndex(ADC_HandleTypeDef* hadc);
+void link_hadc(ADC_HandleTypeDef* hadc, uint8_t IndexADC);
+void link_WiperToInternalStructure(Wiper_structTd* Wiper, uint8_t IndexADC);
+/** @endcond *//* Function Prototypes */
+
 /* Description in .h */
 void Wiper_init_ADC(Wiper_structTd* Wiper, ADC_HandleTypeDef* hadc)
 {
-	/** @internal				Link HAL-ADC-Handle to the Wiper Structure. */
-  Wiper->handle = hadc;
+  uint8_t IndexValidADC = 0;
+
+  /** @internal     1.  Check if the ADC-handler is already linked.
+   *                    - if yes: find the valid ADC index of the internal
+   *                              structure.
+   *                    - if no:  find the next free ADC index and link the
+   *                              ADC handle to the structure */
+  if(check_ADCAlreadyInUse(hadc) == true)
+  {
+    IndexValidADC = get_ValidADCIndex(hadc);
+  }
+  else
+  {
+    IndexValidADC = get_NextFreeADCIndex(hadc);
+    link_hadc(hadc, IndexValidADC);
+  }
+  /** @internal     2.  Link the ADC relevant parts of the Wiper structure to
+   *                    the internal structure at the valid ADC index. */
+  link_WiperToInternalStructure(Wiper, IndexValidADC);
+}
+
+/**
+ * @brief     Check if the ADC-handler is already linked to the internal
+ *            structure.
+ * @param     hadc        pointer to the HAL generated ADC-handle of the ADC
+ *                        that is used for the wiper
+ * @return    "true" if the ADC-handler is already linked, "false" it not
+ */
+bool check_ADCAlreadyInUse(ADC_HandleTypeDef* hadc)
+{
+  bool hadcInUse = false;
+
+  /** @internal     1.  Loop trough all available ADCs of the microcontroller */
+  for(uint8_t IndexLoop = 0; IndexLoop < NUM_ALL_ADC_ON_MCU; IndexLoop++)
+  {
+    /** @internal     2.  Check if the current ADC matches with the ADC-handler.
+     *                    if yes: Return true. */
+    if(WiperInternal.ADCs[IndexLoop].hadc == hadc)
+    {
+      hadcInUse = true;
+    }
+  }
+
+  return hadcInUse;
+}
+
+/**
+ * @brief     Get the index of an ADC that is already linked to the internal
+ *            structure
+ * @param     hadc        pointer to the HAL generated ADC-handle of the ADC
+ *                        that is used for the wiper
+ * @return    valid ADC index. If the ADC is not linked yet, the function will
+ *            return 0xFF.
+ */
+uint8_t get_ValidADCIndex(ADC_HandleTypeDef* hadc)
+{
+  uint8_t IndexValidADC = 0xFF;
+
+  /** @internal     1.  Loop trough all available ADCs of the microcontroller */
+  for(uint8_t IndexLoop = 0; IndexLoop < NUM_ALL_ADC_ON_MCU; IndexLoop++)
+  {
+    if(WiperInternal.ADCs[IndexLoop].hadc == hadc)
+    {
+      /** @internal     2.  Check if the current ADC matches with the
+       *                    ADC-handler.
+       *                    - if yes: Return the current number of the loop
+       *                              counter. */
+      IndexValidADC = IndexLoop;
+    }
+  }
+  return IndexValidADC;
+}
+
+/**
+ * @brief     Get the index number of the next free space in the ADC array of
+ *            the internal structure.
+ * @param     hadc        pointer to the HAL generated ADC-handle of the ADC
+ *                        that is used for the wiper
+ * @return    index number of the next free space
+ */
+uint8_t get_NextFreeADCIndex(ADC_HandleTypeDef* hadc)
+{
+  /** @internal     1.  Return the number of linked ADCs of the internal
+   *                    structure. */
+  return WiperInternal.NumADCs;
+}
+
+/**
+ * @brief     link the hadc to the internal structure.
+ * @param     hadc        pointer to the HAL generated ADC-handle of the ADC
+ *                        that is used for the wiper
+ * @param     IndexADC    Index of the internal structure, where the ADC should
+ *                        be linked.
+ * @return    none
+ */
+void link_hadc(ADC_HandleTypeDef* hadc, uint8_t IndexADC)
+{
+  /** @internal     1.  link hadc to the internal structure */
+  WiperInternal.ADCs[IndexADC].hadc = hadc;
+  /** @internal     2.  Count up the number of linked ADCs */
+  WiperInternal.NumADCs++;
+}
+
+/**
+ * @brief     link ADC relevant parts of the wiper structure to the internal
+ *            structure
+ * @param     hadc        pointer to the HAL generated ADC-handle of the ADC
+ *                        that is used for the wiper
+ * @param     IndexADC    Index of the internal structure, where the ADC is
+ *                        linked.
+ */
+void link_WiperToInternalStructure(Wiper_structTd* Wiper, uint8_t IndexADC)
+{
+  /** @internal     1.  Get the Wiper Index */
+  uint8_t WiperIndex = WiperInternal.ADCs[IndexADC].NumUsedChannels;
+  /** @internal     2.  Store the Wiper Index to the Wiper structure to find it
+   *                    quick later. */
+  Wiper->IndexBufferDMA = WiperIndex;
+  /** @internal     3.  Link the Wiper structure to the internal ADC structure
+   *                    at the Wiper Index*/
+  WiperInternal.ADCs[IndexADC].InitializedWipers[WiperIndex] = Wiper;
+  /** @internal     4.  Count up the number of used channels of the ADC */
+  WiperInternal.ADCs[IndexADC].NumUsedChannels++;
 }
 
 /* Description in .h */
 void Wiper_init_Hysteresis(Wiper_structTd* Wiper)
 {
-  Wiper->Hyst_Threshold = 0x04;
-  Wiper->Hyst_NumSmallerValues = 0x00;
-  Wiper->Hyst_NumBiggerValues = 0x00;
-  Wiper->Hyst_DeviationThreshold = 200;
+  /** @internal     1.  Store default hysteresis values to wiper structure. */
+  Wiper->Hyst_Threshold = 15;
+  Wiper->Hyst_NumSmallerValues = 0;
+  Wiper->Hyst_NumBiggerValues = 0;
+  Wiper->Hyst_DeviationThreshold = 1000;
 }
 
 /** @} ************************************************************************/
@@ -45,10 +212,25 @@ void Wiper_init_Hysteresis(Wiper_structTd* Wiper)
 /***************************************************************************//**
  * @name      Calibrate
  * @brief     Use this function to calibrate the wiper
- * @note      There functions are not essential, but may be helpful to improve
+ * @note      These functions are not essential, but may be helpful to improve
  *            the performance.
  * @{
  ******************************************************************************/
+
+/* Description in .h */
+void Wiper_calibrate_HysteresisThreshold(Wiper_structTd* Wiper, uint8_t Threshold)
+{
+  /** @internal     1.  Copy Threshold to Hyst_Threshold of the wiper structure */
+  Wiper->Hyst_Threshold = Threshold;
+}
+
+/* Description in .h */
+void Wiper_calibrate_HysteresisDeviationThreshold(Wiper_structTd* Wiper, uint8_t Threshold)
+{
+  /** @internal     1.  Copy Threshold to Hyst_DeviationThreshold of the wiper
+   *                    structure */
+  Wiper->Hyst_DeviationThreshold = Threshold;
+}
 
 /** @} ************************************************************************/
 /* end of name "Calibrate"
@@ -56,41 +238,74 @@ void Wiper_init_Hysteresis(Wiper_structTd* Wiper)
 
 /***************************************************************************//**
  * @name			Process ADC
- * @brief			Use these functions to control the ADC
+ * @brief			Use these functions to update the ADC values
  * @{
  ******************************************************************************/
 
 /* Description in .h */
-void Wiper_start(Wiper_structTd* Wiper)
+void Wiper_start_All(void)
 {
-	/** @internal			1.	Declare variable with the length of bytes to be buffered
-	 * 										by DMA. We have 12Bit ADC, so we need 2 bytes. */
-	uint32_t		NumOfBytes = 1;
-	/** @internal			2.	Start ADC in DMA mode and link wiper->value to DMA
-	 * 										to buffer data from Peripheral to Memory */
-  HAL_ADC_Start_DMA(Wiper->handle, &Wiper->BufferDMA, NumOfBytes);
+  uint8_t IndexLoop = 0;
+  uint8_t NumHadcs = WiperInternal.NumADCs;
+
+  /** @internal     1.  Loop through all active ADCs */
+  for(IndexLoop = 0; IndexLoop < NumHadcs; IndexLoop++)
+  {
+    ADC_HandleTypeDef*  handle = WiperInternal.ADCs[IndexLoop].hadc;
+    uint16_t* Buffer = WiperInternal.ADCs[IndexLoop].BufferDMA;
+    uint8_t UsedChannels = WiperInternal.ADCs[IndexLoop].NumUsedChannels;
+
+    /** @internal     2. Start ADC on DMA for each active ADC */
+    HAL_ADC_Start_DMA(handle, (uint32_t*) Buffer, UsedChannels);
+  }
 }
 
 /** @cond *//* Function Prototypes */
-void store_SampleFromDMABuffer(Wiper_structTd* Wiper);
+void store_SampleFromDMABuffer(Wiper_structTd* Wiper, uint16_t Buffer);
 void calculate_SmoothValue(Wiper_structTd* Wiper);
 /** @endcond *//* Function Prototypes */
 
 /* Description in .h */
-void Wiper_update(Wiper_structTd* Wiper)
+void Wiper_update_All(void)
 {
-	/** @internal			1.	Check if a new ADC Value is available.
-												if not -> leave function. */
-	if(Wiper->Interrupted == true)
+  uint8_t IndexADCs = 0;
+  uint8_t NumHadcs = WiperInternal.NumADCs;
+
+  /** @internal     1.  Loop through all active ADCs. Inside the loop: */
+  for(IndexADCs = 0; IndexADCs < NumHadcs; IndexADCs++)
   {
-		/** @internal			2.	Reset Interrupt flag */
-		Wiper->Interrupted = false;
-		/** @internal			3.	Copy the new value to the sample array */
-		store_SampleFromDMABuffer(Wiper);
-		/** @internal			4.	Calculate the new smoothed value */
-		calculate_SmoothValue(Wiper);
-		/** @internal			5.	Restart ADC conversion */
-		Wiper_start(Wiper);
+    Wiper_ADCdescriptor_structTd* ActiveADC = &WiperInternal.ADCs[IndexADCs];
+    /** @internal     2.  Check if the current ADC was interrupted.
+     *                    - If no: leave function. */
+    if(ActiveADC->hadcInterrupted == true)
+    {
+      /** @internal      3.  Reset Interrupt Flag of current ADC */
+      ActiveADC->hadcInterrupted = false;
+
+      uint8_t IndexChannels = 0;
+      uint8_t NumChannels = ActiveADC->NumUsedChannels;
+
+      /** @internal     4.  loop trough all active channels of the current ADC */
+      for(IndexChannels = 0; IndexChannels < NumChannels; IndexChannels++)
+      {
+        Wiper_structTd* Wiper = ActiveADC->InitializedWipers[IndexChannels];
+        uint16_t Buffer = ActiveADC->BufferDMA[IndexChannels];
+        /** @internal     5.  Store the data of the DMA buffer to the wiper
+         *                    that belongs to the current channel */
+        store_SampleFromDMABuffer(Wiper, Buffer);
+        /** @internal     6.  Calculate the smoothed value for the wiper
+         *                    that belongs to the current channel */
+        calculate_SmoothValue(Wiper);
+      }
+
+      ADC_HandleTypeDef*  handle = ActiveADC->hadc;
+      uint16_t* Buffer = ActiveADC->BufferDMA;
+      uint8_t UsedChannels = ActiveADC->NumUsedChannels;
+
+      /** @internal     7.  Restart the ADC-DMA of the currently interrupted ADC
+       *                    as we are in single conservation mode. */
+      HAL_ADC_Start_DMA(handle, (uint32_t*) Buffer, UsedChannels);
+    }
   }
 }
 
@@ -100,14 +315,17 @@ void Wiper_update(Wiper_structTd* Wiper)
  * @return		none
  *
  */
-void store_SampleFromDMABuffer(Wiper_structTd* Wiper)
+void store_SampleFromDMABuffer(Wiper_structTd* Wiper, uint16_t Buffer)
 {
 	/** @internal			1.	Copy Value from DMA buffer to Sample Array at current
 	 * 										Array-Index */
-	Wiper->Samples[Wiper->SamplesIndex] = Wiper->BufferDMA;
-	/** @internal			2.	Count up the sample array index for the next value. */
+	Wiper->Samples[Wiper->SamplesIndex] = Buffer;
+  /** @internal     2.  Copy Value from DMA buffer to Value Raw to be able
+   *                    to return it quick to the user if needed. */
+	Wiper->ValueRaw = Buffer;
+	/** @internal			3.	Count up the sample array index for the next value. */
 	Wiper->SamplesIndex++;
-	/** @internal			3.	If sample array index reaches the defined
+	/** @internal			4.	If sample array index reaches the defined
 	 * 										 @ref NUMBER_OF_SAMPLES, reset the index. The following
 	 * 										 values will overwrite the old ones. */
 	if(Wiper->SamplesIndex == NUMBER_OF_SAMPLES)
@@ -122,7 +340,7 @@ uint16_t get_SmoothedVlaueWithHysteresis(Wiper_structTd* Wiper, uint16_t Samples
 
 /**
  * @brief			Calculate an average of all available samples
- * @param			Whiper			pointer to the users whiper structure
+ * @param			Wiper			pointer to the users wiper structure
  * @return		none
  */
 void calculate_SmoothValue(Wiper_structTd* Wiper)
@@ -145,6 +363,7 @@ void calculate_SmoothValue(Wiper_structTd* Wiper)
 uint16_t get_ValueApproximatedToAccuracy(Wiper_structTd* Wiper, uint16_t SamplesAverage, uint16_t CompareValue);
 void reset_ValueDeviationCounters(Wiper_structTd* Wiper);
 /** @endcond *//* Function Prototypes */
+
 /**
  * @brief			Check if the average of samples is in a hysteresis area around
  * 						the current value. It reduce noise a lot but the hysteresis
@@ -157,12 +376,23 @@ void reset_ValueDeviationCounters(Wiper_structTd* Wiper);
  */
 uint16_t get_SmoothedVlaueWithHysteresis(Wiper_structTd* Wiper, uint16_t SamplesAverage)
 {
+  /** @internal     1.  Setup variables used inside this function */
 	uint16_t ReturnValue = 0;
-	uint8_t HystThreshold = 4;
+	uint8_t HystThreshold = Wiper->Hyst_Threshold;
 	uint16_t CompareValue = Wiper->ValueSmooth;
+
+	/** @internal     2.  Calculate Limits (Min/Max) of hysteresis range */
 	uint16_t HystMin = CompareValue - HystThreshold;
 	uint16_t HystMax = CompareValue + HystThreshold;
 
+	/** @internal     3.  Check if average value of the current samples is in the
+   *                    hysteresis range
+	 *                    - If yes: check if the samples average is accurate
+	 *                      enough, correct it if necessary and save the value for
+	 *                      return
+	 *                    - If not: Save the samples average as return value and
+	 *                      reset the value deviation counters witch are required
+	 *                      for the accuracy approximation. */
 	if((SamplesAverage > HystMin) && (SamplesAverage < HystMax))
   {
 	  ReturnValue = get_ValueApproximatedToAccuracy(Wiper, SamplesAverage, CompareValue);
@@ -173,59 +403,95 @@ uint16_t get_SmoothedVlaueWithHysteresis(Wiper_structTd* Wiper, uint16_t Samples
 	  reset_ValueDeviationCounters(Wiper);
 	}
 
+	/** @internal     4.  Return the result */
 	return ReturnValue;
 }
 
-uint8_t NumBiggerValuesInHyst = 0;
-uint8_t NumSmallerValuesInHyst = 0;
+/**
+ * @brief     Check if the average of samples drifts away from the current
+ *            smooth value inside the hysteresis range. It adjusts the value if
+ *            necessary.
+ * @param     Wiper     pointer to the users wiper structure
+ * @param     SamplesAverage  average value calculated from existing samples
+ * @param     CompareValue    value the samples average will be compared to
+ */
 uint16_t get_ValueApproximatedToAccuracy(Wiper_structTd* Wiper, uint16_t SamplesAverage, uint16_t CompareValue)
 {
   uint16_t ReturnValue = 0;
 
+  uint16_t NumSmallerValuesInHyst = Wiper->Hyst_NumSmallerValues;
+  uint16_t NumBiggerValuesInHyst = Wiper->Hyst_NumBiggerValues;
+  uint16_t Threshold = Wiper->Hyst_DeviationThreshold;
+
+  /** @internal     1.  If the samples average is bigger then the compare value,
+   *                    add the difference to the bigger values counter */
   if(SamplesAverage > CompareValue)
   {
-   NumBiggerValuesInHyst++;
+    uint16_t Difference = SamplesAverage + CompareValue;
+    NumBiggerValuesInHyst = NumBiggerValuesInHyst + Difference;
   }
-
+  /** @internal     2.  If the samples average is smaller then the compare value,
+   *                    add the difference to the smaller values counter */
   if(SamplesAverage < CompareValue)
   {
-   NumSmallerValuesInHyst++;
+    uint16_t Difference = CompareValue - SamplesAverage;
+    NumSmallerValuesInHyst = NumSmallerValuesInHyst + Difference;
   }
 
-  if(NumBiggerValuesInHyst > (NumSmallerValuesInHyst + 200))
+  /** @internal     3.  If the bigger value counter overflows the threshold
+   *                    in reference to the smaller value counter, add +1 to the
+   *                    return value and reset counters. */
+  if(NumBiggerValuesInHyst > (NumSmallerValuesInHyst + Threshold))
   {
-   ReturnValue = CompareValue + 1;
-   NumBiggerValuesInHyst = 0;
-   NumSmallerValuesInHyst = 0;
+    ReturnValue = CompareValue + 1;
+    NumBiggerValuesInHyst = 0;
+    NumSmallerValuesInHyst = 0;
   }
-  else if(NumSmallerValuesInHyst > (NumBiggerValuesInHyst + 200))
+  /** @internal     4.  If the smaller value counter overflows the threshold
+   *                    in reference to the bigger value counter, add -1 to the
+   *                    return value and reset counters. */
+  else if(NumSmallerValuesInHyst > (NumBiggerValuesInHyst + Threshold))
   {
-   ReturnValue = CompareValue - 1;
-   NumBiggerValuesInHyst = 0;
-   NumSmallerValuesInHyst = 0;
+    ReturnValue = CompareValue - 1;
+    NumBiggerValuesInHyst = 0;
+    NumSmallerValuesInHyst = 0;
   }
   else
   {
-   ReturnValue = CompareValue;
+    /** @internal     5.  If the Threshold does not overflow, return the
+     *                    original value. */
+    ReturnValue = CompareValue;
   }
+
+  Wiper->Hyst_NumSmallerValues = NumSmallerValuesInHyst;
+  Wiper->Hyst_NumBiggerValues = NumBiggerValuesInHyst;
 
   return ReturnValue;
 }
 
+/**
+ * @brief     Reset the hysteresis deviation counters
+ * @param     Wiper     pointer to the users wiper structure
+ * @return    none
+ */
 void reset_ValueDeviationCounters(Wiper_structTd* Wiper)
 {
-  NumBiggerValuesInHyst = 0;
-  NumSmallerValuesInHyst = 0;
+  Wiper->Hyst_NumSmallerValues = 0;
+  Wiper->Hyst_NumBiggerValues = 0;
 }
+
 /* Description in .h */
-void Wiper_manage_Interrupt(Wiper_structTd* Wiper, ADC_HandleTypeDef* hadc)
+void Wiper_manage_Interrupt(ADC_HandleTypeDef* hadc)
 {
-	/** @internal			1.	Check if interrupt occurred on the wipers ADC.
-	 * 										If not -> leave function. */
-	if(hadc == Wiper->handle)
+  uint8_t index = 0;
+  /** @internal     1.  Loop through all active ADCs*/
+  for(index = 0; index < WiperInternal.NumADCs; index++)
   {
-			/** @internal			2.	Set interrupt flag */
-	  Wiper->Interrupted = true;
+    /** @internal     2.  If current ADC matches hadc, set interrupt flag*/
+    if(WiperInternal.ADCs[index].hadc == hadc)
+    {
+      WiperInternal.ADCs[index].hadcInterrupted = true;
+    }
   }
 }
 
@@ -244,7 +510,7 @@ void Wiper_manage_Interrupt(Wiper_structTd* Wiper, ADC_HandleTypeDef* hadc)
 uint16_t Wiper_get_RawValue(Wiper_structTd* Wiper)
 {
 	/** @internal			1.	return the value of DMA butter for the ADC*/
-  return Wiper->BufferDMA;
+  return Wiper->ValueRaw;
 }
 
 /* Description in .h */
