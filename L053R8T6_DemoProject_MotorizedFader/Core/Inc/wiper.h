@@ -55,7 +55,7 @@
  * 						is not clean enough, increase this number. Be careful that the
  * 						ADC does not get to slow by using to many samples.
  */
-#define NUMBER_OF_SAMPLES 150
+#define NUMBER_OF_SAMPLES 200
 
 /***************************************************************************//**
  * @name			Structures

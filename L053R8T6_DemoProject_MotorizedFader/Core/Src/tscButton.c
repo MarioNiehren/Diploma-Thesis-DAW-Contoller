@@ -162,6 +162,8 @@ void TSCButton_start_All(void)
 /** @cond *//* Function Prototypes */
 void block_TSCForSomeMs(uint32_t BlockingTime);
 bool check_TSCBlocked(void);
+void store_TSCSample(TSCButton_structTd* tsc, uint32_t Sample);
+void calculate_SmoothTSCValue(TSCButton_structTd* tsc);
 /** @endcond *//* Function Prototypes */
 
 /* Description in .h */
@@ -199,13 +201,16 @@ void TSCButton_update_All(void)
       uint32_t  TSC_Value = 0;
       TSC_Value = HAL_TSC_GroupGetValue(ActiveTSCButton->htsc, ActiveTSCButton->TSCGroup);
 
-      ActiveTSCButton->RawValue = TSC_Value;
+      store_TSCSample(ActiveTSCButton, TSC_Value);
+      calculate_SmoothTSCValue(ActiveTSCButton);
 
-      if(TSC_Value >= ActiveTSCButton->threshold)
+      uint32_t  TSC_Smooth = ActiveTSCButton->SmoothValue;
+
+      if(TSC_Smooth >= ActiveTSCButton->threshold)
       {
         ActiveTSCButton->state = TSCBUTTON_RELEASED;
       }
-      else if(TSC_Value < ActiveTSCButton->threshold)
+      else if(TSC_Smooth < ActiveTSCButton->threshold)
       {
         ActiveTSCButton->state = TSCBUTTON_TOUCHED;
       }
@@ -256,6 +261,51 @@ bool check_TSCBlocked(void)
   return ReturnValue;
 }
 
+/**
+ * @brief     Store the current TSC sample to the structure.
+ * @param     tsc       pointer to the users tsc structure
+ * @param     Sample    of the current TSC measurement
+ * @return    none
+ *
+ */
+void store_TSCSample(TSCButton_structTd* tsc, uint32_t Sample)
+{
+  /** @internal     1.  Copy Sample to Sample Array at current
+   *                    Array-Index */
+  tsc->Samples[tsc->SamplesIndex] = Sample;
+  /** @internal     2.  Copy Sample to Value Raw to be able
+   *                    to return it quick to the user if needed. */
+  tsc->RawValue = Sample;
+  /** @internal     3.  Count up the sample array index for the next value. */
+  tsc->SamplesIndex++;
+  /** @internal     4.  If sample array index reaches the defined
+   *                     @ref TSC_NUM_SAMPLES, reset the index. The following
+   *                     values will overwrite the old ones. */
+  if(tsc->SamplesIndex == TSC_NUM_SAMPLES)
+  {
+    tsc->SamplesIndex = 0x00;
+  }
+}
+
+/**
+ * @brief     Calculate an average of all available samples
+ * @param     tsc       pointer to the users tsc structure
+ * @return    none
+ */
+void calculate_SmoothTSCValue(TSCButton_structTd* tsc)
+{
+  /** @internal     1.  Declare a variable to store the sum of all samples */
+  uint32_t SumOfSamples = 0x00;
+  /** @internal     2.  Calculate the sum of all samples */
+  for(uint8_t i = 0; i < TSC_NUM_SAMPLES; i++)
+  {
+    SumOfSamples = SumOfSamples + tsc->Samples[i];
+  }
+  /** @internal     3.  Divide the sum of all samples by the
+   *                    @ref TSC_NUM_SAMPLES to get the smoothed value. */
+  tsc->SmoothValue = SumOfSamples / TSC_NUM_SAMPLES;
+}
+
 /* Description in .h */
 void TSCButton_manage_Interrupt()
 {
@@ -284,6 +334,11 @@ uint32_t TSCButton_get_RawValue(TSCButton_structTd* tsc)
   return tsc->RawValue;
 }
 
+/* Description in .h */
+uint32_t TSCButton_get_SmoothValue(TSCButton_structTd* tsc)
+{
+  return tsc->SmoothValue;
+}
 /** @} ************************************************************************/
 /* end of name "Get Functions"
  ******************************************************************************/

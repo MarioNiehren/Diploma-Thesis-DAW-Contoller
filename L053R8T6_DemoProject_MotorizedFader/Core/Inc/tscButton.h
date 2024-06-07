@@ -57,6 +57,8 @@
 #define NUM_TSC_GROUPS  8   /**< Number of available TSC groups */
 #define NUM_FREE_IOS    3   /**< 3 because 1 is used by sampling capacitor. */
 #define MAX_TSC_BUTTONS (NUM_TSC_GROUPS * NUM_FREE_IOS)
+#define TSC_NUM_SAMPLES 50  /**< Number of values stored to calculate a
+                                 smooth value */
 
 /***************************************************************************//**
  * @name      Structures and Enumerations
@@ -73,6 +75,9 @@ typedef struct
   TSC_HandleTypeDef*      htsc;
   TSC_IOConfigTypeDef     ioConfigTsc;
   TSCButton_State_enumTd  state;
+  uint32_t  Samples[TSC_NUM_SAMPLES];
+  uint8_t   SamplesIndex;
+  uint32_t  SmoothValue;
   uint32_t  RawValue;
   uint16_t  threshold;
   uint32_t  TSCGroup;
@@ -203,6 +208,13 @@ TSCButton_State_enumTd TSCButton_get_State(TSCButton_structTd* tsc);
  * @return    value of the last TSC measurement for this tsc structure
  */
 uint32_t TSCButton_get_RawValue(TSCButton_structTd* tsc);
+
+/**
+ * @brief     Call this function to get the current smooth TSC value of a Button.
+ * @param     tsc       pointer to the users tsc structure
+ * @return    value of the last TSC measurement for this tsc structure
+ */
+uint32_t TSCButton_get_SmoothValue(TSCButton_structTd* tsc);
 
 /** @} ************************************************************************/
 /* end of name "Get Functions"

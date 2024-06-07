@@ -19,7 +19,7 @@ typedef struct
 MotorizedFader_internal_structTd FadersInternal = {0};
 
 /***************************************************************************//**
- * @name      Initialize Structure
+ * @name      Initialize Fader
  * @brief     Use these functions to initialize the faders internal structure.
  * @{
  ******************************************************************************/
@@ -32,8 +32,20 @@ void MotorizedFader_init_Structure(MotorizedFader_structTd* Fader)
   FadersInternal.NumInitializedFaders++;
 }
 
+/* Description in .h */
+void MotorizedFader_init_StartForce(MotorizedFader_structTd* Fader, int CCR)
+{
+  Fader->CCRStartForce = CCR;
+}
+
+/* Description in .h */
+void MotorizedFader_init_StopRange(MotorizedFader_structTd* Fader, int CCR)
+{
+  Fader->CCRStopRange = CCR;
+}
+
 /** @} ************************************************************************/
-/* end of name "Initialize Structure"
+/* end of name "Initialize Fader"
  ******************************************************************************/
 
 
@@ -163,6 +175,7 @@ void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint3
 {
   PID_set_SampleTimeInMs(&Fader->PID, SampleTime);
 }
+
 /** @} ************************************************************************/
 /* end of name "Initialize PID"
  ******************************************************************************/
@@ -173,6 +186,8 @@ void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint3
  * @brief     Use these functions to process all faders
  * @{
  ******************************************************************************/
+
+/* Description in .h */
 void MotorizedFader_start_All()
 {
   TSCButton_start_All();
@@ -187,11 +202,114 @@ void MotorizedFader_start_All()
   }
 }
 
+/* Description in .h */
 void MotorizedFader_update_All()
 {
   Wiper_update_All();
   TSCButton_update_All();
+
+  uint16_t NumFaders = FadersInternal.NumInitializedFaders;
+  uint16_t Index = 0;
+
+  for(Index = 0; Index < NumFaders; Index++)
+  {
+    MotorizedFader_structTd* Fader = FadersInternal.InitializedFaders[Index];
+
+    TSCButton_State_enumTd TSCState;
+    TSCState = TSCButton_get_State(&Fader->TouchSense);
+
+    if(TSCState == TSCBUTTON_TOUCHED)
+    {
+      PID_reset(&Fader->PID);
+      MotorDriver_stop(&Fader->Motor);
+    }
+    else if(TSCState == TSCBUTTON_RELEASED)
+    {
+      uint16_t ADCSample = Wiper_get_SmoothValue(&Fader->Wiper);
+      PID_update(&Fader->PID, (double)ADCSample);
+      int CCR = PID_get_OutputRound(&Fader->PID);
+
+      int CCRStartForce = Fader->CCRStartForce;
+      int CCRStopRange = Fader->CCRStopRange;
+
+      if(CCR < -CCRStartForce)
+      {
+        /* Move down with PID result */
+        MotorDriver_move_CounterClockWise(&Fader->Motor, -1*CCR);
+      }
+      else if(CCR < -CCRStopRange && CCR >= -CCRStartForce)
+      {
+        /* Move down with Start Force (slowest possible) */
+        MotorDriver_move_CounterClockWise(&Fader->Motor, CCRStartForce);
+      }
+      else if(CCR > CCRStartForce)
+      {
+        /* Move up with PID result */
+        MotorDriver_move_ClockWise(&Fader->Motor, CCR);
+      }
+      else if(CCR > CCRStopRange && CCR <= CCRStartForce)
+      {
+        /* Move up with Start Force (slowest possible) */
+       MotorDriver_move_ClockWise(&Fader->Motor, CCRStartForce);
+      }
+      else
+      {
+       MotorDriver_stop(&Fader->Motor);
+      }
+    }
+  }
 }
+
+void MotorizedFader_manage_WiperInterrupt(ADC_HandleTypeDef* hadc)
+{
+  Wiper_manage_Interrupt(hadc);
+}
+
+void MotorizedFader_manage_TSCInterrupt()
+{
+  TSCButton_manage_Interrupt();
+}
+
 /** @} ************************************************************************/
 /* end of name "Process"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Set Functions
+ * @brief     Use these functions to set values to the fader
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+void MotorizedFader_set_Target(MotorizedFader_structTd* Fader, uint16_t Target)
+{
+  PID_set_Target(&Fader->PID, (double)Target);
+}
+/** @} ************************************************************************/
+/* end of name "Set Functions"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Get Functions
+ * @brief     Use these functions to get values from the fader
+ * @{
+ ******************************************************************************/
+
+uint16_t MotorizedFader_get_WiperValue(MotorizedFader_structTd* Fader)
+{
+  uint16_t Value;
+  Value = Wiper_get_SmoothValue(&Fader->Wiper);
+  return Value;
+}
+
+TSCButton_State_enumTd MotorizedFader_get_TSCState(MotorizedFader_structTd* Fader)
+{
+  TSCButton_State_enumTd State;
+  State = TSCButton_get_State(&Fader->TouchSense);
+  return State;
+}
+/** @} ************************************************************************/
+/* end of name "Get Functions"
  ******************************************************************************/

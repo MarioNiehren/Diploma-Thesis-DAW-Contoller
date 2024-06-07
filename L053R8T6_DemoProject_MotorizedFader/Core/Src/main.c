@@ -26,10 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "wiper.h"
-#include "tscButton.h"
-#include "TB6612FNG_MotorDriver.h"
-#include "pidController.h"
+#include "motorizedFader.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,10 +47,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-Wiper_structTd Wiper[2];
-TSCButton_structTd TSCButton[2];
-TB6612FNGMotorDriver_structTd Motor[2];
-PID_structTd PID[2];
+
+MotorizedFader_structTd Fader[2];
+uint8_t NumFaders = 2;
+uint16_t FaderValue[2];
+uint16_t PrevFaderValue[2];
+TSCButton_State_enumTd FaderState[2];
+
+uint32_t timNow = 0;
+uint32_t timOld = 0;
+uint32_t WhileSpeed = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,50 +104,63 @@ int main(void)
   MX_ADC_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  Wiper_init_ADC(&Wiper[0], &hadc);
-  Wiper_init_Hysteresis(&Wiper[0]);
-
-  Wiper_init_ADC(&Wiper[1], &hadc);
-  Wiper_init_Hysteresis(&Wiper[1]);
-
-  TSCButton_init_TSC(&TSCButton[0], &htsc, TSC_GROUP1_IO2);
-  TSCButton_init_Threshold(&TSCButton[0], 1490);
-
-  TSCButton_init_TSC(&TSCButton[1], &htsc, TSC_GROUP3_IO3);
-  TSCButton_init_Threshold(&TSCButton[1], 1610);
-
-  TSCButton_init_DischargeTimeMsAll(1);
-
-  MotorDriver_init_PinIn1(&Motor[0], GPIOA, GPIO_PIN_8);
-  MotorDriver_init_PinIn2(&Motor[0], GPIOA, GPIO_PIN_9);
-  MotorDriver_init_PinSTBY(&Motor[0], GPIOA, GPIO_PIN_12); /* Pin is shared with Motor[1] */
-
-  MotorDriver_init_PWM(&Motor[0], &htim2, TIM_CHANNEL_1);
-
-  MotorDriver_init_PinIn1(&Motor[1], GPIOA, GPIO_PIN_10);
-  MotorDriver_init_PinIn2(&Motor[1], GPIOA, GPIO_PIN_11);
-  MotorDriver_init_PinSTBY(&Motor[1], GPIOA, GPIO_PIN_12); /* Pin is shared with Motor[0] */
-
-  MotorDriver_init_PWM(&Motor[1], &htim2, TIM_CHANNEL_2);
-
-  Wiper_start_All();
-  TSCButton_start_All();
-  MotorDriver_start_PWM(&Motor[0]);
-  MotorDriver_start_PWM(&Motor[1]);
-
-  double Kp = 0.1;   /* old: 0.32 */
-  double Ki = 0.001; /* old: 0.0038 */
-  double Kd = 0.07;  /* old: 0.021 */
-
-  PID_init(&PID[0]);
-  PID_set_OutputMinMax(&PID[0], (double)-500, (double)500);
-  PID_set_KpKiKd(&PID[0], Kp, Ki, Kd);
-  PID_set_LowPass(&PID[0], 0.8);
-  PID_set_SampleTimeInMs(&PID[0], 2);
-
-  PID_set_Target(&PID[0], (double)1000);
 
 
+  /* Initialize general fader settings */
+  int StartForceCCR = 120;
+  int StopRangeCCR = 20;
+  MotorizedFader_init_Structure(&Fader[0]);
+  MotorizedFader_init_StartForce(&Fader[0], StartForceCCR);
+  MotorizedFader_init_StopRange(&Fader[0], StopRangeCCR);
+
+  MotorizedFader_init_Structure(&Fader[1]);
+  MotorizedFader_init_StartForce(&Fader[1], StartForceCCR);
+  MotorizedFader_init_StopRange(&Fader[1], StopRangeCCR);
+
+  /* Initialize faders wiper */
+  MotorizedFader_init_Whiper(&Fader[0], &hadc);
+  MotorizedFader_init_Whiper(&Fader[1], &hadc);
+
+  /* Initialize faders TSC */
+  MotorizedFader_init_TouchTSC(&Fader[0], &htsc, TSC_GROUP1_IO2);
+  MotorizedFader_init_TouchThreshold(&Fader[0], 760);
+
+  MotorizedFader_init_TouchTSC(&Fader[1], &htsc, TSC_GROUP3_IO3);
+  MotorizedFader_init_TouchThreshold(&Fader[1], 820);
+
+  MotorizedFader_init_TouchDischargeTimeMsAll(2);
+
+  /* Initialize faders Motor */
+  MotorizedFader_init_MotorPinIn1(&Fader[0], GPIOA, GPIO_PIN_8);
+  MotorizedFader_init_MotorPinIn2(&Fader[0], GPIOA, GPIO_PIN_9);
+  MotorizedFader_init_MotorPinSTBY(&Fader[0], GPIOA, GPIO_PIN_12); /* Pin is shared with Fader[1] */
+  MotorizedFader_init_PWM(&Fader[0], &htim2, TIM_CHANNEL_1);
+
+  MotorizedFader_init_MotorPinIn1(&Fader[1], GPIOA, GPIO_PIN_10);
+  MotorizedFader_init_MotorPinIn2(&Fader[1], GPIOA, GPIO_PIN_11);
+  MotorizedFader_init_MotorPinSTBY(&Fader[1], GPIOA, GPIO_PIN_12); /* Pin is shared with Fader[0] */
+  MotorizedFader_init_PWM(&Fader[1], &htim2, TIM_CHANNEL_2);
+
+  /* Initialize faders PID */
+  double Kp = 0.13;   /* old: 0.32 */
+  double Ki = 0.00009; /* old: 0.0038 */
+  double Kd = 0.055;  /* old: 0.021 */
+
+  double TauLowPass = 0.5;
+
+  MotorizedFader_init_PID(&Fader[0]);
+  MotorizedFader_init_PIDMaxCCR(&Fader[0], 500);
+  MotorizedFader_init_PIDKpKiKd(&Fader[0], Kp, Ki, Kd);
+  MotorizedFader_init_PIDLowPass(&Fader[0], TauLowPass);
+  MotorizedFader_init_PIDSampleTimeInMs(&Fader[0], 3);
+
+  MotorizedFader_init_PID(&Fader[1]);
+  MotorizedFader_init_PIDMaxCCR(&Fader[1], 500);
+  MotorizedFader_init_PIDKpKiKd(&Fader[1], Kp, Ki, Kd);
+  MotorizedFader_init_PIDLowPass(&Fader[1], TauLowPass);
+  MotorizedFader_init_PIDSampleTimeInMs(&Fader[1], 3);
+
+  MotorizedFader_start_All();
 
   /* USER CODE END 2 */
 
@@ -152,48 +168,36 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    /* check loop speed */
+    timNow = HAL_GetTick();
+    WhileSpeed = timNow - timOld;
+    timOld = timNow;
 
-    Wiper_update_All();
-    TSCButton_update_All();
-    uint16_t PosFader2 = Wiper_get_SmoothValue(&Wiper[1]);
-    PID_set_Target(&PID[0], (double)PosFader2);
-    TSCButton_State_enumTd StateButton1;
-    StateButton1 = TSCButton_get_State(&TSCButton[0]);
-    if(StateButton1 == TSCBUTTON_TOUCHED)
+    MotorizedFader_update_All();
+
+    /* Link Faders */
+    for(uint8_t Index = 0; Index < NumFaders;  Index++)
     {
-      PID_reset(&PID[0]);
-      MotorDriver_stop(&Motor[0]);
+      /* store previous fader value */
+      PrevFaderValue[Index] = FaderValue[Index];
+
+      /* Get current fader value */
+      FaderValue[Index] = MotorizedFader_get_WiperValue(&Fader[Index]);
+      FaderState[Index] = MotorizedFader_get_TSCState(&Fader[Index]);
     }
-    else if(StateButton1 == TSCBUTTON_RELEASED)
+
+    if(FaderState[1] == TSCBUTTON_TOUCHED)
     {
-      uint16_t ADCSample = Wiper_get_SmoothValue(&Wiper[0]);
-      PID_update(&PID[0], (double)ADCSample);
-      int CCR = PID_get_OutputRound(&PID[0]);
-
-      int CCR_StartLimit = 130;
-      int CCR_StopRange = 30;
-
-      if(CCR < -CCR_StartLimit) /* 100: only start motor if PID is in the controllable value range. */
-      {
-        MotorDriver_move_CounterClockWise(&Motor[0], -1*CCR);
-      }
-      else if(CCR < -CCR_StopRange && CCR >= -CCR_StartLimit)
-      {
-        MotorDriver_move_CounterClockWise(&Motor[0], CCR_StartLimit);
-      }
-      else if(CCR > CCR_StartLimit)
-      {
-        MotorDriver_move_ClockWise(&Motor[0], CCR);
-      }
-      else if(CCR > CCR_StopRange && CCR <= CCR_StartLimit)
-      {
-       MotorDriver_move_ClockWise(&Motor[0], CCR_StartLimit);
-      }
-      else
-      {
-       MotorDriver_stop(&Motor[0]);
-      }
+      MotorizedFader_set_Target(&Fader[0], FaderValue[1]);
+      MotorizedFader_set_Target(&Fader[1], FaderValue[1]);
     }
+
+    if(FaderState[0] == TSCBUTTON_TOUCHED)
+    {
+      MotorizedFader_set_Target(&Fader[1], FaderValue[0]);
+      MotorizedFader_set_Target(&Fader[0], FaderValue[0]);
+    }
+    /* Link Faders End */
 
     /* USER CODE END WHILE */
 
@@ -255,12 +259,12 @@ void SystemClock_Config(void)
 /* details about this callback in: stm32l0xx_hal_adc.c */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-  Wiper_manage_Interrupt(hadc);
+  MotorizedFader_manage_WiperInterrupt(hadc);
 }
 
 void HAL_TSC_ConvCpltCallback(TSC_HandleTypeDef* htsc)
 {
-  TSCButton_manage_Interrupt();
+  MotorizedFader_manage_TSCInterrupt();
 }
 
 

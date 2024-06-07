@@ -54,8 +54,8 @@ typedef struct
   TB6612FNGMotorDriver_structTd Motor;
   PID_structTd PID;
   TSCButton_structTd TouchSense;
-  uint16_t targetValue;
-
+  int CCRStartForce;
+  int CCRStopRange;
 }MotorizedFader_structTd;
 
 /** @} ************************************************************************/
@@ -70,6 +70,8 @@ typedef struct
  ******************************************************************************/
 
 void MotorizedFader_init_Structure(MotorizedFader_structTd* Fader);
+void MotorizedFader_init_StartForce(MotorizedFader_structTd* Fader, int CCR);
+void MotorizedFader_init_StopRange(MotorizedFader_structTd* Fader, int CCR);
 
 /** @} ************************************************************************/
 /* end of name "Initialize Structure"
@@ -113,7 +115,7 @@ void MotorizedFader_init_TouchDischargeTimeMsAll(uint8_t value);
 void MotorizedFader_init_MotorPinIn1(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
 void MotorizedFader_init_MotorPinIn2(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
 void MotorizedFader_init_MotorPinSTBY(MotorizedFader_structTd* Fader, GPIO_TypeDef* GPIO, uint16_t Pin);
-
+void MotorizedFader_init_PWM(MotorizedFader_structTd* Fader, TIM_HandleTypeDef* htim, uint16_t Channel);
 /** @} ************************************************************************/
 /* end of name "Initialize Motor"
  ******************************************************************************/
@@ -137,9 +139,48 @@ void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint3
  ******************************************************************************/
 
 
-void motorizedFader_start(MotorizedFader_structTd* fader);
+/***************************************************************************//**
+ * @name      Process
+ * @brief     Use these functions to process all faders
+ * @{
+ ******************************************************************************/
 
-void motorizedFader_update(MotorizedFader_structTd* fader, uint8_t numFader);
+void MotorizedFader_start_All(void);
+void MotorizedFader_update_All(void);
+void MotorizedFader_manage_WiperInterrupt(ADC_HandleTypeDef* hadc);
+void MotorizedFader_manage_TSCInterrupt(void);
+
+/** @} ************************************************************************/
+/* end of name "Process"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Set Functions
+ * @brief     Use these functions to set values to the fader
+ * @{
+ ******************************************************************************/
+
+void MotorizedFader_set_Target(MotorizedFader_structTd* fader, uint16_t Target);
+
+/** @} ************************************************************************/
+/* end of name "Set Functions"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Get Functions
+ * @brief     Use these functions to get values from the fader
+ * @{
+ ******************************************************************************/
+
+uint16_t MotorizedFader_get_WiperValue(MotorizedFader_structTd* Fader);
+TSCButton_State_enumTd MotorizedFader_get_TSCState(MotorizedFader_structTd* Fader);
+
+/** @} ************************************************************************/
+/* end of name "Get Functions"
+ ******************************************************************************/
+
 
 /**@}*//* end of defgroup "MotorFader_Header" */
 /**@}*//* end of defgroup "MotorFader" */

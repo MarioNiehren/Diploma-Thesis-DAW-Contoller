@@ -262,7 +262,7 @@ void Wiper_start_All(void)
 
 /** @cond *//* Function Prototypes */
 void store_SampleFromDMABuffer(Wiper_structTd* Wiper, uint16_t Buffer);
-void calculate_SmoothValue(Wiper_structTd* Wiper);
+void calculate_SmoothADCValue(Wiper_structTd* Wiper);
 /** @endcond *//* Function Prototypes */
 
 /* Description in .h */
@@ -295,7 +295,7 @@ void Wiper_update_All(void)
         store_SampleFromDMABuffer(Wiper, Buffer);
         /** @internal     6.  Calculate the smoothed value for the wiper
          *                    that belongs to the current channel */
-        calculate_SmoothValue(Wiper);
+        calculate_SmoothADCValue(Wiper);
       }
 
       ADC_HandleTypeDef*  handle = ActiveADC->hadc;
@@ -343,7 +343,7 @@ uint16_t get_SmoothedVlaueWithHysteresis(Wiper_structTd* Wiper, uint16_t Samples
  * @param			Wiper			pointer to the users wiper structure
  * @return		none
  */
-void calculate_SmoothValue(Wiper_structTd* Wiper)
+void calculate_SmoothADCValue(Wiper_structTd* Wiper)
 {
 	/** @internal			1.	Declare a variable to store the sum of all samples */
   uint32_t SumOfSamples = 0x00;
@@ -356,6 +356,7 @@ void calculate_SmoothValue(Wiper_structTd* Wiper)
   /** @internal			3.	Divide the sum of all samples by the
    * 										@ref NUMBER_OF_SAMPLES to get the smoothed value. */
   SamplesAverage = SumOfSamples / NUMBER_OF_SAMPLES;
+  /** @internal     4.  Calculate hysteresis */
   Wiper->ValueSmooth = get_SmoothedVlaueWithHysteresis(Wiper, SamplesAverage);
 }
 

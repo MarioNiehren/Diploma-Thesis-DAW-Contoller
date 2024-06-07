@@ -86,6 +86,7 @@ void MotorDriver_start_PWM(TB6612FNGMotorDriver_structTd* Motor)
  * @brief     Use these functions to control a motor on the driver.
  * @{
  ******************************************************************************/
+
 /** @cond *//* Function Prototypes */
 void writePin_In1In2STBY(TB6612FNGMotorDriver_structTd* Motor, GPIO_PinState StateIn1, GPIO_PinState StateIn2, GPIO_PinState StateSTBY);
 /** @endcond *//* Function Prototypes */
