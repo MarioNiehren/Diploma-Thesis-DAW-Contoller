@@ -20,6 +20,7 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "spi.h"
 #include "tim.h"
 #include "tsc.h"
 #include "gpio.h"
@@ -27,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "motorizedFader.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,12 +105,26 @@ int main(void)
   MX_TSC_Init();
   MX_ADC_Init();
   MX_TIM2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
 
+  /* Fader Values */
+  /* TSC */
+  uint16_t TouchThreshold[2] = {450, 450};
+
+  /* PID */
+  double Kp = 0.15;   /* old: 0.32 */
+  double Ki = 0.0001; /* old: 0.0038 */
+  double Kd = 0.025;  /* old: 0.021 */
+  double TauLowPass = 0.1;
+  uint32_t PIDSampelTime = 3;
+
+  /* PWM Limits */
+  uint16_t CCRLimit = 500;
+  int StartForceCCR = 120;
+  int StopRangeCCR = 25;
 
   /* Initialize general fader settings */
-  int StartForceCCR = 120;
-  int StopRangeCCR = 20;
   MotorizedFader_init_Structure(&Fader[0]);
   MotorizedFader_init_StartForce(&Fader[0], StartForceCCR);
   MotorizedFader_init_StopRange(&Fader[0], StopRangeCCR);
@@ -118,15 +134,15 @@ int main(void)
   MotorizedFader_init_StopRange(&Fader[1], StopRangeCCR);
 
   /* Initialize faders wiper */
-  MotorizedFader_init_Whiper(&Fader[0], &hadc);
-  MotorizedFader_init_Whiper(&Fader[1], &hadc);
+  MotorizedFader_init_Wiper(&Fader[0], &hadc);
+  MotorizedFader_init_Wiper(&Fader[1], &hadc);
 
   /* Initialize faders TSC */
   MotorizedFader_init_TouchTSC(&Fader[0], &htsc, TSC_GROUP1_IO2);
-  MotorizedFader_init_TouchThreshold(&Fader[0], 760);
+  MotorizedFader_init_TouchThreshold(&Fader[0], TouchThreshold[0]);
 
   MotorizedFader_init_TouchTSC(&Fader[1], &htsc, TSC_GROUP3_IO3);
-  MotorizedFader_init_TouchThreshold(&Fader[1], 820);
+  MotorizedFader_init_TouchThreshold(&Fader[1], TouchThreshold[1]);
 
   MotorizedFader_init_TouchDischargeTimeMsAll(2);
 
@@ -134,31 +150,25 @@ int main(void)
   MotorizedFader_init_MotorPinIn1(&Fader[0], GPIOA, GPIO_PIN_8);
   MotorizedFader_init_MotorPinIn2(&Fader[0], GPIOA, GPIO_PIN_9);
   MotorizedFader_init_MotorPinSTBY(&Fader[0], GPIOA, GPIO_PIN_12); /* Pin is shared with Fader[1] */
-  MotorizedFader_init_PWM(&Fader[0], &htim2, TIM_CHANNEL_1);
+  MotorizedFader_init_MotorPWM(&Fader[0], &htim2, TIM_CHANNEL_1);
 
   MotorizedFader_init_MotorPinIn1(&Fader[1], GPIOA, GPIO_PIN_10);
   MotorizedFader_init_MotorPinIn2(&Fader[1], GPIOA, GPIO_PIN_11);
   MotorizedFader_init_MotorPinSTBY(&Fader[1], GPIOA, GPIO_PIN_12); /* Pin is shared with Fader[0] */
-  MotorizedFader_init_PWM(&Fader[1], &htim2, TIM_CHANNEL_2);
+  MotorizedFader_init_MotorPWM(&Fader[1], &htim2, TIM_CHANNEL_2);
 
   /* Initialize faders PID */
-  double Kp = 0.13;   /* old: 0.32 */
-  double Ki = 0.00009; /* old: 0.0038 */
-  double Kd = 0.055;  /* old: 0.021 */
-
-  double TauLowPass = 0.5;
-
   MotorizedFader_init_PID(&Fader[0]);
-  MotorizedFader_init_PIDMaxCCR(&Fader[0], 500);
+  MotorizedFader_init_PIDMaxCCR(&Fader[0], CCRLimit);
   MotorizedFader_init_PIDKpKiKd(&Fader[0], Kp, Ki, Kd);
   MotorizedFader_init_PIDLowPass(&Fader[0], TauLowPass);
-  MotorizedFader_init_PIDSampleTimeInMs(&Fader[0], 3);
+  MotorizedFader_init_PIDSampleTimeInMs(&Fader[0], PIDSampelTime);
 
   MotorizedFader_init_PID(&Fader[1]);
-  MotorizedFader_init_PIDMaxCCR(&Fader[1], 500);
+  MotorizedFader_init_PIDMaxCCR(&Fader[1], CCRLimit);
   MotorizedFader_init_PIDKpKiKd(&Fader[1], Kp, Ki, Kd);
   MotorizedFader_init_PIDLowPass(&Fader[1], TauLowPass);
-  MotorizedFader_init_PIDSampleTimeInMs(&Fader[1], 3);
+  MotorizedFader_init_PIDSampleTimeInMs(&Fader[1], PIDSampelTime);
 
   MotorizedFader_start_All();
 
@@ -266,7 +276,6 @@ void HAL_TSC_ConvCpltCallback(TSC_HandleTypeDef* htsc)
 {
   MotorizedFader_manage_TSCInterrupt();
 }
-
 
 /** @} ************************************************************************/
 /* end of name "Interrupt Handlers"

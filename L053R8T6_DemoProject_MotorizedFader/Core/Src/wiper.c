@@ -197,11 +197,16 @@ void link_WiperToInternalStructure(Wiper_structTd* Wiper, uint8_t IndexADC)
 /* Description in .h */
 void Wiper_init_Hysteresis(Wiper_structTd* Wiper)
 {
+  uint8_t   ThresholdDefault = 15;
+  uint16_t  NumSmallerValues = 0;
+  uint16_t  NumBiggerValues = 0;
+  uint16_t  NumDeviationThresholdDefault = 1000;
+
   /** @internal     1.  Store default hysteresis values to wiper structure. */
-  Wiper->Hyst_Threshold = 15;
-  Wiper->Hyst_NumSmallerValues = 0;
-  Wiper->Hyst_NumBiggerValues = 0;
-  Wiper->Hyst_DeviationThreshold = 1000;
+  Wiper->Hyst_Threshold = ThresholdDefault;
+  Wiper->Hyst_NumSmallerValues = NumSmallerValues;
+  Wiper->Hyst_NumBiggerValues = NumBiggerValues;
+  Wiper->Hyst_DeviationThreshold = NumDeviationThresholdDefault;
 }
 
 /** @} ************************************************************************/

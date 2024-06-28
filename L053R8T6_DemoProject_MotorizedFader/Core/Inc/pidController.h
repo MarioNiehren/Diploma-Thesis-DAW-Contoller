@@ -5,7 +5,7 @@
  *
  * # How to use:
  * 1. Declare an object of PID_structTd data type
- * 2. Initialize this object with init funciton
+ * 2. Initialize this object with init functions
  * 3. Use set functions to tune PID.
  *    - Set Kp, Ki, Kd
  *    - Set Low Pass
@@ -161,7 +161,7 @@ void PID_set_Target(PID_structTd* PID, double setpoint);
  *            Increase tau for a lower crossover frequency. Be careful that the
  *            D-Term does not get "killed" by this filter.
  * @param     PID     pointer to the users PID structure
- * @param     Tau   @todo: Look what Tau is exactly!!
+ * @param     Tau     time constant of the low pass filter
  * @return    none
  */
 void PID_set_LowPass(PID_structTd* PID, double Tau);

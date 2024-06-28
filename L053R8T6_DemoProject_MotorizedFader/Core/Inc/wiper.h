@@ -2,7 +2,8 @@
  * @defgroup				WiperMotorFader	Wiper module
  * @brief						This module is responsible to handle the wiper of the
  * 									motorized Fader. It will read the ADC, smooth the values and
- * 									returns the results.
+ * 									returns the results. The ADC measurement working on DMA, so the CPU
+ * 									will not be affected.
  *
  * # How to use:
  *  1.  Initialize @ref Initialize "ADC and hysteresis"
@@ -55,7 +56,7 @@
  * 						is not clean enough, increase this number. Be careful that the
  * 						ADC does not get to slow by using to many samples.
  */
-#define NUMBER_OF_SAMPLES 200
+#define NUMBER_OF_SAMPLES 100
 
 /***************************************************************************//**
  * @name			Structures
@@ -102,12 +103,50 @@ typedef struct Wiper_structTd
 /**
  * @brief			Link HAL-ADC-handle used for wiper
  *
- * # How to setup ADC for this module:
- * -	Control the speed of your ADC with the prescaler.
- * -
+ * # How to setup ADC for this module (as tested):
  *
+ * - HCLK: 32MHz
  *
- * @todo			Add ADC Setup here!!
+ * - Select ADC INx
+ *
+ * - Parameter Settings
+ *
+ *  - ADC_Settings
+ *    - Clock Prescaler:                  Synchronous clock mode divided by 4
+ *    - Resolution:                       ADC 12-bit resolution
+ *    - Data Alignment:                   Right alignment
+ *    - Scan Direction:                   Forward
+ *    - Continuous Conversation Mode:     Disabled (ADC will be triggered in
+ *                                        the update function of this module)
+ *    - Discontinuous Conversation Mode:  Disabled
+ *    - DMA Continuous Requests:          Disabled
+ *    - End Of Conversion Selection:      End of single conversion
+ *    - Overrun behaviour:                Overrun data preserved
+ *    - Low Power Auto Wait:              Disabled
+ *    - Low Frequency Mode:               Disabled
+ *    - Auto Off:                         Disabled
+ *    - Oversampling Mode:                Disabled
+ *
+ *  - ADC_REGULAR_ConversionMode
+ *    - Sampling Time:                    3.5 Cycles
+ *    - External Trigger Conversion Source: Regular Conversion launched by
+ *                                          software.
+ *    - External Trigger Conversion Edge: None
+ *  - WatchDog: Disable
+ *
+ * - NVIC Settings
+ *  - DMA1 channel 1 interrupt:       enable
+ *  - ADC, COMP1 and COMP2 interrupt: enable
+ *
+ * - DMA Settings
+ *  - DMA Request:  ADC
+ *  - Channel:      DMA1 Channel 1
+ *  - Direction:    Peripheral To Memory
+ *  - Priority:     Medium
+ *  - DMA Request Settings:
+ *    - Mode:                 Normal
+ *    - Increment Address:    Memory
+ *    - Data Width:           Half Word (because we use 12bit ADC)
  *
  * @warning   It is necessary to initialize the ADC in the same order as the
  *            channels of the ADC are set up. So ADC1 Ch1 first and ADCx Chx

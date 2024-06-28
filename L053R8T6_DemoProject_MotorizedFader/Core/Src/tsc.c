@@ -41,8 +41,8 @@ void MX_TSC_Init(void)
   /** Configure the TSC peripheral
   */
   htsc.Instance = TSC;
-  htsc.Init.CTPulseHighLength = TSC_CTPH_2CYCLES;
-  htsc.Init.CTPulseLowLength = TSC_CTPL_2CYCLES;
+  htsc.Init.CTPulseHighLength = TSC_CTPH_6CYCLES;
+  htsc.Init.CTPulseLowLength = TSC_CTPL_6CYCLES;
   htsc.Init.SpreadSpectrum = DISABLE;
   htsc.Init.SpreadSpectrumDeviation = 1;
   htsc.Init.SpreadSpectrumPrescaler = TSC_SS_PRESC_DIV1;
@@ -52,7 +52,7 @@ void MX_TSC_Init(void)
   htsc.Init.SynchroPinPolarity = TSC_SYNC_POLARITY_FALLING;
   htsc.Init.AcquisitionMode = TSC_ACQ_MODE_NORMAL;
   htsc.Init.MaxCountInterrupt = DISABLE;
-  htsc.Init.ChannelIOs = TSC_GROUP1_IO2|TSC_GROUP3_IO3|TSC_GROUP3_IO4;
+  htsc.Init.ChannelIOs = TSC_GROUP1_IO2|TSC_GROUP3_IO3;
   htsc.Init.ShieldIOs = 0;
   htsc.Init.SamplingIOs = TSC_GROUP1_IO1|TSC_GROUP3_IO1;
   if (HAL_TSC_Init(&htsc) != HAL_OK)
@@ -85,7 +85,6 @@ void HAL_TSC_MspInit(TSC_HandleTypeDef* tscHandle)
     PA1     ------> TSC_G1_IO2
     PC5     ------> TSC_G3_IO1
     PB1     ------> TSC_G3_IO3
-    PB2     ------> TSC_G3_IO4
     */
     GPIO_InitStruct.Pin = GPIO_PIN_0;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
@@ -108,7 +107,7 @@ void HAL_TSC_MspInit(TSC_HandleTypeDef* tscHandle)
     GPIO_InitStruct.Alternate = GPIO_AF3_TSC;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
+    GPIO_InitStruct.Pin = GPIO_PIN_1;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -140,13 +139,12 @@ void HAL_TSC_MspDeInit(TSC_HandleTypeDef* tscHandle)
     PA1     ------> TSC_G1_IO2
     PC5     ------> TSC_G3_IO1
     PB1     ------> TSC_G3_IO3
-    PB2     ------> TSC_G3_IO4
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_0|GPIO_PIN_1);
 
     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_5);
 
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_1|GPIO_PIN_2);
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_1);
 
     /* TSC interrupt Deinit */
     HAL_NVIC_DisableIRQ(TSC_IRQn);

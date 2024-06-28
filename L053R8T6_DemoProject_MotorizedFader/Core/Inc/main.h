@@ -57,6 +57,12 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SH1106_RES_Pin GPIO_PIN_13
+#define SH1106_RES_GPIO_Port GPIOB
+#define SH1106_DC_Pin GPIO_PIN_14
+#define SH1106_DC_GPIO_Port GPIOB
+#define SH1106_CS_Pin GPIO_PIN_15
+#define SH1106_CS_GPIO_Port GPIOB
 #define MOTOR_A1_IN1_Pin GPIO_PIN_8
 #define MOTOR_A1_IN1_GPIO_Port GPIOA
 #define MOTOR_A1_IN2_Pin GPIO_PIN_9

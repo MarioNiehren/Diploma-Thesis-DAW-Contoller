@@ -1,10 +1,18 @@
-/*
- * motorizedFader.c
+/***************************************************************************//**
+ * @defgroup        MotorFader_Source      Source
+ * @brief           Study this part for a details.
  *
- *  Created on: Sep 4, 2023
- *      Author: Mario Niehren
+ * @addtogroup      MotorFader
+ * @{
  *
- */
+ * @addtogroup      MotorFader_Source
+ * @{
+ *
+ * @file            motorizedFader.c
+ *
+ * @date            Sep 4, 2023
+ * @author          Mario Niehren
+ ******************************************************************************/
 
 #include <motorizedFader.h>
 
@@ -56,7 +64,7 @@ void MotorizedFader_init_StopRange(MotorizedFader_structTd* Fader, int CCR)
  ******************************************************************************/
 
 /* Description in .h */
-void MotorizedFader_init_Whiper(MotorizedFader_structTd* Fader, ADC_HandleTypeDef* Handle)
+void MotorizedFader_init_Wiper(MotorizedFader_structTd* Fader, ADC_HandleTypeDef* Handle)
 {
   /** @internal     1.  init ADC. For details look at Wiper_init_ADC() */
   Wiper_init_ADC(&Fader->Wiper, Handle);
@@ -127,7 +135,7 @@ void MotorizedFader_init_MotorPinSTBY(MotorizedFader_structTd* Fader, GPIO_TypeD
 }
 
 /* Description in .h */
-void MotorizedFader_init_PWM(MotorizedFader_structTd* Fader, TIM_HandleTypeDef* htim, uint16_t Channel)
+void MotorizedFader_init_MotorPWM(MotorizedFader_structTd* Fader, TIM_HandleTypeDef* htim, uint16_t Channel)
 {
   MotorDriver_init_PWM(&Fader->Motor, htim, Channel);
 }
@@ -190,9 +198,13 @@ void MotorizedFader_init_PIDSampleTimeInMs(MotorizedFader_structTd* Fader, uint3
 /* Description in .h */
 void MotorizedFader_start_All()
 {
+  /** @internal     1.  Start TSC for all faders */
   TSCButton_start_All();
+
+  /** @internal     2.  Start ADC for all faders */
   Wiper_start_All();
 
+  /** @internal     3.  Start PWM for all faders */
   uint16_t NumFaders = FadersInternal.NumInitializedFaders;
   uint16_t Index = 0;
   for(Index = 0; Index < NumFaders; Index++)
@@ -202,22 +214,35 @@ void MotorizedFader_start_All()
   }
 }
 
+/** @cond *//* Function Prototypes */
+int get_UpdatedPIDOutput(MotorizedFader_structTd* Fader);
+void move_Fader(MotorizedFader_structTd* Fader, int CCR);
+/** @endcond *//* Function Prototypes */
+
 /* Description in .h */
 void MotorizedFader_update_All()
 {
+  /** @internal     1.  Update all wipers */
   Wiper_update_All();
+
+  /** @internal     2.  Update all TSCs */
   TSCButton_update_All();
 
   uint16_t NumFaders = FadersInternal.NumInitializedFaders;
   uint16_t Index = 0;
 
+  /** @internal     3.  Loop through all faders. Inside the Loop: */
   for(Index = 0; Index < NumFaders; Index++)
   {
     MotorizedFader_structTd* Fader = FadersInternal.InitializedFaders[Index];
 
+    /** @internal     4.  Get the current TSC state */
     TSCButton_State_enumTd TSCState;
     TSCState = TSCButton_get_State(&Fader->TouchSense);
 
+    /** @internal     5.  If TSC is not touched, update PID and move fader with
+     *                    the new CCR value. If it is touched, reset PID and
+     *                    stop the motor.*/
     if(TSCState == TSCBUTTON_TOUCHED)
     {
       PID_reset(&Fader->PID);
@@ -225,46 +250,83 @@ void MotorizedFader_update_All()
     }
     else if(TSCState == TSCBUTTON_RELEASED)
     {
-      uint16_t ADCSample = Wiper_get_SmoothValue(&Fader->Wiper);
-      PID_update(&Fader->PID, (double)ADCSample);
-      int CCR = PID_get_OutputRound(&Fader->PID);
-
-      int CCRStartForce = Fader->CCRStartForce;
-      int CCRStopRange = Fader->CCRStopRange;
-
-      if(CCR < -CCRStartForce)
-      {
-        /* Move down with PID result */
-        MotorDriver_move_CounterClockWise(&Fader->Motor, -1*CCR);
-      }
-      else if(CCR < -CCRStopRange && CCR >= -CCRStartForce)
-      {
-        /* Move down with Start Force (slowest possible) */
-        MotorDriver_move_CounterClockWise(&Fader->Motor, CCRStartForce);
-      }
-      else if(CCR > CCRStartForce)
-      {
-        /* Move up with PID result */
-        MotorDriver_move_ClockWise(&Fader->Motor, CCR);
-      }
-      else if(CCR > CCRStopRange && CCR <= CCRStartForce)
-      {
-        /* Move up with Start Force (slowest possible) */
-       MotorDriver_move_ClockWise(&Fader->Motor, CCRStartForce);
-      }
-      else
-      {
-       MotorDriver_stop(&Fader->Motor);
-      }
+      int CCR = get_UpdatedPIDOutput(Fader);
+      move_Fader(Fader, CCR);
     }
   }
 }
 
+/**
+ * @brief     Update PID with the new value
+ * @param     Fader   pointer to the users fader structure
+ * @return    int CCR value calculated by PID
+ */
+int get_UpdatedPIDOutput(MotorizedFader_structTd* Fader)
+{
+  int ReturnCCR = 0;
+  /** @intenral     1.  Get current ADC sample */
+  uint16_t ADCSample = Wiper_get_SmoothValue(&Fader->Wiper);
+  /** @internal     2.  Update PID with new sample */
+  PID_update(&Fader->PID, (double)ADCSample);
+  /** @intenral     3.  Get the round PID outout to return */
+  ReturnCCR = PID_get_OutputRound(&Fader->PID);
+
+  return ReturnCCR;
+}
+
+/**
+ * @brief     Move fader with the new CCR value
+ * @param     Fader   pointer to the users fader structure
+ * @param     int     CCR value for the motors PWM
+ * @returen   none
+ */
+void move_Fader(MotorizedFader_structTd* Fader, int CCR)
+{
+  int CCRStartForce = Fader->CCRStartForce;
+  int CCRStopRange = Fader->CCRStopRange;
+
+  /** @internal     1.  Check if CCR is bigger then the required start
+   *                    CCR value. If yes, move the motor according to the CCR
+   *                    sign. - is down, + is up */
+  if(CCR < -CCRStartForce)
+  {
+    /* Move down with PID result */
+    MotorDriver_move_CounterClockWise(&Fader->Motor, -1*CCR);
+  }
+  else if(CCR > CCRStartForce)
+  {
+    /* Move up with PID result */
+    MotorDriver_move_ClockWise(&Fader->Motor, CCR);
+  }
+  /** @internal     2.  If CCR is not in the Stop CCRT range, but lower
+   *                    than the required start force, move the fader with
+   *                    the start force value in the direction according to the
+   *                    CCR sign*/
+  else if(CCR < -CCRStopRange && CCR >= -CCRStartForce)
+  {
+    /* Move down with Start Force (slowest possible) */
+    MotorDriver_move_CounterClockWise(&Fader->Motor, CCRStartForce);
+  }
+
+  else if(CCR > CCRStopRange && CCR <= CCRStartForce)
+  {
+    /* Move up with Start Force (slowest possible) */
+   MotorDriver_move_ClockWise(&Fader->Motor, CCRStartForce);
+  }
+  /** @internal     3.  It the motor is in the Stop CCR range, stop the motor */
+  else
+  {
+   MotorDriver_stop(&Fader->Motor);
+  }
+}
+
+/* Description in .h */
 void MotorizedFader_manage_WiperInterrupt(ADC_HandleTypeDef* hadc)
 {
   Wiper_manage_Interrupt(hadc);
 }
 
+/* Description in .h */
 void MotorizedFader_manage_TSCInterrupt()
 {
   TSCButton_manage_Interrupt();
@@ -313,3 +375,7 @@ TSCButton_State_enumTd MotorizedFader_get_TSCState(MotorizedFader_structTd* Fade
 /** @} ************************************************************************/
 /* end of name "Get Functions"
  ******************************************************************************/
+
+
+/**@}*//* end of defgroup "MotorFader_Source" */
+/**@}*//* end of defgroup "MotorFader" */

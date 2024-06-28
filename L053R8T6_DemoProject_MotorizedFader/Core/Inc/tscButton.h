@@ -100,14 +100,34 @@ typedef struct
  *            All Buttons have to be initialized before starting TSC.
  *            If you add buttons while TSC is running, internal counters might
  *            get confused and crash the program.
+ *
+ *            # How to setup TSC in Cube MX (Values used for testing):
+ *            - For each used group:
+ *              - Setup 1 sample capacitor
+ *              - Setup 1 to 3 TSC Lines
+ *            - Parameter Settings:
+ *              - Charge Transfer High/Low Pulse Length:
+ *                  6 Cycles (Other sized do work, but with shorter cycles the
+ *                  values get very close to each other when touched and
+ *                  released, what makes it difficult to get accurate touched or
+ *                  released detection. Larger values might be too slow for
+ *                  some use cases.)
+ *              - Speed Spectrum:       Disable
+ *              - Pulse Generator Prescaler: Synchronous clock divided by 4
+ *                                      (tested with HCLK: 32MHz)
+ *              - Maximum Count Value:  8191 charge transfer cycles
+ *              - IO Default Mode:      Output push-pull low
+ *              - Acquisition Mode:     Normal acquisition mode
+ *              - Maximum Count Interrupt:  Disable
+ *            - NVIC Settings:
+ *              - Touch sense controller interrupt: Enabled
+ *
  * @param     tsc       pointer to the users tsc structure
  * @param     htsc      pointer to the HAL generated TSC-handle of the TSC
  *                      that is used for the button
  * @param     IOChannel channel of the TSC-Group used for this button. Please
  *                      use the HAL defines that contain the proper register
  *                      values. This is the naming convention: TSC_GROUPx_IOx.
- *                      For nerds: it is also possible to use the CMSIS register
- *                      define TSC_IOCCR_Gx_IOx.
  *                      You can find the active channels in the htsc
  *                      initialization in MX_TSC_init().
  * @return    none
@@ -122,8 +142,12 @@ void TSCButton_init_TSC(TSCButton_structTd* tsc, TSC_HandleTypeDef* htsc, uint32
  *            2. read the raw value (e.g. with live expression) and
  *               look what the values are when touched and when released.
  *            3. Choose a value in between and set it up as threshold.
+ *            Tip: If the value difference is so small, that noise and
+ *                  environment changes overlap, increase the
+ *                  Charge Transfer High/Low Pulse Length. This will increase
+ *                  the value range from touched to released.
  * @param     tsc       pointer to the users tsc structure
- * @prarm     value     of the threshold
+ * @param     value     of the threshold
  * @return    none
  */
 void TSCButton_init_Threshold(TSCButton_structTd* tsc, uint16_t value);

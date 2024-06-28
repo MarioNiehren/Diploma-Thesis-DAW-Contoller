@@ -70,8 +70,6 @@ void MotorDriver_start_PWM(TB6612FNGMotorDriver_structTd* Motor)
 {
   TIM_HandleTypeDef* htim = Motor->htim;
   uint16_t channel = Motor->channel;
-  uint16_t* Buffer = &Motor->DMABufferCCR;
-  uint16_t Length = 1;
 
   HAL_TIM_PWM_Start_IT(htim, channel);
 }
@@ -95,7 +93,7 @@ void writePin_In1In2STBY(TB6612FNGMotorDriver_structTd* Motor, GPIO_PinState Sta
 void MotorDriver_move_ClockWise(TB6612FNGMotorDriver_structTd* Motor, uint16_t CCR)
 {
   TB6612FNGMotorDriver_enums CurrentMode = Motor->Mode;
-  uint16_t OldCCR = Motor->DMABufferCCR;
+  uint16_t OldCCR = Motor->CCR;
 
   /** @internal     1.  If motor is not in CW mode, set the pins as required by
    *                    @ref TB6612FNG_Datasheet "Datasheet" for CW mode. */
@@ -110,7 +108,7 @@ void MotorDriver_move_ClockWise(TB6612FNGMotorDriver_structTd* Motor, uint16_t C
   if(CCR != OldCCR)
   {
     __HAL_TIM_SetCompare(Motor->htim, Motor->channel, CCR);
-    Motor->DMABufferCCR = CCR;
+    Motor->CCR = CCR;
   }
 }
 
@@ -118,7 +116,7 @@ void MotorDriver_move_ClockWise(TB6612FNGMotorDriver_structTd* Motor, uint16_t C
 void MotorDriver_move_CounterClockWise(TB6612FNGMotorDriver_structTd* Motor, uint16_t CCR)
 {
   TB6612FNGMotorDriver_enums CurrentMode = Motor->Mode;
-  uint16_t OldCCR = Motor->DMABufferCCR;
+  uint16_t OldCCR = Motor->CCR;
 
   /** @internal     1.  If motor is not in CCW mode, set the pins as required by
    *                    @ref TB6612FNG_Datasheet "Datasheet" for CCW mode. */
@@ -133,7 +131,7 @@ void MotorDriver_move_CounterClockWise(TB6612FNGMotorDriver_structTd* Motor, uin
   if(CCR != OldCCR)
   {
     __HAL_TIM_SetCompare(Motor->htim, Motor->channel, CCR);
-    Motor->DMABufferCCR = CCR;
+    Motor->CCR = CCR;
   }
 }
 
