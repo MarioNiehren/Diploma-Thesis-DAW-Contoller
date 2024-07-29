@@ -14,6 +14,8 @@ develop a custom DAW-Controller.
 |														| TB6612FNG motor driver with interrupt based PWM	|									|
 |														| PID with anti wind up and low pass for the D Term |									|
 |														| Touch Sensor using STM32 TSC (no middleware)		|									|
+| [LEDs with MAX7219](F103C8T6_DemoProject_LEDs_MAX7219)| Access many LEDs easy with this module and MAX7219| STM32F103C8T6 ("Blue-Pill" board) |
+| [Rotary Encoder](F103C8T6_DemoProject_RotaryEncoder)	| Setup and read rotary encoders					| STM32F103C8T6 ("Blue-Pill" board) |
 
 ## Documentation
 To read the Doxygen documentation, please copy the [Doxygen HTML-folder](Doxygen/HTML/html) to your local system 
