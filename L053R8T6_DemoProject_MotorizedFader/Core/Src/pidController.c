@@ -243,8 +243,8 @@ double calculate_DTermWithLowPass(PID_structTd* pid, double sample)
   double NumeratorDifferentiatorPortion = -2.0 * Kd * (sample - PrevSample);
   double NumeratorLowPassPortion = (2.0 * TauLowPass - SampleTime) * PrevDTerm;
 
-  DTerm = (NumeratorDifferentiatorPortion + NumeratorLowPassPortion)
-                        / (2.0 * TauLowPass + SampleTime);
+  DTerm = (NumeratorDifferentiatorPortion + NumeratorLowPassPortion) /
+          (2.0 * TauLowPass + SampleTime);
 
   pid->Sample = sample;
   pid->DTerm = DTerm;
