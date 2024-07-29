@@ -18,11 +18,6 @@
   ******************************************************************************
   */
 
-/**
- * @defgroup			MainDemo		Application Example
- * @brief					This is an application example for the button matrix.
- *
- */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -30,16 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-/**
- * @addtogroup		MainDemo
- * @{
- */
-/**
- * @brief			Includes we need for our project.
- */
 #include "buttonMatrix.h"
 #include <stdbool.h>
-/** @} */
 
 /* USER CODE END Includes */
 
@@ -49,6 +36,7 @@
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
+#define NUM_CHANNELS
 /* USER CODE BEGIN PD */
 
 /* USER CODE END PD */
@@ -73,40 +61,15 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/**
- * @addtogroup		MainDemo
- *
- * @{
- */
 
-/**
- * @name			Debugging Variables
- *
- * @brief			Use these variables to see if the code works by watching them in Live Expressions.
- * 						They are not required for functionality and only used for debugging as long as no further
- * 						functionality is added by the user.
- * @{
- */
-bool ButtonsSoloPushed[8] = {[0 ... 7] = false};
-bool ButtonsMutePushed[8] = {[0 ... 7] = false};
-bool ButtonsSelectPushed[8] = {[0 ... 7] = false};
-/** @} */
+bool ButtonsSoloPushed[NUM_CHANNELS] = {[0 ... 7] = false};
+bool ButtonsMutePushed[NUM_CHANNELS] = {[0 ... 7] = false};
+bool ButtonsSelectPushed[NUM_CHANNELS] = {[0 ... 7] = false};
 
-/**
- * @name			Button Matrix Variables
- *
- * @brief			These variables are required for the button matrix.
- * @{
- */
-/**
- * @brief			Object for the Button Matrix
- */
+
 buttonMatrix_structTd ButtonMatrix;
 
-/**
- * @brief			Objects for each Solo Button
- */
-buttonMatrix_Coordinates_Td ButtonSolo[8] = {
+buttonMatrix_Coordinates_Td ButtonSolo[NUM_CHANNELS] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_2},
@@ -117,10 +80,7 @@ buttonMatrix_Coordinates_Td ButtonSolo[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_0, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
 
-/**
- * @brief			Objects for each Mute Button
- */
-buttonMatrix_Coordinates_Td ButtonMute[8] = {
+buttonMatrix_Coordinates_Td ButtonMute[NUM_CHANNELS] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_2},
@@ -131,10 +91,7 @@ buttonMatrix_Coordinates_Td ButtonMute[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_1, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
 
-/**
- * @brief			Objects for each Select Button
- */
-buttonMatrix_Coordinates_Td ButtonSelect[8] = {
+buttonMatrix_Coordinates_Td ButtonSelect[NUM_CHANNELS] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_0},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_1},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_2},
@@ -144,15 +101,9 @@ buttonMatrix_Coordinates_Td ButtonSelect[8] = {
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_6},
 		{.PosIntLine = BUTTON_MATRIX_INT_2, .PosDrvLine = BUTTON_MATRIX_DRV_7}
 };
-/** @} */
-/** @} */
 
 /* USER CODE END 0 */
 
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
 int main(void)
 {
 
@@ -180,32 +131,12 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
-  /**
-   * @addtogroup		MainDemo
-   * @{
-   */
-  /**
-   * @name			Button Matrix Initialization
-   * @brief			All required init functions from the \ref ButtonMatrix "Button Matrix Module" are called here.
-   * @{
-   */
   ButtonMatrix_init_Structure(&ButtonMatrix);
 
-  /**
-   * @brief 		Setup interrupt pins. Remember to activate EXTI-lines and internal pull ups with falling edge interrupt.
-   * @return		unused. It could be used to setup the button coordinates.
-   * @{
-   */
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_13);
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_14);
   ButtonMatrix_init_InterruptLinePin(&ButtonMatrix, GPIOB, GPIO_PIN_15);
-  /** @} */
 
-  /**
-   * @brief 		Setup drive pins
-   * @return		unused. It could be used to setup the button coordinates.
-   * @{
-   */
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_0);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_1);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_2);
@@ -214,14 +145,10 @@ int main(void)
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_5);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_6);
   ButtonMatrix_init_DriveLinePin(&ButtonMatrix, GPIOA, GPIO_PIN_7);
-  /** @} */
 
-  /** @brief		setup timer with 1ms threshold. This should result in 8ms total debounce time for each key.*/
   ButtonMatrix_init_TimerThresholdInMs(&ButtonMatrix, 1);
-  /** @} */
 
   ButtonMatrix_start(&ButtonMatrix);
-  /** @} */
 
   /* USER CODE END 2 */
 
@@ -374,11 +301,6 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-/**
- * @addtogroup		MainDemo
- * @name				Interrupt Management
- * @brief				Button Matrix interrupt management function ButtonMatrix_manage_Interrupt() is called here.
- */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	ButtonMatrix_manage_Interrupt(&ButtonMatrix, GPIO_Pin);
