@@ -25,7 +25,7 @@ typedef struct {
 	unsigned long int now;		/**<HAL_GetTick will be stored here */
 	unsigned long int old;		/**<HAL_GetTick from previous cycle will be stored here */
 	uint16_t threshold;				/**<Threshold of the timer in MS is stored here */
-}timer_setup_structTd;
+}Timer_structTd;
 
 /**
  * @name		User Functions
@@ -51,7 +51,7 @@ typedef struct {
  * @param		threshold: Threshold time in MS
  * @return  none
  */
-void timer_set_ThresholdMS(timer_setup_structTd* timer, uint32_t threshold);
+void Timer_set_ThresholdInMs(Timer_structTd* timer, uint32_t threshold);
 
 /**
  * @brief		Check the timer state. Returns true and restarts timer if timer elapsed.
@@ -59,7 +59,7 @@ void timer_set_ThresholdMS(timer_setup_structTd* timer, uint32_t threshold);
  * @param 	timer: Pointer to the Timer Object of the user
  * @return  Boolean True if timer elapsed, false if not
  */
-bool timer_check_TimerElapsed(timer_setup_structTd* timer);
+bool Timer_check_TimerElapsed(Timer_structTd* timer);
 /** @} *//* end of name "User Functions" */
 
 /** @} *//* end of defgroup "Timer" */
