@@ -7,28 +7,28 @@
 
 #include "timer.h"
 
-void timer_set_ThresholdMS(timer_setup_structTd* timer, uint32_t threshold)
+void Timer_set_ThresholdInMs(Timer_structTd* timer, uint32_t threshold)
 {
 	timer->threshold = threshold;
 	timer->now = 0x00;
 	timer->old = 0x00;
 }
 
-void reset_Timer(timer_setup_structTd* timer);
+void Timer_restart_Timer(Timer_structTd* timer);
 
-bool timer_check_TimerElapsed(timer_setup_structTd* timer)
+bool Timer_check_TimerElapsed(Timer_structTd* timer)
 {
   bool returnValue = false;
   timer->now = HAL_GetTick();
   if((timer->now - timer->old) >= timer->threshold)
   {
     returnValue = true;
-    reset_Timer(timer);
+    Timer_restart_Timer(timer);
   }
   return returnValue;
 }
 
-void reset_Timer(timer_setup_structTd* timer)
+void Timer_restart_Timer(Timer_structTd* timer)
 {
   timer->now = HAL_GetTick();
   timer->old = timer->now;

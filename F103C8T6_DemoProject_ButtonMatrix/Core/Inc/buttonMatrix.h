@@ -146,7 +146,7 @@ typedef struct buttonMatrix_structTd
   /** Structure for initialization */
   buttonMatrix_init_Td init;
   /** Structure for a \ref Timer used debounce */
-  timer_setup_structTd timer;
+  Timer_structTd timer;
   /** Interrupt management */
   buttonMatrix_InterruptManagement_Td interrupt;
   /** Currently active interrupt line */

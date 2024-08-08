@@ -36,7 +36,8 @@
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
-#define NUM_CHANNELS
+#define NUM_CHANNELS  8
+#define NUM_INTERRUPT_LINES 5
 /* USER CODE BEGIN PD */
 
 /* USER CODE END PD */
@@ -157,7 +158,7 @@ int main(void)
   while (1)
   {
 		ButtonMatrix_update(&ButtonMatrix);
-		for(uint8_t i = 0; i < 5; i++)
+		for(uint8_t i = 0; i < NUM_INTERRUPT_LINES; i++)
 		{
 			if(ButtonMatrix_check_ButtonPushed(&ButtonMatrix, &ButtonSolo[i]) == true)
 			{

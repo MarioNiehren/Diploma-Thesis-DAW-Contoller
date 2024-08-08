@@ -53,7 +53,7 @@ uint8_t ButtonMatrix_init_DriveLinePin(buttonMatrix_structTd* buttonMatrix, GPIO
 
 void ButtonMatrix_init_TimerThresholdInMs(buttonMatrix_structTd* buttonMatrix, uint16_t timThresh)
 {
-	timer_set_ThresholdMS(&buttonMatrix->timer, timThresh);
+	Timer_set_ThresholdInMs(&buttonMatrix->timer, timThresh);
 }
 /** @} *//* end of "Initialization"*/
 
@@ -161,7 +161,7 @@ void ButtonMatrix_update(buttonMatrix_structTd* buttonMatrix)
   /** @internal    1. check if the debounce timer is elapsed.
    *                  - if not: leave function
    */
-	if(timer_check_TimerElapsed(&buttonMatrix->timer))
+	if(Timer_check_TimerElapsed(&buttonMatrix->timer))
 	{
 	  /** @internal    2. check if the matrix is in read mode
 	   *                  - if not: check for interrupt and enter read mode
