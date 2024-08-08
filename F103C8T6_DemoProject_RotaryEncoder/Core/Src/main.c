@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "RotaryEncoder.h"
+#include <stdint.h>
 
 /* USER CODE END Includes */
 
@@ -42,7 +44,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+ENC_TypeDef Encoder;
+uint32_t TickCounter = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,13 +90,47 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  Encoder_init_PinA(&Encoder, GPIOA, GPIO_PIN_0);
+  Encoder_init_PinB(&Encoder, GPIOA, GPIO_PIN_1);
+  uint16_t DebounceTime = 2;
+  Encoder_init_DebounceTimeInMs(&Encoder, DebounceTime);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    Encoder_update(&Encoder);
+
+    ENC_enum_Td Tick;
+    Tick = Encoder_get_Tick(&Encoder);
+
+    if(Tick == ENC_TICK_LEFT)
+    {
+      if(TickCounter > 0)
+      {
+        TickCounter--;
+      }
+      else
+      {
+        TickCounter = 0;
+      }
+    }
+    else if (Tick == ENC_TICK_RIGHT)
+    {
+      if(TickCounter < UINT32_MAX)
+      {
+        TickCounter++;
+      }
+      else
+      {
+        TickCounter = UINT32_MAX;
+      }
+    }
+    else
+    {
+      ;
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -174,12 +211,37 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  Encoder_manage_Interrupt(&Encoder, GPIO_Pin);
+}
 /* USER CODE END 4 */
 
 /**
