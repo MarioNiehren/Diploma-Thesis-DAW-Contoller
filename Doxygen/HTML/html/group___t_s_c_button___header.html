@@ -118,6 +118,8 @@ Macros</h2></td></tr>
 <tr class="memitem:gaaedd068d5321f0e7868e86c289b96e62" id="r_gaaedd068d5321f0e7868e86c289b96e62"><td class="memItemLeft" align="right" valign="top"><a id="gaaedd068d5321f0e7868e86c289b96e62" name="gaaedd068d5321f0e7868e86c289b96e62"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_TSC_BUTTONS</b>&#160;&#160;&#160;(<a class="el" href="#ga27e7a39708aaad9c8cb83bacdab6319a">NUM_TSC_GROUPS</a> * <a class="el" href="#gab3380574495c7ed825cf4a137af997ac">NUM_FREE_IOS</a>)</td></tr>
 <tr class="separator:gaaedd068d5321f0e7868e86c289b96e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90dc25b901f609dad85bc9ac4c96ef3d" id="r_ga90dc25b901f609dad85bc9ac4c96ef3d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga90dc25b901f609dad85bc9ac4c96ef3d">TSC_NUM_SAMPLES</a>&#160;&#160;&#160;50</td></tr>
+<tr class="separator:ga90dc25b901f609dad85bc9ac4c96ef3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Structures and Enumerations</h2></td></tr>
 <tr class="memitem:ga4848acc9d4a5ef047a2a1732d51c95b6" id="r_ga4848acc9d4a5ef047a2a1732d51c95b6"><td class="memItemLeft" align="right" valign="top"><a id="ga4848acc9d4a5ef047a2a1732d51c95b6" name="ga4848acc9d4a5ef047a2a1732d51c95b6"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>TSCButton_State_enumTd</b> { <b>TSCBUTTON_TOUCHED</b> = 1
@@ -160,6 +162,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga0d1e776091a3e9e11271ce42b3d75fc3" id="r_ga0d1e776091a3e9e11271ce42b3d75fc3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga0d1e776091a3e9e11271ce42b3d75fc3">TSCButton_get_RawValue</a> (<a class="el" href="struct_t_s_c_button__struct_td.html">TSCButton_structTd</a> *tsc)</td></tr>
 <tr class="memdesc:ga0d1e776091a3e9e11271ce42b3d75fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function to get the current raw TSC value of a Button.  <br /></td></tr>
 <tr class="separator:ga0d1e776091a3e9e11271ce42b3d75fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga235992141af696bf45579dd8f8604596" id="r_ga235992141af696bf45579dd8f8604596"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga235992141af696bf45579dd8f8604596">TSCButton_get_SmoothValue</a> (<a class="el" href="struct_t_s_c_button__struct_td.html">TSCButton_structTd</a> *tsc)</td></tr>
+<tr class="memdesc:ga235992141af696bf45579dd8f8604596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function to get the current smooth TSC value of a Button.  <br /></td></tr>
+<tr class="separator:ga235992141af696bf45579dd8f8604596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Study this part for a quick overview of this module. </p>
@@ -196,6 +201,21 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="ga90dc25b901f609dad85bc9ac4c96ef3d" name="ga90dc25b901f609dad85bc9ac4c96ef3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90dc25b901f609dad85bc9ac4c96ef3d">&#9670;&#160;</a></span>TSC_NUM_SAMPLES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TSC_NUM_SAMPLES&#160;&#160;&#160;50</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of values stored to calculate a smooth value </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga0d1e776091a3e9e11271ce42b3d75fc3" name="ga0d1e776091a3e9e11271ce42b3d75fc3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0d1e776091a3e9e11271ce42b3d75fc3">&#9670;&#160;</a></span>TSCButton_get_RawValue()</h2>
@@ -213,6 +233,32 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Call this function to get the current raw TSC value of a Button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tsc</td><td>pointer to the users tsc structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>value of the last TSC measurement for this tsc structure </dd></dl>
+
+</div>
+</div>
+<a id="ga235992141af696bf45579dd8f8604596" name="ga235992141af696bf45579dd8f8604596"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga235992141af696bf45579dd8f8604596">&#9670;&#160;</a></span>TSCButton_get_SmoothValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TSCButton_get_SmoothValue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_s_c_button__struct_td.html">TSCButton_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>tsc</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call this function to get the current smooth TSC value of a Button. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tsc</td><td>pointer to the users tsc structure </td></tr>
@@ -300,12 +346,13 @@ Macros</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>How to evaluate a proper value:<ol type="1">
 <li>Let the TSC button run without a threshold</li>
 <li>read the raw value (e.g. with live expression) and look what the values are when touched and when released.</li>
-<li>Choose a value in between and set it up as threshold. </li>
+<li>Choose a value in between and set it up as threshold. Tip: If the value difference is so small, that noise and environment changes overlap, increase the Charge Transfer High/Low Pulse Length. This will increase the value range from touched to released. </li>
 </ol>
 </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tsc</td><td>pointer to the users tsc structure @prarm value of the threshold </td></tr>
+    <tr><td class="paramname">tsc</td><td>pointer to the users tsc structure </td></tr>
+    <tr><td class="paramname">value</td><td>of the threshold </td></tr>
   </table>
   </dd>
 </dl>
@@ -339,11 +386,34 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Link the htsc handler to this module and specify the IO Channel. All Buttons have to be initialized before starting TSC. If you add buttons while TSC is running, internal counters might get confused and crash the program. </p>
+<h1><a class="anchor" id="autotoc_md35"></a>
+How to setup TSC in Cube MX (Values used for testing):</h1>
+<ul>
+<li>For each used group:<ul>
+<li>Setup 1 sample capacitor</li>
+<li>Setup 1 to 3 TSC Lines</li>
+</ul>
+</li>
+<li>Parameter Settings:<ul>
+<li>Charge Transfer High/Low Pulse Length: 6 Cycles (Other sized do work, but with shorter cycles the values get very close to each other when touched and released, what makes it difficult to get accurate touched or released detection. Larger values might be too slow for some use cases.)</li>
+<li>Speed Spectrum: Disable</li>
+<li>Pulse Generator Prescaler: Synchronous clock divided by 4 (tested with HCLK: 32MHz)</li>
+<li>Maximum Count Value: 8191 charge transfer cycles</li>
+<li>IO Default Mode: Output push-pull low</li>
+<li>Acquisition Mode: Normal acquisition mode</li>
+<li>Maximum Count Interrupt: Disable</li>
+</ul>
+</li>
+<li>NVIC Settings:<ul>
+<li>Touch sense controller interrupt: Enabled</li>
+</ul>
+</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tsc</td><td>pointer to the users tsc structure </td></tr>
     <tr><td class="paramname">htsc</td><td>pointer to the HAL generated TSC-handle of the TSC that is used for the button </td></tr>
-    <tr><td class="paramname">IOChannel</td><td>channel of the TSC-Group used for this button. Please use the HAL defines that contain the proper register values. This is the naming convention: TSC_GROUPx_IOx. For nerds: it is also possible to use the CMSIS register define TSC_IOCCR_Gx_IOx. You can find the active channels in the htsc initialization in MX_TSC_init(). </td></tr>
+    <tr><td class="paramname">IOChannel</td><td>channel of the TSC-Group used for this button. Please use the HAL defines that contain the proper register values. This is the naming convention: TSC_GROUPx_IOx. You can find the active channels in the htsc initialization in MX_TSC_init(). </td></tr>
   </table>
   </dd>
 </dl>
@@ -375,7 +445,7 @@ Macros</h2></td></tr>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="#ga9a0bf2ea0b4d926c1ae1724ae86b24fc">TSCButton_manage_Interrupt</a>();</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___t_s_c_button___header_html_ga9a0bf2ea0b4d926c1ae1724ae86b24fc"><div class="ttname"><a href="#ga9a0bf2ea0b4d926c1ae1724ae86b24fc">TSCButton_manage_Interrupt</a></div><div class="ttdeci">void TSCButton_manage_Interrupt(void)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the TSC module.</div><div class="ttdef"><b>Definition</b> tscButton.c:260</div></div>
+<div class="ttc" id="agroup___t_s_c_button___header_html_ga9a0bf2ea0b4d926c1ae1724ae86b24fc"><div class="ttname"><a href="#ga9a0bf2ea0b4d926c1ae1724ae86b24fc">TSCButton_manage_Interrupt</a></div><div class="ttdeci">void TSCButton_manage_Interrupt(void)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the TSC module.</div><div class="ttdef"><b>Definition</b> tscButton.c:310</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">none</td><td></td></tr>

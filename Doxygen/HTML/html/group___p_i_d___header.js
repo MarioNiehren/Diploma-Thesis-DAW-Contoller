@@ -16,7 +16,7 @@ var group___p_i_d___header =
       [ "PTerm", "struct_p_i_d__struct_td.html#ad990c60eb437460c743e1844812531c6", null ],
       [ "Sample", "struct_p_i_d__struct_td.html#a26c68a04eab60160314783a56df9bc36", null ],
       [ "SampleTime", "struct_p_i_d__struct_td.html#ab762b4f239966cd6dd7582990d90fa20", null ],
-      [ "SampleTimer", "struct_p_i_d__struct_td.html#af9dddf3972cb2747b0539f62aad8a63c", null ],
+      [ "SampleTimer", "struct_p_i_d__struct_td.html#a5144379689433ac29e6ab4b5dbd4da97", null ],
       [ "Setpoint", "struct_p_i_d__struct_td.html#a75c4a1f32ff8946a7e4880300dc7d309", null ],
       [ "TauLowPass", "struct_p_i_d__struct_td.html#a25a6948103c60b4f1aec28961a23ac02", null ]
     ] ],

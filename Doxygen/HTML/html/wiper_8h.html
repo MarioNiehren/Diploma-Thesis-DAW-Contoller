@@ -120,7 +120,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:ga3c114292578f2c874fc0a04494864940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of available ADCs (not ADC channels!) <br /></td></tr>
 <tr class="separator:ga3c114292578f2c874fc0a04494864940"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3992a43fac1d452edf605ff497a25030" id="r_ga3992a43fac1d452edf605ff497a25030"><td class="memItemLeft" align="right" valign="top">
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUMBER_OF_SAMPLES</b>&#160;&#160;&#160;150</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUMBER_OF_SAMPLES</b>&#160;&#160;&#160;100</td></tr>
 <tr class="memdesc:ga3992a43fac1d452edf605ff497a25030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define for the number of sampled values. If the smooth value is not clean enough, increase this number. Be careful that the ADC does not get to slow by using to many samples. <br /></td></tr>
 <tr class="separator:ga3992a43fac1d452edf605ff497a25030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -147,14 +147,14 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Calibrate</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Use this function to calibrate the wiper</p>
 <dl class="section note"><dt>Note</dt><dd>These functions are not essential, but may be helpful to improve the performance. </dd></dl>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 How to calibrate:</h1>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md40"></a>
 Hardware (if possible):</h2>
 <ul>
 <li>make sure that the ADC is working with a clean Vref </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md41"></a>
 Software:</h2>
 <ol type="1">
 <li>Change HAL-Settings to get as close as possible to the preferred result. Where to adapt:<ul>

@@ -295,12 +295,48 @@ Files</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Link the TIM handle and channel used for PWM. </p>
-<p>#How to setup PWM in CubeMX: </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo</a></b></dt><dd>Setup PWM-Freuqency = (TIM-CLK / Counter) </dd></dl>
+<h1><a class="anchor" id="autotoc_md30"></a>
+How to setup PWM in CubeMX (as tested):</h1>
+<ul>
+<li>HCLK: 32MHz</li>
+<li>Setup Channel x: PWM Generation CHx (choose a free channel)</li>
+<li>DMA/NVIC: Disable</li>
+<li>Parameter Settings<ul>
+<li>Counter Settings<ul>
+<li>Prescaler: 1-1 (1 is the actual value, -1 is required for the way the microcontroller counts. Check TIMx_PSC register in reference manual for details.)</li>
+<li>Counter Mode: Up</li>
+<li>Counter Period (Auto Reload Register): 500 - 1</li>
+<li>Internal Clock Division: No Division</li>
+<li>auto-reload preload: enable</li>
+</ul>
+</li>
+<li>Trigger Output (TRGO) Parameters<ul>
+<li>Master/Slave Mode: Disable</li>
+<li>Trigger Event Selection: Reset</li>
+</ul>
+</li>
+<li>PWM Generation Channel X<ul>
+<li>Mode: PWM mode 1</li>
+<li>Pulse: 0</li>
+<li>Output compare preload: Enable</li>
+<li>Fast Mode: Disable</li>
+<li>CH Polarity: High</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md31"></a>
+Calculation for setup</h1>
+<ul>
+<li>TIM-CLK = ClkIn / (Prescaler + 1), where ClkIn is usually the clock of the timers AHPB bus. Often it is equal to HCLK depending on the other used peripherals. + 1 is already taken in account in the setup in cubeMX (here: Prescaler: 1-1).</li>
+<li>PWM-Freuqency = (TIM-CLK / AutoReloadRegister)</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Motor</td><td>pointer to the users motor structure of the motor used with this IC. </td></tr>
     <tr><td class="paramname">htim</td><td>pointer to the HAL-handle for the timer used for PWM </td></tr>
-    <tr><td class="paramname">channel</td><td>of the timer used for PWM. Use the hal HAL-defines. They have the following format: TIM_CHANNEL_x, where x is the channel number (1 - 4). </td></tr>
+    <tr><td class="paramname">channel</td><td>of the timer used for PWM. Use the HAL-defines. They have the following format: TIM_CHANNEL_x, where x is the channel number. </td></tr>
   </table>
   </dd>
 </dl>

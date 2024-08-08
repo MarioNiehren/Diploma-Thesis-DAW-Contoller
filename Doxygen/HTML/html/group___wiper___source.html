@@ -173,9 +173,9 @@ Variables</h2></td></tr>
 <tr class="memitem:ga5975f93c4a6293369a814d655abec726" id="r_ga5975f93c4a6293369a814d655abec726"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga5975f93c4a6293369a814d655abec726">store_SampleFromDMABuffer</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper, uint16_t Buffer)</td></tr>
 <tr class="memdesc:ga5975f93c4a6293369a814d655abec726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the current value from the DMA buffer to the Sample Array.  <br /></td></tr>
 <tr class="separator:ga5975f93c4a6293369a814d655abec726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f7a02177e4cc7b73710f1391091cc3e" id="r_ga6f7a02177e4cc7b73710f1391091cc3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6f7a02177e4cc7b73710f1391091cc3e">calculate_SmoothValue</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper)</td></tr>
-<tr class="memdesc:ga6f7a02177e4cc7b73710f1391091cc3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate an average of all available samples.  <br /></td></tr>
-<tr class="separator:ga6f7a02177e4cc7b73710f1391091cc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c4e494521a22138783ab6ead665ba93" id="r_ga6c4e494521a22138783ab6ead665ba93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6c4e494521a22138783ab6ead665ba93">calculate_SmoothADCValue</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper)</td></tr>
+<tr class="memdesc:ga6c4e494521a22138783ab6ead665ba93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate an average of all available samples.  <br /></td></tr>
+<tr class="separator:ga6c4e494521a22138783ab6ead665ba93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9170e6f69a82ae21346de39b7b9717fa" id="r_ga9170e6f69a82ae21346de39b7b9717fa"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9170e6f69a82ae21346de39b7b9717fa">get_SmoothedVlaueWithHysteresis</a> (<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *Wiper, uint16_t SamplesAverage)</td></tr>
 <tr class="memdesc:ga9170e6f69a82ae21346de39b7b9717fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the average of samples is in a hysteresis area around the current value. It reduce noise a lot but the hysteresis threshold should be as low as possible to avoid big value jumps around the current value.  <br /></td></tr>
 <tr class="separator:ga9170e6f69a82ae21346de39b7b9717fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,14 +202,14 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Study this part for details about the function of wipers. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga6f7a02177e4cc7b73710f1391091cc3e" name="ga6f7a02177e4cc7b73710f1391091cc3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6f7a02177e4cc7b73710f1391091cc3e">&#9670;&#160;</a></span>calculate_SmoothValue()</h2>
+<a id="ga6c4e494521a22138783ab6ead665ba93" name="ga6c4e494521a22138783ab6ead665ba93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6c4e494521a22138783ab6ead665ba93">&#9670;&#160;</a></span>calculate_SmoothADCValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void calculate_SmoothValue </td>
+          <td class="memname">void calculate_SmoothADCValue </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>Wiper</em></span></td><td>)</td>
           <td></td>
@@ -228,6 +228,7 @@ Variables</h2></td></tr>
 <p>1. Declare a variable to store the sum of all samples</p>
 <p>2. Calculate the sum of all samples</p>
 <p>3. Divide the sum of all samples by the <a class="el" href="group___wiper___header.html#ga3992a43fac1d452edf605ff497a25030">NUMBER_OF_SAMPLES</a> to get the smoothed value.</p>
+<p>4. Calculate hysteresis</p>
 
 </div>
 </div>
@@ -662,11 +663,54 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Link HAL-ADC-handle used for wiper. </p>
-<h1><a class="anchor" id="autotoc_md26"></a>
-How to setup ADC for this module:</h1>
+<h1><a class="anchor" id="autotoc_md38"></a>
+How to setup ADC for this module (as tested):</h1>
 <ul>
-<li>Control the speed of your ADC with the prescaler.</li>
-<li><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo</a></b></dt><dd>Add ADC Setup here!!</dd></dl>
+<li>HCLK: 32MHz</li>
+<li>Select ADC INx</li>
+<li>Parameter Settings<ul>
+<li>ADC_Settings<ul>
+<li>Clock Prescaler: Synchronous clock mode divided by 4</li>
+<li>Resolution: ADC 12-bit resolution</li>
+<li>Data Alignment: Right alignment</li>
+<li>Scan Direction: Forward</li>
+<li>Continuous Conversation Mode: Disabled (ADC will be triggered in the update function of this module)</li>
+<li>Discontinuous Conversation Mode: Disabled</li>
+<li>DMA Continuous Requests: Disabled</li>
+<li>End Of Conversion Selection: End of single conversion</li>
+<li>Overrun behaviour: Overrun data preserved</li>
+<li>Low Power Auto Wait: Disabled</li>
+<li>Low Frequency Mode: Disabled</li>
+<li>Auto Off: Disabled</li>
+<li>Oversampling Mode: Disabled</li>
+</ul>
+</li>
+<li>ADC_REGULAR_ConversionMode<ul>
+<li>Sampling Time: 3.5 Cycles</li>
+<li>External Trigger Conversion Source: Regular Conversion launched by software.</li>
+<li>External Trigger Conversion Edge: None</li>
+</ul>
+</li>
+<li>WatchDog: Disable</li>
+</ul>
+</li>
+<li>NVIC Settings<ul>
+<li>DMA1 channel 1 interrupt: enable</li>
+<li>ADC, COMP1 and COMP2 interrupt: enable</li>
+</ul>
+</li>
+<li>DMA Settings<ul>
+<li>DMA Request: ADC</li>
+<li>Channel: DMA1 Channel 1</li>
+<li>Direction: Peripheral To Memory</li>
+<li>Priority: Medium</li>
+<li>DMA Request Settings:<ul>
+<li>Mode: Normal</li>
+<li>Increment Address: Memory</li>
+<li>Data Width: Half Word (because we use 12bit ADC)</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <dl class="section warning"><dt>Warning</dt><dd>It is necessary to initialize the ADC in the same order as the channels of the ADC are set up. So ADC1 Ch1 first and ADCx Chx last. Otherwise the ADC value will be written to the wrong wiper structure. It is no problem to skip channels if they are not in use (The skipped channels must not be set up in Cube MX!).</dd></dl>
@@ -733,7 +777,7 @@ How to setup ADC for this module:</h1>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="group___wiper___header.html#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a>(&amp;UsersWhiper, hadc);</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___wiper___header_html_ga5e2f11d13d6a2aabb6f4f5cd18a01966"><div class="ttname"><a href="group___wiper___header.html#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a></div><div class="ttdeci">void Wiper_manage_Interrupt(ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper modul...</div><div class="ttdef"><b>Definition</b> wiper.c:484</div></div>
+<div class="ttc" id="agroup___wiper___header_html_ga5e2f11d13d6a2aabb6f4f5cd18a01966"><div class="ttname"><a href="group___wiper___header.html#ga5e2f11d13d6a2aabb6f4f5cd18a01966">Wiper_manage_Interrupt</a></div><div class="ttdeci">void Wiper_manage_Interrupt(ADC_HandleTypeDef *hadc)</div><div class="ttdoc">Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper modul...</div><div class="ttdef"><b>Definition</b> wiper.c:490</div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hadc</td><td>pointer to the HAL generated ADC-handle of the ADC that is used for the wiper </td></tr>

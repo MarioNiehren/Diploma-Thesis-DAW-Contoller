@@ -104,14 +104,13 @@ $(function(){initNavTree('_l053_r8_t6___demo_project___motorized_fader_2_core_2_
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;main.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="adc_8h_source.html">adc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dma_8h_source.html">dma.h</a>&quot;</code><br />
+<code>#include &quot;dma.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="spi_8h_source.html">spi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tim_8h_source.html">tim.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="tsc_8h_source.html">tsc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="gpio_8h_source.html">gpio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="wiper_8h_source.html">wiper.h</a>&quot;</code><br />
-<code>#include &quot;tscButton.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="_t_b6612_f_n_g___motor_driver_8h_source.html">TB6612FNG_MotorDriver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="pid_controller_8h_source.html">pidController.h</a>&quot;</code><br />
+<code>#include &quot;gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="motorized_fader_8h_source.html">motorizedFader.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -136,18 +135,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_TSC_ConvCpltCallb
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a85919a257f510631aa921938af0d06df" id="r_a85919a257f510631aa921938af0d06df"><td class="memItemLeft" align="right" valign="top"><a id="a85919a257f510631aa921938af0d06df" name="a85919a257f510631aa921938af0d06df"></a>
-<a class="el" href="struct_wiper__struct_td.html">Wiper_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Wiper</b> [2]</td></tr>
-<tr class="separator:a85919a257f510631aa921938af0d06df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0024af5628269bc19b9bcdf550c52e9d" id="r_a0024af5628269bc19b9bcdf550c52e9d"><td class="memItemLeft" align="right" valign="top"><a id="a0024af5628269bc19b9bcdf550c52e9d" name="a0024af5628269bc19b9bcdf550c52e9d"></a>
-<a class="el" href="struct_t_s_c_button__struct_td.html">TSCButton_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TSCButton</b> [2]</td></tr>
-<tr class="separator:a0024af5628269bc19b9bcdf550c52e9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a640f6d211231675b838b0c446ba76580" id="r_a640f6d211231675b838b0c446ba76580"><td class="memItemLeft" align="right" valign="top"><a id="a640f6d211231675b838b0c446ba76580" name="a640f6d211231675b838b0c446ba76580"></a>
-<a class="el" href="struct_t_b6612_f_n_g_motor_driver__struct_td.html">TB6612FNGMotorDriver_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Motor</b> [2]</td></tr>
-<tr class="separator:a640f6d211231675b838b0c446ba76580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe618a6e3bfe35ed38e7110c1d4a04fd" id="r_afe618a6e3bfe35ed38e7110c1d4a04fd"><td class="memItemLeft" align="right" valign="top"><a id="afe618a6e3bfe35ed38e7110c1d4a04fd" name="afe618a6e3bfe35ed38e7110c1d4a04fd"></a>
-<a class="el" href="struct_p_i_d__struct_td.html">PID_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PID</b> [2]</td></tr>
-<tr class="separator:afe618a6e3bfe35ed38e7110c1d4a04fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223c5133fc3d82a234b917c765d65ab8" id="r_a223c5133fc3d82a234b917c765d65ab8"><td class="memItemLeft" align="right" valign="top"><a id="a223c5133fc3d82a234b917c765d65ab8" name="a223c5133fc3d82a234b917c765d65ab8"></a>
+<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Fader</b> [2]</td></tr>
+<tr class="separator:a223c5133fc3d82a234b917c765d65ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a22f92e8e1a9dab7126c20994b4a56" id="r_ae0a22f92e8e1a9dab7126c20994b4a56"><td class="memItemLeft" align="right" valign="top"><a id="ae0a22f92e8e1a9dab7126c20994b4a56" name="ae0a22f92e8e1a9dab7126c20994b4a56"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>NumFaders</b> = 2</td></tr>
+<tr class="separator:ae0a22f92e8e1a9dab7126c20994b4a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1ad03e525f9a0851f5de8fe57f3dd2" id="r_a3a1ad03e525f9a0851f5de8fe57f3dd2"><td class="memItemLeft" align="right" valign="top"><a id="a3a1ad03e525f9a0851f5de8fe57f3dd2" name="a3a1ad03e525f9a0851f5de8fe57f3dd2"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>FaderValue</b> [2]</td></tr>
+<tr class="separator:a3a1ad03e525f9a0851f5de8fe57f3dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe899ee8187ddbc55e9f50f6064baa02" id="r_abe899ee8187ddbc55e9f50f6064baa02"><td class="memItemLeft" align="right" valign="top"><a id="abe899ee8187ddbc55e9f50f6064baa02" name="abe899ee8187ddbc55e9f50f6064baa02"></a>
+uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>PrevFaderValue</b> [2]</td></tr>
+<tr class="separator:abe899ee8187ddbc55e9f50f6064baa02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35176239ba6a61338fa8cb5c55f7c234" id="r_a35176239ba6a61338fa8cb5c55f7c234"><td class="memItemLeft" align="right" valign="top"><a id="a35176239ba6a61338fa8cb5c55f7c234" name="a35176239ba6a61338fa8cb5c55f7c234"></a>
+TSCButton_State_enumTd&#160;</td><td class="memItemRight" valign="bottom"><b>FaderState</b> [2]</td></tr>
+<tr class="separator:a35176239ba6a61338fa8cb5c55f7c234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3700f94b821a128cbbb9544969cf8c" id="r_a3a3700f94b821a128cbbb9544969cf8c"><td class="memItemLeft" align="right" valign="top"><a id="a3a3700f94b821a128cbbb9544969cf8c" name="a3a3700f94b821a128cbbb9544969cf8c"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>timNow</b> = 0</td></tr>
+<tr class="separator:a3a3700f94b821a128cbbb9544969cf8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63558fc0622f7d0e4a91bb7f4d7e538" id="r_ab63558fc0622f7d0e4a91bb7f4d7e538"><td class="memItemLeft" align="right" valign="top"><a id="ab63558fc0622f7d0e4a91bb7f4d7e538" name="ab63558fc0622f7d0e4a91bb7f4d7e538"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>timOld</b> = 0</td></tr>
+<tr class="separator:ab63558fc0622f7d0e4a91bb7f4d7e538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f096b818044c2dc39e31bed15f5fde" id="r_a33f096b818044c2dc39e31bed15f5fde"><td class="memItemLeft" align="right" valign="top"><a id="a33f096b818044c2dc39e31bed15f5fde" name="a33f096b818044c2dc39e31bed15f5fde"></a>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>WhileSpeed</b> = 0</td></tr>
+<tr class="separator:a33f096b818044c2dc39e31bed15f5fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>: Main program body </p>

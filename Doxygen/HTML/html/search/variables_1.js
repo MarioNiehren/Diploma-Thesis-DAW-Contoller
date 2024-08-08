@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['bufferdma_0',['BufferDMA',['../struct_wiper___a_d_cdescriptor__struct_td.html#a33c026ef3464e6be89f6c8ac0f24f2f0',1,'Wiper_ADCdescriptor_structTd']]],
-  ['buttonmatrix_1',['ButtonMatrix',['../group___main_demo.html#gae4dd43c7d2e3306636db525e3249b1a5',1,'main.c']]],
-  ['buttonmute_2',['ButtonMute',['../group___main_demo.html#gab81b83d3044c43c149d1dce61d629376',1,'main.c']]],
-  ['buttonselect_3',['ButtonSelect',['../group___main_demo.html#ga82467c302c500e0f24f6440de32d74be',1,'main.c']]],
-  ['buttonsolo_4',['ButtonSolo',['../group___main_demo.html#ga733f01243023cfeb8bd72302256f86fd',1,'main.c']]],
-  ['buttonstatesoninterruptline_5',['buttonStatesOnInterruptLine',['../structbutton_matrix__struct_td.html#a2a7f2c6343bd911258696d26d7f53ba4',1,'buttonMatrix_structTd']]]
+  ['buffer_0',['Buffer',['../struct_m_i_d_i__struct_td.html#a1fdc92ffecb94994f9c1f49c8bab6925',1,'MIDI_structTd']]],
+  ['bufferdma_1',['BufferDMA',['../struct_wiper___a_d_cdescriptor__struct_td.html#a33c026ef3464e6be89f6c8ac0f24f2f0',1,'Wiper_ADCdescriptor_structTd']]],
+  ['buttonstatesoninterruptline_2',['buttonStatesOnInterruptLine',['../structbutton_matrix__struct_td.html#a2a7f2c6343bd911258696d26d7f53ba4',1,'buttonMatrix_structTd']]]
 ];

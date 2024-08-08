@@ -99,7 +99,7 @@ $(function(){initNavTree('group___wiper_motor_fader.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 
-<p>This module is responsible to handle the wiper of the motorized Fader. It will read the ADC, smooth the values and returns the results.  
+<p>This module is responsible to handle the wiper of the motorized Fader. It will read the ADC, smooth the values and returns the results. The ADC measurement working on DMA, so the CPU will not be affected.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="groups" name="groups"></a>
@@ -112,8 +112,8 @@ Topics</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>This module is responsible to handle the wiper of the motorized Fader. It will read the ADC, smooth the values and returns the results. </p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<p>This module is responsible to handle the wiper of the motorized Fader. It will read the ADC, smooth the values and returns the results. The ADC measurement working on DMA, so the CPU will not be affected. </p>
+<h1><a class="anchor" id="autotoc_md36"></a>
 How to use:</h1>
 <ol type="1">
 <li>Initialize ADC and hysteresis</li>
@@ -122,7 +122,7 @@ How to use:</h1>
 <li>Update wipers regularly in While loop.</li>
 <li>get values with get functions</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 Tip</h1>
 <p>This module can also be used for regular potentiometers as they work with the same concept!</p>
 </div><!-- contents -->

@@ -12,7 +12,7 @@ var group___wiper___source =
       [ "ADCs", "struct_wiper___internal___struct_td.html#adbc693e3f5c8df30778d8f505555e4f5", null ],
       [ "NumADCs", "struct_wiper___internal___struct_td.html#a47b99fdc67064e248c77840074139e3d", null ]
     ] ],
-    [ "calculate_SmoothValue", "group___wiper___source.html#ga6f7a02177e4cc7b73710f1391091cc3e", null ],
+    [ "calculate_SmoothADCValue", "group___wiper___source.html#ga6c4e494521a22138783ab6ead665ba93", null ],
     [ "check_ADCAlreadyInUse", "group___wiper___source.html#ga352768ca68e895645421a03936912afb", null ],
     [ "get_NextFreeADCIndex", "group___wiper___source.html#gaa1787e49726ff7779fcc109cf923cbd2", null ],
     [ "get_SmoothedVlaueWithHysteresis", "group___wiper___source.html#ga9170e6f69a82ae21346de39b7b9717fa", null ],

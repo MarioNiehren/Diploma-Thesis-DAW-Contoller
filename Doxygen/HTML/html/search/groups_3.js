@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['dc_20motor_20driver_0',['TB6612FNG Dual DC motor driver',['../group___t_b6612_f_n_g.html',1,'']]],
-  ['driver_1',['TB6612FNG Dual DC motor driver',['../group___t_b6612_f_n_g.html',1,'']]],
-  ['dual_20dc_20motor_20driver_2',['TB6612FNG Dual DC motor driver',['../group___t_b6612_f_n_g.html',1,'']]]
+  ['e_20paper_0',['E-Paper',['../group___e_paper_s_s_d1681.html',1,'']]],
+  ['encoder_1',['Rotary Encoder',['../group___rotary_encoder.html',1,'']]],
+  ['epd_20processing_20functions_2',['EPD processing functions',['../group___e_p_d___process.html',1,'']]]
 ];

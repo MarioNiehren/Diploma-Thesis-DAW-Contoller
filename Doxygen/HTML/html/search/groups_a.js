@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['paper_0',['E-Paper',['../group___e_paper_s_s_d1681.html',1,'']]],
-  ['pid_20controller_1',['PID controller',['../group___p_i_d___controller.html',1,'']]],
-  ['processing_20functions_2',['EPD processing functions',['../group___e_p_d___process.html',1,'']]]
+  ['over_20uart_0',['Module to transfer MIDI over UART.',['../group___m_i_d_i___u_a_r_t.html',1,'']]]
 ];

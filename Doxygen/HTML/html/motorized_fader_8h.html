@@ -95,16 +95,14 @@ $(function(){initNavTree('motorized_fader_8h.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">motorizedFader.h File Reference<div class="ingroups"><a class="el" href="group___motor_fader.html">Motorized Fader</a> &raquo; <a class="el" href="group___motor_fader___header.html">Header</a></div></div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2main_8h_source.html">main.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
-<code>#include &lt;tscButton.h&gt;</code><br />
-<code>#include &lt;<a class="el" href="_t_b6612_f_n_g___motor_driver_8h_source.html">TB6612FNG_MotorDriver.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="wiper_8h_source.html">wiper.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;tscButton.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="_t_b6612_f_n_g___motor_driver_8h_source.html">TB6612FNG_MotorDriver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wiper_8h_source.html">wiper.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pid_controller_8h_source.html">pidController.h</a>&quot;</code><br />
 </div>
 <p><a href="motorized_fader_8h_source.html">Go to the source code of this file.</a></p>
@@ -124,50 +122,111 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gae2a08097cf38712da3db703511cdec30" id="r_gae2a08097cf38712da3db703511cdec30"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_start</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader)</td></tr>
-<tr class="separator:gae2a08097cf38712da3db703511cdec30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8673639148b353dd1db9ee74c9066eb5" id="r_ga8673639148b353dd1db9ee74c9066eb5"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_update</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint8_t numFader)</td></tr>
-<tr class="separator:ga8673639148b353dd1db9ee74c9066eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Initialize</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize motorized faders </p>
+<tr><td colspan="2"><div class="groupHeader">Initialize Structure</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize the faders data structure. </p>
 </div></td></tr>
-<tr class="memitem:ga6882c68ec5bb8aa07929c4ea360a8bac" id="r_ga6882c68ec5bb8aa07929c4ea360a8bac"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initWhiper_LimitsMinMax</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint16_t valueMin, uint16_t valueMax)</td></tr>
-<tr class="separator:ga6882c68ec5bb8aa07929c4ea360a8bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3c6a8826f2028ed8ec5f13d6db029c11" id="r_ga3c6a8826f2028ed8ec5f13d6db029c11"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initWhiper_MuxAddress</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint8_t muxAddress)</td></tr>
-<tr class="separator:ga3c6a8826f2028ed8ec5f13d6db029c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaba3f28a2d7bca082bbf84464f8b1a5f6" id="r_gaba3f28a2d7bca082bbf84464f8b1a5f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gaba3f28a2d7bca082bbf84464f8b1a5f6">MotorizedFader_init_Whiper</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, ADC_HandleTypeDef *handle)</td></tr>
-<tr class="separator:gaba3f28a2d7bca082bbf84464f8b1a5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafe120aa3e054d85fba19f75bb99ce3f9" id="r_gafe120aa3e054d85fba19f75bb99ce3f9"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initMotor_PWM</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, TIM_HandleTypeDef *handle, uint16_t pwmChannel)</td></tr>
-<tr class="separator:gafe120aa3e054d85fba19f75bb99ce3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f4e7c2aaf826c318c6a3d9fd0171cf2" id="r_ga6f4e7c2aaf826c318c6a3d9fd0171cf2"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_KpKiKd</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, double Kp, double Ki, double Kd)</td></tr>
-<tr class="separator:ga6f4e7c2aaf826c318c6a3d9fd0171cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8e2c7b1d54207f7ec16ac7fb50e0f74" id="r_gaf8e2c7b1d54207f7ec16ac7fb50e0f74"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_ValueLimitMinMax</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, int valueMin, int valueMax)</td></tr>
-<tr class="separator:gaf8e2c7b1d54207f7ec16ac7fb50e0f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3623badd2f45c21d7516631cdc842b61" id="r_ga3623badd2f45c21d7516631cdc842b61"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_TauLowPass</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, double tauLowPass)</td></tr>
-<tr class="separator:ga3623badd2f45c21d7516631cdc842b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafa7c060d36b0b57b3cb19ab59664f822" id="r_gafa7c060d36b0b57b3cb19ab59664f822"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_SampleTime</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint16_t sampleTime)</td></tr>
-<tr class="separator:gafa7c060d36b0b57b3cb19ab59664f822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga146d9dad40b0b7532f69e168bc359e4a" id="r_ga146d9dad40b0b7532f69e168bc359e4a"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_Hysteresis</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint16_t hystThresh)</td></tr>
-<tr class="separator:ga146d9dad40b0b7532f69e168bc359e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab98d0e236069b8443f1d8c9b8a3750eb" id="r_gab98d0e236069b8443f1d8c9b8a3750eb"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initPID_StructDefault</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader)</td></tr>
-<tr class="separator:gab98d0e236069b8443f1d8c9b8a3750eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5bdbfa9d5d7f7ddaefd0b0d956d01488" id="r_ga5bdbfa9d5d7f7ddaefd0b0d956d01488"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorizedFader_initTouchSensor_MuxAddress</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint8_t muxAddress)</td></tr>
-<tr class="separator:ga5bdbfa9d5d7f7ddaefd0b0d956d01488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadeaedb0b696a9efeed203d87ac245a76" id="r_gadeaedb0b696a9efeed203d87ac245a76"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MotorizedFader_init_TouchThreshold</b> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint16_t threshValue)</td></tr>
-<tr class="separator:gadeaedb0b696a9efeed203d87ac245a76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab68de15bad1210ec835765bcdd319433" id="r_gab68de15bad1210ec835765bcdd319433"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gab68de15bad1210ec835765bcdd319433">MotorizedFader_init_Structure</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader)</td></tr>
+<tr class="memdesc:gab68de15bad1210ec835765bcdd319433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the Fader to the internal structure for internal use.  <br /></td></tr>
+<tr class="separator:gab68de15bad1210ec835765bcdd319433"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga273d5d0c65a9806145ca5f7c4ee79888" id="r_ga273d5d0c65a9806145ca5f7c4ee79888"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga273d5d0c65a9806145ca5f7c4ee79888">MotorizedFader_init_StartForce</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, int CCR)</td></tr>
+<tr class="memdesc:ga273d5d0c65a9806145ca5f7c4ee79888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the start force the fader needs to start moving. To find the CCR value needed to move the motor, you can use <a class="el" href="group___t_b6612_f_n_g___header.html#gad6ba3bdbc2281be71a73f045adeb2195" title="Call this function to move the motor clock wise. The speed is controlled by the CCR (Capture Compare ...">MotorDriver_move_ClockWise()</a> with the &amp;Fader-&gt;Motor and increase the CCR until the fader starts moving up. Sometimes trial and error will also lead to a working value.  <br /></td></tr>
+<tr class="separator:ga273d5d0c65a9806145ca5f7c4ee79888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7cc201b68ed12f7e9e4a2dd37039a72d" id="r_ga7cc201b68ed12f7e9e4a2dd37039a72d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga7cc201b68ed12f7e9e4a2dd37039a72d">MotorizedFader_init_StopRange</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, int CCR)</td></tr>
+<tr class="memdesc:ga7cc201b68ed12f7e9e4a2dd37039a72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a CCR Range, where the motor will not move. This is required to avoid resonating around the target value. Resonating is caused because the fader will always move at least with the start force. As the ADC value will never be completely stable and reached on point, the fader would always try to correct. This stop range is a simple approach to resolve this problem.  <br /></td></tr>
+<tr class="separator:ga7cc201b68ed12f7e9e4a2dd37039a72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialize Wiper</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize the faders wiper. </p>
+</div></td></tr>
+<tr class="memitem:gad80274af9a746926c0030f1e4e00688f" id="r_gad80274af9a746926c0030f1e4e00688f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gad80274af9a746926c0030f1e4e00688f">MotorizedFader_init_Wiper</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, ADC_HandleTypeDef *Handle)</td></tr>
+<tr class="memdesc:gad80274af9a746926c0030f1e4e00688f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the ADC for the wiper. For details and how to set up ADC please look at the documentation of <a class="el" href="group___wiper___header.html#ga3769a4718f132d3298e7c6a9456667e9" title="Link HAL-ADC-handle used for wiper.">Wiper_init_ADC()</a>.  <br /></td></tr>
+<tr class="separator:gad80274af9a746926c0030f1e4e00688f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialize Touch Sense Controller</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize the faders TSC. </p>
+</div></td></tr>
+<tr class="memitem:ga57bb8237c13779fbba26b58723e5bdde" id="r_ga57bb8237c13779fbba26b58723e5bdde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga57bb8237c13779fbba26b58723e5bdde">MotorizedFader_init_TouchTSC</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, TSC_HandleTypeDef *htsc, uint32_t IOChannel)</td></tr>
+<tr class="memdesc:ga57bb8237c13779fbba26b58723e5bdde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the touch sense controller for the touch line. For details and how to setup TSC please look at the documentation of <a class="el" href="group___t_s_c_button___header.html#gadea3910a50802013c61688c34af42b2a" title="Link the htsc handler to this module and specify the IO Channel. All Buttons have to be initialized b...">TSCButton_init_TSC()</a>.  <br /></td></tr>
+<tr class="separator:ga57bb8237c13779fbba26b58723e5bdde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga030d02d19d49a815882643c8110d7500" id="r_ga030d02d19d49a815882643c8110d7500"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga030d02d19d49a815882643c8110d7500">MotorizedFader_init_TouchThreshold</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, uint16_t Threshold)</td></tr>
+<tr class="memdesc:ga030d02d19d49a815882643c8110d7500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the threshold value where the touch line will change between touched and released. For details please look at the documentation of <a class="el" href="group___t_s_c_button___header.html#gac563acc8b2838373da3cf6dee8127810" title="Setup the threshold where the TSC button will toggle between touched and released.">TSCButton_init_Threshold()</a>.  <br /></td></tr>
+<tr class="separator:ga030d02d19d49a815882643c8110d7500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab02e785ee47f373cfd425b806a65e601" id="r_gab02e785ee47f373cfd425b806a65e601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gab02e785ee47f373cfd425b806a65e601">MotorizedFader_init_TouchDischargeTimeMsAll</a> (uint8_t TimeInMs)</td></tr>
+<tr class="memdesc:gab02e785ee47f373cfd425b806a65e601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the discharge time for the sample capacitor of the TSC group. This value is used fop all TSC sample capacitors and all faders. Only initialize this once for all. For details please look at the documentation of <a class="el" href="group___t_s_c_button___header.html#gaf706cac3ee0be2f3f1770d87953f2c03" title="Setup the discharge time in ms, that is required to discharge the sensing capacitor....">TSCButton_init_DischargeTimeMsAll()</a>.  <br /></td></tr>
+<tr class="separator:gab02e785ee47f373cfd425b806a65e601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialize Motor</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize the faders TSC. </p>
+</div></td></tr>
+<tr class="memitem:ga4e3cf4b4384fae0bfbb307f5ee3386c0" id="r_ga4e3cf4b4384fae0bfbb307f5ee3386c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga4e3cf4b4384fae0bfbb307f5ee3386c0">MotorizedFader_init_MotorPinIn1</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, GPIO_TypeDef *GPIO, uint16_t Pin)</td></tr>
+<tr class="memdesc:ga4e3cf4b4384fae0bfbb307f5ee3386c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link Pin In1 for the Motor Driver. For details please look at the documentation of <a class="el" href="group___t_b6612_f_n_g___header.html#ga877ef4a7ed2cca5408282f422ad2c713" title="Link the GPIO Port and Pin used for IN1 of the device. This pin has to be an output,...">MotorDriver_init_PinIn1()</a>.  <br /></td></tr>
+<tr class="separator:ga4e3cf4b4384fae0bfbb307f5ee3386c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafe744f9ad2f113d732632f4865f12afe" id="r_gafe744f9ad2f113d732632f4865f12afe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gafe744f9ad2f113d732632f4865f12afe">MotorizedFader_init_MotorPinIn2</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, GPIO_TypeDef *GPIO, uint16_t Pin)</td></tr>
+<tr class="memdesc:gafe744f9ad2f113d732632f4865f12afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link Pin In2 for the Motor Driver. For details please look at the documentation of <a class="el" href="group___t_b6612_f_n_g___header.html#ga59bd3def8b94017caf0679ecdb3655db" title="Link the GPIO Port and Pin used for IN2 of the device. This pin has to be an output,...">MotorDriver_init_PinIn2()</a>.  <br /></td></tr>
+<tr class="separator:gafe744f9ad2f113d732632f4865f12afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga486e0b44341a0f6e98fbc265787e59b7" id="r_ga486e0b44341a0f6e98fbc265787e59b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga486e0b44341a0f6e98fbc265787e59b7">MotorizedFader_init_MotorPinSTBY</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, GPIO_TypeDef *GPIO, uint16_t Pin)</td></tr>
+<tr class="memdesc:ga486e0b44341a0f6e98fbc265787e59b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link Pin STBY for the Motor Driver. For details please look at the documentation of MotorDriver_init_PinInSTBY().  <br /></td></tr>
+<tr class="separator:ga486e0b44341a0f6e98fbc265787e59b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabda87f9cb0f5243cc31f0004b1ff7447" id="r_gabda87f9cb0f5243cc31f0004b1ff7447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gabda87f9cb0f5243cc31f0004b1ff7447">MotorizedFader_init_MotorPWM</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, TIM_HandleTypeDef *htim, uint16_t Channel)</td></tr>
+<tr class="memdesc:gabda87f9cb0f5243cc31f0004b1ff7447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link PWM used for the Motor Driver. For details and how to setup PWM please look at the documentation of <a class="el" href="group___t_b6612_f_n_g___header.html#ga71f19c831735445aa3ddde0317a5fc37" title="Link the TIM handle and channel used for PWM.">MotorDriver_init_PWM()</a>.  <br /></td></tr>
+<tr class="separator:gabda87f9cb0f5243cc31f0004b1ff7447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Initialize PID</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize the PID controller that controls the motor.</p>
+<h1><a class="anchor" id="autotoc_md23"></a>
+A "hands on" explanation of the PID controller</h1>
+<ul>
+<li>The PID controller is used to calculate the CCR value for the motor. As motors are sluggish systems, they need to change the speed all the time while moving to get accurate to the target. The controller is fed with the current wiper value and will control the CCR of the motors PWM until the wiper value matches the target value (in theory, as there will always be noise and tolerance).</li>
+<li>P = Propotional, I = Integral, D = Derivative</li>
+<li>Here: "error" means the difference between the setpoint (target value) and the input value.</li>
+<li>Kp is the coefficient to tune the P-Term of the controller. This term will directly move the fader according to the error.</li>
+<li>Ki is the coefficient to tune the I-Term of the controller. It will add the error again and again over time, so it will move the fader slowly to the target if P is not strong enough anymore. This is helpful if you are close to the target but not there yet.</li>
+<li>Kd is the coefficient to tune the D-Term of the controller. It is used to counteract with P and I to avoid rapid changes. As it tends to oszillate, it is paired with a low pass here to reduce this effect. Be careful with the D-Term, as it may cause instability in the system if it is used too much. But don't be afraid to use it!</li>
+<li>Experiences from testing: Often the coefficients are in relation of Kp &gt;&gt; Kd &gt;&gt; Ki. With Alps Faders, the values are often anywhere in the dimension of Kp = 0.x | Ki = 0.000x and Kd = 0.0x.</li>
+<li>More calibration tips in the <a class="el" href="group___p_i_d___controller.html">PID module</a>. </li>
+</ul>
+</div></td></tr>
+<tr class="memitem:ga20c5b8d83977cf80a168539daeca8bdc" id="r_ga20c5b8d83977cf80a168539daeca8bdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga20c5b8d83977cf80a168539daeca8bdc">MotorizedFader_init_PID</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader)</td></tr>
+<tr class="memdesc:ga20c5b8d83977cf80a168539daeca8bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the PID structure used by the fader. For details please look at the documentation of <a class="el" href="group___p_i_d___header.html#gabdb58288560a38df669ef0cc63d7963a" title="Initialize the users PID-structure to make sure that the start values are properly set.">PID_init()</a>.  <br /></td></tr>
+<tr class="separator:ga20c5b8d83977cf80a168539daeca8bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f15ed1ee6d62c4903e9c165537acb19" id="r_ga4f15ed1ee6d62c4903e9c165537acb19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga4f15ed1ee6d62c4903e9c165537acb19">MotorizedFader_init_PIDMaxCCR</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, uint16_t MaxCCR)</td></tr>
+<tr class="memdesc:ga4f15ed1ee6d62c4903e9c165537acb19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize PID Output range For details please look at the documentation of <a class="el" href="group___p_i_d___header.html#ga8a04d72eb5b728ba9c13c3eb686f742d" title="Set the value range for the PID output.">PID_set_OutputMinMax()</a>.  <br /></td></tr>
+<tr class="separator:ga4f15ed1ee6d62c4903e9c165537acb19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga23cd2d30fd7c4e6869162c953625b3ee" id="r_ga23cd2d30fd7c4e6869162c953625b3ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga23cd2d30fd7c4e6869162c953625b3ee">MotorizedFader_init_PIDKpKiKd</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, double Kp, double Ki, double Kd)</td></tr>
+<tr class="memdesc:ga23cd2d30fd7c4e6869162c953625b3ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize PID coefficients for tuning the PIT-Terms. For details please look at the documentation of <a class="el" href="group___p_i_d___header.html#ga5634b3fa2aa53ad46cd0792aba79ee35" title="Set the coefficients for proportional, integral and derivative terms.">PID_set_KpKiKd()</a>.  <br /></td></tr>
+<tr class="separator:ga23cd2d30fd7c4e6869162c953625b3ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaecc08367c7c6fc646cefa878c6388110" id="r_gaecc08367c7c6fc646cefa878c6388110"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gaecc08367c7c6fc646cefa878c6388110">MotorizedFader_init_PIDLowPass</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, double Tau)</td></tr>
+<tr class="memdesc:gaecc08367c7c6fc646cefa878c6388110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the low pass for the PID D-Term. For details please look at the documentation of <a class="el" href="group___p_i_d___header.html#gaa8e7bc5b3255d4a17ad220c1e2e1fe43" title="Set tau to tune the low pass used on the D-Term to reduce noise. Increase tau for a lower crossover f...">PID_set_LowPass()</a>.  <br /></td></tr>
+<tr class="separator:gaecc08367c7c6fc646cefa878c6388110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabe4ccb946b406da01f4b90c9db2e5cf4" id="r_gabe4ccb946b406da01f4b90c9db2e5cf4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gabe4ccb946b406da01f4b90c9db2e5cf4">MotorizedFader_init_PIDSampleTimeInMs</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader, uint32_t SampleTime)</td></tr>
+<tr class="memdesc:gabe4ccb946b406da01f4b90c9db2e5cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the sample to control the PID update frequency. For details please look at the documentation of <a class="el" href="group___p_i_d___header.html#gad02b747382e1b8d2b946b73b29117215" title="Set the sample time to control the update frequency of the PID-controller. Make sure that the program...">PID_set_SampleTimeInMs()</a>.  <br /></td></tr>
+<tr class="separator:gabe4ccb946b406da01f4b90c9db2e5cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Process</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to process all faders </p>
+</div></td></tr>
+<tr class="memitem:ga7484953e13e33e3d9f1a6144d33432dc" id="r_ga7484953e13e33e3d9f1a6144d33432dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga7484953e13e33e3d9f1a6144d33432dc">MotorizedFader_start_All</a> (void)</td></tr>
+<tr class="memdesc:ga7484953e13e33e3d9f1a6144d33432dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function once to start all faders.  <br /></td></tr>
+<tr class="separator:ga7484953e13e33e3d9f1a6144d33432dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga46035bcdf3e5e7c3248b100494ff38ce" id="r_ga46035bcdf3e5e7c3248b100494ff38ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga46035bcdf3e5e7c3248b100494ff38ce">MotorizedFader_update_All</a> (void)</td></tr>
+<tr class="memdesc:ga46035bcdf3e5e7c3248b100494ff38ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function periodically in the main while loop to update all faders.  <br /></td></tr>
+<tr class="separator:ga46035bcdf3e5e7c3248b100494ff38ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2abcc6b1f7bf263dd0b38ce7bbe1a45b" id="r_ga2abcc6b1f7bf263dd0b38ce7bbe1a45b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga2abcc6b1f7bf263dd0b38ce7bbe1a45b">MotorizedFader_manage_WiperInterrupt</a> (ADC_HandleTypeDef *hadc)</td></tr>
+<tr class="memdesc:ga2abcc6b1f7bf263dd0b38ce7bbe1a45b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in the HAL ADC interrupt. For details please look at the documentation of <a class="el" href="group___wiper___header.html#ga5e2f11d13d6a2aabb6f4f5cd18a01966" title="Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the wiper modul...">Wiper_manage_Interrupt()</a>.  <br /></td></tr>
+<tr class="separator:ga2abcc6b1f7bf263dd0b38ce7bbe1a45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafd9c406bade7d7d70e4bf78d2aa78f2f" id="r_gafd9c406bade7d7d70e4bf78d2aa78f2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#gafd9c406bade7d7d70e4bf78d2aa78f2f">MotorizedFader_manage_TSCInterrupt</a> (void)</td></tr>
+<tr class="memdesc:gafd9c406bade7d7d70e4bf78d2aa78f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this funciton in the HAL TSC Interrupt For details please look at the documentation of <a class="el" href="group___t_s_c_button___header.html#ga9a0bf2ea0b4d926c1ae1724ae86b24fc" title="Call this function in the HAL-Interrupt handler to set an internal interrupt flag for the TSC module.">TSCButton_manage_Interrupt()</a>.  <br /></td></tr>
+<tr class="separator:gafd9c406bade7d7d70e4bf78d2aa78f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Set Functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to set values to the fader </p>
+</div></td></tr>
+<tr class="memitem:ga600f62c96a0386c223fb5875bcbdd0bc" id="r_ga600f62c96a0386c223fb5875bcbdd0bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga600f62c96a0386c223fb5875bcbdd0bc">MotorizedFader_set_Target</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *fader, uint16_t Target)</td></tr>
+<tr class="memdesc:ga600f62c96a0386c223fb5875bcbdd0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to set a Target value for the fader. It will move to this value automatically.  <br /></td></tr>
+<tr class="separator:ga600f62c96a0386c223fb5875bcbdd0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Get Functions</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Use these functions to get values from the fader </p>
+</div></td></tr>
+<tr class="memitem:ga592c8f1f9306b7fd683b173a1a0baa4d" id="r_ga592c8f1f9306b7fd683b173a1a0baa4d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga592c8f1f9306b7fd683b173a1a0baa4d">MotorizedFader_get_WiperValue</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader)</td></tr>
+<tr class="memdesc:ga592c8f1f9306b7fd683b173a1a0baa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to get the wiper value. This value can be used to control something else, e.g. a protocol value to mode a DAW fader.  <br /></td></tr>
+<tr class="separator:ga592c8f1f9306b7fd683b173a1a0baa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4325f63723e3080824ae78c324f344bd" id="r_ga4325f63723e3080824ae78c324f344bd"><td class="memItemLeft" align="right" valign="top">TSCButton_State_enumTd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___motor_fader___header.html#ga4325f63723e3080824ae78c324f344bd">MotorizedFader_get_TSCState</a> (<a class="el" href="struct_motorized_fader__struct_td.html">MotorizedFader_structTd</a> *Fader)</td></tr>
+<tr class="memdesc:ga4325f63723e3080824ae78c324f344bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to check if a fader is touched or not.  <br /></td></tr>
+<tr class="separator:ga4325f63723e3080824ae78c324f344bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section date"><dt>Date</dt><dd>Sep 4, 2023 </dd></dl>

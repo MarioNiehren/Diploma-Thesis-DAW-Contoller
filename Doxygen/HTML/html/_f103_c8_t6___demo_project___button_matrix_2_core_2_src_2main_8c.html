@@ -94,7 +94,9 @@ $(function(){initNavTree('_f103_c8_t6___demo_project___button_matrix_2_core_2_sr
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -105,14 +107,23 @@ $(function(){initNavTree('_f103_c8_t6___demo_project___button_matrix_2_core_2_sr
 <code>#include &quot;<a class="el" href="button_matrix_8h_source.html">buttonMatrix.h</a>&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae5597ce31d23d11493e6e674fe257d73" id="r_ae5597ce31d23d11493e6e674fe257d73"><td class="memItemLeft" align="right" valign="top"><a id="ae5597ce31d23d11493e6e674fe257d73" name="ae5597ce31d23d11493e6e674fe257d73"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_CHANNELS</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:ae5597ce31d23d11493e6e674fe257d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3596be66fc449473eb2d11276c52b6c6" id="r_a3596be66fc449473eb2d11276c52b6c6"><td class="memItemLeft" align="right" valign="top"><a id="a3596be66fc449473eb2d11276c52b6c6" name="a3596be66fc449473eb2d11276c52b6c6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_INTERRUPT_LINES</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a3596be66fc449473eb2d11276c52b6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a70af21c671abfcc773614a9a4f63d920" id="r_a70af21c671abfcc773614a9a4f63d920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a> (void)</td></tr>
-<tr class="memdesc:a70af21c671abfcc773614a9a4f63d920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Includes we need for our project.  <br /></td></tr>
+<tr class="memdesc:a70af21c671abfcc773614a9a4f63d920"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Clock Configuration.  <br /></td></tr>
 <tr class="separator:a70af21c671abfcc773614a9a4f63d920"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Interrupt Management</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Button Matrix interrupt management function <a class="el" href="group___button_matrix___header.html#gaa0f14192ec546f89d5abbdeeead55255" title="Flag interrupted Pins.">ButtonMatrix_manage_Interrupt()</a> is called here. </p>
-</div></td></tr>
+<tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe" id="r_a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top"><a id="a840291bc02cba5474a4cb46a9b9566fe" name="a840291bc02cba5474a4cb46a9b9566fe"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (void)</td></tr>
+<tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cd91fd3a9608559c2a87a8ba6cba55f" id="r_a0cd91fd3a9608559c2a87a8ba6cba55f"><td class="memItemLeft" align="right" valign="top"><a id="a0cd91fd3a9608559c2a87a8ba6cba55f" name="a0cd91fd3a9608559c2a87a8ba6cba55f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_GPIO_EXTI_Callback</b> (uint16_t GPIO_Pin)</td></tr>
 <tr class="separator:a0cd91fd3a9608559c2a87a8ba6cba55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,34 +133,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>HAL_GPIO_EXTI_Callbac
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">Debugging Variables</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>Use these variables to see if the code works by watching them in Live Expressions. They are not required for functionality and only used for debugging as long as no further functionality is added by the user. </p>
-</div></td></tr>
-<tr class="memitem:ga06706b16ce3b4054a155e588a67aea8b" id="r_ga06706b16ce3b4054a155e588a67aea8b"><td class="memItemLeft" align="right" valign="top">
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSoloPushed</b> [8] = {[0 ... 7] = false}</td></tr>
-<tr class="separator:ga06706b16ce3b4054a155e588a67aea8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga96e3c2d06a01ba94d8a3a363fa76f53b" id="r_ga96e3c2d06a01ba94d8a3a363fa76f53b"><td class="memItemLeft" align="right" valign="top">
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsMutePushed</b> [8] = {[0 ... 7] = false}</td></tr>
-<tr class="separator:ga96e3c2d06a01ba94d8a3a363fa76f53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadce4d948f2fb8fd90d98d8ae32688c22" id="r_gadce4d948f2fb8fd90d98d8ae32688c22"><td class="memItemLeft" align="right" valign="top">
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSelectPushed</b> [8] = {[0 ... 7] = false}</td></tr>
-<tr class="separator:gadce4d948f2fb8fd90d98d8ae32688c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Button Matrix Variables</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>These variables are required for the button matrix. </p>
-</div></td></tr>
-<tr class="memitem:gae4dd43c7d2e3306636db525e3249b1a5" id="r_gae4dd43c7d2e3306636db525e3249b1a5"><td class="memItemLeft" align="right" valign="top">
+<tr class="memitem:ae97c28294f28adb3e98ebe00861f860c" id="r_ae97c28294f28adb3e98ebe00861f860c"><td class="memItemLeft" align="right" valign="top"><a id="ae97c28294f28adb3e98ebe00861f860c" name="ae97c28294f28adb3e98ebe00861f860c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSoloPushed</b> [NUM_CHANNELS] = {[0 ... 7] = false}</td></tr>
+<tr class="separator:ae97c28294f28adb3e98ebe00861f860c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b0dd12adf064c5186c507c35d94aa72" id="r_a9b0dd12adf064c5186c507c35d94aa72"><td class="memItemLeft" align="right" valign="top"><a id="a9b0dd12adf064c5186c507c35d94aa72" name="a9b0dd12adf064c5186c507c35d94aa72"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsMutePushed</b> [NUM_CHANNELS] = {[0 ... 7] = false}</td></tr>
+<tr class="separator:a9b0dd12adf064c5186c507c35d94aa72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a182344ac5cdd74e05c336d1a6c741148" id="r_a182344ac5cdd74e05c336d1a6c741148"><td class="memItemLeft" align="right" valign="top"><a id="a182344ac5cdd74e05c336d1a6c741148" name="a182344ac5cdd74e05c336d1a6c741148"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSelectPushed</b> [NUM_CHANNELS] = {[0 ... 7] = false}</td></tr>
+<tr class="separator:a182344ac5cdd74e05c336d1a6c741148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4dd43c7d2e3306636db525e3249b1a5" id="r_ae4dd43c7d2e3306636db525e3249b1a5"><td class="memItemLeft" align="right" valign="top"><a id="ae4dd43c7d2e3306636db525e3249b1a5" name="ae4dd43c7d2e3306636db525e3249b1a5"></a>
 <a class="el" href="structbutton_matrix__struct_td.html">buttonMatrix_structTd</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonMatrix</b></td></tr>
-<tr class="memdesc:gae4dd43c7d2e3306636db525e3249b1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object for the Button Matrix. <br /></td></tr>
-<tr class="separator:gae4dd43c7d2e3306636db525e3249b1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga733f01243023cfeb8bd72302256f86fd" id="r_ga733f01243023cfeb8bd72302256f86fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___main_demo.html#ga733f01243023cfeb8bd72302256f86fd">ButtonSolo</a> [8]</td></tr>
-<tr class="memdesc:ga733f01243023cfeb8bd72302256f86fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Objects for each Solo Button.  <br /></td></tr>
-<tr class="separator:ga733f01243023cfeb8bd72302256f86fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab81b83d3044c43c149d1dce61d629376" id="r_gab81b83d3044c43c149d1dce61d629376"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___main_demo.html#gab81b83d3044c43c149d1dce61d629376">ButtonMute</a> [8]</td></tr>
-<tr class="memdesc:gab81b83d3044c43c149d1dce61d629376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Objects for each Mute Button.  <br /></td></tr>
-<tr class="separator:gab81b83d3044c43c149d1dce61d629376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga82467c302c500e0f24f6440de32d74be" id="r_ga82467c302c500e0f24f6440de32d74be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___main_demo.html#ga82467c302c500e0f24f6440de32d74be">ButtonSelect</a> [8]</td></tr>
-<tr class="memdesc:ga82467c302c500e0f24f6440de32d74be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Objects for each Select Button.  <br /></td></tr>
-<tr class="separator:ga82467c302c500e0f24f6440de32d74be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:ae4dd43c7d2e3306636db525e3249b1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621090c1b37e8e45a6861d5029e124cd" id="r_a621090c1b37e8e45a6861d5029e124cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a621090c1b37e8e45a6861d5029e124cd">ButtonSolo</a> [NUM_CHANNELS]</td></tr>
+<tr class="separator:a621090c1b37e8e45a6861d5029e124cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14b8cb523c713a1b69da26a0d50ce28f" id="r_a14b8cb523c713a1b69da26a0d50ce28f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14b8cb523c713a1b69da26a0d50ce28f">ButtonMute</a> [NUM_CHANNELS]</td></tr>
+<tr class="separator:a14b8cb523c713a1b69da26a0d50ce28f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a789c8f844d6c9b3ef0f37cf5e0ecc8bd" id="r_a789c8f844d6c9b3ef0f37cf5e0ecc8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a789c8f844d6c9b3ef0f37cf5e0ecc8bd">ButtonSelect</a> [NUM_CHANNELS]</td></tr>
+<tr class="separator:a789c8f844d6c9b3ef0f37cf5e0ecc8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>: Main program body </p>
@@ -197,8 +198,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSelectPushed</
       </table>
 </div><div class="memdoc">
 
-<p>Includes we need for our project. </p>
-<p>System Clock Configuration.</p>
+<p>System Clock Configuration. </p>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">None</td><td></td></tr>
@@ -208,6 +208,90 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ButtonsSelectPushed</
 <p>Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure.</p>
 <p>Initializes the CPU, AHB and APB buses clocks</p>
 
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a14b8cb523c713a1b69da26a0d50ce28f" name="a14b8cb523c713a1b69da26a0d50ce28f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14b8cb523c713a1b69da26a0d50ce28f">&#9670;&#160;</a></span>ButtonMute</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a> ButtonMute[NUM_CHANNELS]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aeeec8920557ed0f538a2e58e525d52d3">BUTTON_MATRIX_DRV_0</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a68a1fd0f67f7b36c4d60738c4f445038">BUTTON_MATRIX_DRV_1</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ab9e4b18a5b114d93419e08a7d60f615e">BUTTON_MATRIX_DRV_2</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a553713ff2bab1ff03c89c49cd304e914">BUTTON_MATRIX_DRV_3</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ad7af46093167ab27d8771b6d77e3a19e">BUTTON_MATRIX_DRV_4</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a33a5d260c48a7d77f406c1dc3859ae47">BUTTON_MATRIX_DRV_5</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0c44edc3664206397763132459faaf79">BUTTON_MATRIX_DRV_6</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a8d10a4b7460f7315ac928e35c30d1588">BUTTON_MATRIX_DRV_7</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a0c44edc3664206397763132459faaf79"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0c44edc3664206397763132459faaf79">BUTTON_MATRIX_DRV_6</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_6</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:82</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a33a5d260c48a7d77f406c1dc3859ae47"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a33a5d260c48a7d77f406c1dc3859ae47">BUTTON_MATRIX_DRV_5</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_5</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:81</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a553713ff2bab1ff03c89c49cd304e914"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a553713ff2bab1ff03c89c49cd304e914">BUTTON_MATRIX_DRV_3</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_3</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:79</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a68a1fd0f67f7b36c4d60738c4f445038"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a68a1fd0f67f7b36c4d60738c4f445038">BUTTON_MATRIX_DRV_1</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_1</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:77</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a8d10a4b7460f7315ac928e35c30d1588"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a8d10a4b7460f7315ac928e35c30d1588">BUTTON_MATRIX_DRV_7</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_7</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:83</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aa86660b0fe5622fa61c859bfce94faf5">BUTTON_MATRIX_INT_1</a></div><div class="ttdeci">@ BUTTON_MATRIX_INT_1</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:60</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9ab9e4b18a5b114d93419e08a7d60f615e"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ab9e4b18a5b114d93419e08a7d60f615e">BUTTON_MATRIX_DRV_2</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_2</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:78</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9ad7af46093167ab27d8771b6d77e3a19e"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ad7af46093167ab27d8771b6d77e3a19e">BUTTON_MATRIX_DRV_4</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_4</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:80</div></div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9aeeec8920557ed0f538a2e58e525d52d3"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aeeec8920557ed0f538a2e58e525d52d3">BUTTON_MATRIX_DRV_0</a></div><div class="ttdeci">@ BUTTON_MATRIX_DRV_0</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:76</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a789c8f844d6c9b3ef0f37cf5e0ecc8bd" name="a789c8f844d6c9b3ef0f37cf5e0ecc8bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a789c8f844d6c9b3ef0f37cf5e0ecc8bd">&#9670;&#160;</a></span>ButtonSelect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a> ButtonSelect[NUM_CHANNELS]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aeeec8920557ed0f538a2e58e525d52d3">BUTTON_MATRIX_DRV_0</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a68a1fd0f67f7b36c4d60738c4f445038">BUTTON_MATRIX_DRV_1</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ab9e4b18a5b114d93419e08a7d60f615e">BUTTON_MATRIX_DRV_2</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a553713ff2bab1ff03c89c49cd304e914">BUTTON_MATRIX_DRV_3</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ad7af46093167ab27d8771b6d77e3a19e">BUTTON_MATRIX_DRV_4</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a33a5d260c48a7d77f406c1dc3859ae47">BUTTON_MATRIX_DRV_5</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0c44edc3664206397763132459faaf79">BUTTON_MATRIX_DRV_6</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a8d10a4b7460f7315ac928e35c30d1588">BUTTON_MATRIX_DRV_7</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0afa49e3730408be64369491a189f6b3">BUTTON_MATRIX_INT_2</a></div><div class="ttdeci">@ BUTTON_MATRIX_INT_2</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:61</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a621090c1b37e8e45a6861d5029e124cd" name="a621090c1b37e8e45a6861d5029e124cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a621090c1b37e8e45a6861d5029e124cd">&#9670;&#160;</a></span>ButtonSolo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbutton_matrix___coordinates___td.html">buttonMatrix_Coordinates_Td</a> ButtonSolo[NUM_CHANNELS]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9aeeec8920557ed0f538a2e58e525d52d3">BUTTON_MATRIX_DRV_0</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a68a1fd0f67f7b36c4d60738c4f445038">BUTTON_MATRIX_DRV_1</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ab9e4b18a5b114d93419e08a7d60f615e">BUTTON_MATRIX_DRV_2</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a553713ff2bab1ff03c89c49cd304e914">BUTTON_MATRIX_DRV_3</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9ad7af46093167ab27d8771b6d77e3a19e">BUTTON_MATRIX_DRV_4</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a33a5d260c48a7d77f406c1dc3859ae47">BUTTON_MATRIX_DRV_5</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a0c44edc3664206397763132459faaf79">BUTTON_MATRIX_DRV_6</a>},</div>
+<div class="line">        {.PosIntLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a>, .PosDrvLine = <a class="code hl_enumvalue" href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a8d10a4b7460f7315ac928e35c30d1588">BUTTON_MATRIX_DRV_7</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup___button_matrix___header_html_ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a"><div class="ttname"><a href="group___button_matrix___header.html#ggabdb8895c889573f8e6bb56ba62be1ea9a118610d8328c40bad0691291b2fddd1a">BUTTON_MATRIX_INT_0</a></div><div class="ttdeci">@ BUTTON_MATRIX_INT_0</div><div class="ttdef"><b>Definition</b> buttonMatrix.h:59</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

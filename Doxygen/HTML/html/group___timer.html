@@ -109,41 +109,58 @@ Files</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2timer_8h" id="r__l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2timer_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2timer_8h.html">timer.h</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_inc_2timer_8h" id="r__f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_inc_2timer_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_inc_2timer_8h.html">timer.h</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2timer_8h" id="r__f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2timer_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2timer_8h.html">timer.h</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_timer__struct_td.html">Timer_structTd</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">User Functions</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>Functions to use the timer in any user code</p>
 <p>How to use the timer:</p><ol type="1">
-<li>Declare an object of <a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a> type</li>
+<li>Declare an object of timer_setup_structTd type</li>
 <li>Set the threshold time (The rest of the structure will be set to 0 here)</li>
 <li>Check it the timer is elapsed. The Timer will automatically restart if the function returns true.</li>
 </ol>
 <dl class="section note"><dt>Note</dt><dd>This timer is based on the HAL_GetTick() function. It this function is not setup to milliseconds, the threshold will have an other unit. HAL-Standard is in milliseconds. Only modify this if a smaller interval than milliseconds is needed as it my require a deeper dive to the HAL-Drivers. </dd></dl>
 </td></tr>
-<tr class="memitem:gaa0a07882ecef402d29d2c37164470e2d" id="r_gaa0a07882ecef402d29d2c37164470e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa0a07882ecef402d29d2c37164470e2d">timer_set_ThresholdMS</a> (<a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a> *timer, uint32_t threshold)</td></tr>
-<tr class="memdesc:gaa0a07882ecef402d29d2c37164470e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the threshold time here.  <br /></td></tr>
-<tr class="separator:gaa0a07882ecef402d29d2c37164470e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga09fdb1654e82b83cf44792bf4bb4b30a" id="r_ga09fdb1654e82b83cf44792bf4bb4b30a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga09fdb1654e82b83cf44792bf4bb4b30a">timer_check_TimerElapsed</a> (<a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a> *timer)</td></tr>
-<tr class="memdesc:ga09fdb1654e82b83cf44792bf4bb4b30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the timer state. Returns true and restarts timer if timer elapsed.  <br /></td></tr>
-<tr class="separator:ga09fdb1654e82b83cf44792bf4bb4b30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a2c977fd7440f93db487f3915580447" id="r_ga8a2c977fd7440f93db487f3915580447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8a2c977fd7440f93db487f3915580447">Timer_set_ThresholdInMs</a> (<a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *timer, uint32_t threshold)</td></tr>
+<tr class="memdesc:ga8a2c977fd7440f93db487f3915580447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the threshold time here.  <br /></td></tr>
+<tr class="separator:ga8a2c977fd7440f93db487f3915580447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2eb5e5da09a14b0d28c001ec774bd65" id="r_gaa2eb5e5da09a14b0d28c001ec774bd65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa2eb5e5da09a14b0d28c001ec774bd65">Timer_check_TimerElapsed</a> (<a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *timer)</td></tr>
+<tr class="memdesc:gaa2eb5e5da09a14b0d28c001ec774bd65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the timer state. Returns true and restarts timer if timer elapsed.  <br /></td></tr>
+<tr class="separator:gaa2eb5e5da09a14b0d28c001ec774bd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">User Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Functions to use the timer in any user code</p>
+<p>How to use the timer:</p><ol type="1">
+<li>Declare an object of timer_setup_structTd type</li>
+<li>Set the threshold time (The rest of the structure will be set to 0 here)</li>
+<li>Check it the timer is elapsed. The Timer will automatically restart if the function returns true.</li>
+</ol>
+<dl class="section note"><dt>Note</dt><dd>This timer is based on the HAL_GetTick() function. It this function is not setup to milliseconds, the threshold will have an other unit. HAL-Standard is in milliseconds. Only modify this if a smaller interval than milliseconds is needed as it my require a deeper dive to the HAL-Drivers. </dd></dl>
+</td></tr>
+<tr class="memitem:ga06cc4adee00cb4b1328631fe164d4522" id="r_ga06cc4adee00cb4b1328631fe164d4522"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga06cc4adee00cb4b1328631fe164d4522">Timer_restart_Timer</a> (<a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *timer)</td></tr>
+<tr class="memdesc:ga06cc4adee00cb4b1328631fe164d4522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset timer to start a new timeout cycle.  <br /></td></tr>
+<tr class="separator:ga06cc4adee00cb4b1328631fe164d4522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This Module offers non blocking timer functions for general use. </p>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga09fdb1654e82b83cf44792bf4bb4b30a" name="ga09fdb1654e82b83cf44792bf4bb4b30a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga09fdb1654e82b83cf44792bf4bb4b30a">&#9670;&#160;</a></span>timer_check_TimerElapsed()</h2>
+<a id="gaa2eb5e5da09a14b0d28c001ec774bd65" name="gaa2eb5e5da09a14b0d28c001ec774bd65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa2eb5e5da09a14b0d28c001ec774bd65">&#9670;&#160;</a></span>Timer_check_TimerElapsed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool timer_check_TimerElapsed </td>
+          <td class="memname">bool Timer_check_TimerElapsed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>timer</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>timer</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -160,16 +177,42 @@ Data Structures</h2></td></tr>
 
 </div>
 </div>
-<a id="gaa0a07882ecef402d29d2c37164470e2d" name="gaa0a07882ecef402d29d2c37164470e2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa0a07882ecef402d29d2c37164470e2d">&#9670;&#160;</a></span>timer_set_ThresholdMS()</h2>
+<a id="ga06cc4adee00cb4b1328631fe164d4522" name="ga06cc4adee00cb4b1328631fe164d4522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06cc4adee00cb4b1328631fe164d4522">&#9670;&#160;</a></span>Timer_restart_Timer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void timer_set_ThresholdMS </td>
+          <td class="memname">void Timer_restart_Timer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structtimer__setup__struct_td.html">timer_setup_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>timer</em>, </span></td>
+          <td class="paramtype"><a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>timer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset timer to start a new timeout cycle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timer</td><td>pointer to the users timer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga8a2c977fd7440f93db487f3915580447" name="ga8a2c977fd7440f93db487f3915580447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a2c977fd7440f93db487f3915580447">&#9670;&#160;</a></span>Timer_set_ThresholdInMs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Timer_set_ThresholdInMs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_timer__struct_td.html">Timer_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>timer</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>

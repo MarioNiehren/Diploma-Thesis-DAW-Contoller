@@ -1,25 +1,9 @@
 var searchData=
 [
-  ['rcc_0',['RCC',['../group___r_c_c.html',1,'']]],
-  ['rcc_20exported_20constants_1',['RCC Exported Constants',['../group___r_c_c___exported___constants.html',1,'']]],
-  ['rcc_20exported_20macros_2',['RCC Exported Macros',['../group___r_c_c___exported___macros.html',1,'']]],
-  ['rcc_20exported_20types_3',['RCC Exported Types',['../group___r_c_c___exported___types.html',1,'']]],
-  ['rcc_20extended_20mcox_20clock_20config_4',['RCC Extended MCOx Clock Config',['../group___r_c_c_ex___m_c_ox___clock___config.html',1,'']]],
-  ['rcc_20rtc_20clock_20configuration_5',['RCC RTC Clock Configuration',['../group___r_c_c___r_t_c___clock___configuration.html',1,'']]],
-  ['rcc_20timeout_6',['RCC Timeout',['../group___r_c_c___timeout.html',1,'']]],
-  ['rcc_5fexported_5ffunctions_7',['RCC_Exported_Functions',['../group___r_c_c___exported___functions.html',1,'']]],
-  ['rcc_5fexported_5ffunctions_5fgroup1_8',['RCC_Exported_Functions_Group1',['../group___r_c_c___exported___functions___group1.html',1,'']]],
-  ['rcc_5fexported_5ffunctions_5fgroup2_9',['RCC_Exported_Functions_Group2',['../group___r_c_c___exported___functions___group2.html',1,'']]],
-  ['rcc_5fprivate_5fconstants_10',['RCC_Private_Constants',['../group___r_c_c___private___constants.html',1,'']]],
-  ['rcc_5fprivate_5fmacros_11',['RCC_Private_Macros',['../group___r_c_c___private___macros.html',1,'']]],
-  ['rccex_12',['RCCEx',['../group___r_c_c_ex.html',1,'']]],
-  ['rccex_20exported_20constants_13',['RCCEx Exported Constants',['../group___r_c_c_ex___exported___constants.html',1,'']]],
-  ['rccex_20exported_20macros_14',['RCCEx Exported Macros',['../group___r_c_c_ex___exported___macros.html',1,'']]],
-  ['rccex_20exported_20types_15',['RCCEx Exported Types',['../group___r_c_c_ex___exported___types.html',1,'']]],
-  ['rccex_5fexported_5ffunctions_16',['RCCEx_Exported_Functions',['../group___r_c_c_ex___exported___functions.html',1,'']]],
-  ['rccex_5fexported_5ffunctions_5fgroup1_17',['RCCEx_Exported_Functions_Group1',['../group___r_c_c_ex___exported___functions___group1.html',1,'']]],
-  ['rccex_5fprivate_5fconstants_18',['RCCEx_Private_Constants',['../group___r_c_c_ex___private___constants.html',1,'']]],
-  ['rccex_5fprivate_5fmacros_19',['RCCEx_Private_Macros',['../group___r_c_c_ex___private___macros.html',1,'']]],
-  ['register_20offsets_20',['Register offsets',['../group___r_c_c___register___offset.html',1,'']]],
-  ['rtc_20clock_20source_21',['RTC Clock Source',['../group___r_c_c___r_t_c___clock___source.html',1,'']]]
+  ['tb6612fng_20dual_20dc_20motor_20driver_0',['TB6612FNG Dual DC motor driver',['../group___t_b6612_f_n_g.html',1,'']]],
+  ['timer_1',['Timer',['../group___timer.html',1,'']]],
+  ['to_20transfer_20midi_20over_20uart_2',['Module to transfer MIDI over UART.',['../group___m_i_d_i___u_a_r_t.html',1,'']]],
+  ['touch_20sense_20control_20tsc_3',['Buttons with STM32 Touch Sense Control (TSC)',['../group___t_s_c_button.html',1,'']]],
+  ['transfer_20midi_20over_20uart_4',['Module to transfer MIDI over UART.',['../group___m_i_d_i___u_a_r_t.html',1,'']]],
+  ['tsc_5',['Buttons with STM32 Touch Sense Control (TSC)',['../group___t_s_c_button.html',1,'']]]
 ];
