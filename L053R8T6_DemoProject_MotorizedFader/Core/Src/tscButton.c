@@ -27,7 +27,7 @@ typedef struct
   uint8_t     CurrentButtonIndex;   /**< Active Index of the pointer array*/
   uint8_t     NumButtons;           /**< Number of initialized buttons */
 
-  timer_setup_structTd  timer;      /**< timer used to give the sampling
+  Timer_structTd  timer;      /**< timer used to give the sampling
                                          capacitor time to discharge */
   uint8_t     CapacitorDischargeTime; /**< Time the capacitors need to
                                          discharge */
@@ -234,7 +234,7 @@ void TSCButton_update_All(void)
  */
 void block_TSCForSomeMs(uint32_t BlockingTime)
 {
-  timer_set_ThresholdMS(&TSC_Internal.timer, BlockingTime);
+  Timer_set_ThresholdInMs(&TSC_Internal.timer, BlockingTime);
   TSC_Internal.TSCBlocked = true;
 }
 
@@ -248,7 +248,7 @@ bool check_TSCBlocked(void)
   bool ReturnValue = false;
   if(TSC_Internal.TSCBlocked == true)
   {
-    if(timer_check_TimerElapsed(&TSC_Internal.timer) == true)
+    if(Timer_check_TimerElapsed(&TSC_Internal.timer) == true)
     {
       ReturnValue = false;
       TSC_Internal.TSCBlocked = false;

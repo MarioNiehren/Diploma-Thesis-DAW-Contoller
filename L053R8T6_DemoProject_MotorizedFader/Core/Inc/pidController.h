@@ -93,7 +93,7 @@ typedef struct
   int       OutputRound;/**< Round value of the result of the PIDS*/
 
   uint32_t  SampleTime; /**< Timer threshold for the update frequency (ms)*/
-  timer_setup_structTd SampleTimer; /**< Timer for internal use */
+  Timer_structTd SampleTimer; /**< Timer for internal use */
 
 }PID_structTd;
 

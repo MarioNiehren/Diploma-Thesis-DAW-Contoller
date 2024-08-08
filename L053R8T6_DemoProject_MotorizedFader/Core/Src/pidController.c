@@ -70,7 +70,7 @@ void PID_set_LowPass(PID_structTd* PID, double Tau)
 void PID_set_SampleTimeInMs(PID_structTd* PID, uint32_t Threshold)
 {
   /** @internal     1.  Set Threshold to the Timer */
-  timer_set_ThresholdMS(&PID->SampleTimer, Threshold);
+  Timer_set_ThresholdInMs(&PID->SampleTimer, Threshold);
   /** @internal     2.  Store threshold value local for PID calculations */
   PID->SampleTime = Threshold;
 }
@@ -115,7 +115,7 @@ double limit_Output(double Output, double Min, double Max);
 void PID_update(PID_structTd* pid, double sample)
 {
   /** @internal     1. Check it Sample-Time elapsed. Leave function if not!*/
-  if(timer_check_TimerElapsed(&pid->SampleTimer))
+  if(Timer_check_TimerElapsed(&pid->SampleTimer))
   {
     double OutputMin = pid->OutputMin;
     double OutputMax = pid->OutputMax;
