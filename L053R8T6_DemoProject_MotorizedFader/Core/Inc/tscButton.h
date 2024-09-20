@@ -1,5 +1,5 @@
 /***************************************************************************//**
- * @defgroup        TSCButton Buttons with STM32 Touch Sense Control (TSC)
+ * @defgroup        TSCButton TSC Button
  * @brief           This module manages the STM32 touch sense controller to use
  *                  is as capacitive buttons. It also provides the raw
  *                  TSC-values for each button. This may be useful for non
