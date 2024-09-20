@@ -22,11 +22,10 @@ var searchData=
   ['code_19',['Code',['../index.html#autotoc_md16',1,'Repository with the Code'],['../todo.html#_todo000008',1,'Repository with the Code'],['../group___e_p_d___source.html',1,'Source Code'],['../group___button_matrix___source_code.html',1,'Source Code'],['../group___t_b6612_f_n_g___source.html',1,'Source Code'],['../group___wiper___source.html',1,'Source Code']]],
   ['commandstate_5fdc_20',['CommandState_DC',['../struct_s_p_i_d_m_a___g_p_i_os___type_def.html#a76c085e28b36382157553b607dcadaca',1,'SPIDMA_GPIOs_TypeDef']]],
   ['contact_21',['Contact',['../index.html#autotoc_md18',1,'']]],
-  ['control_20tsc_22',['Buttons with STM32 Touch Sense Control (TSC)',['../group___t_s_c_button.html',1,'']]],
-  ['controller_23',['A &quot;hands on&quot; explanation of the PID controller',['../group___motor_fader___header.html#autotoc_md23',1,'']]],
-  ['controller_24',['PID controller',['../group___p_i_d___controller.html',1,'']]],
-  ['countup_5factivedriveline_25',['countup_ActiveDriveLine',['../group___button_matrix___source_code.html#ga4fa09b22f764e9d210d69c3df00e1af5',1,'buttonMatrix.c']]],
-  ['cube_20mx_20values_20used_20for_20testing_20_3a_26',['How to setup TSC in Cube MX (Values used for testing):',['../group___t_s_c_button___source.html#autotoc_md35',1,'']]],
-  ['cubemx_20as_20tested_20_3a_27',['How to setup PWM in CubeMX (as tested):',['../group___t_b6612_f_n_g___source.html#autotoc_md30',1,'']]],
-  ['currentbuttonindex_28',['CurrentButtonIndex',['../struct_t_s_c_button__internal__struct_td.html#aa91adfe226819a0791767f0f9666b574',1,'TSCButton_internal_structTd']]]
+  ['controller_22',['A &quot;hands on&quot; explanation of the PID controller',['../group___motor_fader___header.html#autotoc_md23',1,'']]],
+  ['controller_23',['PID controller',['../group___p_i_d___controller.html',1,'']]],
+  ['countup_5factivedriveline_24',['countup_ActiveDriveLine',['../group___button_matrix___source_code.html#ga4fa09b22f764e9d210d69c3df00e1af5',1,'buttonMatrix.c']]],
+  ['cube_20mx_20values_20used_20for_20testing_20_3a_25',['How to setup TSC in Cube MX (Values used for testing):',['../group___t_s_c_button___source.html#autotoc_md35',1,'']]],
+  ['cubemx_20as_20tested_20_3a_26',['How to setup PWM in CubeMX (as tested):',['../group___t_b6612_f_n_g___source.html#autotoc_md30',1,'']]],
+  ['currentbuttonindex_27',['CurrentButtonIndex',['../struct_t_s_c_button__internal__struct_td.html#aa91adfe226819a0791767f0f9666b574',1,'TSCButton_internal_structTd']]]
 ];

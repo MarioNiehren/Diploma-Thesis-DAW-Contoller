@@ -19,7 +19,7 @@ var searchData=
   ['hardware_20as_20used_20for_20testing_16',['Hardware (as used for testing)',['../group___motor_fader.html#autotoc_md20',1,'']]],
   ['hardware_20if_20possible_20_3a_17',['Hardware (if possible):',['../group___wiper___header.html#autotoc_md40',1,'']]],
   ['hardware_20requirements_3a_18',['Hardware requirements:',['../group___t_s_c_button.html#autotoc_md33',1,'']]],
-  ['header_19',['Header',['../group___motor_fader___header.html',1,'Header'],['../group___p_i_d___header.html',1,'Header'],['../group___t_b6612_f_n_g___header.html',1,'Header'],['../group___t_s_c_button___header.html',1,'Header'],['../group___wiper___header.html',1,'Header'],['../group___m_a_x7219___header.html',1,'Header'],['../group___rotary_encoder___header.html',1,'Header'],['../group___m_i_d_i___u_a_r_t___header.html',1,'Header']]],
+  ['header_19',['Header',['../group___motor_fader___header.html',1,'Header'],['../group___p_i_d___header.html',1,'Header'],['../group___t_b6612_f_n_g___header.html',1,'Header'],['../group___t_s_c_button___header.html',1,'Header'],['../group___wiper___header.html',1,'Header'],['../group___m_a_x7219___header.html',1,'Header'],['../group___rotary_encoder___header.html',1,'Header'],['../group___buffer___ping_pong___header.html',1,'Header'],['../group___m_i_d_i___u_a_r_t___header.html',1,'Header']]],
   ['header_20file_20',['Header File',['../group___e_p_d___header.html',1,'Header File'],['../group___button_matrix___header.html',1,'Header File']]],
   ['helper_20functions_21',['SPI helper functions',['../group___e_p_d___s_p_i___helper.html',1,'']]],
   ['how_20to_20calibrate_3a_22',['How to calibrate:',['../group___wiper___header.html#autotoc_md39',1,'']]],

@@ -101,25 +101,27 @@ $(function(){initNavTree('_m_i_d_i___u_a_r_t_8h.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;stm32l0xx_hal.h&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_buffer___ping_pong_8h_source.html">Buffer_PingPong.h</a>&quot;</code><br />
 </div>
 <p><a href="_m_i_d_i___u_a_r_t_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_i_d_i__buffer__struct_td.html">MIDI_buffer_structTd</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to buffer data for DMA Transmission. The buffering works with a ping-pong principle.  <a href="struct_m_i_d_i__buffer__struct_td.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure used for each MIDI Port.  <a href="struct_m_i_d_i__struct_td.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:gaf2911d152c8e8d0005a6b5944fec69b6" id="r_gaf2911d152c8e8d0005a6b5944fec69b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#gaf2911d152c8e8d0005a6b5944fec69b6">MIDI_UART_MAX_BUFFER</a>&#160;&#160;&#160;255</td></tr>
-<tr class="separator:gaf2911d152c8e8d0005a6b5944fec69b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3c67e20977012573068e55ca6648e1f" id="r_gaf3c67e20977012573068e55ca6648e1f"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_LEN_STANDARD_COMMAND</b>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:gaf3c67e20977012573068e55ca6648e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga547b7d9cb9b019a96af77890192aaeb1" id="r_ga547b7d9cb9b019a96af77890192aaeb1"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_STATUS_BYTE_MIN_VALUE</b>&#160;&#160;&#160;0x80</td></tr>
+<tr class="separator:ga547b7d9cb9b019a96af77890192aaeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad6780d33bafba0e924979aa4dc75dd5e" id="r_gad6780d33bafba0e924979aa4dc75dd5e"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_STATUS_CHANNEL_MSK</b>&#160;&#160;&#160;0x0F</td></tr>
+<tr class="separator:gad6780d33bafba0e924979aa4dc75dd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -155,36 +157,26 @@ Enumerations</h2></td></tr>
 <tr class="memitem:ga8327ed6ea0b01c5afc22fca67266676b" id="r_ga8327ed6ea0b01c5afc22fca67266676b"><td class="memItemLeft" align="right" valign="top"><a id="ga8327ed6ea0b01c5afc22fca67266676b" name="ga8327ed6ea0b01c5afc22fca67266676b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> { <br />
 &#160;&#160;<b>MIDI_ERROR_NONE</b> = 0x00
 , <b>MIDI_ERROR_BUFFER_OVERFLOW</b> = 0x10
-, <b>MIDI_ERROR_BUFFER_TX_NULL</b> = 0x11
-, <b>MIDI_ERROR_WAIT_FOR_TRANSMISSION_COMPLETE</b> = 0x20
+, <b>MIDI_ERROR_BUFFER_LIMITS_EXCEEDED</b> = 0x11
+, <b>MIDI_ERROR_BUFFERMODULE</b> = 0x12
 , <br />
-&#160;&#160;<b>MIDI_ERROR_INVALID_UART_HANDLE</b> = 0x30
+&#160;&#160;<b>MIDI_ERROR_WAIT_FOR_TRANSMISSION_COMPLETE</b> = 0x20
+, <b>MIDI_ERROR_INVALID_UART_HANDLE</b> = 0x30
 , <b>MIDI_ERROR_UART_NOT_INITIALIZED</b> = 0x31
 , <b>MIDI_ERROR_INVALID_STATUS_BYTE</b> = 0x40
-, <b>MIDI_ERROR_INVALID_BYTE_1</b> = 0x41
 , <br />
-&#160;&#160;<b>MIDI_ERROR_INVALID_BYTE_2</b> = 0x42
+&#160;&#160;<b>MIDI_ERROR_INVALID_BYTE_1</b> = 0x41
+, <b>MIDI_ERROR_INVALID_BYTE_2</b> = 0x42
+, <b>MIDI_ERROR_RX_BUFFER_EMPTY</b> = 0x50
+, <b>MIDI_ERROR_RX_BUFFER_TOGGLE_FAILED</b> = 0x51
+, <br />
+&#160;&#160;<b>MIDI_ERROR_BUFFER_TX_NULL</b> = 0x60
+, <b>MIDI_ERROR_POINTER_IS_NULL</b> = 0x70
+, <b>MIDI_ERROR_INVALID_DATA</b> = 0x80
 <br />
  }</td></tr>
 <tr class="memdesc:ga8327ed6ea0b01c5afc22fca67266676b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations for error handling of this module. <br /></td></tr>
 <tr class="separator:ga8327ed6ea0b01c5afc22fca67266676b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga61d891bd21b0d76db266e3f6a6b52c29" id="r_ga61d891bd21b0d76db266e3f6a6b52c29"><td class="memItemLeft" align="right" valign="top"><a id="ga61d891bd21b0d76db266e3f6a6b52c29" name="ga61d891bd21b0d76db266e3f6a6b52c29"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga61d891bd21b0d76db266e3f6a6b52c29">MIDI_buffer_Td</a> { <br />
-&#160;&#160;<b>MIDI_BUFFER_NONE</b> = 0x00
-, <b>MIDI_BUFFER_TX_A</b> = 0x10
-, <b>MIDI_BUFFER_TX_B</b> = 0x11
-, <b>MIDI_BUFFER_RX_A</b> = 0x12
-, <br />
-&#160;&#160;<b>MIDI_BUFFER_RX_B</b> = 0x13
-<br />
- }</td></tr>
-<tr class="memdesc:ga61d891bd21b0d76db266e3f6a6b52c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations to describe the buffer and buffer-internal states. <br /></td></tr>
-<tr class="separator:ga61d891bd21b0d76db266e3f6a6b52c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4da0af64515dabe78fa69cccc1ed3c8e" id="r_ga4da0af64515dabe78fa69cccc1ed3c8e"><td class="memItemLeft" align="right" valign="top"><a id="ga4da0af64515dabe78fa69cccc1ed3c8e" name="ga4da0af64515dabe78fa69cccc1ed3c8e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_buffer_error_Td</b> { <b>MIDI_BUFFER_ERROR_NONE</b> = 0x00
-, <b>MIDI_BUFFER_ERROR_TX_A_OVERFLOW</b> = 0x10
-, <b>MIDI_BUFFER_ERROR_TX_B_OVERFLOW</b> = 0x10
-, <b>MIDI_BUFFER_ERROR_NO_BUFFER_FOUND</b> = 0x20
- }</td></tr>
-<tr class="separator:ga4da0af64515dabe78fa69cccc1ed3c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>

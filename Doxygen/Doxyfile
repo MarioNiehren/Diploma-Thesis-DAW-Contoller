@@ -961,7 +961,9 @@ INPUT                  = ../F103C8T6_DemoProject_E-Paper_SSD1681/Core/Inc \
                          ../F103C8T6_DemoProject_LEDs_MAX7219/Core/Inc \
                          ../F103C8T6_DemoProject_LEDs_MAX7219/Core/Src \
                          ../F103C8T6_DemoProject_RotaryEncoder/Core/Inc \
-                         ../F103C8T6_DemoProject_RotaryEncoder/Core/Src
+                         ../F103C8T6_DemoProject_RotaryEncoder/Core/Src \
+                         ../L053R8T6_DemoProject_MidiOverSTLink/Core/Inc \
+                         ../L053R8T6_DemoProject_MidiOverSTLink/Core/Src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

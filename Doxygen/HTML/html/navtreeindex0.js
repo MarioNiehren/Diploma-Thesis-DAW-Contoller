@@ -2,6 +2,8 @@ var NAVTREEINDEX0 =
 {
 "_buffer___displays_8h.html":[4,0,1,0,0,0],
 "_buffer___displays_8h_source.html":[4,0,1,0,0,0],
+"_buffer___ping_pong_8c.html":[2,5,0,1,0],
+"_buffer___ping_pong_8h.html":[2,5,0,0,0],
 "_e_p_d__1-54inch_8c.html":[2,0,1,3],
 "_e_p_d__1-54inch_8h.html":[2,0,0,4],
 "_f103_c8_t6___demo_project___button_matrix_2_core_2_inc_2main_8h.html":[4,0,0,0,0,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#ace209074499dbef0b97300da5bd7c707":[4,0,3,0,0,2,20],
 "_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e":[4,0,3,0,0,2,27],
 "_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#aeafcff4f57440c60e64812dddd13e7cb":[4,0,3,0,0,2,3],
-"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h_source.html":[4,0,3,0,0,2],
-"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__it_8h.html":[4,0,3,0,0,3],
-"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__it_8h.html#a17e9789a29a87d2df54f12b94dd1a0b6":[4,0,3,0,0,3,2]
+"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h_source.html":[4,0,3,0,0,2]
 };

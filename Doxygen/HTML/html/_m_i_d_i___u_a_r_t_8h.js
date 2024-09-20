@@ -1,23 +1,21 @@
 var _m_i_d_i___u_a_r_t_8h =
 [
-    [ "MIDI_UART_MAX_BUFFER", "group___m_i_d_i___u_a_r_t___header.html#gaf2911d152c8e8d0005a6b5944fec69b6", null ],
-    [ "MIDI_buffer_Td", "group___m_i_d_i___u_a_r_t___header.html#ga61d891bd21b0d76db266e3f6a6b52c29", [
-      [ "MIDI_BUFFER_NONE", "group___m_i_d_i___u_a_r_t___header.html#gga61d891bd21b0d76db266e3f6a6b52c29aca8928b9b8f7047c53e7586f7fcbdd8d", null ],
-      [ "MIDI_BUFFER_TX_A", "group___m_i_d_i___u_a_r_t___header.html#gga61d891bd21b0d76db266e3f6a6b52c29a47d23eb35a96f5b584ef1d7fdec79710", null ],
-      [ "MIDI_BUFFER_TX_B", "group___m_i_d_i___u_a_r_t___header.html#gga61d891bd21b0d76db266e3f6a6b52c29a6f366fff93235c5422bf05d373b7686b", null ],
-      [ "MIDI_BUFFER_RX_A", "group___m_i_d_i___u_a_r_t___header.html#gga61d891bd21b0d76db266e3f6a6b52c29a5b1d6b5607745d2e86671c8fd6ae52a2", null ],
-      [ "MIDI_BUFFER_RX_B", "group___m_i_d_i___u_a_r_t___header.html#gga61d891bd21b0d76db266e3f6a6b52c29a624727eeb12a64cb308a38bb42f10362", null ]
-    ] ],
     [ "MIDI_error_Td", "group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b", [
       [ "MIDI_ERROR_NONE", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba6eff98f5b65759c5a7852e7a76bd73fd", null ],
       [ "MIDI_ERROR_BUFFER_OVERFLOW", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676bad513b0f7289ac5e719cdb14d6cdd9e2b", null ],
-      [ "MIDI_ERROR_BUFFER_TX_NULL", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676baa42357bade7448b75dd1ba3da5c30db5", null ],
+      [ "MIDI_ERROR_BUFFER_LIMITS_EXCEEDED", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676bad869ad3d8bf1a59018d218cb46185785", null ],
+      [ "MIDI_ERROR_BUFFERMODULE", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba700178b80d4c960eea2eface2009775f", null ],
       [ "MIDI_ERROR_WAIT_FOR_TRANSMISSION_COMPLETE", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba71e4726834166cec381196250ea9a4dc", null ],
       [ "MIDI_ERROR_INVALID_UART_HANDLE", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676bacb69d39496c11afbb3f924db91979fb0", null ],
       [ "MIDI_ERROR_UART_NOT_INITIALIZED", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba8f3383e54e0ad6a5e9e2b434f73fc3ca", null ],
       [ "MIDI_ERROR_INVALID_STATUS_BYTE", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676bafd6476abf167ff284b6dcaf20b32a21e", null ],
       [ "MIDI_ERROR_INVALID_BYTE_1", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba48ad7847d20e4df417ec13e2db74dbe7", null ],
-      [ "MIDI_ERROR_INVALID_BYTE_2", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba0dfd3e1e562588b5a85872b1e2ac1bc0", null ]
+      [ "MIDI_ERROR_INVALID_BYTE_2", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba0dfd3e1e562588b5a85872b1e2ac1bc0", null ],
+      [ "MIDI_ERROR_RX_BUFFER_EMPTY", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676baa68bbe5ffce463cb8d9ee230ebe9050b", null ],
+      [ "MIDI_ERROR_RX_BUFFER_TOGGLE_FAILED", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba2329a275a35aa115880d6305cfe7ff91", null ],
+      [ "MIDI_ERROR_BUFFER_TX_NULL", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676baa42357bade7448b75dd1ba3da5c30db5", null ],
+      [ "MIDI_ERROR_POINTER_IS_NULL", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676ba3d08b6b0d7a6b1fe87d14f31f4680ab7", null ],
+      [ "MIDI_ERROR_INVALID_DATA", "group___m_i_d_i___u_a_r_t___header.html#gga8327ed6ea0b01c5afc22fca67266676bade26544f03751b72133fc5a0e9d522e0", null ]
     ] ],
     [ "MIDI_StatusBytes_Td", "group___m_i_d_i___u_a_r_t___header.html#ga190ffd6887a557e59394be502ec4a2d9", [
       [ "MIDI_STATUS_NOTE_OFF", "group___m_i_d_i___u_a_r_t___header.html#gga190ffd6887a557e59394be502ec4a2d9a78dea1a5ae83e056e851a48a7f0c3563", null ],

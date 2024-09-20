@@ -93,11 +93,22 @@ $(function(){initNavTree('_m_i_d_i___u_a_r_t_8c.html',''); initResizable(); });
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">MIDI_UART.c File Reference<div class="ingroups"><a class="el" href="group___m_i_d_i___u_a_r_t.html">Module to transfer MIDI over UART.</a> &raquo; <a class="el" href="group___m_i_d_i___u_a_r_t___source.html">Source</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="_m_i_d_i___u_a_r_t_8h_source.html">MIDI_UART.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga33ba7d41b6cae3a1ab2e18764c1d3d3c" id="r_ga33ba7d41b6cae3a1ab2e18764c1d3d3c"><td class="memItemLeft" align="right" valign="top"><a id="ga33ba7d41b6cae3a1ab2e18764c1d3d3c" name="ga33ba7d41b6cae3a1ab2e18764c1d3d3c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_internal_MessageNumBytes_Td</b> { <b>MIDI_NUMBYTES_NONE</b> = 0x00
+, <b>MIDI_NUMBYTES_SHORT_MESSAGE</b> = 0x01
+, <b>MIDI_NUMBYTES_STANDARD_MESSAGE</b> = 0x02
+, <b>MIDI_NUMBYTES_UNFEDINED</b> = 0xFF
+ }</td></tr>
+<tr class="separator:ga33ba7d41b6cae3a1ab2e18764c1d3d3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Error</div></td></tr>
@@ -109,21 +120,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0ff3fae9a745d7c2a50bc0e5cd097ec5" id="r_ga0ff3fae9a745d7c2a50bc0e5cd097ec5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga0ff3fae9a745d7c2a50bc0e5cd097ec5">errorcheck_ERROR</a> (<a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> ErrorCode)</td></tr>
 <tr class="memdesc:ga0ff3fae9a745d7c2a50bc0e5cd097ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is an endless loop, to trap the program if an error occurs.  <br /></td></tr>
 <tr class="separator:ga0ff3fae9a745d7c2a50bc0e5cd097ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf028ef3b32b1937e297903c0892324d4" id="r_gaf028ef3b32b1937e297903c0892324d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gaf028ef3b32b1937e297903c0892324d4">errorcheck_ValidateMIDIBytes</a> (uint8_t StatusByte, uint8_t DataByte1, uint8_t DataByte2)</td></tr>
-<tr class="memdesc:gaf028ef3b32b1937e297903c0892324d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the bytes that should be used to build a standard MIDI command.  <br /></td></tr>
-<tr class="separator:gaf028ef3b32b1937e297903c0892324d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Buffer</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>This function are used for internal buffer management </p>
-</div></td></tr>
-<tr class="memitem:ga4651bb35813ee07c6552f806b48cf1ef" id="r_ga4651bb35813ee07c6552f806b48cf1ef"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga4651bb35813ee07c6552f806b48cf1ef">Buffer_get_TxStartPtrForTransmission</a> (<a class="el" href="struct_m_i_d_i__buffer__struct_td.html">MIDI_buffer_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:ga4651bb35813ee07c6552f806b48cf1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Buffer Array, that is ready to send. The returned array will be locked until this function gets called again.  <br /></td></tr>
-<tr class="separator:ga4651bb35813ee07c6552f806b48cf1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga617f7c00af8f45a4b4fa7a429689e529" id="r_ga617f7c00af8f45a4b4fa7a429689e529"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga617f7c00af8f45a4b4fa7a429689e529">Buffer_get_TxSize</a> (<a class="el" href="struct_m_i_d_i__buffer__struct_td.html">MIDI_buffer_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:ga617f7c00af8f45a4b4fa7a429689e529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the length of the Array to be send.  <br /></td></tr>
-<tr class="separator:ga617f7c00af8f45a4b4fa7a429689e529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0dc2c9860fddc86b880e6b37dfb6e10a" id="r_ga0dc2c9860fddc86b880e6b37dfb6e10a"><td class="memItemLeft" align="right" valign="top">MIDI_buffer_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga0dc2c9860fddc86b880e6b37dfb6e10a">Buffer_queue_BytesForTransmission</a> (<a class="el" href="struct_m_i_d_i__buffer__struct_td.html">MIDI_buffer_structTd</a> *Buffer, uint8_t *Data, uint8_t Size)</td></tr>
-<tr class="memdesc:ga0dc2c9860fddc86b880e6b37dfb6e10a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to queue data to the buffer that is currently not locked.  <br /></td></tr>
-<tr class="separator:ga0dc2c9860fddc86b880e6b37dfb6e10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga20fe35a31a1f7690d9d69eb01c0cd63a" id="r_ga20fe35a31a1f7690d9d69eb01c0cd63a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga20fe35a31a1f7690d9d69eb01c0cd63a">errorcheck_stop_Code</a> (<a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> Error)</td></tr>
+<tr class="memdesc:ga20fe35a31a1f7690d9d69eb01c0cd63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the code if the argument is not MIDI_ERROR_NONE.  <br /></td></tr>
+<tr class="separator:ga20fe35a31a1f7690d9d69eb01c0cd63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb5bea04c18c2d1c2777d34af14e1e0d" id="r_gabb5bea04c18c2d1c2777d34af14e1e0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gabb5bea04c18c2d1c2777d34af14e1e0d">errorcheck_validate_MIDIBytes</a> (uint8_t StatusByte, uint8_t DataByte1, uint8_t DataByte2)</td></tr>
+<tr class="memdesc:gabb5bea04c18c2d1c2777d34af14e1e0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function validates the bytes that should be used to build a standard MIDI command.  <br /></td></tr>
+<tr class="separator:gabb5bea04c18c2d1c2777d34af14e1e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae053af43c1730599b874341752884d9d" id="r_gae053af43c1730599b874341752884d9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gae053af43c1730599b874341752884d9d">errorcheck_validate_ExternalErrorCode</a> (int ExternalError, int Expectation, <a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> LocalError)</td></tr>
+<tr class="memdesc:gae053af43c1730599b874341752884d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">If an external function returns an error that does not match the expectations, a local error code will be returned.  <br /></td></tr>
+<tr class="separator:gae053af43c1730599b874341752884d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Initialize</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Use these functions to initialize this module. </p>
 </div></td></tr>
@@ -142,6 +147,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaece19534f9b0ac0c6d217e01958f7ef1" id="r_gaece19534f9b0ac0c6d217e01958f7ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gaece19534f9b0ac0c6d217e01958f7ef1">MIDI_manage_RxInterrupt</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart)</td></tr>
 <tr class="memdesc:gaece19534f9b0ac0c6d217e01958f7ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete.  <br /></td></tr>
 <tr class="separator:gaece19534f9b0ac0c6d217e01958f7ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaaed5c0d16f53f5866cb9e2fa5c5a7f0f" id="r_gaaed5c0d16f53f5866cb9e2fa5c5a7f0f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gaaed5c0d16f53f5866cb9e2fa5c5a7f0f">get_LastRxByte</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gaaed5c0d16f53f5866cb9e2fa5c5a7f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last Byte that was stored to the buffer.  <br /></td></tr>
+<tr class="separator:gaaed5c0d16f53f5866cb9e2fa5c5a7f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga76b1e69079f299cad884f9be89f89c95" id="r_ga76b1e69079f299cad884f9be89f89c95"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga76b1e69079f299cad884f9be89f89c95">get_SizeOfExpectedDataAccordingToCurrentStatusByte</a> (uint8_t StatusByte)</td></tr>
+<tr class="memdesc:ga76b1e69079f299cad884f9be89f89c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch through all possible status bytes and return the size of data that is expected.  <br /></td></tr>
+<tr class="separator:ga76b1e69079f299cad884f9be89f89c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6378ab05264f7649c0fb21ecdf9be18c" id="r_ga6378ab05264f7649c0fb21ecdf9be18c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#ga6378ab05264f7649c0fb21ecdf9be18c">receive_UartDmaToRxBuffer</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart, uint16_t RxSize)</td></tr>
+<tr class="memdesc:ga6378ab05264f7649c0fb21ecdf9be18c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive Data from UART DMA Transfer to the Rx Buffer.  <br /></td></tr>
+<tr class="separator:ga6378ab05264f7649c0fb21ecdf9be18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf8241ad58daeef29a54f54800c3fc2df" id="r_gaf8241ad58daeef29a54f54800c3fc2df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group___m_i_d_i___u_a_r_t___header.html#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___m_i_d_i___u_a_r_t___source.html#gaf8241ad58daeef29a54f54800c3fc2df">MIDI_manage_TxInterrupt</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart)</td></tr>
 <tr class="memdesc:gaf8241ad58daeef29a54f54800c3fc2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in HAL UART Tx Callback to set a flag, it the UART Transmission is complete.  <br /></td></tr>
 <tr class="separator:gaf8241ad58daeef29a54f54800c3fc2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
