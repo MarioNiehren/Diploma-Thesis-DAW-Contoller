@@ -165,7 +165,7 @@ void max7219_init_LED(max7219_LED_TypeDef* LED, uint8_t digit, uint8_t segment)
 void max7219_turnOn_LED(max7219_TypeDef* max7219, max7219_LED_TypeDef* led)
 {
   /** @internal     1.  Set Segment Bit of LED to the Segment Register Array */
-  uint8_t RegisterOffset = 1;
+  uint8_t RegisterOffset = 1; /* The register addresses for digits go from 0x01 to 0x08 */
   uint8_t Index = led->Digit - RegisterOffset;
   max7219->SegmentRegisterState[(Index)] |= led->Segment;
 
@@ -179,7 +179,7 @@ void max7219_turnOn_LED(max7219_TypeDef* max7219, max7219_LED_TypeDef* led)
 void max7219_turnOff_LED(max7219_TypeDef* max7219, max7219_LED_TypeDef* led)
 {
   /** @internal     1.  Reset Segment Bit of LED to the Segment Register Array */
-  uint8_t RegisterOffset = 1;
+  uint8_t RegisterOffset = 1; /* The register addresses for digits go from 0x01 to 0x08 */
   uint8_t Index = led->Digit - RegisterOffset;
   max7219->SegmentRegisterState[Index] &= ~led->Segment;
 
@@ -200,36 +200,20 @@ void max7219_write_LEDStatesOnDigit(max7219_TypeDef* max7219, uint8_t Digit, uin
 /* Description in .h */
 void max7219_turnOn_AllLEDs(max7219_TypeDef* max7219)
 {
-  /** @internal     Loop through all Digits and turn all segments on */
-  for(MAX7219_registerAddressTypeDef digit = MAX7219_ADDRESS_DIGIT0; digit <= MAX7219_ADDRESS_DIGIT7; digit++)
+  for(uint8_t Digit = 0; Digit < MAX7219_NUM_DIGITS; Digit++)
   {
-    for(uint8_t segment = 0; segment < 8; segment++)
-    {
-      max7219_LED_TypeDef led = {
-          .Digit = digit,
-          .Segment = (0x01 << segment)
-      };
-
-      max7219_turnOn_LED(max7219, &led);
-    }
+    uint8_t RegisterAllOn = 0xFF;
+    max7219_write_LEDStatesOnDigit(max7219, Digit, RegisterAllOn);
   }
 }
 
 /* Description in .h */
 void max7219_turnOff_AllLEDs(max7219_TypeDef* max7219)
 {
-  /** @internal     Loop through all Digits and turn all segments off */
-  for(MAX7219_registerAddressTypeDef digit = MAX7219_ADDRESS_DIGIT0; digit <= MAX7219_ADDRESS_DIGIT7; digit++)
+  for(uint8_t Digit = 0; Digit < MAX7219_NUM_DIGITS; Digit++)
   {
-    for(uint8_t segment = 0; segment < 8; segment++)
-    {
-      max7219_LED_TypeDef led = {
-                .Digit = digit,
-                .Segment = (0x01 << segment)
-      };
-
-      max7219_turnOff_LED(max7219, &led);
-    }
+    uint8_t RegisterAllOff = 0x00;
+    max7219_write_LEDStatesOnDigit(max7219, Digit, RegisterAllOff);
   }
 }
 

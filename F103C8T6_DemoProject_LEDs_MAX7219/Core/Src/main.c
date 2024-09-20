@@ -18,10 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "max7219.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define NUM_LED_PER_ROW 8
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -40,16 +43,19 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
+max7219_TypeDef LedDriver;
+max7219_LED_TypeDef LedRow1[NUM_LED_PER_ROW];
+max7219_LED_TypeDef LedRow2[NUM_LED_PER_ROW];
 
+uint8_t CounterLedsFx = 0;
+
+bool ModeTurnOn = true;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_SPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -90,13 +96,55 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  max7219_init_SPI(&LedDriver, &hspi1);
+  max7219_init_LoadPin(&LedDriver, GPIOA, GPIO_PIN_4);
+  max7219_init_NoDecode(&LedDriver);
 
+  for(uint8_t i = 0; i < NUM_LED_PER_ROW; i++)
+  {
+    uint8_t DigitRow1 = 0;
+    uint8_t DigitRow2 = 1;
+    max7219_init_LED(&LedRow1[i], DigitRow1, i);
+    max7219_init_LED(&LedRow2[i], DigitRow2, i);
+  }
+
+  max7219_turnOff_AllLEDs(&LedDriver);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if(ModeTurnOn == true)
+    {
+      max7219_turnOn_LED(&LedDriver, &LedRow1[CounterLedsFx]);
+      max7219_turnOn_LED(&LedDriver, &LedRow2[CounterLedsFx]);
+    }
+    else
+    {
+      max7219_turnOff_LED(&LedDriver, &LedRow1[CounterLedsFx]);
+      max7219_turnOff_LED(&LedDriver, &LedRow2[CounterLedsFx]);
+    }
+
+    if(CounterLedsFx == (NUM_LED_PER_ROW - 1))
+    {
+      CounterLedsFx = 0;
+      if(ModeTurnOn == true)
+      {
+        ModeTurnOn = false;
+      }
+      else
+      {
+        ModeTurnOn = true;
+      }
+    }
+    else
+    {
+      CounterLedsFx++;
+    }
+
+    uint16_t FxDelay = 500;
+    HAL_Delay(FxDelay);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -138,61 +186,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief SPI1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SPI1_Init(void)
-{
-
-  /* USER CODE BEGIN SPI1_Init 0 */
-
-  /* USER CODE END SPI1_Init 0 */
-
-  /* USER CODE BEGIN SPI1_Init 1 */
-
-  /* USER CODE END SPI1_Init 1 */
-  /* SPI1 parameter configuration*/
-  hspi1.Instance = SPI1;
-  hspi1.Init.Mode = SPI_MODE_MASTER;
-  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
-  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
-  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
-  hspi1.Init.CRCPolynomial = 10;
-  if (HAL_SPI_Init(&hspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN SPI1_Init 2 */
-
-  /* USER CODE END SPI1_Init 2 */
-
-}
-
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_GPIO_Init(void)
-{
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
