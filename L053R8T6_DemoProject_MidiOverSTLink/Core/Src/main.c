@@ -75,7 +75,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-     HAL_Init();
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -106,7 +106,7 @@ int main(void)
     GPIO_PinState ButtonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
     if(ButtonState == GPIO_PIN_SET)
     {
-      HAL_Delay(5); /* delay for debounce */
+      //HAL_Delay(5); /* delay for debounce */
 
       if(ButtonState != PrevButtonState)
       {

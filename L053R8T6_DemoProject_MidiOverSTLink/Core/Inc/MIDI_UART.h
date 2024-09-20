@@ -23,11 +23,11 @@
 #include "stm32l0xx_hal.h"
 #include <stdbool.h>
 
-#define MIDI_UART_MAX_BUFFER  255   /**< Max is 255 because index counter is
-                                         a uint8_t. If a larger value is
-                                         required, change data type of index
-                                         counters to avoid overflow. */
+#include "Buffer_PingPong.h"
+
 #define MIDI_LEN_STANDARD_COMMAND 3
+#define MIDI_STATUS_BYTE_MIN_VALUE  0x80
+#define MIDI_STATUS_CHANNEL_MSK 0x0F
 /***************************************************************************//**
  * @name      Structure and Enumerations
  * @{
@@ -38,6 +38,7 @@
  */
 typedef enum
 {
+  /* Channel Voice Messages */
   MIDI_STATUS_NOTE_OFF = 0x80,
   MIDI_STATUS_NOTE_ON = 0x90,
   MIDI_STATUS_POLYPHONIC_AFTERTOUCH = 0xA0,
@@ -46,12 +47,15 @@ typedef enum
   MIDI_STATUS_CHANNEL_AFTERTOUCH = 0xD0,
   MIDI_STATUS_PICH_BEND_CHANGE = 0xE0,
 
+  /* System Common Messages */
   MIDI_STATUS_SYSTEM_EXCLUSIVE = 0xF0,
   MIDI_STATUS_MIDI_TIME_CODE_QTR_FRAME = 0xF1,
   MIDI_STATUS_SONG_POSITION_POINTER = 0xF2,
   MIDI_STATUS_SONG_SELECT = 0xF3,
   MIDI_STATUS_TUNE_REQUEST = 0xF6,
   MIDI_STATUS_END_OF_SYS_EX = 0xF7,
+
+  /* System Real-Time Messages */
   MIDI_STATUS_TIMING_CLOCK = 0xF8,
   MIDI_STATUS_START = 0xFA,
   MIDI_STATUS_CONTINUE = 0xFB,
@@ -68,7 +72,8 @@ typedef enum
   MIDI_ERROR_NONE = 0x00,
 
   MIDI_ERROR_BUFFER_OVERFLOW = 0x10,
-  MIDI_ERROR_BUFFER_TX_NULL = 0x11,
+  MIDI_ERROR_BUFFER_LIMITS_EXCEEDED = 0x11,
+  MIDI_ERROR_BUFFERMODULE = 0x12,
 
   MIDI_ERROR_WAIT_FOR_TRANSMISSION_COMPLETE = 0x20,
 
@@ -77,54 +82,19 @@ typedef enum
 
   MIDI_ERROR_INVALID_STATUS_BYTE = 0x40,
   MIDI_ERROR_INVALID_BYTE_1 = 0x41,
-  MIDI_ERROR_INVALID_BYTE_2 = 0x42
+  MIDI_ERROR_INVALID_BYTE_2 = 0x42,
+
+  MIDI_ERROR_RX_BUFFER_EMPTY = 0x50,
+  MIDI_ERROR_RX_BUFFER_TOGGLE_FAILED = 0x51,
+
+  MIDI_ERROR_BUFFER_TX_NULL = 0x60,
+
+  MIDI_ERROR_POINTER_IS_NULL = 0x70,
+
+  MIDI_ERROR_INVALID_DATA = 0x80,
 }MIDI_error_Td;
 
-/**
- * @brief     Enumerations to describe the buffer and buffer-internal states.
- */
-typedef enum
-{
-  MIDI_BUFFER_NONE = 0x00,
-  MIDI_BUFFER_TX_A = 0x10,
-  MIDI_BUFFER_TX_B = 0x11,
-  MIDI_BUFFER_RX_A = 0x12,
-  MIDI_BUFFER_RX_B = 0x13,
-}MIDI_buffer_Td;
 
-typedef enum
-{
-  MIDI_BUFFER_ERROR_NONE = 0x00,
-  MIDI_BUFFER_ERROR_TX_A_OVERFLOW = 0x10,
-  MIDI_BUFFER_ERROR_TX_B_OVERFLOW = 0x10,
-  MIDI_BUFFER_ERROR_NO_BUFFER_FOUND = 0x20,
-}MIDI_buffer_error_Td;
-/**
- * @brief     Structure to buffer data for DMA Transmission. The buffering
- *            works with a ping-pong principle.
- * @note      The user does not need to setup this data structure manually. It
- *            is part of the main MIDI structure.
- */
-typedef struct
-{
-  MIDI_buffer_Td LockedToSend;
-  MIDI_buffer_Td LockedToReceive;
-
-  uint8_t TxA[MIDI_UART_MAX_BUFFER]; /**< Array to buffer MIDI
-                                   bytes for transmission */
-  uint16_t TxAIndex;      /**< Index counter for Tx-Array */
-  uint8_t TxB[MIDI_UART_MAX_BUFFER]; /**< Array to buffer MIDI
-                                   bytes for transmission */
-  uint16_t TxBIndex;      /**< Index counter for Tx-Array */
-
-  uint8_t RxA[MIDI_UART_MAX_BUFFER]; /**< Array to buffer received
-                                   bytes */
-  uint16_t RxAIndex;      /**< Index counter for Rx-Array */
-  uint8_t RxB[MIDI_UART_MAX_BUFFER]; /**< Array to buffer received
-                                   bytes */
-  uint16_t RxBIndex;      /**< Index counter for Rx-Array */
-
-}MIDI_buffer_structTd;
 
 /**
  * @brief     Structure used for each MIDI Port.
@@ -133,10 +103,13 @@ typedef struct
 {
   UART_HandleTypeDef* huart;    /**< HAL UART handle used for MIDI transmission */
 
-  MIDI_buffer_structTd Buffer;  /**< Buffer data structure for data management */
+  BufferPingPong_structTd Buffer;  /**< Buffer data structure for data management */
 
   bool    TxComplete;
   bool    RxComplete;
+
+  bool    ReceivingSysEx;
+  MIDI_StatusBytes_Td CurrentRxStatus;
 
 }MIDI_structTd;
 /** @} ************************************************************************/
