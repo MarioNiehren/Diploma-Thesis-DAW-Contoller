@@ -39,6 +39,13 @@
 #define BUFFER_PINGPONG_TX_MAX  255
 
 /**
+ * @brief   Define size of the RX Buffer headroom. It is used to buffer byte
+ *          by byte until an expected Data Block is full. Then it will be
+ *          latched to the buffer.
+ */
+#define BUFFER_PINGPONG_RX_HEADROOM  100
+
+/**
  * @brief   Value that is subtracted from value ranges to reserve the binary
  *          max vale (0xFF..) for errors.
  *
@@ -79,8 +86,11 @@ typedef enum
 
   BUFFER_PINGPONG_ERROR_RX_MAX_TOO_HIGH = 0x40,
   BUFFER_PINGPONG_ERROR_TX_MAX_TOO_HIGH = 0x41,
+  BUFFER_PINGPONG_ERROR_RX_HEADROOM_TOO_HIGH = 0x41,
 
   BUFFER_PINGPONG_ERROR_16BIT_RANGE_OVERFLOW = 0x50,
+
+  BUFFER_PINGPONG_OVERFLOW = 0xFF
 
 }BufferPingPong_error_Td;
 
@@ -92,9 +102,9 @@ typedef enum
  */
 typedef struct
 {
-  BufferPingPong_Td LockedToReceive;  /**< buffer that is currently locked for
+  BufferPingPong_Td ReservedToReceive;  /**< buffer that is currently locked for
                                            the user*/
-  BufferPingPong_Td LockedToSend;     /**< buffer that is currently locked for
+  BufferPingPong_Td ReservedToSend;     /**< buffer that is currently locked for
                                            the user */
 
   uint8_t RxA[BUFFER_PINGPONG_RX_MAX]; /**< Array A to buffer Rx bytes */
@@ -102,6 +112,10 @@ typedef struct
 
   uint8_t RxB[BUFFER_PINGPONG_RX_MAX]; /**< Array B to buffer Rx bytes */
   uint16_t RxBIndex;                   /**< Index counter for RxB-Array */
+
+  uint8_t RxHeadroom[BUFFER_PINGPONG_RX_HEADROOM]; /**< Array to buffer single
+                                            Rx Bytes. */
+  uint16_t RxHeadroomIndex;            /**< Index counter for Rx Headroom */
 
   uint8_t TxA[BUFFER_PINGPONG_TX_MAX]; /**< Array A to buffer Tx bytes */
   uint16_t TxAIndex;                   /**< Index counter for TxA-Array */
@@ -148,7 +162,7 @@ BufferPingPong_error_Td BufferPingPong_init_StartConditions(BufferPingPong_struc
  * @return    Start pointer of the buffer to be send, or NULL in case of an
  *            error
  */
-uint8_t* BufferPingPong_get_RxStartPtrForTransmission(BufferPingPong_structTd* Buffer);
+uint8_t* BufferPingPong_get_RxStartPtrToReceiveData(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Toggle the buffer that is used to receive data, so the other one
@@ -182,7 +196,7 @@ uint8_t* ButterPingPong_get_StartPtrOfLockedRxBuffer(BufferPingPong_structTd* Bu
  * @param     Size        Number of bytes to be buffered
  * @return    BUFFER_PINGPONG_NONE if everything is fine
  */
-BufferPingPong_error_Td BufferPingPong_queue_RxBytesForTransmission(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
+BufferPingPong_error_Td BufferPingPong_queue_RxBytes(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
 
 /**
  * @brief     Use this function to count up the Index of the currently used
@@ -192,6 +206,24 @@ BufferPingPong_error_Td BufferPingPong_queue_RxBytesForTransmission(BufferPingPo
  * @return    BUFFER_PINGPONG_NONE if everything is fine
  */
 BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_structTd* Buffer, uint16_t size);
+
+/**
+ * @brief     Buffer received data byte by byte until a user
+ *            specific data block is filled.
+ * @param     Buffer      pointer to the users Buffer
+ * @param     Data        byte to buffer
+ * @return    0xFF it the hadroom is full. If the user does not latch the data
+ *            before the next reception, the headroom data will get
+ *            overwritten when this function gets called the next time.
+ */
+uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, uint8_t Data);
+
+/**
+ * @brief     Latch headroom to the regular Rx Buffer if a data clock is
+ *            complete.
+ * @param     Buffer      pointer to the users Buffer
+ */
+BufferPingPong_error_Td ButterPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer);
 
 /** @} ************************************************************************/
 /* end of name "Rx Buffers"

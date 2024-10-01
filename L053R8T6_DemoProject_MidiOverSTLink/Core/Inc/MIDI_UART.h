@@ -104,6 +104,8 @@ typedef struct
   UART_HandleTypeDef* huart;    /**< HAL UART handle used for MIDI transmission */
 
   BufferPingPong_structTd Buffer;  /**< Buffer data structure for data management */
+  uint8_t OneByteRxBuffer;      /**< Buffer for one Byte, that is used for
+                                     byte wise data reception */
 
   bool    TxComplete;
   bool    RxComplete;

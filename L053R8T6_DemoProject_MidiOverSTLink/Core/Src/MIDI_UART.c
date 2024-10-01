@@ -196,12 +196,8 @@ MIDI_error_Td MIDI_start_Transmission(MIDI_structTd* MIDIPort)
   errorcheck_stop_Code(Error);
 
   uint8_t RxSize = 1;
-  uint8_t* RxStartPtr = BufferPingPong_get_RxStartPtrForTransmission(&MIDIPort->Buffer);
-
-  HAL_UART_Receive_DMA(huart, RxStartPtr, RxSize);
-
-  BufferError = BufferPingPong_increase_RxBufferIndex(&MIDIPort->Buffer, RxSize);
-  Error =  errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_NONE, MIDI_ERROR_BUFFER_OVERFLOW);
+  uint8_t* RxData = &MIDIPort->OneByteRxBuffer;
+  HAL_UART_Receive_DMA(huart, RxData, RxSize);
 
   errorcheck_stop_Code(Error);
 
@@ -456,7 +452,7 @@ MIDI_error_Td receive_UartDmaToRxBuffer(MIDI_structTd* MIDIPort, UART_HandleType
   uint8_t* RxStartPtr;
   BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
-  RxStartPtr = BufferPingPong_get_RxStartPtrForTransmission(Buffer);
+  RxStartPtr = BufferPingPong_get_RxStartPtrToReceiveData(Buffer);
 
   Error = errorcheck_PointerIsNull(RxStartPtr, MIDI_ERROR_POINTER_IS_NULL);
 
