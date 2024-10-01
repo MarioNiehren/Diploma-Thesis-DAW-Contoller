@@ -302,6 +302,7 @@ BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_str
 }
 
 /* Description in .h */
+/* Maybe deprecated */
 uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, uint8_t Data)
 {
   uint16_t Index = Buffer->RxHeadroomIndex;
@@ -322,9 +323,46 @@ uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, 
 }
 
 /* Description in .h */
-BufferPingPong_error_Td ButterPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer)
+BufferPingPong_error_Td BufferPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer)
 {
+  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
 
+  uint8_t* StartPtrSource = &Buffer->RxHeadroom[0];
+  uint8_t* StartPtrDest =  ButterPingPong_get_StartPtrOfLockedRxBuffer(Buffer);
+  uint16_t SizeHeadroom = Buffer->RxHeadroomIndex;
+
+  for(uint8_t i = 0; i < SizeHeadroom; i++)
+  {
+    StartPtrDest[i] = StartPtrSource[i];
+  }
+
+  Buffer->RxHeadroomIndex = 0x00;
+
+  return Error;
+}
+
+/* Description in .h */
+uint8_t* BufferPingPong_get_RxBufferHeadroom(BufferPingPong_structTd* Buffer)
+{
+  uint8_t* StartPtr = &Buffer->RxHeadroom[0];
+
+  return StartPtr;
+}
+
+/* Description in .h */
+uint16_t BufferPingPong_get_RxBufferHeadroomSize()
+{
+  return BUFFER_PINGPONG_RX_HEADROOM;
+}
+
+/* Description in .h */
+BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingPong_structTd* Buffer, uint16_t Size)
+{
+  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
+
+  Buffer->RxHeadroomIndex = Buffer->RxHeadroomIndex + Size;
+
+  return Error;
 }
 /** @} ************************************************************************/
 /* end of name "Rx Buffers"

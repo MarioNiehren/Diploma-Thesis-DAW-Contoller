@@ -221,10 +221,18 @@ uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, 
 /**
  * @brief     Latch headroom to the regular Rx Buffer if a data clock is
  *            complete.
+ * @todo      Add error handling
  * @param     Buffer      pointer to the users Buffer
  */
-BufferPingPong_error_Td ButterPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer);
+BufferPingPong_error_Td BufferPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer);
 
+/* Description in .h */
+uint8_t* BufferPingPong_get_RxBufferHeadroom(BufferPingPong_structTd* Buffer);
+
+/* Description in .h */
+uint16_t BufferPingPong_get_RxBufferHeadroomSize();
+
+BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingPong_structTd* Buffer, uint16_t Size);
 /** @} ************************************************************************/
 /* end of name "Rx Buffers"
  ******************************************************************************/

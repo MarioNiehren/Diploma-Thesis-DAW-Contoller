@@ -27,7 +27,8 @@
 
 #define MIDI_LEN_STANDARD_COMMAND 3
 #define MIDI_STATUS_BYTE_MIN_VALUE  0x80
-#define MIDI_STATUS_CHANNEL_MSK 0x0F
+#define MIDI_STATUS_CHANNEL_MSK 0x0F /**< used to mask bytes, that are used to
+                                          identify the MIDI-channel*/
 /***************************************************************************//**
  * @name      Structure and Enumerations
  * @{
@@ -104,8 +105,10 @@ typedef struct
   UART_HandleTypeDef* huart;    /**< HAL UART handle used for MIDI transmission */
 
   BufferPingPong_structTd Buffer;  /**< Buffer data structure for data management */
-  uint8_t OneByteRxBuffer;      /**< Buffer for one Byte, that is used for
+  uint8_t OneByteRxBuffer[100];      /**< Buffer for one Byte, that is used for
                                      byte wise data reception */
+  MIDI_StatusBytes_Td ExpectedRxCommand;
+  uint16_t NumExpectedRxDataBytes;
 
   bool    TxComplete;
   bool    RxComplete;
@@ -172,7 +175,7 @@ MIDI_error_Td MIDI_update_Transmission(MIDI_structTd* MIDIPort);
  * @param     huart       pointer to the interrupted HAL UART handle
  * @return    MIDI_ERROR_NONE if everything is fine
  */
-MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd* MIDIPort, UART_HandleTypeDef *huart);
+MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd* MIDIPort, UART_HandleTypeDef *huart, uint16_t Size, DMA_HandleTypeDef* DMA);
 
 /**
  * @brief     Call this function in HAL UART Tx Callback to set a flag, it the

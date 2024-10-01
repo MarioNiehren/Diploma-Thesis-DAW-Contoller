@@ -177,9 +177,16 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+#if 0 /* DEBUG */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   MIDI_manage_RxInterrupt(&MIDIPort, &huart2);
+}
+#endif
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+  MIDI_manage_RxInterrupt(&MIDIPort, &huart2, Size, &hdma_usart2_rx);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
