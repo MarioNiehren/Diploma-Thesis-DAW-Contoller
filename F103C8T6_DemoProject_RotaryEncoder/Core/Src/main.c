@@ -193,14 +193,18 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pins : ENC1_A_Pin ENC1_B_Pin ENC2_A_Pin ENC2_B_Pin
-                           ENC3_A_Pin ENC3_B_Pin ENC4_A_Pin ENC4_B_Pin
-                           ENC5_A_Pin ENC5_B_Pin ENC6_A_Pin ENC6_B_Pin
-                           ENC7_A_Pin ENC7_B_Pin */
-  GPIO_InitStruct.Pin = ENC1_A_Pin|ENC1_B_Pin|ENC2_A_Pin|ENC2_B_Pin
-                          |ENC3_A_Pin|ENC3_B_Pin|ENC4_A_Pin|ENC4_B_Pin
-                          |ENC5_A_Pin|ENC5_B_Pin|ENC6_A_Pin|ENC6_B_Pin
-                          |ENC7_A_Pin|ENC7_B_Pin;
+  /*Configure GPIO pins : ENC1_A_Pin ENC1_B_Pin */
+  GPIO_InitStruct.Pin = ENC1_A_Pin|ENC1_B_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : ENC2_A_Pin ENC2_B_Pin ENC3_A_Pin ENC3_B_Pin
+                           ENC4_A_Pin ENC4_B_Pin ENC5_A_Pin ENC5_B_Pin
+                           ENC6_A_Pin ENC6_B_Pin ENC7_A_Pin ENC7_B_Pin */
+  GPIO_InitStruct.Pin = ENC2_A_Pin|ENC2_B_Pin|ENC3_A_Pin|ENC3_B_Pin
+                          |ENC4_A_Pin|ENC4_B_Pin|ENC5_A_Pin|ENC5_B_Pin
+                          |ENC6_A_Pin|ENC6_B_Pin|ENC7_A_Pin|ENC7_B_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
