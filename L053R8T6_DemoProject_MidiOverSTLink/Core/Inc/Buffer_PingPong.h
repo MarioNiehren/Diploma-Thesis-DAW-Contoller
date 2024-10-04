@@ -178,7 +178,7 @@ BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* 
  * @param     Buffer      pointer to the users Buffer
  * @return    size of the buffered data. 0xFFFF in case of an error.
  */
-uint16_t BufferPingPong_get_SizeOfLockedRxBuffer(BufferPingPong_structTd* Buffer);
+uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Get the start point of the RxArray that is currently locked to
@@ -186,7 +186,7 @@ uint16_t BufferPingPong_get_SizeOfLockedRxBuffer(BufferPingPong_structTd* Buffer
  * @param     Buffer      pointer to the users Buffer
  * @return    Start Pointer of the error. NULL in case of an error.
  */
-uint8_t* ButterPingPong_get_StartPtrOfLockedRxBuffer(BufferPingPong_structTd* Buffer);
+uint8_t* ButterPingPong_get_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Use this function to queue received data to the buffer that is

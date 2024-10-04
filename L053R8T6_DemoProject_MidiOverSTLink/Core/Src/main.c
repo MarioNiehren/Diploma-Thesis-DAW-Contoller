@@ -25,7 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "MIDI_UART.h"
-
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -46,7 +46,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-MIDI_structTd MIDIPort;
+MIDI_structTd MIDIPort1;
 GPIO_PinState PrevButtonState = GPIO_PIN_RESET;
 /* USER CODE END PV */
 
@@ -93,15 +93,16 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  MIDI_init_UART(&MIDIPort, &huart2);
-  MIDI_start_Transmission(&MIDIPort);
+  MIDI_init_UART(&MIDIPort1, &huart2);
+  MIDI_init_DMARxHandle(&MIDIPort1, &hdma_usart2_rx);
+  MIDI_start_Transmission(&MIDIPort1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    MIDI_update_Transmission(&MIDIPort);
+    MIDI_update_Transmission(&MIDIPort1);
 
     GPIO_PinState ButtonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
     if(ButtonState == GPIO_PIN_SET)
@@ -110,7 +111,10 @@ int main(void)
 
       if(ButtonState != PrevButtonState)
       {
-        MIDI_queue_NoteOff(&MIDIPort, 4, 100, 105);
+        //MIDI_queue_NoteOff(&MIDIPort1, 4, 100, MIDI_NOT_VELOCITY_SENSITIVE);
+
+        char* SysExCommand = "Hallo, das ist ein SysEx-Test";
+        MIDI_queue_SystemExclusive(&MIDIPort1, (uint8_t*) SysExCommand, strlen(SysExCommand));
         PrevButtonState = ButtonState;
       }
     }
@@ -177,21 +181,40 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-#if 0 /* DEBUG */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+void MIDI_callback_NoteOn(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)
 {
-  MIDI_manage_RxInterrupt(&MIDIPort, &huart2);
+  if(MIDIPort == &MIDIPort1)
+  {
+    if(Channel == 0x00)
+    {
+      if(Note == 0x38)    /* Taste H auf Tastatur in MIDI-OX*/
+      {
+        HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_SET);
+      }
+      else
+      {
+        HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_RESET);
+      }
+    }
+    else
+    {
+      ;
+    }
+  }
+  else
+  {
+    ;
+  }
 }
-#endif
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
-  MIDI_manage_RxInterrupt(&MIDIPort, &huart2, Size, &hdma_usart2_rx);
+  MIDI_manage_RxInterrupt(&MIDIPort1, huart, Size);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  MIDI_manage_TxInterrupt(&MIDIPort, &huart2);
+  MIDI_manage_TxInterrupt(&MIDIPort1, huart);
 }
 /* USER CODE END 4 */
 

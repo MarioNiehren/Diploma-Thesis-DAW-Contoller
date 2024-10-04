@@ -119,7 +119,7 @@ BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* 
 }
 
 /* Description in .h */
-uint16_t BufferPingPong_get_SizeOfLockedRxBuffer(BufferPingPong_structTd* Buffer)
+uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint16_t BufferSize;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
@@ -141,7 +141,7 @@ uint16_t BufferPingPong_get_SizeOfLockedRxBuffer(BufferPingPong_structTd* Buffer
 }
 
 /* Description in .h */
-uint8_t* ButterPingPong_get_StartPtrOfLockedRxBuffer(BufferPingPong_structTd* Buffer)
+uint8_t* ButterPingPong_get_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint8_t* StartPtr;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
@@ -328,14 +328,15 @@ BufferPingPong_error_Td BufferPingPong_latch_RxHeadroomToBuffer(BufferPingPong_s
   BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
 
   uint8_t* StartPtrSource = &Buffer->RxHeadroom[0];
-  uint8_t* StartPtrDest =  ButterPingPong_get_StartPtrOfLockedRxBuffer(Buffer);
+  uint8_t* StartPtrDest =  ButterPingPong_get_StartPtrOfFilledRxBuffer(Buffer);
   uint16_t SizeHeadroom = Buffer->RxHeadroomIndex;
+  uint16_t DestIndexOffset = BufferPingPong_get_SizeOfFilledRxBuffer(Buffer);
 
   for(uint8_t i = 0; i < SizeHeadroom; i++)
   {
-    StartPtrDest[i] = StartPtrSource[i];
+    StartPtrDest[DestIndexOffset + i] = StartPtrSource[i];
   }
-
+  BufferPingPong_increase_RxBufferIndex(Buffer, SizeHeadroom);
   Buffer->RxHeadroomIndex = 0x00;
 
   return Error;
