@@ -101,6 +101,7 @@ $(function(){initNavTree('_buffer___ping_pong_8h.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
 </div>
 <p><a href="_buffer___ping_pong_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -120,6 +121,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFER_PINGPONG_TX_MAX</b>&#160;&#160;&#160;255</td></tr>
 <tr class="memdesc:ga99520cf134125594f94d15ccf1630188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define size of the TX Buffers here. Max Value: 65535 - 1 (16Bit, 0xFFFF is reserved for Error). <br /></td></tr>
 <tr class="separator:ga99520cf134125594f94d15ccf1630188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb05503f67fd585b6310ec20d33cedf1" id="r_gafb05503f67fd585b6310ec20d33cedf1"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFER_PINGPONG_RX_HEADROOM</b>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:gafb05503f67fd585b6310ec20d33cedf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define size of the RX Buffer headroom. It is used to buffer byte by byte until an expected Data Block is full. Then it will be latched to the buffer. <br /></td></tr>
+<tr class="separator:gafb05503f67fd585b6310ec20d33cedf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae3ab40baeb2e52e8aa001be73801eba2" id="r_gae3ab40baeb2e52e8aa001be73801eba2"><td class="memItemLeft" align="right" valign="top">
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>BUFFER_PING_PONG_ERROR_VALUE_RESERVE</b>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:gae3ab40baeb2e52e8aa001be73801eba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value that is subtracted from value ranges to reserve the binary max vale (0xFF..) for errors. <br /></td></tr>
@@ -152,7 +157,10 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<b>BUFFER_PINGPONG_ERROR_RX_MAX_TOO_HIGH</b> = 0x40
 , <b>BUFFER_PINGPONG_ERROR_TX_MAX_TOO_HIGH</b> = 0x41
+, <b>BUFFER_PINGPONG_ERROR_RX_HEADROOM_TOO_HIGH</b> = 0x41
 , <b>BUFFER_PINGPONG_ERROR_16BIT_RANGE_OVERFLOW</b> = 0x50
+, <br />
+&#160;&#160;<b>BUFFER_PINGPONG_OVERFLOW</b> = 0xFF
 <br />
  }</td></tr>
 <tr class="separator:ga37f8934f053404c91bdbe4dfc1f906b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,27 +173,47 @@ Functions</h2></td></tr>
 <tr class="memitem:gac930abb339112617a8c77d49fd46cc56" id="r_gac930abb339112617a8c77d49fd46cc56"><td class="memItemLeft" align="right" valign="top">BufferPingPong_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#gac930abb339112617a8c77d49fd46cc56">BufferPingPong_init_StartConditions</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
 <tr class="memdesc:gac930abb339112617a8c77d49fd46cc56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function once in the beginning to initialize the start conditions of the buffers data structure. BUFFER_PINGPONG_RX_MAX and BUFFER_PINGPONG_TX_MAX will be checked, if the value is valid.  <br /></td></tr>
 <tr class="separator:gac930abb339112617a8c77d49fd46cc56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Rx Buffers</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>This function are used to handle the Rx Buffers </p>
+<tr><td colspan="2"><div class="groupHeader">Rx Buffer on Application Side</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>This function are used to access the Buffer in the users application.</p>
+<h1><a class="anchor" id="autotoc_md47"></a>
+How to implement</h1>
+<ol type="1">
+<li>Check if new data is available (This has to be checked manually, depending on the way, how the data reception works in the applications environment). Continue, if new data is available.</li>
+<li>Get the start pointer of the index, that was filled with data from the transmission side (<a class="el" href="group___buffer___ping_pong___header.html#ga3f2b28c4822a9be417e6d99a51bd39a8" title="Get the size of the Rx Buffer that contains new data.">BufferPingPong_fetch_SizeOfFilledRxBuffer()</a>)</li>
+<li>Get the size of data inside this buffer (<a class="el" href="group___buffer___ping_pong___header.html#ga0e17314f4db745d45752fd676a93a25a" title="Get the start point of the RxArray that contains new data.">ButterPingPong_fetch_StartPtrOfFilledRxBuffer()</a>)</li>
+<li>toggle the Rx Buffer, so the transmitter can fill the other buffer, while the filled buffer is in use. (<a class="el" href="group___buffer___ping_pong___header.html#ga41cd11b371bd0c90d0283c21f4c0a6db" title="Toggle the buffer that is used to receive data, so the filled one gets free to use....">BufferPingPong_toggle_RxBuffer()</a>)</li>
+</ol>
+<dl class="section note"><dt>Note</dt><dd>The Rx Buffer must not be toggled before the start pointer and the buffer size are fetched, otherwise the return of these functions will be wrong. </dd></dl>
 </div></td></tr>
-<tr class="memitem:ga0795759d19a32428fcd0ab08491ae881" id="r_ga0795759d19a32428fcd0ab08491ae881"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga0795759d19a32428fcd0ab08491ae881">BufferPingPong_get_RxStartPtrForTransmission</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:ga0795759d19a32428fcd0ab08491ae881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start point of the first free place in the Buffer Array, that is ready to receive.  <br /></td></tr>
-<tr class="separator:ga0795759d19a32428fcd0ab08491ae881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e17314f4db745d45752fd676a93a25a" id="r_ga0e17314f4db745d45752fd676a93a25a"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga0e17314f4db745d45752fd676a93a25a">ButterPingPong_fetch_StartPtrOfFilledRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
+<tr class="memdesc:ga0e17314f4db745d45752fd676a93a25a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start point of the RxArray that contains new data.  <br /></td></tr>
+<tr class="separator:ga0e17314f4db745d45752fd676a93a25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f2b28c4822a9be417e6d99a51bd39a8" id="r_ga3f2b28c4822a9be417e6d99a51bd39a8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga3f2b28c4822a9be417e6d99a51bd39a8">BufferPingPong_fetch_SizeOfFilledRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
+<tr class="memdesc:ga3f2b28c4822a9be417e6d99a51bd39a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the Rx Buffer that contains new data.  <br /></td></tr>
+<tr class="separator:ga3f2b28c4822a9be417e6d99a51bd39a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41cd11b371bd0c90d0283c21f4c0a6db" id="r_ga41cd11b371bd0c90d0283c21f4c0a6db"><td class="memItemLeft" align="right" valign="top">BufferPingPong_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga41cd11b371bd0c90d0283c21f4c0a6db">BufferPingPong_toggle_RxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:ga41cd11b371bd0c90d0283c21f4c0a6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the buffer that is used to receive data, so the other one gets free for processing.  <br /></td></tr>
+<tr class="memdesc:ga41cd11b371bd0c90d0283c21f4c0a6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the buffer that is used to receive data, so the filled one gets free to use. Make sure to fetch the Start pointer and size of the filled buffer before toggling!  <br /></td></tr>
 <tr class="separator:ga41cd11b371bd0c90d0283c21f4c0a6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf8ef0fcd0e29511ad1bd6560e4cd10c6" id="r_gaf8ef0fcd0e29511ad1bd6560e4cd10c6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#gaf8ef0fcd0e29511ad1bd6560e4cd10c6">BufferPingPong_get_SizeOfLockedRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:gaf8ef0fcd0e29511ad1bd6560e4cd10c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the currently locked Rx Buffer to handle data in the receiving side.  <br /></td></tr>
-<tr class="separator:gaf8ef0fcd0e29511ad1bd6560e4cd10c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga02a26e54f8c9fa01af1b35fb0844070e" id="r_ga02a26e54f8c9fa01af1b35fb0844070e"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga02a26e54f8c9fa01af1b35fb0844070e">ButterPingPong_get_StartPtrOfLockedRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
-<tr class="memdesc:ga02a26e54f8c9fa01af1b35fb0844070e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start point of the RxArray that is currently locked to receive data.  <br /></td></tr>
-<tr class="separator:ga02a26e54f8c9fa01af1b35fb0844070e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga38b7808fcd28dbcae7bd4f143c347f3f" id="r_ga38b7808fcd28dbcae7bd4f143c347f3f"><td class="memItemLeft" align="right" valign="top">BufferPingPong_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga38b7808fcd28dbcae7bd4f143c347f3f">BufferPingPong_queue_RxBytesForTransmission</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer, uint8_t *Data, uint8_t Size)</td></tr>
-<tr class="memdesc:ga38b7808fcd28dbcae7bd4f143c347f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to queue received data to the buffer that is currently locked for the user.  <br /></td></tr>
-<tr class="separator:ga38b7808fcd28dbcae7bd4f143c347f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga54aa044a661eec0c7a7596c6c586ba28" id="r_ga54aa044a661eec0c7a7596c6c586ba28"><td class="memItemLeft" align="right" valign="top">BufferPingPong_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga54aa044a661eec0c7a7596c6c586ba28">BufferPingPong_increase_RxBufferIndex</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer, uint16_t size)</td></tr>
-<tr class="memdesc:ga54aa044a661eec0c7a7596c6c586ba28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use this function to count up the Index of the currently used RxBuffer.  <br /></td></tr>
-<tr class="separator:ga54aa044a661eec0c7a7596c6c586ba28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Rx Buffer Transmission Side</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>This function are used to handle the Rx Buffers on transmission side. This can be anything, that actually receives data bytes and stores them in an any buffer.</p>
+<h1><a class="anchor" id="autotoc_md48"></a>
+How to implement</h1>
+<ol type="1">
+<li>Latch the temporary data, that contains data from the previous Rx Cycle, to the regular Rx Buffer. The temporary buffer can get overwritten now. (This step should be skipped for the first rx cycle, because the temporary buffer will be empty)</li>
+<li>Get the start pointer of the temporary data buffer. This buffer will be used to store data, until a reception cycle is finished.</li>
+<li>Get the Size of the maximum size of the temporary buffer to avoid overflow</li>
+<li>Use the received pointer and size to initiate a new data reception cycle. The following received data should be stored here. </li>
+</ol>
+</div></td></tr>
+<tr class="memitem:ga10b065e8b2062f367f24ff5ec976af2f" id="r_ga10b065e8b2062f367f24ff5ec976af2f"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga10b065e8b2062f367f24ff5ec976af2f">BufferPingPong_get_StartPtrOfTempRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer)</td></tr>
+<tr class="memdesc:ga10b065e8b2062f367f24ff5ec976af2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start pointer of a temporary data buffer. This will be used to store data, until a reception cycle is finished.  <br /></td></tr>
+<tr class="separator:ga10b065e8b2062f367f24ff5ec976af2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga60951be1c3363f579515a9c0fe80f18c" id="r_ga60951be1c3363f579515a9c0fe80f18c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga60951be1c3363f579515a9c0fe80f18c">BufferPingPong_get_SizeOfTempRxBuffer</a> ()</td></tr>
+<tr class="memdesc:ga60951be1c3363f579515a9c0fe80f18c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start pointer of a temporary data buffer. This will be used to store data, until a reception cycle is finished.  <br /></td></tr>
+<tr class="separator:ga60951be1c3363f579515a9c0fe80f18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e5c4f95c7506ea13d72baa93faf6535" id="r_ga0e5c4f95c7506ea13d72baa93faf6535"><td class="memItemLeft" align="right" valign="top">BufferPingPong_error_Td&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___buffer___ping_pong___header.html#ga0e5c4f95c7506ea13d72baa93faf6535">BufferPingPong_latch_TempRxBufferToRegularRxBuffer</a> (<a class="el" href="struct_buffer_ping_pong__struct_td.html">BufferPingPong_structTd</a> *Buffer, uint16_t Size)</td></tr>
+<tr class="memdesc:ga0e5c4f95c7506ea13d72baa93faf6535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Latch headroom to the regular Rx Buffer if a data clock is complete.  <br /></td></tr>
+<tr class="separator:ga0e5c4f95c7506ea13d72baa93faf6535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Tx Buffers</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This function are used to handle the Tx Buffers </p>
 </div></td></tr>

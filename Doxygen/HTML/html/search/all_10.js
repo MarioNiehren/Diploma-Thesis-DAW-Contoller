@@ -45,9 +45,10 @@ var searchData=
   ['posintline_42',['PosIntLine',['../structbutton_matrix___coordinates___td.html#aa0793fc4763957e059db194ce7753af9',1,'buttonMatrix_Coordinates_Td']]],
   ['possible_20_3a_43',['Hardware (if possible):',['../group___wiper___header.html#autotoc_md40',1,'']]],
   ['preverror_44',['PrevError',['../struct_p_i_d__struct_td.html#a806944a09ddfe8d51e877fad86746780',1,'PID_structTd']]],
-  ['process_5fpinainterrupted_45',['process_PinAInterrupted',['../group___rotary_encoder___source.html#ga76f02c0cccf1ebd3c202e3e278e0d7f6',1,'RotaryEncoder.c']]],
-  ['process_5fpinbinterrupted_46',['process_PinBInterrupted',['../group___rotary_encoder___source.html#gadfa7542c0f5a2d03918ed0ea464d8339',1,'RotaryEncoder.c']]],
-  ['processing_20functions_47',['EPD processing functions',['../group___e_p_d___process.html',1,'']]],
-  ['pterm_48',['PTerm',['../struct_p_i_d__struct_td.html#ad990c60eb437460c743e1844812531c6',1,'PID_structTd']]],
-  ['pwm_20in_20cubemx_20as_20tested_20_3a_49',['How to setup PWM in CubeMX (as tested):',['../group___t_b6612_f_n_g___source.html#autotoc_md30',1,'']]]
+  ['process_5fmidicommandatbufferpointer_45',['process_MIDICommandAtBufferPointer',['../group___m_i_d_i___u_a_r_t___source.html#ga8d1879d3a7ea348b793dc103e335efbe',1,'MIDI_UART.c']]],
+  ['process_5fpinainterrupted_46',['process_PinAInterrupted',['../group___rotary_encoder___source.html#ga76f02c0cccf1ebd3c202e3e278e0d7f6',1,'RotaryEncoder.c']]],
+  ['process_5fpinbinterrupted_47',['process_PinBInterrupted',['../group___rotary_encoder___source.html#gadfa7542c0f5a2d03918ed0ea464d8339',1,'RotaryEncoder.c']]],
+  ['processing_20functions_48',['EPD processing functions',['../group___e_p_d___process.html',1,'']]],
+  ['pterm_49',['PTerm',['../struct_p_i_d__struct_td.html#ad990c60eb437460c743e1844812531c6',1,'PID_structTd']]],
+  ['pwm_20in_20cubemx_20as_20tested_20_3a_50',['How to setup PWM in CubeMX (as tested):',['../group___t_b6612_f_n_g___source.html#autotoc_md30',1,'']]]
 ];

@@ -17,6 +17,7 @@ var annotated_dup =
     [ "Fonts_TypeDef", "struct_fonts___type_def.html", null ],
     [ "max7219_LED_TypeDef", "structmax7219___l_e_d___type_def.html", null ],
     [ "max7219_TypeDef", "structmax7219___type_def.html", "structmax7219___type_def" ],
+    [ "MIDI_internal_CommandDescriptor_Td", "struct_m_i_d_i__internal___command_descriptor___td.html", null ],
     [ "MIDI_structTd", "struct_m_i_d_i__struct_td.html", "struct_m_i_d_i__struct_td" ],
     [ "MotorizedFader_internal_structTd", "struct_motorized_fader__internal__struct_td.html", "struct_motorized_fader__internal__struct_td" ],
     [ "MotorizedFader_structTd", "struct_motorized_fader__struct_td.html", null ],

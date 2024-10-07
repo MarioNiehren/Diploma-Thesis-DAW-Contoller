@@ -123,8 +123,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ga547b7d9cb9b019a96af77890192aaeb1" id="r_ga547b7d9cb9b019a96af77890192aaeb1"><td class="memItemLeft" align="right" valign="top"><a id="ga547b7d9cb9b019a96af77890192aaeb1" name="ga547b7d9cb9b019a96af77890192aaeb1"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_STATUS_BYTE_MIN_VALUE</b>&#160;&#160;&#160;0x80</td></tr>
 <tr class="separator:ga547b7d9cb9b019a96af77890192aaeb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad6780d33bafba0e924979aa4dc75dd5e" id="r_gad6780d33bafba0e924979aa4dc75dd5e"><td class="memItemLeft" align="right" valign="top"><a id="gad6780d33bafba0e924979aa4dc75dd5e" name="gad6780d33bafba0e924979aa4dc75dd5e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIDI_STATUS_CHANNEL_MSK</b>&#160;&#160;&#160;0x0F</td></tr>
+<tr class="memitem:gad6780d33bafba0e924979aa4dc75dd5e" id="r_gad6780d33bafba0e924979aa4dc75dd5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gad6780d33bafba0e924979aa4dc75dd5e">MIDI_STATUS_CHANNEL_MSK</a>&#160;&#160;&#160;0x0F</td></tr>
 <tr class="separator:gad6780d33bafba0e924979aa4dc75dd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Structure and Enumerations</h2></td></tr>
@@ -163,22 +162,30 @@ Macros</h2></td></tr>
 , <b>MIDI_ERROR_BUFFERMODULE</b> = 0x12
 , <br />
 &#160;&#160;<b>MIDI_ERROR_WAIT_FOR_TRANSMISSION_COMPLETE</b> = 0x20
-, <b>MIDI_ERROR_INVALID_UART_HANDLE</b> = 0x30
+, <b>MIDI_ERROR_INVALID_HAL_HANDLE</b> = 0x30
 , <b>MIDI_ERROR_UART_NOT_INITIALIZED</b> = 0x31
 , <b>MIDI_ERROR_INVALID_STATUS_BYTE</b> = 0x40
 , <br />
 &#160;&#160;<b>MIDI_ERROR_INVALID_BYTE_1</b> = 0x41
 , <b>MIDI_ERROR_INVALID_BYTE_2</b> = 0x42
+, <b>MIDI_ERROR_INVALID_SYSEX_DATA</b> = 0x43
 , <b>MIDI_ERROR_RX_BUFFER_EMPTY</b> = 0x50
-, <b>MIDI_ERROR_RX_BUFFER_TOGGLE_FAILED</b> = 0x51
 , <br />
-&#160;&#160;<b>MIDI_ERROR_BUFFER_TX_NULL</b> = 0x60
+&#160;&#160;<b>MIDI_ERROR_RX_BUFFER_TOGGLE_FAILED</b> = 0x51
+, <b>MIDI_ERROR_BUFFER_TX_NULL</b> = 0x60
 , <b>MIDI_ERROR_POINTER_IS_NULL</b> = 0x70
 , <b>MIDI_ERROR_INVALID_DATA</b> = 0x80
+, <br />
+&#160;&#160;<b>MIDI_ERROR_INVALID_STATUS</b> = 0x81
+, <b>MIDI_ERROR_INTERNAL</b> = 0x90
 <br />
  }</td></tr>
 <tr class="memdesc:ga8327ed6ea0b01c5afc22fca67266676b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations for error handling of this module. <br /></td></tr>
 <tr class="separator:ga8327ed6ea0b01c5afc22fca67266676b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13da5ffb93ed8ed7a1263902c5c95cef" id="r_ga13da5ffb93ed8ed7a1263902c5c95cef"><td class="memItemLeft" align="right" valign="top"><a id="ga13da5ffb93ed8ed7a1263902c5c95cef" name="ga13da5ffb93ed8ed7a1263902c5c95cef"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga13da5ffb93ed8ed7a1263902c5c95cef">MIDI_user_Td</a> { <b>MIDI_NOT_VELOCITY_SENSITIVE</b> = 0x40
+ }</td></tr>
+<tr class="memdesc:ga13da5ffb93ed8ed7a1263902c5c95cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerations for user application. <br /></td></tr>
+<tr class="separator:ga13da5ffb93ed8ed7a1263902c5c95cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Initialize</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>Use these functions to initialize this module. </p>
@@ -186,6 +193,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga0da91b87034120069cc57ecd79c5bf55" id="r_ga0da91b87034120069cc57ecd79c5bf55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga0da91b87034120069cc57ecd79c5bf55">MIDI_init_UART</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart)</td></tr>
 <tr class="memdesc:ga0da91b87034120069cc57ecd79c5bf55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the HAL UART handle used for the MIDI-Port.  <br /></td></tr>
 <tr class="separator:ga0da91b87034120069cc57ecd79c5bf55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1316104bee243b787aefeff991e645bc" id="r_ga1316104bee243b787aefeff991e645bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga1316104bee243b787aefeff991e645bc">MIDI_init_DMARxHandle</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, DMA_HandleTypeDef *hdmaUartRx)</td></tr>
+<tr class="memdesc:ga1316104bee243b787aefeff991e645bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Link the HAL UART DMA handle used for the MIDI-Port.  <br /></td></tr>
+<tr class="separator:ga1316104bee243b787aefeff991e645bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Process</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>Use these functions to process this module </p>
@@ -196,26 +206,845 @@ Macros</h2></td></tr>
 <tr class="memitem:gaceef3beaca8add0c1baa58f9897eb9ea" id="r_gaceef3beaca8add0c1baa58f9897eb9ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaceef3beaca8add0c1baa58f9897eb9ea">MIDI_update_Transmission</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
 <tr class="memdesc:gaceef3beaca8add0c1baa58f9897eb9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function to send scheduled data over UART and to copy received data to the Rx Buffer.  <br /></td></tr>
 <tr class="separator:gaceef3beaca8add0c1baa58f9897eb9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaece19534f9b0ac0c6d217e01958f7ef1" id="r_gaece19534f9b0ac0c6d217e01958f7ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaece19534f9b0ac0c6d217e01958f7ef1">MIDI_manage_RxInterrupt</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart)</td></tr>
-<tr class="memdesc:gaece19534f9b0ac0c6d217e01958f7ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete.  <br /></td></tr>
-<tr class="separator:gaece19534f9b0ac0c6d217e01958f7ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ee79ba548ffbfcae2153e609dbade41" id="r_ga7ee79ba548ffbfcae2153e609dbade41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga7ee79ba548ffbfcae2153e609dbade41">MIDI_manage_RxInterrupt</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart, uint16_t Size)</td></tr>
+<tr class="memdesc:ga7ee79ba548ffbfcae2153e609dbade41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete.  <br /></td></tr>
+<tr class="separator:ga7ee79ba548ffbfcae2153e609dbade41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf8241ad58daeef29a54f54800c3fc2df" id="r_gaf8241ad58daeef29a54f54800c3fc2df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf8241ad58daeef29a54f54800c3fc2df">MIDI_manage_TxInterrupt</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, UART_HandleTypeDef *huart)</td></tr>
 <tr class="memdesc:gaf8241ad58daeef29a54f54800c3fc2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this function in HAL UART Tx Callback to set a flag, it the UART Transmission is complete.  <br /></td></tr>
 <tr class="separator:gaf8241ad58daeef29a54f54800c3fc2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Interaction</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p>Use these functions to interact with the module </p>
+<tr class="heading"><td colspan="2"><h2 class="groupheader">MIDI Send Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Use these functions to queue MIDI data to be sent by update function.</p>
+<dl class="section note"><dt>Note</dt><dd>The following descriptions are copied and slightly adapted from the document "Summary of MIDI Messages" by "MIDI
+           Manufacturers Association". Link to Document: <a href="https://midi.org/summary-of-midi-1-0-messages">https://midi.org/summary-of-midi-1-0-messages</a> </dd>
+<dd>
+These functions do not send the MIDI-Message immediately. They will be queued to the Buffer, that is used to send Data. The actual data transfer will be initiated by the <a class="el" href="#gaceef3beaca8add0c1baa58f9897eb9ea" title="Call this function to send scheduled data over UART and to copy received data to the Rx Buffer.">MIDI_update_Transmission()</a> function. </dd></dl>
 </td></tr>
-<tr class="memitem:gaa8d5dc01e08f802a3b6c539d1352acda" id="r_gaa8d5dc01e08f802a3b6c539d1352acda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa8d5dc01e08f802a3b6c539d1352acda">MIDI_queue_NoteOff</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Velocity)</td></tr>
-<tr class="memdesc:gaa8d5dc01e08f802a3b6c539d1352acda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue data to send a Note Off message.  <br /></td></tr>
-<tr class="separator:gaa8d5dc01e08f802a3b6c539d1352acda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac57c0c9445cfedc3c32ff5992633c0db" id="r_gac57c0c9445cfedc3c32ff5992633c0db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gac57c0c9445cfedc3c32ff5992633c0db">MIDI_queue_NoteOn</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Velocity)</td></tr>
-<tr class="memdesc:gac57c0c9445cfedc3c32ff5992633c0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue data to send a Note On message.  <br /></td></tr>
-<tr class="separator:gac57c0c9445cfedc3c32ff5992633c0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf4ace2e8e91d1fef9875ef2e3136bddc" id="r_gaf4ace2e8e91d1fef9875ef2e3136bddc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf4ace2e8e91d1fef9875ef2e3136bddc">MIDI_queue_NoteOff</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</td></tr>
+<tr class="memdesc:gaf4ace2e8e91d1fef9875ef2e3136bddc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note Off event. This message is sent when a note is released.  <br /></td></tr>
+<tr class="separator:gaf4ace2e8e91d1fef9875ef2e3136bddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec91ecbf9ede72306f354365b6b016f3" id="r_gaec91ecbf9ede72306f354365b6b016f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaec91ecbf9ede72306f354365b6b016f3">MIDI_queue_NoteOn</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</td></tr>
+<tr class="memdesc:gaec91ecbf9ede72306f354365b6b016f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note On event. This message is sent when a note is played.  <br /></td></tr>
+<tr class="separator:gaec91ecbf9ede72306f354365b6b016f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9278810f8a53da0ae311ef322ffcfb5e" id="r_ga9278810f8a53da0ae311ef322ffcfb5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9278810f8a53da0ae311ef322ffcfb5e">MIDI_queue_PolyphonicAftertouch</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Value)</td></tr>
+<tr class="memdesc:ga9278810f8a53da0ae311ef322ffcfb5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polyphonic Key Pressure (Aftertouch). This message is most often sent by pressing down on the key after it "bottoms out".  <br /></td></tr>
+<tr class="separator:ga9278810f8a53da0ae311ef322ffcfb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga442b466942995998f5b91052d36a99e8" id="r_ga442b466942995998f5b91052d36a99e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga442b466942995998f5b91052d36a99e8">MIDI_queue_ControlChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Value)</td></tr>
+<tr class="memdesc:ga442b466942995998f5b91052d36a99e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Change. This message is sent when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages".  <br /></td></tr>
+<tr class="separator:ga442b466942995998f5b91052d36a99e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3bdb0eebfcc74ea370f9479cd5ea64f9" id="r_ga3bdb0eebfcc74ea370f9479cd5ea64f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3bdb0eebfcc74ea370f9479cd5ea64f9">MIDI_queue_ProgramChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Value)</td></tr>
+<tr class="memdesc:ga3bdb0eebfcc74ea370f9479cd5ea64f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program Change. This message sent when the patch number changes.  <br /></td></tr>
+<tr class="separator:ga3bdb0eebfcc74ea370f9479cd5ea64f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae964eabfd66eba1c7e3be68256220806" id="r_gae964eabfd66eba1c7e3be68256220806"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gae964eabfd66eba1c7e3be68256220806">MIDI_queue_ChannelAftertouch</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Value)</td></tr>
+<tr class="memdesc:gae964eabfd66eba1c7e3be68256220806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel Pressure (After-touch). This message is most often sent by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to receive the single greatest pressure value (of all the current depressed keys)  <br /></td></tr>
+<tr class="separator:gae964eabfd66eba1c7e3be68256220806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ddbbf06458bb71b03ed537e47d7a5c7" id="r_ga6ddbbf06458bb71b03ed537e47d7a5c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6ddbbf06458bb71b03ed537e47d7a5c7">MIDI_queue_PitchBendChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t LSB, uint8_t MSB)</td></tr>
+<tr class="memdesc:ga6ddbbf06458bb71b03ed537e47d7a5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pitch Bend Change. This message is sent to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 0x2000. Sensitivity is a function of the receiver, but may be set using RPN 0.  <br /></td></tr>
+<tr class="separator:ga6ddbbf06458bb71b03ed537e47d7a5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga88623c85752c76bc1b9f4eb2890efa6e" id="r_ga88623c85752c76bc1b9f4eb2890efa6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga88623c85752c76bc1b9f4eb2890efa6e">MIDI_queue_SystemExclusive</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t *Data, uint16_t Size)</td></tr>
+<tr class="memdesc:ga88623c85752c76bc1b9f4eb2890efa6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue data to send a SysEx message.  <br /></td></tr>
+<tr class="separator:ga88623c85752c76bc1b9f4eb2890efa6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga55a03cd0deebe27375662a6ed53c00f0" id="r_ga55a03cd0deebe27375662a6ed53c00f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga55a03cd0deebe27375662a6ed53c00f0">MIDI_queue_MIDITimeCodeQuarterFrame</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t QtrFrame)</td></tr>
+<tr class="memdesc:ga55a03cd0deebe27375662a6ed53c00f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">MIDI Time Code Quarter Frame.  <br /></td></tr>
+<tr class="separator:ga55a03cd0deebe27375662a6ed53c00f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9bbd97ccafcff26014d5e06f4b8a52ab" id="r_ga9bbd97ccafcff26014d5e06f4b8a52ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9bbd97ccafcff26014d5e06f4b8a52ab">MIDI_queue_SongPositionPointer</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t LSB, uint8_t MSB)</td></tr>
+<tr class="memdesc:ga9bbd97ccafcff26014d5e06f4b8a52ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Song Position Pointer. This is an 14 bit register that holds the number of MIDI beats (1 beat = six MIDI clocks) since the start of the song.  <br /></td></tr>
+<tr class="separator:ga9bbd97ccafcff26014d5e06f4b8a52ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga612172206d6562ebf5fe9ec53e33d292" id="r_ga612172206d6562ebf5fe9ec53e33d292"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga612172206d6562ebf5fe9ec53e33d292">MIDI_queue_SongSelect</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Song)</td></tr>
+<tr class="memdesc:ga612172206d6562ebf5fe9ec53e33d292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Song Select. The Song Select species which sequence or song is to be played.  <br /></td></tr>
+<tr class="separator:ga612172206d6562ebf5fe9ec53e33d292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac6f0625f4126522d6d04c8aa37afbef5" id="r_gac6f0625f4126522d6d04c8aa37afbef5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gac6f0625f4126522d6d04c8aa37afbef5">MIDI_queue_TuneRequest</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gac6f0625f4126522d6d04c8aa37afbef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tune Request. Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.  <br /></td></tr>
+<tr class="separator:gac6f0625f4126522d6d04c8aa37afbef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga936aa53ef771e801cf02385b312e8094" id="r_ga936aa53ef771e801cf02385b312e8094"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga936aa53ef771e801cf02385b312e8094">MIDI_queue_EndOfSysEx</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga936aa53ef771e801cf02385b312e8094"><td class="mdescLeft">&#160;</td><td class="mdescRight">End of Exclusive. Used to terminate a System Exclusive dump (see <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>)  <br /></td></tr>
+<tr class="separator:ga936aa53ef771e801cf02385b312e8094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb107387ec6335254e6213f27eeaa017" id="r_gadb107387ec6335254e6213f27eeaa017"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gadb107387ec6335254e6213f27eeaa017">MIDI_queue_TimingClock</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gadb107387ec6335254e6213f27eeaa017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing Clock. Sent 24 times per quarter note when synchronization is required.  <br /></td></tr>
+<tr class="separator:gadb107387ec6335254e6213f27eeaa017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d636e3fc246c9667be2d841fc3862d9" id="r_ga6d636e3fc246c9667be2d841fc3862d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6d636e3fc246c9667be2d841fc3862d9">MIDI_queue_Start</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga6d636e3fc246c9667be2d841fc3862d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start. Start the current sequence playing. (This message will be followed with Timing Clocks).  <br /></td></tr>
+<tr class="separator:ga6d636e3fc246c9667be2d841fc3862d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga748e7b1f8d6dfa51775fa9ac34ff0aa3" id="r_ga748e7b1f8d6dfa51775fa9ac34ff0aa3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga748e7b1f8d6dfa51775fa9ac34ff0aa3">MIDI_queue_Continue</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga748e7b1f8d6dfa51775fa9ac34ff0aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continue. Continue at the point the sequence was Stopped.  <br /></td></tr>
+<tr class="separator:ga748e7b1f8d6dfa51775fa9ac34ff0aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga195752a5d39bab15064d746e889b138a" id="r_ga195752a5d39bab15064d746e889b138a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga195752a5d39bab15064d746e889b138a">MIDI_queue_Stop</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga195752a5d39bab15064d746e889b138a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop. Stop the current sequence.  <br /></td></tr>
+<tr class="separator:ga195752a5d39bab15064d746e889b138a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3c5f3a50528500aa8fc3c0e6ac777b0" id="r_gab3c5f3a50528500aa8fc3c0e6ac777b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab3c5f3a50528500aa8fc3c0e6ac777b0">MIDI_queue_ActiveSensing</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gab3c5f3a50528500aa8fc3c0e6ac777b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active Sensing. This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.  <br /></td></tr>
+<tr class="separator:gab3c5f3a50528500aa8fc3c0e6ac777b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga98645ecafb1a7acaa00058637bfbdb94" id="r_ga98645ecafb1a7acaa00058637bfbdb94"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga98645ecafb1a7acaa00058637bfbdb94">MIDI_queue_Reset</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga98645ecafb1a7acaa00058637bfbdb94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset. Reset all receivers in the system to power- up status. This should be used sparingly, preferably under manual control. In particular, it should not be sent on power-up.  <br /></td></tr>
+<tr class="separator:ga98645ecafb1a7acaa00058637bfbdb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">MIDI Receive Callback Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Use these callback functions to handle received MIDI Data.</p>
+<dl class="section note"><dt>Note</dt><dd>The following descriptions are copied and slightly adapted from the document "Summary of MIDI Messages" by "MIDI
+           Manufacturers Association". Link to Document: <a href="https://midi.org/summary-of-midi-1-0-messages">https://midi.org/summary-of-midi-1-0-messages</a> </dd>
+<dd>
+How to receive data: These callback functions are empty prototypes. They will be called internal, if a specific command was received. The user has to fill the function in his own code to control, what will happen with the received data. Here is an example: <div class="fragment"><div class="line"><span class="keywordtype">void</span> <a class="code hl_function" href="#ga2a2499553428a9894d9192a0724b4c6b">MIDI_callback_NoteOn</a>(<a class="code hl_struct" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a>* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// Do something here with the data received from this</span></div>
+<div class="line">  <span class="comment">// functions arguments.</span></div>
+<div class="line">}</div>
+<div class="ttc" id="agroup___m_i_d_i___u_a_r_t___header_html_ga2a2499553428a9894d9192a0724b4c6b"><div class="ttname"><a href="#ga2a2499553428a9894d9192a0724b4c6b">MIDI_callback_NoteOn</a></div><div class="ttdeci">void MIDI_callback_NoteOn(MIDI_structTd *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</div><div class="ttdoc">Note On event. This message is received when a note is played.</div><div class="ttdef"><b>Definition</b> main.c:182</div></div>
+<div class="ttc" id="astruct_m_i_d_i__struct_td_html"><div class="ttname"><a href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a></div><div class="ttdoc">Structure used for each MIDI Port.</div><div class="ttdef"><b>Definition</b> MIDI_UART.h:117</div></div>
+</div><!-- fragment --> </dd></dl>
+</td></tr>
+<tr class="memitem:ga97edbe8dfcb3e9b3e0b5d42666872523" id="r_ga97edbe8dfcb3e9b3e0b5d42666872523"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga97edbe8dfcb3e9b3e0b5d42666872523">MIDI_callback_NoteOff</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</td></tr>
+<tr class="memdesc:ga97edbe8dfcb3e9b3e0b5d42666872523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note Off event. This message is received when a note is released.  <br /></td></tr>
+<tr class="separator:ga97edbe8dfcb3e9b3e0b5d42666872523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a2499553428a9894d9192a0724b4c6b" id="r_ga2a2499553428a9894d9192a0724b4c6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga2a2499553428a9894d9192a0724b4c6b">MIDI_callback_NoteOn</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)</td></tr>
+<tr class="memdesc:ga2a2499553428a9894d9192a0724b4c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note On event. This message is received when a note is played.  <br /></td></tr>
+<tr class="separator:ga2a2499553428a9894d9192a0724b4c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1dbb3e67e098db6f0ec55a356dcd22f5" id="r_ga1dbb3e67e098db6f0ec55a356dcd22f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga1dbb3e67e098db6f0ec55a356dcd22f5">MIDI_callback_PolyphonicAftertouch</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Value)</td></tr>
+<tr class="memdesc:ga1dbb3e67e098db6f0ec55a356dcd22f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polyphonic Key Pressure (Aftertouch). This message is most often received by pressing down on the key after it "bottoms out".  <br /></td></tr>
+<tr class="separator:ga1dbb3e67e098db6f0ec55a356dcd22f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8ded089c80d08d31443a4baff387a97f" id="r_ga8ded089c80d08d31443a4baff387a97f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga8ded089c80d08d31443a4baff387a97f">MIDI_callback_ControlChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Value)</td></tr>
+<tr class="memdesc:ga8ded089c80d08d31443a4baff387a97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Control Change. This message is received when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages".  <br /></td></tr>
+<tr class="separator:ga8ded089c80d08d31443a4baff387a97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf925a82af1439ce6e78930c736d35964" id="r_gaf925a82af1439ce6e78930c736d35964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf925a82af1439ce6e78930c736d35964">MIDI_callback_ProgramChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Note)</td></tr>
+<tr class="memdesc:gaf925a82af1439ce6e78930c736d35964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program Change. This message received when the patch number changes.  <br /></td></tr>
+<tr class="separator:gaf925a82af1439ce6e78930c736d35964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99ecddf1eafb77dc3583ad1a4e5e1c74" id="r_ga99ecddf1eafb77dc3583ad1a4e5e1c74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga99ecddf1eafb77dc3583ad1a4e5e1c74">MIDI_callback_ChannelAftertouch</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t Value)</td></tr>
+<tr class="memdesc:ga99ecddf1eafb77dc3583ad1a4e5e1c74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel Pressure (After-touch). This message is most often received by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to receive the single greatest pressure value (of all the current depressed keys)  <br /></td></tr>
+<tr class="separator:ga99ecddf1eafb77dc3583ad1a4e5e1c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga00ab36bb9dda18e4849054221df4eca5" id="r_ga00ab36bb9dda18e4849054221df4eca5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga00ab36bb9dda18e4849054221df4eca5">MIDI_callback_PitchBendChange</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Channel, uint8_t LSB, uint8_t MSB)</td></tr>
+<tr class="memdesc:ga00ab36bb9dda18e4849054221df4eca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pitch Bend Change. This message is received to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 0x2000. Sensitivity is a function of the receiver, but may be set using RPN 0.  <br /></td></tr>
+<tr class="separator:ga00ab36bb9dda18e4849054221df4eca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga28229abf30830e34bc5915d4d49ecdfa" id="r_ga28229abf30830e34bc5915d4d49ecdfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa">MIDI_callback_SystemExclusive</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t *Data, uint16_t Size)</td></tr>
+<tr class="memdesc:ga28229abf30830e34bc5915d4d49ecdfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">System Exclusive. This message type allows manufacturers to create their own messages (such as bulk dumps, patch parameters, and other non-spec data) and provides a mechanism for creating additional MIDI Specication messages. The Manufacturer's ID code (assigned by MMA or AMEI) is either 1 byte (0iiiiiii) or 3 bytes (0iiiiiii 0iiiiiii 0iiiiiii). Two of the 1 Byte IDs are reserved for extensions called Universal Exclusive Messages, which are not manufacturer-specic. If a device recognizes the ID code as its own (or as a supported Universal message) it will listen to the rest of the message (0ddddddd). Otherwise, the message will be ignored. (Note: Only Real-Time messages may be interleaved with a System Exclusive.) <br  />
+  <br /></td></tr>
+<tr class="separator:ga28229abf30830e34bc5915d4d49ecdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea93ee569daf70a9c3e73a3ae41f3989" id="r_gaea93ee569daf70a9c3e73a3ae41f3989"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaea93ee569daf70a9c3e73a3ae41f3989">MIDI_callback_MIDITimeCodeQuarterFrame</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t QtrFrame)</td></tr>
+<tr class="memdesc:gaea93ee569daf70a9c3e73a3ae41f3989"><td class="mdescLeft">&#160;</td><td class="mdescRight">MIDI Time Code Quarter Frame.  <br /></td></tr>
+<tr class="separator:gaea93ee569daf70a9c3e73a3ae41f3989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga634a551452cf78b53e1679ca28a9821e" id="r_ga634a551452cf78b53e1679ca28a9821e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga634a551452cf78b53e1679ca28a9821e">MIDI_callback_SongPositionPointer</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t LSB, uint8_t MSB)</td></tr>
+<tr class="memdesc:ga634a551452cf78b53e1679ca28a9821e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Song Position Pointer. This is an 14 bit register that holds the number of MIDI beats (1 beat = six MIDI clocks) since the start of the song.  <br /></td></tr>
+<tr class="separator:ga634a551452cf78b53e1679ca28a9821e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6054f0e032a986a7821655d8da4f8dc" id="r_gaf6054f0e032a986a7821655d8da4f8dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaf6054f0e032a986a7821655d8da4f8dc">MIDI_callback_SongSelect</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort, uint8_t Song)</td></tr>
+<tr class="memdesc:gaf6054f0e032a986a7821655d8da4f8dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Song Select. The Song Select species which sequence or song is to be played.  <br /></td></tr>
+<tr class="separator:gaf6054f0e032a986a7821655d8da4f8dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6d531fd82eb1205e9468fc4b9f97519b" id="r_ga6d531fd82eb1205e9468fc4b9f97519b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6d531fd82eb1205e9468fc4b9f97519b">MIDI_callback_TuneRequest</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga6d531fd82eb1205e9468fc4b9f97519b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tune Request. Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.  <br /></td></tr>
+<tr class="separator:ga6d531fd82eb1205e9468fc4b9f97519b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabca8b65795ef2f4eca494ba396c55be2" id="r_gabca8b65795ef2f4eca494ba396c55be2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gabca8b65795ef2f4eca494ba396c55be2">MIDI_callback_EndOfSysEx</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gabca8b65795ef2f4eca494ba396c55be2"><td class="mdescLeft">&#160;</td><td class="mdescRight">End of Exclusive. Used to terminate a System Exclusive dump (see <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>)  <br /></td></tr>
+<tr class="separator:gabca8b65795ef2f4eca494ba396c55be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga49dab47c7b45a2ddda832c90faa3907a" id="r_ga49dab47c7b45a2ddda832c90faa3907a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga49dab47c7b45a2ddda832c90faa3907a">MIDI_callback_TimingClock</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga49dab47c7b45a2ddda832c90faa3907a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timing Clock. Received 24 times per quarter note when synchronization is required.  <br /></td></tr>
+<tr class="separator:ga49dab47c7b45a2ddda832c90faa3907a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga899ec477198daa914c2fa07a29425287" id="r_ga899ec477198daa914c2fa07a29425287"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga899ec477198daa914c2fa07a29425287">MIDI_callback_Start</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga899ec477198daa914c2fa07a29425287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start. Start the current sequence playing. (This message will be followed with Timing Clocks).  <br /></td></tr>
+<tr class="separator:ga899ec477198daa914c2fa07a29425287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae36d0c17f8b8d6901024a8d6e919d921" id="r_gae36d0c17f8b8d6901024a8d6e919d921"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gae36d0c17f8b8d6901024a8d6e919d921">MIDI_callback_Continue</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:gae36d0c17f8b8d6901024a8d6e919d921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continue. Continue at the point the sequence was Stopped.  <br /></td></tr>
+<tr class="separator:gae36d0c17f8b8d6901024a8d6e919d921"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga63264aef6728fe623a6f0904295204fe" id="r_ga63264aef6728fe623a6f0904295204fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga63264aef6728fe623a6f0904295204fe">MIDI_callback_Stop</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga63264aef6728fe623a6f0904295204fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop. Stop the current sequence.  <br /></td></tr>
+<tr class="separator:ga63264aef6728fe623a6f0904295204fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga37a2a14f3cf4ae6a7b6acddb96c360ff" id="r_ga37a2a14f3cf4ae6a7b6acddb96c360ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga37a2a14f3cf4ae6a7b6acddb96c360ff">MIDI_callback_ActiveSensing</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga37a2a14f3cf4ae6a7b6acddb96c360ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active Sensing. This message is intended to be received repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation.  <br /></td></tr>
+<tr class="separator:ga37a2a14f3cf4ae6a7b6acddb96c360ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64c5dbcae53ca7f151cb8e6aaa892898" id="r_ga64c5dbcae53ca7f151cb8e6aaa892898"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga64c5dbcae53ca7f151cb8e6aaa892898">MIDI_callback_Reset</a> (<a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *MIDIPort)</td></tr>
+<tr class="memdesc:ga64c5dbcae53ca7f151cb8e6aaa892898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset. Reset all receivers in the system to power- up status. This should be used sparingly, preferably under manual control. In particular, it should not be sent on power-up.  <br /></td></tr>
+<tr class="separator:ga64c5dbcae53ca7f151cb8e6aaa892898"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Study this part for a quick overview of this module. </p>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="gad6780d33bafba0e924979aa4dc75dd5e" name="gad6780d33bafba0e924979aa4dc75dd5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad6780d33bafba0e924979aa4dc75dd5e">&#9670;&#160;</a></span>MIDI_STATUS_CHANNEL_MSK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIDI_STATUS_CHANNEL_MSK&#160;&#160;&#160;0x0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>used to mask bytes, that are used to identify the MIDI-channel </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga37a2a14f3cf4ae6a7b6acddb96c360ff" name="ga37a2a14f3cf4ae6a7b6acddb96c360ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga37a2a14f3cf4ae6a7b6acddb96c360ff">&#9670;&#160;</a></span>MIDI_callback_ActiveSensing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_ActiveSensing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Active Sensing. This message is intended to be received repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga99ecddf1eafb77dc3583ad1a4e5e1c74" name="ga99ecddf1eafb77dc3583ad1a4e5e1c74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga99ecddf1eafb77dc3583ad1a4e5e1c74">&#9670;&#160;</a></span>MIDI_callback_ChannelAftertouch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_ChannelAftertouch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel Pressure (After-touch). This message is most often received by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to receive the single greatest pressure value (of all the current depressed keys) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Value</td><td>of the pressure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gae36d0c17f8b8d6901024a8d6e919d921" name="gae36d0c17f8b8d6901024a8d6e919d921"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae36d0c17f8b8d6901024a8d6e919d921">&#9670;&#160;</a></span>MIDI_callback_Continue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_Continue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continue. Continue at the point the sequence was Stopped. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga8ded089c80d08d31443a4baff387a97f" name="ga8ded089c80d08d31443a4baff387a97f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8ded089c80d08d31443a4baff387a97f">&#9670;&#160;</a></span>MIDI_callback_ControlChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_ControlChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Number</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control Change. This message is received when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Number</td><td>of the control (0-119)(120-127 are reserved for Channel Mode Messages. See MIDI documentation for details) </td></tr>
+    <tr><td class="paramname">Value</td><td>of the control (0-127) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gabca8b65795ef2f4eca494ba396c55be2" name="gabca8b65795ef2f4eca494ba396c55be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabca8b65795ef2f4eca494ba396c55be2">&#9670;&#160;</a></span>MIDI_callback_EndOfSysEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_EndOfSysEx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End of Exclusive. Used to terminate a System Exclusive dump (see <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>) </p>
+<dl class="section note"><dt>Note</dt><dd>This callback exists for completeness and maybe use in the future. It will not be called in the current implementation, as the End of Sys Ex is already part of <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gaea93ee569daf70a9c3e73a3ae41f3989" name="gaea93ee569daf70a9c3e73a3ae41f3989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea93ee569daf70a9c3e73a3ae41f3989">&#9670;&#160;</a></span>MIDI_callback_MIDITimeCodeQuarterFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_MIDITimeCodeQuarterFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>QtrFrame</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MIDI Time Code Quarter Frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">QtrFrame</td><td>Bit-structure: 0nnndddd, nnn = Message Type, dddd = Values. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga97edbe8dfcb3e9b3e0b5d42666872523" name="ga97edbe8dfcb3e9b3e0b5d42666872523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga97edbe8dfcb3e9b3e0b5d42666872523">&#9670;&#160;</a></span>MIDI_callback_NoteOff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_NoteOff </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Velocity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Note Off event. This message is received when a note is released. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Note</td><td>number </td></tr>
+    <tr><td class="paramname">Velocity</td><td>of the released note </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga2a2499553428a9894d9192a0724b4c6b" name="ga2a2499553428a9894d9192a0724b4c6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2a2499553428a9894d9192a0724b4c6b">&#9670;&#160;</a></span>MIDI_callback_NoteOn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_NoteOn </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Velocity</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Note On event. This message is received when a note is played. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Note</td><td>number (0-127 | note c' = 60) </td></tr>
+    <tr><td class="paramname">Velocity</td><td>of the played note </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga00ab36bb9dda18e4849054221df4eca5" name="ga00ab36bb9dda18e4849054221df4eca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga00ab36bb9dda18e4849054221df4eca5">&#9670;&#160;</a></span>MIDI_callback_PitchBendChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_PitchBendChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>LSB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>MSB</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pitch Bend Change. This message is received to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 0x2000. Sensitivity is a function of the receiver, but may be set using RPN 0. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">LSB</td><td>least significant 7 bits </td></tr>
+    <tr><td class="paramname">MSB</td><td>most significant 7 bits </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga1dbb3e67e098db6f0ec55a356dcd22f5" name="ga1dbb3e67e098db6f0ec55a356dcd22f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1dbb3e67e098db6f0ec55a356dcd22f5">&#9670;&#160;</a></span>MIDI_callback_PolyphonicAftertouch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_PolyphonicAftertouch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Polyphonic Key Pressure (Aftertouch). This message is most often received by pressing down on the key after it "bottoms out". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Note</td><td>number (0-127 | note c' = 60) </td></tr>
+    <tr><td class="paramname">Value</td><td>of pressure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gaf925a82af1439ce6e78930c736d35964" name="gaf925a82af1439ce6e78930c736d35964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf925a82af1439ce6e78930c736d35964">&#9670;&#160;</a></span>MIDI_callback_ProgramChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_ProgramChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Program Change. This message received when the patch number changes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Number</td><td>of the new program </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga64c5dbcae53ca7f151cb8e6aaa892898" name="ga64c5dbcae53ca7f151cb8e6aaa892898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga64c5dbcae53ca7f151cb8e6aaa892898">&#9670;&#160;</a></span>MIDI_callback_Reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_Reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset. Reset all receivers in the system to power- up status. This should be used sparingly, preferably under manual control. In particular, it should not be sent on power-up. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga634a551452cf78b53e1679ca28a9821e" name="ga634a551452cf78b53e1679ca28a9821e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga634a551452cf78b53e1679ca28a9821e">&#9670;&#160;</a></span>MIDI_callback_SongPositionPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_SongPositionPointer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>LSB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>MSB</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Song Position Pointer. This is an 14 bit register that holds the number of MIDI beats (1 beat = six MIDI clocks) since the start of the song. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">LSB</td><td>least significant 7 bits </td></tr>
+    <tr><td class="paramname">MSB</td><td>most significant 7 bits </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gaf6054f0e032a986a7821655d8da4f8dc" name="gaf6054f0e032a986a7821655d8da4f8dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6054f0e032a986a7821655d8da4f8dc">&#9670;&#160;</a></span>MIDI_callback_SongSelect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_SongSelect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Song</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Song Select. The Song Select species which sequence or song is to be played. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Song</td><td>Number to be selected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga899ec477198daa914c2fa07a29425287" name="ga899ec477198daa914c2fa07a29425287"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga899ec477198daa914c2fa07a29425287">&#9670;&#160;</a></span>MIDI_callback_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_Start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start. Start the current sequence playing. (This message will be followed with Timing Clocks). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga63264aef6728fe623a6f0904295204fe" name="ga63264aef6728fe623a6f0904295204fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga63264aef6728fe623a6f0904295204fe">&#9670;&#160;</a></span>MIDI_callback_Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_Stop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop. Stop the current sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga28229abf30830e34bc5915d4d49ecdfa" name="ga28229abf30830e34bc5915d4d49ecdfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga28229abf30830e34bc5915d4d49ecdfa">&#9670;&#160;</a></span>MIDI_callback_SystemExclusive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_SystemExclusive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>Data</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>Size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>System Exclusive. This message type allows manufacturers to create their own messages (such as bulk dumps, patch parameters, and other non-spec data) and provides a mechanism for creating additional MIDI Specication messages. The Manufacturer's ID code (assigned by MMA or AMEI) is either 1 byte (0iiiiiii) or 3 bytes (0iiiiiii 0iiiiiii 0iiiiiii). Two of the 1 Byte IDs are reserved for extensions called Universal Exclusive Messages, which are not manufacturer-specic. If a device recognizes the ID code as its own (or as a supported Universal message) it will listen to the rest of the message (0ddddddd). Otherwise, the message will be ignored. (Note: Only Real-Time messages may be interleaved with a System Exclusive.) <br  />
+ </p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Byte 1   </th><th class="markdownTableHeadNone">Byte 2   </th><th class="markdownTableHeadNone">Byte 3   </th><th class="markdownTableHeadNone">Byte 4   </th><th class="markdownTableHeadNone">...   </th><th class="markdownTableHeadNone">Byte N   </th><th class="markdownTableHeadNone">Last Byte    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">0iiiiiii   </td><td class="markdownTableBodyNone">(0iiiiiii)   </td><td class="markdownTableBodyNone">(0iiiiiii)   </td><td class="markdownTableBodyNone">0ddddddd   </td><td class="markdownTableBodyNone">...   </td><td class="markdownTableBodyNone">0ddddddd   </td><td class="markdownTableBodyNone">0xF7   </td></tr>
+</table>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Data</td><td>pointer to the complete SysEx Data String </td></tr>
+    <tr><td class="paramname">Size</td><td>of the SysEx Data String including End of SysEx byte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga49dab47c7b45a2ddda832c90faa3907a" name="ga49dab47c7b45a2ddda832c90faa3907a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga49dab47c7b45a2ddda832c90faa3907a">&#9670;&#160;</a></span>MIDI_callback_TimingClock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_TimingClock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timing Clock. Received 24 times per quarter note when synchronization is required. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga6d531fd82eb1205e9468fc4b9f97519b" name="ga6d531fd82eb1205e9468fc4b9f97519b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6d531fd82eb1205e9468fc4b9f97519b">&#9670;&#160;</a></span>MIDI_callback_TuneRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MIDI_callback_TuneRequest </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tune Request. Upon receiving a Tune Request, all analog synthesizers should tune their oscillators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga1316104bee243b787aefeff991e645bc" name="ga1316104bee243b787aefeff991e645bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1316104bee243b787aefeff991e645bc">&#9670;&#160;</a></span>MIDI_init_DMARxHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_init_DMARxHandle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DMA_HandleTypeDef *</td>          <td class="paramname"><span class="paramname"><em>hdmaUartRx</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Link the HAL UART DMA handle used for the MIDI-Port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">hdmaUart</td><td>pointer to the DMA handle used for UART. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If the HAL Files are generated in seperate .h/.c pairs, the HAL-Handle may not be exported as default. In this case, look for the handle in <a class="el" href="usart_8c.html" title="This file provides code for the configuration of the USART instances.">usart.c</a> and copy it to <a class="el" href="usart_8h.html" title="This file contains all the function prototypes for the usart.c file.">usart.h</a> with "extern". It should look like this (depending on the used uart and dma port): <div class="fragment"><div class="line"><span class="comment">// USER CODE BEGIN Private defines</span></div>
+<div class="line"><span class="keyword">extern</span> DMA_HandleTypeDef hdma_usart2_rx;</div>
+<div class="line"><span class="comment">// USER CODE END Private defines</span></div>
+</div><!-- fragment --> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>MIDI_ERROR_NONE if everything is fine </dd></dl>
+
+</div>
+</div>
 <a id="ga0da91b87034120069cc57ecd79c5bf55" name="ga0da91b87034120069cc57ecd79c5bf55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga0da91b87034120069cc57ecd79c5bf55">&#9670;&#160;</a></span>MIDI_init_UART()</h2>
 
@@ -247,8 +1076,8 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gaece19534f9b0ac0c6d217e01958f7ef1" name="gaece19534f9b0ac0c6d217e01958f7ef1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaece19534f9b0ac0c6d217e01958f7ef1">&#9670;&#160;</a></span>MIDI_manage_RxInterrupt()</h2>
+<a id="ga7ee79ba548ffbfcae2153e609dbade41" name="ga7ee79ba548ffbfcae2153e609dbade41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7ee79ba548ffbfcae2153e609dbade41">&#9670;&#160;</a></span>MIDI_manage_RxInterrupt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,18 +1090,24 @@ Macros</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UART_HandleTypeDef *</td>          <td class="paramname"><span class="paramname"><em>huart</em></span>&#160;)</td>
+          <td class="paramtype">UART_HandleTypeDef *</td>          <td class="paramname"><span class="paramname"><em>huart</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>Size</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete. </p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart)</div>
 <div class="line">{</div>
-<div class="line">  <a class="code hl_function" href="#gaece19534f9b0ac0c6d217e01958f7ef1">MIDI_manage_RxInterrupt</a>(&amp;MIDIPort, huart);</div>
+<div class="line">  <a class="code hl_function" href="#ga7ee79ba548ffbfcae2153e609dbade41">MIDI_manage_RxInterrupt</a>(&amp;MIDIPort, huart, Size);</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___m_i_d_i___u_a_r_t___header_html_gaece19534f9b0ac0c6d217e01958f7ef1"><div class="ttname"><a href="#gaece19534f9b0ac0c6d217e01958f7ef1">MIDI_manage_RxInterrupt</a></div><div class="ttdeci">MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd *MIDIPort, UART_HandleTypeDef *huart)</div><div class="ttdoc">Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete.</div><div class="ttdef"><b>Definition</b> MIDI_UART.c:260</div></div>
-</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+<div class="ttc" id="agroup___m_i_d_i___u_a_r_t___header_html_ga7ee79ba548ffbfcae2153e609dbade41"><div class="ttname"><a href="#ga7ee79ba548ffbfcae2153e609dbade41">MIDI_manage_RxInterrupt</a></div><div class="ttdeci">MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd *MIDIPort, UART_HandleTypeDef *huart, uint16_t Size)</div><div class="ttdoc">Call this function in HAL UART Rx Callback to set a flag, it the UART Transmission is complete.</div><div class="ttdef"><b>Definition</b> MIDI_UART.c:637</div></div>
+</div><!-- fragment --> <dl class="section note"><dt>Note</dt><dd>Make sure to use the correct UART Callback. The normal HAL_UART_TxCpltCallback() will not work, because it does not interrupt on idle state if the Rx Size was not reached. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
     <tr><td class="paramname">huart</td><td>pointer to the interrupted HAL UART handle </td></tr>
@@ -307,7 +1142,7 @@ Macros</h2></td></tr>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_function" href="#gaf8241ad58daeef29a54f54800c3fc2df">MIDI_manage_TxInterrupt</a>(&amp;MIDIPort, huart);</div>
 <div class="line">}</div>
-<div class="ttc" id="agroup___m_i_d_i___u_a_r_t___header_html_gaf8241ad58daeef29a54f54800c3fc2df"><div class="ttname"><a href="#gaf8241ad58daeef29a54f54800c3fc2df">MIDI_manage_TxInterrupt</a></div><div class="ttdeci">MIDI_error_Td MIDI_manage_TxInterrupt(MIDI_structTd *MIDIPort, UART_HandleTypeDef *huart)</div><div class="ttdoc">Call this function in HAL UART Tx Callback to set a flag, it the UART Transmission is complete.</div><div class="ttdef"><b>Definition</b> MIDI_UART.c:479</div></div>
+<div class="ttc" id="agroup___m_i_d_i___u_a_r_t___header_html_gaf8241ad58daeef29a54f54800c3fc2df"><div class="ttname"><a href="#gaf8241ad58daeef29a54f54800c3fc2df">MIDI_manage_TxInterrupt</a></div><div class="ttdeci">MIDI_error_Td MIDI_manage_TxInterrupt(MIDI_structTd *MIDIPort, UART_HandleTypeDef *huart)</div><div class="ttdoc">Call this function in HAL UART Tx Callback to set a flag, it the UART Transmission is complete.</div><div class="ttdef"><b>Definition</b> MIDI_UART.c:668</div></div>
 </div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
@@ -319,8 +1154,198 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gaa8d5dc01e08f802a3b6c539d1352acda" name="gaa8d5dc01e08f802a3b6c539d1352acda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaa8d5dc01e08f802a3b6c539d1352acda">&#9670;&#160;</a></span>MIDI_queue_NoteOff()</h2>
+<a id="gab3c5f3a50528500aa8fc3c0e6ac777b0" name="gab3c5f3a50528500aa8fc3c0e6ac777b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3c5f3a50528500aa8fc3c0e6ac777b0">&#9670;&#160;</a></span>MIDI_queue_ActiveSensing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_ActiveSensing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Active Sensing. This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gae964eabfd66eba1c7e3be68256220806" name="gae964eabfd66eba1c7e3be68256220806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae964eabfd66eba1c7e3be68256220806">&#9670;&#160;</a></span>MIDI_queue_ChannelAftertouch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_ChannelAftertouch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Channel Pressure (After-touch). This message is most often sent by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to receive the single greatest pressure value (of all the current depressed keys) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Value</td><td>of the pressure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga748e7b1f8d6dfa51775fa9ac34ff0aa3" name="ga748e7b1f8d6dfa51775fa9ac34ff0aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga748e7b1f8d6dfa51775fa9ac34ff0aa3">&#9670;&#160;</a></span>MIDI_queue_Continue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_Continue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continue. Continue at the point the sequence was Stopped. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga442b466942995998f5b91052d36a99e8" name="ga442b466942995998f5b91052d36a99e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga442b466942995998f5b91052d36a99e8">&#9670;&#160;</a></span>MIDI_queue_ControlChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_ControlChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Number</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Control Change. This message is sent when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Number</td><td>of the control (0-119)(120-127 are reserved for Channel Mode Messages. See MIDI documentation for details) </td></tr>
+    <tr><td class="paramname">Value</td><td>of the control (0-127) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga936aa53ef771e801cf02385b312e8094" name="ga936aa53ef771e801cf02385b312e8094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga936aa53ef771e801cf02385b312e8094">&#9670;&#160;</a></span>MIDI_queue_EndOfSysEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_EndOfSysEx </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>End of Exclusive. Used to terminate a System Exclusive dump (see <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>) </p>
+<dl class="section note"><dt>Note</dt><dd>This function exists for completeness and maybe for use in the future. It should not be necessary to use this function in the current implementation, as the End of Exclusive is already handled in <a class="el" href="#ga28229abf30830e34bc5915d4d49ecdfa" title="System Exclusive. This message type allows manufacturers to create their own messages (such as bulk d...">MIDI_callback_SystemExclusive()</a>. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga55a03cd0deebe27375662a6ed53c00f0" name="ga55a03cd0deebe27375662a6ed53c00f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga55a03cd0deebe27375662a6ed53c00f0">&#9670;&#160;</a></span>MIDI_queue_MIDITimeCodeQuarterFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_MIDITimeCodeQuarterFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>QtrFrame</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MIDI Time Code Quarter Frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">QtrFrame</td><td>Bit-structure: 0nnndddd, nnn = Message Type, dddd = Values. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gaf4ace2e8e91d1fef9875ef2e3136bddc" name="gaf4ace2e8e91d1fef9875ef2e3136bddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf4ace2e8e91d1fef9875ef2e3136bddc">&#9670;&#160;</a></span>MIDI_queue_NoteOff()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,7 +1363,7 @@ Macros</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Number</em>, </span></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -348,13 +1373,13 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queue data to send a Note Off message. </p>
+<p>Note Off event. This message is sent when a note is released. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
-    <tr><td class="paramname">Channel</td><td>Midi Channel (1-16) </td></tr>
-    <tr><td class="paramname">Number</td><td>of the note (0-127) </td></tr>
-    <tr><td class="paramname">Velocity</td><td>of the note (0-127) </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel (1-16) </td></tr>
+    <tr><td class="paramname">Note</td><td>number (0-127 | note c' = 60) </td></tr>
+    <tr><td class="paramname">Velocity</td><td>of the note (0-127 | No Velocity default: 64) </td></tr>
   </table>
   </dd>
 </dl>
@@ -362,8 +1387,8 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="gac57c0c9445cfedc3c32ff5992633c0db" name="gac57c0c9445cfedc3c32ff5992633c0db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac57c0c9445cfedc3c32ff5992633c0db">&#9670;&#160;</a></span>MIDI_queue_NoteOn()</h2>
+<a id="gaec91ecbf9ede72306f354365b6b016f3" name="gaec91ecbf9ede72306f354365b6b016f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaec91ecbf9ede72306f354365b6b016f3">&#9670;&#160;</a></span>MIDI_queue_NoteOn()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +1406,7 @@ Macros</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Number</em>, </span></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -391,17 +1416,386 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queue data to send a Note On message. </p>
+<p>Note On event. This message is sent when a note is played. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
     <tr><td class="paramname">Channel</td><td>Midi Channel (0-15) </td></tr>
-    <tr><td class="paramname">Number</td><td>of the note (0-127) </td></tr>
+    <tr><td class="paramname">Note</td><td>number (0-127 | note c' = 60) </td></tr>
     <tr><td class="paramname">Velocity</td><td>of the note (0-127) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>MIDI_ERROR_NONE if everything is fine </dd></dl>
+
+</div>
+</div>
+<a id="ga6ddbbf06458bb71b03ed537e47d7a5c7" name="ga6ddbbf06458bb71b03ed537e47d7a5c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6ddbbf06458bb71b03ed537e47d7a5c7">&#9670;&#160;</a></span>MIDI_queue_PitchBendChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_PitchBendChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>LSB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>MSB</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pitch Bend Change. This message is sent to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 0x2000. Sensitivity is a function of the receiver, but may be set using RPN 0. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">LSB</td><td>least significant 7 bits </td></tr>
+    <tr><td class="paramname">MSB</td><td>most significant 7 bits </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga9278810f8a53da0ae311ef322ffcfb5e" name="ga9278810f8a53da0ae311ef322ffcfb5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9278810f8a53da0ae311ef322ffcfb5e">&#9670;&#160;</a></span>MIDI_queue_PolyphonicAftertouch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_PolyphonicAftertouch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Note</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Polyphonic Key Pressure (Aftertouch). This message is most often sent by pressing down on the key after it "bottoms out". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>Midi Channel (0-15) </td></tr>
+    <tr><td class="paramname">Note</td><td>number (0-127 | note c' = 60) </td></tr>
+    <tr><td class="paramname">Value</td><td>of pressure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga3bdb0eebfcc74ea370f9479cd5ea64f9" name="ga3bdb0eebfcc74ea370f9479cd5ea64f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3bdb0eebfcc74ea370f9479cd5ea64f9">&#9670;&#160;</a></span>MIDI_queue_ProgramChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_ProgramChange </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Channel</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Number</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Program Change. This message sent when the patch number changes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Channel</td><td>used MIDI channel </td></tr>
+    <tr><td class="paramname">Number</td><td>of the new program </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga98645ecafb1a7acaa00058637bfbdb94" name="ga98645ecafb1a7acaa00058637bfbdb94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga98645ecafb1a7acaa00058637bfbdb94">&#9670;&#160;</a></span>MIDI_queue_Reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_Reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset. Reset all receivers in the system to power- up status. This should be used sparingly, preferably under manual control. In particular, it should not be sent on power-up. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga9bbd97ccafcff26014d5e06f4b8a52ab" name="ga9bbd97ccafcff26014d5e06f4b8a52ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9bbd97ccafcff26014d5e06f4b8a52ab">&#9670;&#160;</a></span>MIDI_queue_SongPositionPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_SongPositionPointer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>LSB</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>MSB</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Song Position Pointer. This is an 14 bit register that holds the number of MIDI beats (1 beat = six MIDI clocks) since the start of the song. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">LSB</td><td>least significant 7 bits </td></tr>
+    <tr><td class="paramname">MSB</td><td>most significant 7 bits </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga612172206d6562ebf5fe9ec53e33d292" name="ga612172206d6562ebf5fe9ec53e33d292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga612172206d6562ebf5fe9ec53e33d292">&#9670;&#160;</a></span>MIDI_queue_SongSelect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_SongSelect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Song</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Song Select. The Song Select species which sequence or song is to be played. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Song</td><td>Number to be selected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga6d636e3fc246c9667be2d841fc3862d9" name="ga6d636e3fc246c9667be2d841fc3862d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6d636e3fc246c9667be2d841fc3862d9">&#9670;&#160;</a></span>MIDI_queue_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_Start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start. Start the current sequence playing. (This message will be followed with Timing Clocks). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga195752a5d39bab15064d746e889b138a" name="ga195752a5d39bab15064d746e889b138a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga195752a5d39bab15064d746e889b138a">&#9670;&#160;</a></span>MIDI_queue_Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_Stop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop. Stop the current sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="ga88623c85752c76bc1b9f4eb2890efa6e" name="ga88623c85752c76bc1b9f4eb2890efa6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga88623c85752c76bc1b9f4eb2890efa6e">&#9670;&#160;</a></span>MIDI_queue_SystemExclusive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_SystemExclusive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>Data</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>Size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queue data to send a SysEx message. </p>
+<dl class="section note"><dt>Note</dt><dd>Status byte and Termination byte are sent automatically, they should not be part of Data. Manufacturer ID's have to be part of the data. This is how the SysEx will be send: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">StatusByte   </th><th class="markdownTableHeadNone">Data1   </th><th class="markdownTableHeadNone">...   </th><th class="markdownTableHeadNone">DataN   </th><th class="markdownTableHeadNone">Termination    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OxF0   </td><td class="markdownTableBodyNone">0-127   </td><td class="markdownTableBodyNone">...   </td><td class="markdownTableBodyNone">0-127   </td><td class="markdownTableBodyNone">0xF7   </td></tr>
+</table>
+</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+    <tr><td class="paramname">Data</td><td>pointer to the Data to be transmitted as SysEx command. </td></tr>
+    <tr><td class="paramname">Size</td><td>of the Data to be transmitted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MIDI_ERROR_NONE if everything is fine </dd></dl>
+
+</div>
+</div>
+<a id="gadb107387ec6335254e6213f27eeaa017" name="gadb107387ec6335254e6213f27eeaa017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadb107387ec6335254e6213f27eeaa017">&#9670;&#160;</a></span>MIDI_queue_TimingClock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_TimingClock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Timing Clock. Sent 24 times per quarter note when synchronization is required. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
+
+</div>
+</div>
+<a id="gac6f0625f4126522d6d04c8aa37afbef5" name="gac6f0625f4126522d6d04c8aa37afbef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac6f0625f4126522d6d04c8aa37afbef5">&#9670;&#160;</a></span>MIDI_queue_TuneRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ga8327ed6ea0b01c5afc22fca67266676b">MIDI_error_Td</a> MIDI_queue_TuneRequest </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_m_i_d_i__struct_td.html">MIDI_structTd</a> *</td>          <td class="paramname"><span class="paramname"><em>MIDIPort</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tune Request. Upon receiving a Tune Request, all analog synthesizers should tune their oscillators. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MIDIPort</td><td>pointer to the users MIDI-Port data structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>none </dd></dl>
 
 </div>
 </div>

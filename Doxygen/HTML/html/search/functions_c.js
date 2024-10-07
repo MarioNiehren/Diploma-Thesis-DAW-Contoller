@@ -11,6 +11,7 @@ var searchData=
   ['pid_5fset_5fsampletimeinms_8',['PID_set_SampleTimeInMs',['../group___p_i_d___header.html#gad02b747382e1b8d2b946b73b29117215',1,'PID_set_SampleTimeInMs(PID_structTd *PID, uint32_t Threshold):&#160;pidController.c'],['../group___p_i_d___source.html#gad02b747382e1b8d2b946b73b29117215',1,'PID_set_SampleTimeInMs(PID_structTd *PID, uint32_t Threshold):&#160;pidController.c']]],
   ['pid_5fset_5ftarget_9',['PID_set_Target',['../group___p_i_d___header.html#gae77ef277a1f13731bb49694e380a84b4',1,'PID_set_Target(PID_structTd *PID, double setpoint):&#160;pidController.c'],['../group___p_i_d___source.html#gae77ef277a1f13731bb49694e380a84b4',1,'PID_set_Target(PID_structTd *PID, double setpoint):&#160;pidController.c']]],
   ['pid_5fupdate_10',['PID_update',['../group___p_i_d___header.html#ga3810e47b1c51e17c5aaf8ee31d099daa',1,'PID_update(PID_structTd *PID, double sample):&#160;pidController.c'],['../group___p_i_d___source.html#ga429902fc9e72f6672145c6b7a0c290b2',1,'PID_update(PID_structTd *pid, double sample):&#160;pidController.c']]],
-  ['process_5fpinainterrupted_11',['process_PinAInterrupted',['../group___rotary_encoder___source.html#ga76f02c0cccf1ebd3c202e3e278e0d7f6',1,'RotaryEncoder.c']]],
-  ['process_5fpinbinterrupted_12',['process_PinBInterrupted',['../group___rotary_encoder___source.html#gadfa7542c0f5a2d03918ed0ea464d8339',1,'RotaryEncoder.c']]]
+  ['process_5fmidicommandatbufferpointer_11',['process_MIDICommandAtBufferPointer',['../group___m_i_d_i___u_a_r_t___source.html#ga8d1879d3a7ea348b793dc103e335efbe',1,'MIDI_UART.c']]],
+  ['process_5fpinainterrupted_12',['process_PinAInterrupted',['../group___rotary_encoder___source.html#ga76f02c0cccf1ebd3c202e3e278e0d7f6',1,'RotaryEncoder.c']]],
+  ['process_5fpinbinterrupted_13',['process_PinBInterrupted',['../group___rotary_encoder___source.html#gadfa7542c0f5a2d03918ed0ea464d8339',1,'RotaryEncoder.c']]]
 ];

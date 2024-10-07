@@ -109,6 +109,16 @@ Topics</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<h1><a class="anchor" id="autotoc_md46"></a>
+How the buffer should be implemented by the user</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Layer   </th><th class="markdownTableHeadNone">Process   </th><th class="markdownTableHeadNone">Fill   </th><th class="markdownTableHeadNone">Details    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Application   </td><td class="markdownTableBodyNone">Get Rx data   </td><td class="markdownTableBodyNone">Tx buffer   </td><td class="markdownTableBodyNone">data will be accessed by user here, e.g. in an update function    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Transmission   </td><td class="markdownTableBodyNone">Send Tx data   </td><td class="markdownTableBodyNone">Rx buffer   </td><td class="markdownTableBodyNone">data will actually be received and transmitted here, e.g. when the I/O Hardware gets directly accessed   </td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

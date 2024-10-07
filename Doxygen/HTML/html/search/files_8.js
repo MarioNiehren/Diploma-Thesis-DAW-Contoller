@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['spi_2ec_0',['spi.c',['../spi_8c.html',1,'']]],
-  ['spi_2eh_1',['spi.h',['../spi_8h.html',1,'']]],
+  ['spi_2ec_0',['spi.c',['../_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_src_2spi_8c.html',1,'(Global Namespace)'],['../_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2spi_8c.html',1,'(Global Namespace)']]],
+  ['spi_2eh_1',['spi.h',['../_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_inc_2spi_8h.html',1,'(Global Namespace)'],['../_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2spi_8h.html',1,'(Global Namespace)']]],
   ['spi_5fdma_2ec_2',['SPI_DMA.c',['../_s_p_i___d_m_a_8c.html',1,'']]],
   ['spi_5fdma_2eh_3',['SPI_DMA.h',['../_s_p_i___d_m_a_8h.html',1,'']]],
   ['stm32f1xx_5fhal_5fconf_2eh_4',['stm32f1xx_hal_conf.h',['../_f103_c8_t6___demo_project___button_matrix_2_core_2_inc_2stm32f1xx__hal__conf_8h.html',1,'(Global Namespace)'],['../_f103_c8_t6___demo_project___e-_paper___s_s_d1681_2_core_2_inc_2stm32f1xx__hal__conf_8h.html',1,'(Global Namespace)'],['../_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core_2_inc_2stm32f1xx__hal__conf_8h.html',1,'(Global Namespace)'],['../_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html',1,'(Global Namespace)']]],

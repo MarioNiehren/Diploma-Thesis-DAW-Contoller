@@ -94,6 +94,7 @@ $(function(){initNavTree('_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.c File Reference</div></div>
@@ -103,7 +104,17 @@ $(function(){initNavTree('_f103_c8_t6___demo_project___l_e_ds___m_a_x7219_2_core
 <p>: Main program body  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;main.h&quot;</code><br />
+<code>#include &quot;spi.h&quot;</code><br />
+<code>#include &quot;gpio.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="max7219_8h_source.html">max7219.h</a>&quot;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a6e4fb145daef5232a74c137fcff016b3" id="r_a6e4fb145daef5232a74c137fcff016b3"><td class="memItemLeft" align="right" valign="top"><a id="a6e4fb145daef5232a74c137fcff016b3" name="a6e4fb145daef5232a74c137fcff016b3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NUM_LED_PER_ROW</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a6e4fb145daef5232a74c137fcff016b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a70af21c671abfcc773614a9a4f63d920" id="r_a70af21c671abfcc773614a9a4f63d920"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70af21c671abfcc773614a9a4f63d920">SystemClock_Config</a> (void)</td></tr>
@@ -118,9 +129,21 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a9c6222bae4d0328dd843ae099623b40b" id="r_a9c6222bae4d0328dd843ae099623b40b"><td class="memItemLeft" align="right" valign="top"><a id="a9c6222bae4d0328dd843ae099623b40b" name="a9c6222bae4d0328dd843ae099623b40b"></a>
-SPI_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><b>hspi1</b></td></tr>
-<tr class="separator:a9c6222bae4d0328dd843ae099623b40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab591d9f6088e831a0b51c72c5bec3d3b" id="r_ab591d9f6088e831a0b51c72c5bec3d3b"><td class="memItemLeft" align="right" valign="top"><a id="ab591d9f6088e831a0b51c72c5bec3d3b" name="ab591d9f6088e831a0b51c72c5bec3d3b"></a>
+<a class="el" href="structmax7219___type_def.html">max7219_TypeDef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LedDriver</b></td></tr>
+<tr class="separator:ab591d9f6088e831a0b51c72c5bec3d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75bda6d737d09d52fa8fe828494dc536" id="r_a75bda6d737d09d52fa8fe828494dc536"><td class="memItemLeft" align="right" valign="top"><a id="a75bda6d737d09d52fa8fe828494dc536" name="a75bda6d737d09d52fa8fe828494dc536"></a>
+<a class="el" href="structmax7219___l_e_d___type_def.html">max7219_LED_TypeDef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LedRow1</b> [NUM_LED_PER_ROW]</td></tr>
+<tr class="separator:a75bda6d737d09d52fa8fe828494dc536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeef6e166237f58cd09b4985ffcc5b69" id="r_aaeef6e166237f58cd09b4985ffcc5b69"><td class="memItemLeft" align="right" valign="top"><a id="aaeef6e166237f58cd09b4985ffcc5b69" name="aaeef6e166237f58cd09b4985ffcc5b69"></a>
+<a class="el" href="structmax7219___l_e_d___type_def.html">max7219_LED_TypeDef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>LedRow2</b> [NUM_LED_PER_ROW]</td></tr>
+<tr class="separator:aaeef6e166237f58cd09b4985ffcc5b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11ab79480653ea90b39effa79df89805" id="r_a11ab79480653ea90b39effa79df89805"><td class="memItemLeft" align="right" valign="top"><a id="a11ab79480653ea90b39effa79df89805" name="a11ab79480653ea90b39effa79df89805"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>CounterLedsFx</b> = 0</td></tr>
+<tr class="separator:a11ab79480653ea90b39effa79df89805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb03f4b049a01e85938d848e60517553" id="r_abb03f4b049a01e85938d848e60517553"><td class="memItemLeft" align="right" valign="top"><a id="abb03f4b049a01e85938d848e60517553" name="abb03f4b049a01e85938d848e60517553"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ModeTurnOn</b> = true</td></tr>
+<tr class="separator:abb03f4b049a01e85938d848e60517553"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>: Main program body </p>

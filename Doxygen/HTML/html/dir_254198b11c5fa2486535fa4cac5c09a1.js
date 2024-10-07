@@ -6,7 +6,7 @@ var dir_254198b11c5fa2486535fa4cac5c09a1 =
     [ "main.c", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2main_8c.html", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2main_8c" ],
     [ "motorizedFader.c", "motorized_fader_8c.html", "motorized_fader_8c" ],
     [ "pidController.c", "pid_controller_8c.html", "pid_controller_8c" ],
-    [ "spi.c", "spi_8c.html", "spi_8c" ],
+    [ "spi.c", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2spi_8c.html", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2spi_8c" ],
     [ "stm32l0xx_hal_msp.c", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2stm32l0xx__hal__msp_8c.html", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2stm32l0xx__hal__msp_8c" ],
     [ "stm32l0xx_it.c", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2stm32l0xx__it_8c.html", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2stm32l0xx__it_8c" ],
     [ "syscalls.c", "_l053_r8_t6___demo_project___motorized_fader_2_core_2_src_2syscalls_8c.html", null ],
