@@ -107,8 +107,6 @@ int main(void)
     GPIO_PinState ButtonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
     if(ButtonState == GPIO_PIN_SET)
     {
-      //HAL_Delay(5); /* delay for debounce */
-
       if(ButtonState != PrevButtonState)
       {
         //MIDI_queue_NoteOff(&MIDIPort1, 4, 100, MIDI_NOT_VELOCITY_SENSITIVE);
@@ -183,23 +181,21 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void MIDI_callback_NoteOn(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)
 {
-  if(MIDIPort == &MIDIPort1)
+  if(MIDIPort == &MIDIPort1 && Channel == 0x00 && Note == 0x38)
   {
-    if(Channel == 0x00)
-    {
-      if(Note == 0x38)    /* Taste H auf Tastatur in MIDI-OX*/
-      {
-        HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_SET);
-      }
-      else
-      {
-        HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_RESET);
-      }
-    }
-    else
-    {
-      ;
-    }
+    HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_SET);
+  }
+  else
+  {
+    ;
+  }
+}
+
+void MIDI_callback_NoteOff(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)
+{
+  if(MIDIPort == &MIDIPort1 && Channel == 0x00 && Note == 0x38)
+  {
+    HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_RESET);
   }
   else
   {

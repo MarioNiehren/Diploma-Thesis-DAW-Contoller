@@ -270,8 +270,9 @@ MIDI_error_Td MIDI_start_Transmission(MIDI_structTd* MIDIPort)
   errorcheck_stop_Code(Error);
 
   /* initiate first UART Rx Cycle */
-  RxSizeLimit =  BufferPingPong_get_RxBufferHeadroomSize();
-  RxData = BufferPingPong_get_RxBufferHeadroom(Buffer);
+  RxSizeLimit =  BufferPingPong_get_SizeOfTempRxBuffer();
+  RxData = BufferPingPong_get_StartPtrOfTempRxBuffer(Buffer);
+
   errorcheck_stop_CodeIfPointerIsNull(RxData);
   HAL_UARTEx_ReceiveToIdle_DMA(huart, RxData, RxSizeLimit);
 #if DEBUG_HT_INTERRUPT
@@ -288,12 +289,8 @@ MIDI_error_Td MIDI_start_Transmission(MIDI_structTd* MIDIPort)
 }
 
 /** @cond *//* Function Prototypes */
-MIDI_internal_CommandDescriptor_Td get_MIDICommandDescription(uint8_t StatusByte, uint8_t* Data);
-MIDI_error_Td trigger_CallbackForReceivedMIDICommand(MIDI_structTd* MIDIPort, uint8_t* Data, MIDI_internal_CommandDescriptor_Td MIDIDescriptor);
-MIDI_error_Td call_MIDIRxUserCallback(MIDI_structTd* MIDIPort, uint8_t* Data, uint16_t Size);
-
-
 MIDI_error_Td update_RxData(MIDI_structTd* MIDIPort);
+MIDI_error_Td update_TxData(MIDI_structTd* MIDIPort);
 /** @endcond *//* Function Prototypes */
 
 /* Description in .h */
@@ -301,40 +298,8 @@ MIDI_error_Td MIDI_update_Transmission(MIDI_structTd* MIDIPort)
 {
   MIDI_error_Td Error = MIDI_ERROR_NONE;
 
-  /* Get relevant data from MIDI-Port*/
-  bool RxComplete = MIDIPort->RxComplete;
-  bool TxComplete = MIDIPort->TxComplete;
-  BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
-
   Error = update_RxData(MIDIPort);
-
-  /* update Tx */
-  if(TxComplete == true)
-  {
-    UART_HandleTypeDef* huart = MIDIPort->huart;
-    Error = errorcheck_PointerIsNull(huart, MIDI_ERROR_UART_NOT_INITIALIZED);
-
-    errorcheck_stop_Code(Error);
-
-    uint8_t* TxData = BufferPingPong_get_TxStartPtrForTransmission(&MIDIPort->Buffer);
-    Error = errorcheck_PointerIsNull(TxData, MIDI_ERROR_BUFFER_TX_NULL);
-
-    errorcheck_stop_Code(Error);
-
-    BufferPingPong_error_Td BufferError;
-    BufferError = BufferPingPong_toggle_TxBuffer(&MIDIPort->Buffer);
-    Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
-
-    errorcheck_stop_Code(Error);
-
-    uint16_t size = BufferPingPong_get_TxSizeForTransmission(&MIDIPort->Buffer);
-
-    if(size > 0)
-    {
-      HAL_UART_Transmit_DMA(huart, TxData, size);
-      MIDIPort->TxComplete = false;
-    }
-  }
+  Error = update_TxData(MIDIPort);
 
   return Error;
 }
@@ -356,10 +321,21 @@ MIDI_error_Td update_RxData(MIDI_structTd* MIDIPort)
 
   if(RxComplete == true)
   {
+
+    if(MIDIPort->Buffer.ReservedToReceive == BUFFER_PINGPONG_RX_A)
+    {
+      MIDIPort->RxComplete = false;
+    }
+    else if(MIDIPort->Buffer.ReservedToReceive == BUFFER_PINGPONG_RX_B)
+    {
+      MIDIPort->RxComplete = false;
+    }
+
     /* Get Buffer access */
-    uint8_t* RxDataPtr = ButterPingPong_get_StartPtrOfFilledRxBuffer(Buffer);
-    uint16_t RxSize = BufferPingPong_get_SizeOfFilledRxBuffer(Buffer);
+    uint8_t* RxDataPtr = ButterPingPong_fetch_StartPtrOfFilledRxBuffer(Buffer);
+    uint16_t RxSize = BufferPingPong_fetch_SizeOfFilledRxBuffer(Buffer);
     BufferPingPong_toggle_RxBuffer(Buffer);
+
     MIDIPort->RxComplete = false;
 
     if(RxSize > 0)
@@ -390,6 +366,10 @@ MIDI_error_Td update_RxData(MIDI_structTd* MIDIPort)
   return Error;
 }
 
+/** @cond *//* Function Prototypes */
+MIDI_internal_CommandDescriptor_Td get_MIDICommandDescription(uint8_t StatusByte, uint8_t* Data);
+MIDI_error_Td trigger_CallbackForReceivedMIDICommand(MIDI_structTd* MIDIPort, uint8_t* Data, MIDI_internal_CommandDescriptor_Td* MIDIDescriptor);
+/** @endcond *//* Function Prototypes */
 /**
  * @brief     Analyze the current command and call the corresponding callback
  *            function.
@@ -404,12 +384,11 @@ uint16_t process_MIDICommandAtBufferPointer(MIDI_structTd* MIDIPort, uint8_t* Co
   MIDI_internal_CommandDescriptor_Td MIDIDescriptor;
 
   MIDIDescriptor = get_MIDICommandDescription(StatusByte, CommandStartPtr);
-  trigger_CallbackForReceivedMIDICommand(MIDIPort, CommandStartPtr, MIDIDescriptor);
+  trigger_CallbackForReceivedMIDICommand(MIDIPort, CommandStartPtr, &MIDIDescriptor);
   CommandSize = MIDIDescriptor.Size;
 
   return CommandSize;
 }
-
 
 /**
  * @brief     Switch through all possible status bytes and return the description
@@ -505,21 +484,32 @@ MIDI_internal_CommandDescriptor_Td get_MIDICommandDescription(uint8_t StatusByte
       MIDICommandDescription.Size = MIDI_NUMBYTES_NODATA;
       break;
     default:
-      MIDICommandDescription.Size = MIDI_NUMBYTES_STANDARD_MESSAGE;
+      errorcheck_stop_Code(MIDI_ERROR_INVALID_STATUS);
   }
   return MIDICommandDescription;
 }
 
-MIDI_error_Td trigger_CallbackForReceivedMIDICommand(MIDI_structTd* MIDIPort, uint8_t* Data, MIDI_internal_CommandDescriptor_Td MIDIDescriptor)
+/**
+ * @brief     Switch through the possible Status Bytes to call the corresponding
+ *            callback function
+ * @param     MIDIPort        pointer to the users MIDI-Port data structure
+ * @param     Data            pointer to the first command Byte in data buffer
+ * @param     MIDIDescriptor  Description of the MIDI command that will trigger
+ *                            the callback function
+ * @return    MIDI_ERROR_NONE if everything is fine
+ */
+MIDI_error_Td trigger_CallbackForReceivedMIDICommand(MIDI_structTd* MIDIPort, uint8_t* Data, MIDI_internal_CommandDescriptor_Td* MIDIDescriptor)
 {
+  /* Declare variables */
   MIDI_error_Td Error = MIDI_ERROR_NONE;
 
-  MIDI_StatusBytes_Td Status = MIDIDescriptor.StatusByte;
-  uint8_t Channel = MIDIDescriptor.MIDIChannel;
+  MIDI_StatusBytes_Td Status = MIDIDescriptor->StatusByte;
+  uint8_t Channel = MIDIDescriptor->MIDIChannel;
   uint8_t Byte1;
   uint8_t Byte2;
-  uint16_t Size = MIDIDescriptor.Size;
+  uint16_t Size = MIDIDescriptor->Size;
 
+  /* Get bytes, that will be given to the callback function */
   if(Size == MIDI_NUMBYTES_NODATA)
   {
     ;
@@ -534,68 +524,111 @@ MIDI_error_Td trigger_CallbackForReceivedMIDICommand(MIDI_structTd* MIDIPort, ui
     Byte2 = Data[2];
   }
 
+  /* Call the callback function of the MIDI-command type*/
   switch (Status)
+  {
+    case MIDI_STATUS_NOTE_OFF:
+      MIDI_callback_NoteOff(MIDIPort, Channel, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_NOTE_ON:
+      MIDI_callback_NoteOn(MIDIPort, Channel, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_POLYPHONIC_AFTERTOUCH:
+      MIDI_callback_PolyphonicAftertouch(MIDIPort, Channel, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_CONTROL_CHANGE:
+      MIDI_callback_ControlChange(MIDIPort, Channel, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_PROGRAM_CHANGE:
+      MIDI_callback_ProgramChange(MIDIPort, Channel, Byte1);
+      break;
+    case MIDI_STATUS_CHANNEL_AFTERTOUCH:
+      MIDI_callback_ChannelAftertouch(MIDIPort, Channel, Byte1);
+      break;
+    case MIDI_STATUS_PICH_BEND_CHANGE:
+      MIDI_callback_PitchBendChange(MIDIPort, Channel, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_SYSTEM_EXCLUSIVE:
+      MIDI_callback_SystemExclusive(MIDIPort, Data, Size);
+      break;
+    case MIDI_STATUS_MIDI_TIME_CODE_QTR_FRAME:
+      MIDI_callback_MIDITimeCodeQuarterFrame(MIDIPort, Byte1);
+      break;
+    case MIDI_STATUS_SONG_POSITION_POINTER:
+      MIDI_callback_SongPositionPointer(MIDIPort, Byte1, Byte2);
+      break;
+    case MIDI_STATUS_SONG_SELECT:
+      MIDI_callback_SongSelect(MIDIPort, Byte1);
+      break;
+    case MIDI_STATUS_TUNE_REQUEST:
+      MIDI_callback_TuneRequest(MIDIPort);
+      break;
+    case MIDI_STATUS_END_OF_SYS_EX:
+      MIDI_callback_EndOfSysEx(MIDIPort);
+      break;
+    case MIDI_STATUS_TIMING_CLOCK:
+      MIDI_callback_TimingClock(MIDIPort);
+      break;
+    case MIDI_STATUS_START:
+      MIDI_callback_Start(MIDIPort);
+      break;
+    case MIDI_STATUS_CONTINUE:
+      MIDI_callback_Continue(MIDIPort);
+      break;
+    case MIDI_STATUS_STOP:
+      MIDI_callback_Stop(MIDIPort);
+      break;
+    case MIDI_STATUS_ACTIVE_SENSING:
+      MIDI_callback_ActiveSensing(MIDIPort);
+      break;
+    case MIDI_STATUS_SYSTEM_RESET:
+      MIDI_callback_Reset(MIDIPort);
+      break;
+    default:
+      Error = MIDI_ERROR_INVALID_STATUS;
+  }
+
+  return Error;
+}
+
+/**
+ * @brief     update Data to Transmit
+ * @param     MIDIPort    pointer to the users MIDI-Port data structure
+ * @return    MIDI_ERROR_NONE if everything is fine
+ */
+MIDI_error_Td update_TxData(MIDI_structTd* MIDIPort)
+{
+  MIDI_error_Td Error = MIDI_ERROR_NONE;
+
+  /* Get relevant data from MIDI-Port*/
+  bool TxComplete = MIDIPort->TxComplete;
+  BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
+  UART_HandleTypeDef* huart = MIDIPort->huart;
+
+  /* update Tx */
+  if(TxComplete == true)
+  {
+    /* Get Tx start point of the filled buffer*/
+    uint8_t* TxData = NULL;
+    TxData = BufferPingPong_get_TxStartPtrOfFilledBuffer(Buffer);
+    errorcheck_stop_CodeIfPointerIsNull(TxData);
+
+    /* Get Size of filled buffer */
+    uint16_t size = BufferPingPong_get_TxSizeForTransmission(Buffer);
+
+    /* Toggle buffer, so the filled buffer gets sent. */
+    BufferPingPong_error_Td BufferError;
+    BufferError = BufferPingPong_toggle_TxBuffer(Buffer);
+    Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
+    errorcheck_stop_Code(Error);
+
+    /* initiate transmission */
+    if(size > 0)
     {
-      case MIDI_STATUS_NOTE_OFF:
-        MIDI_callback_NoteOff(MIDIPort, Channel, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_NOTE_ON:
-        MIDI_callback_NoteOn(MIDIPort, Channel, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_POLYPHONIC_AFTERTOUCH:
-        MIDI_callback_PolyphonicAftertouch(MIDIPort, Channel, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_CONTROL_CHANGE:
-        MIDI_callback_ControlChange(MIDIPort, Channel, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_PROGRAM_CHANGE:
-        MIDI_callback_ProgramChange(MIDIPort, Channel, Byte1);
-        break;
-      case MIDI_STATUS_CHANNEL_AFTERTOUCH:
-        MIDI_callback_ChannelAftertouch(MIDIPort, Channel, Byte1);
-        break;
-      case MIDI_STATUS_PICH_BEND_CHANGE:
-        MIDI_callback_PitchBendChange(MIDIPort, Channel, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_SYSTEM_EXCLUSIVE:
-        MIDI_callback_SystemExclusive(MIDIPort, Data, Size);
-        break;
-      case MIDI_STATUS_MIDI_TIME_CODE_QTR_FRAME:
-        MIDI_callback_MIDITimeCodeQuarterFrame(MIDIPort, Byte1);
-        break;
-      case MIDI_STATUS_SONG_POSITION_POINTER:
-        MIDI_callback_SongPositionPointer(MIDIPort, Byte1, Byte2);
-        break;
-      case MIDI_STATUS_SONG_SELECT:
-        MIDI_callback_SongSelect(MIDIPort, Byte1);
-        break;
-      case MIDI_STATUS_TUNE_REQUEST:
-        MIDI_callback_TuneRequest(MIDIPort);
-        break;
-      case MIDI_STATUS_END_OF_SYS_EX:
-        MIDI_callback_EndOfSysEx(MIDIPort);
-        break;
-      case MIDI_STATUS_TIMING_CLOCK:
-        MIDI_callback_TimingClock(MIDIPort);
-        break;
-      case MIDI_STATUS_START:
-        MIDI_callback_Start(MIDIPort);
-        break;
-      case MIDI_STATUS_CONTINUE:
-        MIDI_callback_Continue(MIDIPort);
-        break;
-      case MIDI_STATUS_STOP:
-        MIDI_callback_Stop(MIDIPort);
-        break;
-      case MIDI_STATUS_ACTIVE_SENSING:
-        MIDI_callback_ActiveSensing(MIDIPort);
-        break;
-      case MIDI_STATUS_SYSTEM_RESET:
-        MIDI_callback_Reset(MIDIPort);
-        break;
-      default:
-        Error = MIDI_ERROR_INVALID_STATUS;
+      HAL_UART_Transmit_DMA(huart, TxData, size);
+      MIDIPort->TxComplete = false;
     }
+  }
 
   return Error;
 }
@@ -611,11 +644,13 @@ MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd* MIDIPort, UART_HandleTypeDe
   {
     BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
-    uint16_t RxSizeLimit =  BufferPingPong_get_RxBufferHeadroomSize();
-    uint8_t* RxData = BufferPingPong_get_RxBufferHeadroom(Buffer);
+    BufferPingPong_latch_TempRxBufferToRegularRxBuffer(Buffer, Size);
 
-    BufferPingPong_save_NumReceivedHeadroomBytes(Buffer, Size);
-    BufferPingPong_latch_RxHeadroomToBuffer(Buffer);
+    uint16_t RxSizeLimit =  BufferPingPong_get_SizeOfTempRxBuffer();
+    uint8_t* RxData = BufferPingPong_get_StartPtrOfTempRxBuffer(Buffer);
+
+
+
     HAL_UARTEx_ReceiveToIdle_DMA(huartValid, RxData, RxSizeLimit);
     __HAL_DMA_DISABLE_IT(hdmaUartRx, DMA_IT_HT);
 
@@ -680,7 +715,7 @@ MIDI_error_Td queue_MIDIThreeBytes(MIDI_structTd* MIDIPort, uint8_t StatusByte, 
     BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
     BufferPingPong_error_Td BufferError;
-    BufferError = BufferPingPong_queue_TxBytesForTransmission(Buffer, TxData, MIDI_NUMBYTES_STANDARD_MESSAGE);
+    BufferError = BufferPingPong_queue_TxBytesToEmptyBuffer(Buffer, TxData, MIDI_NUMBYTES_STANDARD_MESSAGE);
     Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
   }
   else
@@ -713,7 +748,7 @@ MIDI_error_Td queue_MIDITwoBytes(MIDI_structTd* MIDIPort, uint8_t StatusByte, ui
     BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
     BufferPingPong_error_Td BufferError;
-    BufferError = BufferPingPong_queue_TxBytesForTransmission(Buffer, TxData, MIDI_NUMBYTES_SHORT_MESSAGE);
+    BufferError = BufferPingPong_queue_TxBytesToEmptyBuffer(Buffer, TxData, MIDI_NUMBYTES_SHORT_MESSAGE);
     Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
   }
   else
@@ -742,7 +777,7 @@ MIDI_error_Td queue_MIDIStatusByte(MIDI_structTd* MIDIPort, uint8_t StatusByte)
     BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
     BufferPingPong_error_Td BufferError;
-    BufferError = BufferPingPong_queue_TxBytesForTransmission(Buffer, &TxData, MIDI_NUMBYTES_NODATA);
+    BufferError = BufferPingPong_queue_TxBytesToEmptyBuffer(Buffer, &TxData, MIDI_NUMBYTES_NODATA);
     Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
   }
   else
@@ -860,7 +895,7 @@ MIDI_error_Td MIDI_queue_SystemExclusive(MIDI_structTd* MIDIPort, uint8_t* Data,
     BufferPingPong_structTd* Buffer = &MIDIPort->Buffer;
 
     BufferPingPong_error_Td BufferError;
-    BufferError = BufferPingPong_queue_TxBytesForTransmission(Buffer, TxData, SysExLength);
+    BufferError = BufferPingPong_queue_TxBytesToEmptyBuffer(Buffer, TxData, SysExLength);
     Error = errorcheck_validate_ExternalErrorCode(BufferError, BUFFER_PINGPONG_ERROR_NONE, MIDI_ERROR_BUFFERMODULE);
   }
   else

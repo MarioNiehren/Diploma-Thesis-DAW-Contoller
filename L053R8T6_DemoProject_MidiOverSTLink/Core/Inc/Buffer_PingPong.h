@@ -2,8 +2,16 @@
  * @defgroup				Buffer_PingPong     Ping-Pong Buffer used for Data Transfer
  * @brief
  *
+ * # Structure of the Buffer implementation.
+ *
+ * | Layer        | Process         | Fill      | Details                                             |
+ * | ------------ | --------------- | --------- | --------------------------------------------------- |
+ * | Application  | Get Rx data     | Tx buffer | data will be accessed by user here, e.g. in an update function |
+ * | Transmission | Send Tx data    | Rx buffer | data will actually be received and transmitted here, e.g. when the I/O Hardware gets directly accessed |
+ *
  * @defgroup        Buffer_PingPong_Header    Header
  * @brief						Study this part for a quick overview of this module.
+ *
  *
  * @addtogroup      MIDI_UART
  * @{
@@ -25,6 +33,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 /**
  * @brief   Define size of the RX Buffers here. Max Value: 65535 - 1 (16Bit,
@@ -123,6 +132,7 @@ typedef struct
   uint8_t TxB[BUFFER_PINGPONG_TX_MAX]; /**< Array B to buffer Tx bytes */
   uint16_t TxBIndex;                   /**< Index counter for TxB-Array */
 
+  bool RxBufferToggled;
 }BufferPingPong_structTd;
 /** @} ************************************************************************/
 /* end of name "Structure and Enumerations"
@@ -150,97 +160,136 @@ BufferPingPong_error_Td BufferPingPong_init_StartConditions(BufferPingPong_struc
 
 
 /***************************************************************************//**
- * @name      Rx Buffers
- * @brief     This function are used to handle the Rx Buffers
+ * @name      Rx Buffer on Application Side
+ * @brief     This function are used to access the Buffer in the users
+ *            application.
+ *
+ * # How to implement
+ * 1. Check if new data is available (This has to be checked manually, depending
+ *    on the way, how the data reception works in the applications environment).
+ *    Continue, if new data is available.
+ * 2. Get the start pointer of the index, that was filled with data from the
+ *    transmission side (BufferPingPong_fetch_SizeOfFilledRxBuffer())
+ * 3. Get the size of data inside this buffer
+ *    (ButterPingPong_fetch_StartPtrOfFilledRxBuffer())
+ * 4. toggle the Rx Buffer, so the transmitter can fill the other buffer, while
+ *    the filled buffer is  in use. (BufferPingPong_toggle_RxBuffer())
+ *
+ * @note      The Rx Buffer must not be toggled before the start pointer and the
+ *            buffer size are fetched, otherwise the return of these functions
+ *            will be wrong.
  * @{
  ******************************************************************************/
 
 /**
- * @brief     Get the start point of the first free place in the Buffer Array,
- *            that is ready to receive.
+ * @brief     Get the start point of the RxArray that contains new data.
  * @param     Buffer      pointer to the users Buffer
- * @return    Start pointer of the buffer to be send, or NULL in case of an
- *            error
+ * @return    Start Pointer of the error. NULL in case of an error.
  */
-uint8_t* BufferPingPong_get_RxStartPtrToReceiveData(BufferPingPong_structTd* Buffer);
+uint8_t* ButterPingPong_fetch_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
 
 /**
- * @brief     Toggle the buffer that is used to receive data, so the other one
- *            gets free for processing.
+ * @brief     Get the size of the Rx Buffer that contains new data
+ * @return    size of the buffered data. 0xFFFF in case of an error.
+ */
+uint16_t BufferPingPong_fetch_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
+
+/**
+ * @brief     Toggle the buffer that is used to receive data, so the filled one
+ *            gets free to use. Make sure to fetch the Start pointer and size
+ *            of the filled buffer before toggling!
  * @param     Buffer      pointer to the users Buffer
  * @return    BUFFER_PINGPONG_NONE if everything is fine
  */
 BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* Buffer);
 
-/**
- * @brief     Get the size of the currently locked Rx Buffer to handle data
- *            in the receiving side.
- * @param     Buffer      pointer to the users Buffer
- * @return    size of the buffered data. 0xFFFF in case of an error.
- */
-uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
+/** @} ************************************************************************/
+/* end of name " Rx Buffer on Application Side"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Rx Buffer on Transmission Side
+ * @brief     This function are used to handle the Rx Buffers on transmission
+ *            side. This can be anything, that actually receives data bytes and
+ *            stores them in an any buffer.
+ *
+ * # How to implement
+ * 1. Latch the temporary data, that contains data from the previous Rx Cycle,
+ *    to the regular Rx Buffer. The temporary buffer can get overwritten now.
+ *    (This step should be skipped for the first rx cycle, because the temporary
+ *    buffer will be empty)
+ * 2. Get the start pointer of the temporary data buffer. This buffer will be
+ *    used to store data, until a reception cycle is finished.
+ * 3. Get the Size of the maximum size of the temporary buffer to avoid
+ *    overflow
+ * 4. Use the received pointer and size to initiate a new data reception cycle.
+ *    The following received data should be stored here.
+ *
+ * @{
+ ******************************************************************************/
 
 /**
- * @brief     Get the start point of the RxArray that is currently locked to
- *            receive data.
+ * @brief     Copy all received data from the temporary buffer to the regular
+ *            buffer. After latching, the temporary buffer is ready to be
+ *            filled again.
  * @param     Buffer      pointer to the users Buffer
- * @return    Start Pointer of the error. NULL in case of an error.
  */
-uint8_t* ButterPingPong_get_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer);
+BufferPingPong_error_Td BufferPingPong_latch_TempRxBufferToRegularRxBuffer(BufferPingPong_structTd* Buffer, uint16_t Size);
 
 /**
- * @brief     Use this function to queue received data to the buffer that is
- *            currently locked for the user.
+ * @brief     Get the start pointer of the temporary data buffer.
+ * @param     Buffer      pointer to the users Buffer
+ * @return    pointer to the temporary Rx buffer
+ */
+uint8_t* BufferPingPong_get_StartPtrOfTempRxBuffer(BufferPingPong_structTd* Buffer);
+
+/**
+ * @brief     Get the maximum size of the temporary data buffer.
+ * @param     This function has no argument, because the maximum size is
+ *            a global define. This value counts for all buffer instances.
+ * @return    size of the temporary buffer (this is the value of
+ *            BUFFER_PINGPONG_RX_HEADROOM)
+ */
+uint16_t BufferPingPong_get_SizeOfTempRxBuffer();
+
+/** @} ************************************************************************/
+/* end of name "Rx Buffer on Transmission Side"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Tx Buffer on Application Side
+ * @brief     This function are used to handle the Tx Buffers
+ * @{
+ ******************************************************************************/
+
+/**
+ * @brief     Use this function to queue data for transmission to the buffer
+ *            that is free to be filled
  * @param     Buffer      pointer to the users Buffer
  * @param     Data        pointer to the data to be buffered
  * @param     Size        Number of bytes to be buffered
  * @return    BUFFER_PINGPONG_NONE if everything is fine
  */
-BufferPingPong_error_Td BufferPingPong_queue_RxBytes(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
+BufferPingPong_error_Td BufferPingPong_queue_TxBytesToEmptyBuffer(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
 
-/**
- * @brief     Use this function to count up the Index of the currently used
- *            RxBuffer.
- * @param     Buffer      pointer to the users Buffer
- * @param     size is the number that will be added to the index
- * @return    BUFFER_PINGPONG_NONE if everything is fine
- */
-BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_structTd* Buffer, uint16_t size);
-
-/**
- * @brief     Buffer received data byte by byte until a user
- *            specific data block is filled.
- * @param     Buffer      pointer to the users Buffer
- * @param     Data        byte to buffer
- * @return    0xFF it the hadroom is full. If the user does not latch the data
- *            before the next reception, the headroom data will get
- *            overwritten when this function gets called the next time.
- */
-uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, uint8_t Data);
-
-/**
- * @brief     Latch headroom to the regular Rx Buffer if a data clock is
- *            complete.
- * @todo      Add error handling
- * @param     Buffer      pointer to the users Buffer
- */
-BufferPingPong_error_Td BufferPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer);
-
-/* Description in .h */
-uint8_t* BufferPingPong_get_RxBufferHeadroom(BufferPingPong_structTd* Buffer);
-
-/* Description in .h */
-uint16_t BufferPingPong_get_RxBufferHeadroomSize();
-
-BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingPong_structTd* Buffer, uint16_t Size);
 /** @} ************************************************************************/
-/* end of name "Rx Buffers"
+/* end of name "Tx Buffer on Application Side"
  ******************************************************************************/
 
 
 /***************************************************************************//**
- * @name      Tx Buffers
+ * @name      Tx Buffer on Transmission Side
  * @brief     This function are used to handle the Tx Buffers
+ *
+ * # How to implement
+ *
+ * 1. Get the start pointer of the Tx Buffer, that is filled and should be sent
+ * 2. Get the Size of this buffer
+ * 3. Toggle the Tx buffers
+ * 4. Use the Pointer and Size to start the new send cycle.
+ *
  * @{
  ******************************************************************************/
 
@@ -251,15 +300,7 @@ BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingP
  * @return    Start pointer of the buffer to be send, or NULL in case of an
  *            error
  */
-uint8_t* BufferPingPong_get_TxStartPtrForTransmission(BufferPingPong_structTd* Buffer);
-
-/**
- * @brief     Toggle the buffer that is used to send data, so the other one
- *            gets free for processing.
- * @param     Buffer      pointer to the users Buffer
- * @return    BUFFER_PINGPONG_NONE if everything is fine
- */
-BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* Buffer);
+uint8_t* BufferPingPong_get_TxStartPtrOfFilledBuffer(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Get the length of the Array to be send.
@@ -275,24 +316,16 @@ BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* 
 uint16_t BufferPingPong_get_TxSizeForTransmission(BufferPingPong_structTd* Buffer);
 
 /**
- * @brief     Use this function to queue data for transmission to the buffer
- *            that is currently not locked for the user.
+ * @brief     Toggle the buffer that is used to send data, so the other one
+ *            gets free for processing.
  * @param     Buffer      pointer to the users Buffer
- * @param     Data        pointer to the data to be buffered
- * @param     Size        Number of bytes to be buffered
  * @return    BUFFER_PINGPONG_NONE if everything is fine
  */
-BufferPingPong_error_Td BufferPingPong_queue_TxBytesForTransmission(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
+BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* Buffer);
 
 /** @} ************************************************************************/
-/* end of name "Tx Buffers"
+/* end of name "Tx Buffer on Application Side"
  ******************************************************************************/
-
-
-
-
-
-
 
 /**@}*//* end of defgroup "Buffer_PingPong_Header" */
 /**@}*//* end of defgroup "Buffer_PingPong" */

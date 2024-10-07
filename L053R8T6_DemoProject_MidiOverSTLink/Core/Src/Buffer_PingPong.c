@@ -15,7 +15,7 @@
  ******************************************************************************/
 
 #include <Buffer_PingPong.h>
-
+#include <string.h>
 /***************************************************************************//**
  * @name      Initialize
  * @brief     Use these functions to initialize this module.
@@ -53,6 +53,12 @@ BufferPingPong_error_Td BufferPingPong_init_StartConditions(BufferPingPong_struc
   Buffer->RxBIndex = 0;
   Buffer->RxHeadroomIndex = 0;
 
+  memset(Buffer->RxA, 0x00, BUFFER_PINGPONG_RX_MAX);
+  memset(Buffer->RxB, 0x00, BUFFER_PINGPONG_RX_MAX);
+  memset(Buffer->TxA, 0x00, BUFFER_PINGPONG_TX_MAX);
+  memset(Buffer->TxB, 0x00, BUFFER_PINGPONG_TX_MAX);
+  memset(Buffer->RxHeadroom, 0x00, BUFFER_PINGPONG_RX_HEADROOM);
+
   return Error;
 }
 /** @} ************************************************************************/
@@ -67,31 +73,6 @@ BufferPingPong_error_Td BufferPingPong_init_StartConditions(BufferPingPong_struc
  ******************************************************************************/
 
 /* Description in .h */
-uint8_t* BufferPingPong_get_RxStartPtrToReceiveData(BufferPingPong_structTd* Buffer)
-{
-  uint8_t* ReturnPtr;
-  BufferPingPong_Td RxBuffer = Buffer->ReservedToReceive;
-  uint16_t Index;
-
-  if(RxBuffer == BUFFER_PINGPONG_RX_A)
-  {
-    Index = Buffer->RxAIndex;
-    ReturnPtr = &Buffer->RxA[Index];
-  }
-  else if(RxBuffer == BUFFER_PINGPONG_RX_B)
-  {
-    Index = Buffer->RxBIndex;
-    ReturnPtr = &Buffer->RxB[Index];
-  }
-  else
-  {
-    ReturnPtr = NULL;
-  }
-
-  return ReturnPtr;
-}
-
-/* Description in .h */
 BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* Buffer)
 {
   BufferPingPong_error_Td Error;
@@ -101,13 +82,14 @@ BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* 
   {
     Buffer->ReservedToReceive = BUFFER_PINGPONG_RX_B;
     Buffer->RxBIndex = 0;
+    Buffer->RxBufferToggled = true;
     Error = BUFFER_PINGPONG_ERROR_NONE;
-
   }
   else if(ReservedBuffer == BUFFER_PINGPONG_RX_B)
   {
     Buffer->ReservedToReceive = BUFFER_PINGPONG_RX_A;
     Buffer->RxAIndex = 0;
+    Buffer->RxBufferToggled = true;
     Error = BUFFER_PINGPONG_ERROR_NONE;
   }
   else
@@ -119,7 +101,7 @@ BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* 
 }
 
 /* Description in .h */
-uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
+uint16_t BufferPingPong_fetch_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint16_t BufferSize;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
@@ -128,7 +110,7 @@ uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer
   {
     BufferSize = Buffer->RxAIndex;
   }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
+  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
   {
     BufferSize = Buffer->RxBIndex;
   }
@@ -141,18 +123,18 @@ uint16_t BufferPingPong_get_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer
 }
 
 /* Description in .h */
-uint8_t* ButterPingPong_get_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
+uint8_t* ButterPingPong_fetch_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint8_t* StartPtr;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
 
   if(LockedBuffer == BUFFER_PINGPONG_RX_A)
   {
-    StartPtr = Buffer->RxA;
+    StartPtr = &Buffer->RxA[0];
   }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
+  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
   {
-    StartPtr = Buffer->RxB;
+    StartPtr = &Buffer->RxB[0];
   }
   else
   {
@@ -160,98 +142,6 @@ uint8_t* ButterPingPong_get_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Bu
   }
 
   return StartPtr;
-}
-
-/** @cond *//* Function Prototypes */
-BufferPingPong_error_Td queue_BytesToRxBufferA(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
-BufferPingPong_error_Td queue_BytesToRxBufferB(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
-/** @endcond *//* Function Prototypes */
-
-/* Description in .h */
-BufferPingPong_error_Td BufferPingPong_queue_RxBytes(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size)
-{
-  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
-  BufferPingPong_Td ReservedBuffer = Buffer->ReservedToReceive;
-
-  if(ReservedBuffer == BUFFER_PINGPONG_RX_A)
-  {
-    Error = queue_BytesToRxBufferA(Buffer, Data, Size);
-  }
-  else if(ReservedBuffer == BUFFER_PINGPONG_RX_B)
-  {
-    Error = queue_BytesToRxBufferB(Buffer, Data, Size);
-  }
-  else
-  {
-    Error = BUFFER_PINGPONG_ERROR_NO_BUFFER_FOUND;
-  }
-
-  return Error;
-}
-
-/**
- * @brief     Queue bytes to the RxA Buffer.
- * @param     Buffer      pointer to the users Buffer
- * @param     Data        pointer to the data to be buffered
- * @param     Size        Number of bytes to be buffered
- * @return    MIDI_BUFFER_ERROR_NONE if everything is fine
- */
-BufferPingPong_error_Td queue_BytesToRxBufferA(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size)
-{
-  BufferPingPong_error_Td Error;
-
-  uint16_t IndexRxA = Buffer->RxAIndex;
-  uint16_t TotalSize = IndexRxA + Size;
-
-  if(TotalSize <=  BUFFER_PINGPONG_RX_MAX)
-  {
-    Error = BUFFER_PINGPONG_ERROR_NONE;
-
-    for(uint16_t i = 0; i < Size; i++)
-    {
-      uint16_t ValidIndex = IndexRxA + i;
-      Buffer->RxA[ValidIndex] = Data[i];
-    }
-    Buffer->RxAIndex = IndexRxA + Size;
-  }
-  else
-  {
-    Error = BUFFER_PINGPONG_ERROR_RX_A_OVERFLOW;
-  }
-
-  return Error;
-}
-/**
- * @brief     Queue bytes to the RxB Buffer.
- * @param     Buffer      pointer to the users Buffer
- * @param     Data        pointer to the data to be buffered
- * @param     Size        Number of bytes to be buffered
- * @return    MIDI_BUFFER_ERROR_NONE if everything is fine
- */
-BufferPingPong_error_Td queue_BytesToRxBufferB(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size)
-{
-  BufferPingPong_error_Td Error;
-
-  uint16_t IndexRxB = Buffer->RxBIndex;
-  uint16_t TotalSize = IndexRxB + Size;
-
-  if(TotalSize <=  BUFFER_PINGPONG_RX_MAX)
-  {
-    Error = BUFFER_PINGPONG_ERROR_NONE;
-
-    for(uint16_t i = 0; i < Size; i++)
-    {
-      uint16_t ValidIndex = IndexRxB + i;
-      Buffer->RxB[ValidIndex] = Data[i];
-    }
-    Buffer->RxBIndex = IndexRxB + Size;
-  }
-  else
-  {
-    Error = BUFFER_PINGPONG_ERROR_RX_B_OVERFLOW;
-  }
-
-  return Error;
 }
 
 /* Description in .h */
@@ -277,7 +167,7 @@ BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_str
       Error = BUFFER_PINGPONG_ERROR_NONE;
     }
   }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
+  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
   {
     uint16_t PrevIndex = Buffer->RxBIndex;
     uint16_t NewIndex = PrevIndex + size;
@@ -323,27 +213,26 @@ uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, 
 }
 
 /* Description in .h */
-BufferPingPong_error_Td BufferPingPong_latch_RxHeadroomToBuffer(BufferPingPong_structTd* Buffer)
+BufferPingPong_error_Td BufferPingPong_latch_TempRxBufferToRegularRxBuffer(BufferPingPong_structTd* Buffer, uint16_t Size)
 {
   BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
 
   uint8_t* StartPtrSource = &Buffer->RxHeadroom[0];
-  uint8_t* StartPtrDest =  ButterPingPong_get_StartPtrOfFilledRxBuffer(Buffer);
-  uint16_t SizeHeadroom = Buffer->RxHeadroomIndex;
-  uint16_t DestIndexOffset = BufferPingPong_get_SizeOfFilledRxBuffer(Buffer);
+  uint8_t* StartPtrDest =  ButterPingPong_fetch_StartPtrOfFilledRxBuffer(Buffer);
+  uint16_t SizeHeadroom = Size;
+  uint16_t DestIndexOffset = BufferPingPong_fetch_SizeOfFilledRxBuffer(Buffer);
 
   for(uint8_t i = 0; i < SizeHeadroom; i++)
   {
     StartPtrDest[DestIndexOffset + i] = StartPtrSource[i];
   }
-  BufferPingPong_increase_RxBufferIndex(Buffer, SizeHeadroom);
-  Buffer->RxHeadroomIndex = 0x00;
 
+  BufferPingPong_increase_RxBufferIndex(Buffer, SizeHeadroom);
   return Error;
 }
 
 /* Description in .h */
-uint8_t* BufferPingPong_get_RxBufferHeadroom(BufferPingPong_structTd* Buffer)
+uint8_t* BufferPingPong_get_StartPtrOfTempRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint8_t* StartPtr = &Buffer->RxHeadroom[0];
 
@@ -351,20 +240,11 @@ uint8_t* BufferPingPong_get_RxBufferHeadroom(BufferPingPong_structTd* Buffer)
 }
 
 /* Description in .h */
-uint16_t BufferPingPong_get_RxBufferHeadroomSize()
+uint16_t BufferPingPong_get_SizeOfTempRxBuffer()
 {
   return BUFFER_PINGPONG_RX_HEADROOM;
 }
 
-/* Description in .h */
-BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingPong_structTd* Buffer, uint16_t Size)
-{
-  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
-
-  Buffer->RxHeadroomIndex = Buffer->RxHeadroomIndex + Size;
-
-  return Error;
-}
 /** @} ************************************************************************/
 /* end of name "Rx Buffers"
  ******************************************************************************/
@@ -377,7 +257,7 @@ BufferPingPong_error_Td BufferPingPong_save_NumReceivedHeadroomBytes(BufferPingP
  ******************************************************************************/
 
 /* Description in .h */
-uint8_t* BufferPingPong_get_TxStartPtrForTransmission(BufferPingPong_structTd* Buffer)
+uint8_t* BufferPingPong_get_TxStartPtrOfFilledBuffer(BufferPingPong_structTd* Buffer)
 {
   uint8_t* ReturnPtr;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
@@ -430,13 +310,13 @@ uint16_t BufferPingPong_get_TxSizeForTransmission(BufferPingPong_structTd* Buffe
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
   if(LockedBuffer == BUFFER_PINGPONG_TX_A)
   {
-    size = Buffer->TxAIndex;
-    Buffer->TxAIndex = 0;
+    size = Buffer->TxBIndex;
+    Buffer->TxBIndex = 0;
   }
   else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
   {
-    size = Buffer->TxBIndex;
-    Buffer->TxBIndex = 0;
+    size = Buffer->TxAIndex;
+    Buffer->TxAIndex = 0;
   }
   else
   {
@@ -452,7 +332,7 @@ BufferPingPong_error_Td queue_BytesToTxBufferB(BufferPingPong_structTd* Buffer, 
 /** @endcond *//* Function Prototypes */
 
 /* Description in .h */
-BufferPingPong_error_Td BufferPingPong_queue_TxBytesForTransmission(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size)
+BufferPingPong_error_Td BufferPingPong_queue_TxBytesToEmptyBuffer(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size)
 {
   BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
