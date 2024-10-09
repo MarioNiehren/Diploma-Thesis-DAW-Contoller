@@ -46,14 +46,50 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+/* structures to handle HUI-Commands */
+typedef struct
+{
+  uint8_t Zone;
+  uint8_t PortOn;
+  uint8_t PortOff;
+}HUI_Rx_Td;
+
+typedef struct
+{
+  uint8_t Zone;
+  uint8_t Port;
+  bool ToggleOn;
+  bool ToggleOff;
+}HUI_solo_td;
+
+/* Instances of the previous declared structures */
+HUI_Rx_Td HUIRx = {
+    .Zone = 0xFF,
+    .PortOn = 0xFF,
+    .PortOff = 0xFF,
+};
+
+HUI_solo_td SoloCh1 = {
+    .Zone = 0x00,
+    .Port = 0x03,
+    .ToggleOn = false,
+    .ToggleOff = false,
+};
+
+/* used MIDI instance */
 MIDI_structTd MIDIPort1;
-GPIO_PinState PrevButtonState = GPIO_PIN_RESET;
+
+/* used to read nucleo user button */
+GPIO_PinState PrevButtonState = GPIO_PIN_SET;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void HUI_send_SwitchCommandOn(MIDI_structTd* MIDIPort, uint8_t Zone, uint8_t Port);
+void HUI_send_SwitchCommandOff(MIDI_structTd* MIDIPort, uint8_t Zone, uint8_t Port);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -105,23 +141,33 @@ int main(void)
     MIDI_update_Transmission(&MIDIPort1);
 
     GPIO_PinState ButtonState = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-    if(ButtonState == GPIO_PIN_SET)
+    if(ButtonState == GPIO_PIN_RESET)
     {
       if(ButtonState != PrevButtonState)
       {
-        //MIDI_queue_NoteOff(&MIDIPort1, 4, 100, MIDI_NOT_VELOCITY_SENSITIVE);
-
-        char* SysExCommand = "Hallo, das ist ein SysEx-Test";
-        MIDI_queue_SystemExclusive(&MIDIPort1, (uint8_t*) SysExCommand, strlen(SysExCommand));
-        PrevButtonState = ButtonState;
+        PrevButtonState = GPIO_PIN_RESET;
+        HUI_send_SwitchCommandOn(&MIDIPort1, SoloCh1.Zone, SoloCh1.Port);
       }
     }
     else
     {
       if(ButtonState != PrevButtonState)
       {
-        PrevButtonState = GPIO_PIN_RESET;
+        PrevButtonState = GPIO_PIN_SET;
+        HUI_send_SwitchCommandOff(&MIDIPort1, SoloCh1.Zone, SoloCh1.Port);
       }
+    }
+
+    if(SoloCh1.ToggleOn == true)
+    {
+      HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_SET);
+      SoloCh1.ToggleOn = false;
+    }
+
+    if(SoloCh1.ToggleOff == true)
+    {
+      HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_RESET);
+      SoloCh1.ToggleOff = false;
     }
     /* USER CODE END WHILE */
 
@@ -179,15 +225,92 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HUI_send_SwitchCommandOn(MIDI_structTd* MIDIPort, uint8_t Zone, uint8_t Port)
+{
+  uint8_t Channel = 0x00;
+  uint8_t ZoneSelect = 0x0F;
+  uint8_t PortSelect = 0x2F;
+  uint8_t PortOffset = 0x40;
+  uint8_t PortValue = Port + PortOffset;
+
+  MIDI_queue_ControlChange(&MIDIPort1, Channel, ZoneSelect, Zone);
+  MIDI_queue_ControlChange(&MIDIPort1, Channel, PortSelect, PortValue);
+}
+
+void HUI_send_SwitchCommandOff(MIDI_structTd* MIDIPort, uint8_t Zone, uint8_t Port)
+{
+  uint8_t Channel = 0x00;
+  uint8_t ZoneSelect = 0x0F;
+  uint8_t PortSelect = 0x2F;
+
+  MIDI_queue_ControlChange(&MIDIPort1, Channel, ZoneSelect, Zone);
+  MIDI_queue_ControlChange(&MIDIPort1, Channel, PortSelect, Port);
+}
+
 void MIDI_callback_NoteOn(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)
 {
-  if(MIDIPort == &MIDIPort1 && Channel == 0x00 && Note == 0x38)
+  if(MIDIPort == &MIDIPort1 && Channel == 0x00 && Note == 0x00 && Velocity == 0x00)
   {
-    HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_SET);
+    /* Answer Ping */
+    uint8_t PingChannel = 0x00;
+    uint8_t PingByte1  = 0x00;
+    uint8_t PingByte2 = 0x7F;
+    MIDI_queue_NoteOn(&MIDIPort1, PingChannel, PingByte1, PingByte2);
   }
-  else
+}
+
+void MIDI_callback_ControlChange(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Number, uint8_t Value)
+{
+  if(MIDIPort == &MIDIPort1)
   {
-    ;
+    const uint8_t HUI_Channel = 0x00;
+    const uint8_t HUI_ZoneSelect = 0x0C;
+    const uint8_t HUI_PortSelect = 0x2C;
+    const uint8_t HUI_Port_ValueMsk = 0x40;
+    const uint8_t HUI_Port_NumberMsk = 0xF0;
+
+    const uint8_t HUI_ResetValue = 0xFF;
+
+    if(Channel == HUI_Channel)
+    {
+      /* Get HUI-Zone*/
+      if(Number == HUI_ZoneSelect)
+      {
+        HUIRx.Zone = Value;
+      }
+      /* Get HUI-Port */
+      if(Number == HUI_PortSelect)
+      {
+        if((Value & HUI_Port_ValueMsk) == HUI_Port_ValueMsk)
+        {
+          /* Extract port number from byte 0x4n */
+          HUIRx.PortOn = Value & ~HUI_Port_NumberMsk;
+        }
+        else
+        {
+          /* Extract port number from byte 0x0n */
+          HUIRx.PortOff = Value & ~HUI_Port_NumberMsk;
+        }
+      }
+
+      /* set Solo Flag */
+      if(HUIRx.Zone == SoloCh1.Zone)
+      {
+        if(HUIRx.PortOn == SoloCh1.Port)
+        {
+          SoloCh1.ToggleOn = true;
+          HUIRx.Zone = HUI_ResetValue;
+          HUIRx.PortOn = HUI_ResetValue;
+        }
+
+        if(HUIRx.PortOff == SoloCh1.Port)
+        {
+          SoloCh1.ToggleOff = true;
+          HUIRx.Zone = HUI_ResetValue;
+          HUIRx.PortOff = HUI_ResetValue;
+        }
+      }
+    }
   }
 }
 
@@ -212,6 +335,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
   MIDI_manage_TxInterrupt(&MIDIPort1, huart);
 }
+
 /* USER CODE END 4 */
 
 /**

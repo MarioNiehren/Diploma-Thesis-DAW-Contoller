@@ -67,10 +67,55 @@ BufferPingPong_error_Td BufferPingPong_init_StartConditions(BufferPingPong_struc
 
 
 /***************************************************************************//**
- * @name      Rx Buffers
- * @brief     This function are used to handle the Rx Buffers
+ * @name      Rx Buffer on Application Side
+ * @brief     This function are used to access the Buffer in the users
+ *            application.
  * @{
  ******************************************************************************/
+
+/* Description in .h */
+uint8_t* ButterPingPong_fetch_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
+{
+  uint8_t* StartPtr;
+  BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
+
+  if(LockedBuffer == BUFFER_PINGPONG_RX_A)
+  {
+    StartPtr = &Buffer->RxA[0];
+  }
+  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
+  {
+    StartPtr = &Buffer->RxB[0];
+  }
+  else
+  {
+    StartPtr = NULL;
+  }
+
+  return StartPtr;
+}
+
+/* Description in .h */
+uint16_t BufferPingPong_fetch_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
+{
+  uint16_t BufferSize;
+  BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
+
+  if(LockedBuffer == BUFFER_PINGPONG_RX_A)
+  {
+    BufferSize = Buffer->RxAIndex;
+  }
+  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
+  {
+    BufferSize = Buffer->RxBIndex;
+  }
+  else
+  {
+    BufferSize = BUFFER_PINGPONG_ERROR_16BIT_RANGE_OVERFLOW;
+  }
+
+  return BufferSize;
+}
 
 /* Description in .h */
 BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* Buffer)
@@ -100,52 +145,44 @@ BufferPingPong_error_Td BufferPingPong_toggle_RxBuffer(BufferPingPong_structTd* 
   return Error;
 }
 
+/** @} ************************************************************************/
+/* end of name " Rx Buffer on Application Side"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Rx Buffer on Transmission Side
+ * @brief     This function are used to handle the Rx Buffers on transmission
+ *            side. This can be anything, that actually receives data bytes and
+ *            stores them in an any buffer.
+ * @{
+ ******************************************************************************/
+
+/** @cond *//* Function Prototypes */
+BufferPingPong_error_Td increase_RxBufferIndex(BufferPingPong_structTd* Buffer, uint16_t size);
+/** @endcond *//* Function Prototypes */
+
 /* Description in .h */
-uint16_t BufferPingPong_fetch_SizeOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
+BufferPingPong_error_Td BufferPingPong_latch_TempRxBufferToRegularRxBuffer(BufferPingPong_structTd* Buffer, uint16_t Size)
 {
-  uint16_t BufferSize;
-  BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
+  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
 
-  if(LockedBuffer == BUFFER_PINGPONG_RX_A)
+  uint8_t* StartPtrSource = &Buffer->RxHeadroom[0];
+  uint8_t* StartPtrDest =  ButterPingPong_fetch_StartPtrOfFilledRxBuffer(Buffer);
+  uint16_t SizeHeadroom = Size;
+  uint16_t DestIndexOffset = BufferPingPong_fetch_SizeOfFilledRxBuffer(Buffer);
+
+  for(uint8_t i = 0; i < SizeHeadroom; i++)
   {
-    BufferSize = Buffer->RxAIndex;
-  }
-  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
-  {
-    BufferSize = Buffer->RxBIndex;
-  }
-  else
-  {
-    BufferSize = BUFFER_PINGPONG_ERROR_16BIT_RANGE_OVERFLOW;
+    StartPtrDest[DestIndexOffset + i] = StartPtrSource[i];
   }
 
-  return BufferSize;
+  increase_RxBufferIndex(Buffer, SizeHeadroom);
+  return Error;
 }
 
 /* Description in .h */
-uint8_t* ButterPingPong_fetch_StartPtrOfFilledRxBuffer(BufferPingPong_structTd* Buffer)
-{
-  uint8_t* StartPtr;
-  BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
-
-  if(LockedBuffer == BUFFER_PINGPONG_RX_A)
-  {
-    StartPtr = &Buffer->RxA[0];
-  }
-  else if(LockedBuffer == BUFFER_PINGPONG_RX_B)
-  {
-    StartPtr = &Buffer->RxB[0];
-  }
-  else
-  {
-    StartPtr = NULL;
-  }
-
-  return StartPtr;
-}
-
-/* Description in .h */
-BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_structTd* Buffer, uint16_t size)
+BufferPingPong_error_Td increase_RxBufferIndex(BufferPingPong_structTd* Buffer, uint16_t size)
 {
   BufferPingPong_error_Td Error;
   BufferPingPong_Td LockedBuffer = Buffer->ReservedToReceive;
@@ -192,46 +229,6 @@ BufferPingPong_error_Td BufferPingPong_increase_RxBufferIndex(BufferPingPong_str
 }
 
 /* Description in .h */
-/* Maybe deprecated */
-uint16_t BufferPingPong_queue_RxByteToHeadroom(BufferPingPong_structTd* Buffer, uint8_t Data)
-{
-  uint16_t Index = Buffer->RxHeadroomIndex;
-  uint16_t BufferedBytes = Index + 1;
-
-  if(BufferedBytes > BUFFER_PINGPONG_RX_HEADROOM)
-  {
-    BufferedBytes = BUFFER_PINGPONG_OVERFLOW;
-    Buffer->RxHeadroomIndex = 0x00;
-  }
-  else
-  {
-    Buffer->RxHeadroom[Index] = Data;
-    Buffer->RxHeadroomIndex++;
-  }
-
-  return BufferedBytes;
-}
-
-/* Description in .h */
-BufferPingPong_error_Td BufferPingPong_latch_TempRxBufferToRegularRxBuffer(BufferPingPong_structTd* Buffer, uint16_t Size)
-{
-  BufferPingPong_error_Td Error = BUFFER_PINGPONG_ERROR_NONE;
-
-  uint8_t* StartPtrSource = &Buffer->RxHeadroom[0];
-  uint8_t* StartPtrDest =  ButterPingPong_fetch_StartPtrOfFilledRxBuffer(Buffer);
-  uint16_t SizeHeadroom = Size;
-  uint16_t DestIndexOffset = BufferPingPong_fetch_SizeOfFilledRxBuffer(Buffer);
-
-  for(uint8_t i = 0; i < SizeHeadroom; i++)
-  {
-    StartPtrDest[DestIndexOffset + i] = StartPtrSource[i];
-  }
-
-  BufferPingPong_increase_RxBufferIndex(Buffer, SizeHeadroom);
-  return Error;
-}
-
-/* Description in .h */
 uint8_t* BufferPingPong_get_StartPtrOfTempRxBuffer(BufferPingPong_structTd* Buffer)
 {
   uint8_t* StartPtr = &Buffer->RxHeadroom[0];
@@ -246,85 +243,15 @@ uint16_t BufferPingPong_get_SizeOfTempRxBuffer()
 }
 
 /** @} ************************************************************************/
-/* end of name "Rx Buffers"
+/* end of name "Rx Buffer on Transmission Side"
  ******************************************************************************/
 
 
 /***************************************************************************//**
- * @name      Tx Buffers
+ * @name      Tx Buffer on Application Side
  * @brief     This function are used to handle the Tx Buffers
  * @{
  ******************************************************************************/
-
-/* Description in .h */
-uint8_t* BufferPingPong_get_TxStartPtrOfFilledBuffer(BufferPingPong_structTd* Buffer)
-{
-  uint8_t* ReturnPtr;
-  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
-
-  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
-  {
-    ReturnPtr = Buffer->TxB;
-  }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B || LockedBuffer == BUFFER_PINGPONG_NONE)
-  {
-    ReturnPtr = Buffer->TxA;
-  }
-  else
-  {
-    ReturnPtr = NULL;
-  }
-
-  return ReturnPtr;
-}
-
-/* Description in .h */
-BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* Buffer)
-{
-  BufferPingPong_error_Td Error;
-  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
-
-  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
-  {
-    Buffer->ReservedToSend = BUFFER_PINGPONG_TX_B;
-    Error = BUFFER_PINGPONG_ERROR_NONE;
-
-  }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B || LockedBuffer == BUFFER_PINGPONG_NONE)
-  {
-    Buffer->ReservedToSend = BUFFER_PINGPONG_TX_A;
-    Error = BUFFER_PINGPONG_ERROR_NONE;
-  }
-  else
-  {
-    Error = BUFFER_PINGPONG_ERROR_TOGGLE_TX_FAILED;
-  }
-
-  return Error;
-}
-
-/* Description in .h */
-uint16_t BufferPingPong_get_TxSizeForTransmission(BufferPingPong_structTd* Buffer)
-{
-  uint8_t size;
-  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
-  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
-  {
-    size = Buffer->TxBIndex;
-    Buffer->TxBIndex = 0;
-  }
-  else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
-  {
-    size = Buffer->TxAIndex;
-    Buffer->TxAIndex = 0;
-  }
-  else
-  {
-    size  = 0;
-  }
-
-  return size;
-}
 
 /** @cond *//* Function Prototypes */
 BufferPingPong_error_Td queue_BytesToTxBufferA(BufferPingPong_structTd* Buffer, uint8_t* Data, uint8_t Size);
@@ -417,6 +344,91 @@ BufferPingPong_error_Td queue_BytesToTxBufferB(BufferPingPong_structTd* Buffer, 
 
   return Error;
 }
+
+/** @} ************************************************************************/
+/* end of name "Tx Buffer on Application Side"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Tx Buffer on Transmission Side
+ * @brief     This function are used to handle the Tx Buffers
+ * @{
+ ******************************************************************************/
+
+/* Description in .h */
+uint8_t* BufferPingPong_get_StartPtrOfFilledTxBuffer(BufferPingPong_structTd* Buffer)
+{
+  uint8_t* ReturnPtr;
+  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
+
+  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
+  {
+    ReturnPtr = Buffer->TxB;
+  }
+  else if(LockedBuffer == BUFFER_PINGPONG_TX_B || LockedBuffer == BUFFER_PINGPONG_NONE)
+  {
+    ReturnPtr = Buffer->TxA;
+  }
+  else
+  {
+    ReturnPtr = NULL;
+  }
+
+  return ReturnPtr;
+}
+
+/* Description in .h */
+uint16_t BufferPingPong_get_SizeOfFilledTxBuffer(BufferPingPong_structTd* Buffer)
+{
+  uint8_t size;
+  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
+  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
+  {
+    size = Buffer->TxBIndex;
+    Buffer->TxBIndex = 0;
+  }
+  else if(LockedBuffer == BUFFER_PINGPONG_TX_B)
+  {
+    size = Buffer->TxAIndex;
+    Buffer->TxAIndex = 0;
+  }
+  else
+  {
+    size  = 0;
+  }
+
+  return size;
+}
+
+/* Description in .h */
+BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* Buffer)
+{
+  BufferPingPong_error_Td Error;
+  BufferPingPong_Td LockedBuffer = Buffer->ReservedToSend;
+
+  if(LockedBuffer == BUFFER_PINGPONG_TX_A)
+  {
+    Buffer->ReservedToSend = BUFFER_PINGPONG_TX_B;
+    Error = BUFFER_PINGPONG_ERROR_NONE;
+
+  }
+  else if(LockedBuffer == BUFFER_PINGPONG_TX_B || LockedBuffer == BUFFER_PINGPONG_NONE)
+  {
+    Buffer->ReservedToSend = BUFFER_PINGPONG_TX_A;
+    Error = BUFFER_PINGPONG_ERROR_NONE;
+  }
+  else
+  {
+    Error = BUFFER_PINGPONG_ERROR_TOGGLE_TX_FAILED;
+  }
+
+  return Error;
+}
+
+
+
+
 
 /** @} ************************************************************************/
 /* end of name "Tx Buffers"

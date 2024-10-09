@@ -96,6 +96,11 @@ typedef enum
   MIDI_ERROR_INVALID_DATA = 0x80,
   MIDI_ERROR_INVALID_STATUS = 0x81,
 
+  MIDI_ERROR_BUFFER_A_TRAPPED = 0x90,
+  MIDI_ERROR_BUFFER_B_TRAPPED = 0x91,
+
+  MIDI_ERROR_HAL_TX = 0xA0,
+
   /* This code must not be used to be exported. It is
    * reserved for internal use only as a momentary
    * transfer value */
@@ -124,6 +129,9 @@ typedef struct
 
   bool    TxComplete;
   bool    RxComplete;
+
+  HAL_StatusTypeDef HALTxError;
+  HAL_StatusTypeDef HALRxError;
 }MIDI_structTd;
 /** @} ************************************************************************/
 /* end of name "Structure and Enumerations"

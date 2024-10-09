@@ -300,7 +300,7 @@ BufferPingPong_error_Td BufferPingPong_queue_TxBytesToEmptyBuffer(BufferPingPong
  * @return    Start pointer of the buffer to be send, or NULL in case of an
  *            error
  */
-uint8_t* BufferPingPong_get_TxStartPtrOfFilledBuffer(BufferPingPong_structTd* Buffer);
+uint8_t* BufferPingPong_get_StartPtrOfFilledTxBuffer(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Get the length of the Array to be send.
@@ -313,7 +313,7 @@ uint8_t* BufferPingPong_get_TxStartPtrOfFilledBuffer(BufferPingPong_structTd* Bu
  * @return    size of the buffer that will be send. 0 if the buffer is empty or
  *            in case of an error.
  */
-uint16_t BufferPingPong_get_TxSizeForTransmission(BufferPingPong_structTd* Buffer);
+uint16_t BufferPingPong_get_SizeOfFilledTxBuffer(BufferPingPong_structTd* Buffer);
 
 /**
  * @brief     Toggle the buffer that is used to send data, so the other one
@@ -324,7 +324,7 @@ uint16_t BufferPingPong_get_TxSizeForTransmission(BufferPingPong_structTd* Buffe
 BufferPingPong_error_Td BufferPingPong_toggle_TxBuffer(BufferPingPong_structTd* Buffer);
 
 /** @} ************************************************************************/
-/* end of name "Tx Buffer on Application Side"
+/* end of name "Tx Buffer on Transmission Side"
  ******************************************************************************/
 
 /**@}*//* end of defgroup "Buffer_PingPong_Header" */

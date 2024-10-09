@@ -610,11 +610,11 @@ MIDI_error_Td update_TxData(MIDI_structTd* MIDIPort)
   {
     /* Get Tx start point of the filled buffer*/
     uint8_t* TxData = NULL;
-    TxData = BufferPingPong_get_TxStartPtrOfFilledBuffer(Buffer);
+    TxData = BufferPingPong_get_StartPtrOfFilledTxBuffer(Buffer);
     errorcheck_stop_CodeIfPointerIsNull(TxData);
 
     /* Get Size of filled buffer */
-    uint16_t size = BufferPingPong_get_TxSizeForTransmission(Buffer);
+    uint16_t size = BufferPingPong_get_SizeOfFilledTxBuffer(Buffer);
 
     /* Toggle buffer, so the filled buffer gets sent. */
     BufferPingPong_error_Td BufferError;
@@ -623,9 +623,9 @@ MIDI_error_Td update_TxData(MIDI_structTd* MIDIPort)
     errorcheck_stop_Code(Error);
 
     /* initiate transmission */
-    if(size > 0)
+    MIDIPort->HALTxError = HAL_UART_Transmit_DMA(huart, TxData, size);
+    if(MIDIPort->HALTxError == HAL_OK)
     {
-      HAL_UART_Transmit_DMA(huart, TxData, size);
       MIDIPort->TxComplete = false;
     }
   }
@@ -651,7 +651,7 @@ MIDI_error_Td MIDI_manage_RxInterrupt(MIDI_structTd* MIDIPort, UART_HandleTypeDe
 
 
 
-    HAL_UARTEx_ReceiveToIdle_DMA(huartValid, RxData, RxSizeLimit);
+    MIDIPort->HALRxError = HAL_UARTEx_ReceiveToIdle_DMA(huartValid, RxData, RxSizeLimit);
     __HAL_DMA_DISABLE_IT(hdmaUartRx, DMA_IT_HT);
 
     MIDIPort->RxComplete = true;
