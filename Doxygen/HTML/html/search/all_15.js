@@ -12,6 +12,5 @@ var searchData=
   ['use_5fhal_5fadc_5fregister_5fcallbacks_9',['USE_HAL_ADC_REGISTER_CALLBACKS',['../_l053_r8_t6___demo_project___motorized_fader_2_core_2_inc_2stm32l0xx__hal__conf_8h.html#acc33abd5393affd16cc4a1397839dfe4',1,'USE_HAL_ADC_REGISTER_CALLBACKS:&#160;stm32l0xx_hal_conf.h'],['../_l053_r8_t6___demo_project___midi_over_s_t_link_2_core_2_inc_2stm32l0xx__hal__conf_8h.html#acc33abd5393affd16cc4a1397839dfe4',1,'USE_HAL_ADC_REGISTER_CALLBACKS:&#160;stm32l0xx_hal_conf.h']]],
   ['used_20for_20data_20transfer_10',['Ping-Pong Buffer used for Data Transfer',['../group___buffer___ping_pong.html',1,'']]],
   ['used_20for_20testing_11',['Hardware (as used for testing)',['../group___motor_fader.html#autotoc_md20',1,'']]],
-  ['used_20for_20testing_20_3a_12',['How to setup TSC in Cube MX (Values used for testing):',['../group___t_s_c_button___source.html#autotoc_md35',1,'']]],
-  ['user_13',['How the buffer should be implemented by the user',['../group___buffer___ping_pong.html#autotoc_md46',1,'']]]
+  ['used_20for_20testing_20_3a_12',['How to setup TSC in Cube MX (Values used for testing):',['../group___t_s_c_button___source.html#autotoc_md35',1,'']]]
 ];

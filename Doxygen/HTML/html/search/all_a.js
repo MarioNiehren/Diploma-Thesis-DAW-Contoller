@@ -2,8 +2,8 @@ var searchData=
 [
   ['if_20possible_20_3a_0',['Hardware (if possible):',['../group___wiper___header.html#autotoc_md40',1,'']]],
   ['image_3a_1',['Image:',['../group___e_p_d___set.html#autotoc_md8',1,'']]],
-  ['implement_2',['Implement',['../group___buffer___ping_pong___header.html#autotoc_md47',1,'How to implement'],['../group___buffer___ping_pong___header.html#autotoc_md48',1,'How to implement']]],
-  ['implemented_20by_20the_20user_3',['How the buffer should be implemented by the user',['../group___buffer___ping_pong.html#autotoc_md46',1,'']]],
+  ['implement_2',['Implement',['../group___buffer___ping_pong___header.html#autotoc_md47',1,'How to implement'],['../group___buffer___ping_pong___header.html#autotoc_md48',1,'How to implement'],['../group___buffer___ping_pong___header.html#autotoc_md49',1,'How to implement']]],
+  ['implementation_3',['Structure of the Buffer implementation.',['../group___buffer___ping_pong.html#autotoc_md46',1,'']]],
   ['in_20cube_20mx_20values_20used_20for_20testing_20_3a_4',['How to setup TSC in Cube MX (Values used for testing):',['../group___t_s_c_button___source.html#autotoc_md35',1,'']]],
   ['in_20cubemx_20as_20tested_20_3a_5',['How to setup PWM in CubeMX (as tested):',['../group___t_b6612_f_n_g___source.html#autotoc_md30',1,'']]],
   ['inactive_5fcs_6',['Inactive_CS',['../struct_s_p_i_d_m_a___g_p_i_os___type_def.html#ac99042cd18c7976fb3f2557732011738',1,'SPIDMA_GPIOs_TypeDef']]],

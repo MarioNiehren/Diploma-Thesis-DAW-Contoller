@@ -268,7 +268,6 @@ void MIDI_callback_ControlChange(MIDI_structTd* MIDIPort, uint8_t Channel, uint8
     const uint8_t HUI_PortSelect = 0x2C;
     const uint8_t HUI_Port_ValueMsk = 0x40;
     const uint8_t HUI_Port_NumberMsk = 0xF0;
-
     const uint8_t HUI_ResetValue = 0xFF;
 
     if(Channel == HUI_Channel)
@@ -302,7 +301,6 @@ void MIDI_callback_ControlChange(MIDI_structTd* MIDIPort, uint8_t Channel, uint8
           HUIRx.Zone = HUI_ResetValue;
           HUIRx.PortOn = HUI_ResetValue;
         }
-
         if(HUIRx.PortOff == SoloCh1.Port)
         {
           SoloCh1.ToggleOff = true;
@@ -311,18 +309,6 @@ void MIDI_callback_ControlChange(MIDI_structTd* MIDIPort, uint8_t Channel, uint8
         }
       }
     }
-  }
-}
-
-void MIDI_callback_NoteOff(MIDI_structTd* MIDIPort, uint8_t Channel, uint8_t Note, uint8_t Velocity)
-{
-  if(MIDIPort == &MIDIPort1 && Channel == 0x00 && Note == 0x38)
-  {
-    HAL_GPIO_WritePin(LED_ON_BOARD_GPIO_Port, LED_ON_BOARD_Pin, GPIO_PIN_RESET);
-  }
-  else
-  {
-    ;
   }
 }
 
