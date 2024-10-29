@@ -2,7 +2,7 @@ var searchData=
 [
   ['read_5fbuttonsonactivedriveline_0',['read_ButtonsOnActiveDriveLine',['../group___button_matrix___source_code.html#gaf4d94581b4368ac719bfc9a03bfa6f12',1,'buttonMatrix.c']]],
   ['readmodeentered_1',['readModeEntered',['../structbutton_matrix__struct_td.html#a298b84c8b51caddc8b29087f64067180',1,'buttonMatrix_structTd']]],
-  ['repository_20with_20the_20code_2',['Repository with the Code',['../index.html#autotoc_md16',1,'Repository with the Code'],['../todo.html#_todo000008',1,'Repository with the Code']]],
+  ['repository_2',['Repository',['../index.html#autotoc_md16',1,'']]],
   ['required_20files_3',['Required files',['../group___e_paper_s_s_d1681.html#autotoc_md1',1,'Required files'],['../todo.html#_todo000001',1,'Required files']]],
   ['requirements_3a_4',['Hardware requirements:',['../group___t_s_c_button.html#autotoc_md33',1,'']]],
   ['reservedtoreceive_5',['ReservedToReceive',['../struct_buffer_ping_pong__struct_td.html#a36c7fe9aea1781aa5d14a4bf51b96649',1,'BufferPingPong_structTd']]],

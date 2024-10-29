@@ -19,7 +19,7 @@ var searchData=
   ['check_5finterruptdetected_16',['check_InterruptDetected',['../group___button_matrix___source_code.html#ga034ecfd8fb6d4464d492b9dbbd275035',1,'buttonMatrix.c']]],
   ['check_5ftscblocked_17',['check_TSCBlocked',['../group___t_s_c_button___source.html#gaa7c07d6611cdcdb134bbd8cd6166bd78',1,'tscButton.c']]],
   ['cmsis_18',['CMSIS',['../group___c_m_s_i_s.html',1,'']]],
-  ['code_19',['Code',['../index.html#autotoc_md16',1,'Repository with the Code'],['../todo.html#_todo000008',1,'Repository with the Code'],['../group___e_p_d___source.html',1,'Source Code'],['../group___button_matrix___source_code.html',1,'Source Code'],['../group___t_b6612_f_n_g___source.html',1,'Source Code'],['../group___wiper___source.html',1,'Source Code']]],
+  ['code_19',['Code',['../group___e_p_d___source.html',1,'Source Code'],['../group___button_matrix___source_code.html',1,'Source Code'],['../group___t_b6612_f_n_g___source.html',1,'Source Code'],['../group___wiper___source.html',1,'Source Code']]],
   ['commandstate_5fdc_20',['CommandState_DC',['../struct_s_p_i_d_m_a___g_p_i_os___type_def.html#a76c085e28b36382157553b607dcadaca',1,'SPIDMA_GPIOs_TypeDef']]],
   ['contact_21',['Contact',['../index.html#autotoc_md18',1,'']]],
   ['controller_22',['A &quot;hands on&quot; explanation of the PID controller',['../group___motor_fader___header.html#autotoc_md23',1,'']]],
