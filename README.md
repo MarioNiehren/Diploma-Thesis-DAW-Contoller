@@ -16,8 +16,7 @@ develop a custom DAW-Controller.
 |														| Touch Sensor using STM32 TSC (no middleware)		|									|
 | [LEDs with MAX7219](F103C8T6_DemoProject_LEDs_MAX7219)| Access many LEDs easy with this module and MAX7219| STM32F103C8T6 ("Blue-Pill" board) |
 | [Rotary Encoder](F103C8T6_DemoProject_RotaryEncoder)	| Setup and read rotary encoders					| STM32F103C8T6 ("Blue-Pill" board) |
-| [MIDI over UART](L0538T6_DemoProject_MidiOverSTLink)	| Setup and read rotary encoders					| STM32L053R8T6 (Nucleo Board)		|
+| [MIDI over UART](L053R8T6_DemoProject_MidiOverSTLink)	| Send and receive MIDI-Data over the ST-Link UART  | STM32L053R8T6 (Nucleo Board)		|
 
 ## Documentation
-To read the Doxygen documentation, please copy the [Doxygen HTML-folder](Doxygen/HTML/html) to your local system 
-and open index.html inside this folder with any browser.
+https://marioniehren.github.io/Manual-for-Developing-a-DAW-Controller_Software-Demo-Projects/HTML/html/index.html

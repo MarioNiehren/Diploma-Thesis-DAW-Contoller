@@ -30,11 +30,9 @@ Set/Get functions allow to interact with the module in the code.
 - The microcontroller used to write the module is included in the header (e.g. #include "stm32l0xx_hal.h"). Often it should work to replace this, if an other STM32 model is used.
 - If calibration functions exist: these functions can be used to improve the performansce. If they are not used, the corresponing parameters will work with default vales.
 
-# Repository with the Code
-@todo add link too github here
+# Repository
+https://github.com/MarioNiehren/Manual-for-Developing-a-DAW-Controller_Software-Demo-Projects
 
-Each Softwarepart is set up as an individual STM32 Project. The relevant files can be found ProjectName->Core->Inc/Src. In main.c is a use example, that is not documented in Doxygen.
-Please look at the main.c to the how a Softwarepart can be used.
 
 # Disclaimer
 
