@@ -7,7 +7,7 @@
 - @ref MotorFader		"Motorized Fader (ALPS) with TB6612FNG Motor Driver for DC-Motors, STM32 Touch Sense Control and 12Bit ADC."
 - @ref MAX7219			"LED Driver MAX7219 to handle a large number of LEDs"
 - @ref RotaryEncoder	"Read rotary encoders based on interrupts"
-- @ref MIDI_UART		"Send MIDI over UART (This module shows the principle but is no complete MIDI implementation)"
+- @ref MIDI_UART		"Send MIDI over UART"
 
 # How to use:
 
