@@ -1,5 +1,6 @@
 var dir_87e7f26801d4c56dd93c41ed2e307200 =
 [
+    [ "EB_Garamond_08_28pts.c", "_e_b___garamond__08__28pts_8c.html", "_e_b___garamond__08__28pts_8c" ],
     [ "EPD_1-54inch.c", "_e_p_d__1-54inch_8c.html", "_e_p_d__1-54inch_8c" ],
     [ "main.c", "_f103_c8_t6___demo_project___e-_paper___s_s_d1681_2_core_2_src_2main_8c.html", "_f103_c8_t6___demo_project___e-_paper___s_s_d1681_2_core_2_src_2main_8c" ],
     [ "SPI_DMA.c", "_s_p_i___d_m_a_8c.html", "_s_p_i___d_m_a_8c" ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diploma Thesis DAW-Controller: Button Matrix: PID controller</title>
+<title>Manual for Developing a DAW-Controller: Software Demo Projects: PID controller</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,9 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="mdw_Logo_weiss.jpg"/></td>
   <td id="projectalign">
-   <div id="projectname">Diploma Thesis DAW-Controller: Button Matrix<span id="projectnumber">&#160;Demo Project</span>
+   <div id="projectname">Manual for Developing a DAW-Controller: Software Demo Projects<span id="projectnumber">&#160;Demo Project</span>
    </div>
-   <div id="projectbrief">This Project shows how to setup and use a button matrix.</div>
+   <div id="projectbrief">This is the software module that contains demo projects for the deploma thesis: &quot;Handbuch zur Entwicklung eines DAW-Controllers&quot; (Eng: Manual for Developing a DAW-Controller).</div>
   </td>
  </tr>
  </tbody>
@@ -113,7 +113,7 @@ Topics</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This module is used to calculate a PID output to reach a specific and stable target. </p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 How to use:</h1>
 <ol type="1">
 <li>Declare an object of <a class="el" href="struct_p_i_d__struct_td.html" title="Main structure used to store all data for the PID. The user has to declare an Object of this type for...">PID_structTd</a> data type</li>
@@ -133,14 +133,14 @@ How to use:</h1>
 </ul>
 </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 A manual approach for calibration:</h1>
 <ol type="1">
 <li>Set Kp until the output gets as close as possible to the target without overshooting</li>
 <li>Set Ki to come closer to the target. Try to find a good balance between speed and overshooting</li>
 <li>Set Kp if it is required to reach the target faster. Be careful because the D term tends to bring noise and heavy overshooting to the system. Many systems do not require a D-Term.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Links</h1>
 <p>The Code is based on this Video: <a href="https://www.youtube.com/watch?v=zOByx3Izf5U">https://www.youtube.com/watch?v=zOByx3Izf5U</a> by Phil's Lab</p>
 </div><!-- contents -->

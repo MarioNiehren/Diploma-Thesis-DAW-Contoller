@@ -24,7 +24,8 @@
 */
 var NAVTREE =
 [
-  [ "Diploma Thesis DAW-Controller: Button Matrix", "index.html", [
+  [ "Manual for Developing a DAW-Controller: Software Demo Projects", "index.html", [
+    [ "Main Page", "index.html", "index" ],
     [ "Todo List", "todo.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Data Structures", "annotated.html", [
@@ -53,10 +54,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_buffer___displays_8h.html",
-"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#aaa8c76e274d0f6dd2cefb5d0b17fbc37",
-"globals_func_q.html",
-"group___m_a_x7219___source.html#gab0a97e75134e97a6e854dbc3748fb9c9",
-"group___t_b6612_f_n_g___header.html#ga71f19c831735445aa3ddde0317a5fc37"
+"_f103_c8_t6___demo_project___rotary_encoder_2_core_2_inc_2stm32f1xx__hal__conf_8h.html#aa0b1e6d4a23470fc1ac4f9222b51f8a0",
+"globals_func_p.html",
+"group___m_a_x7219___source.html#ga6407913025b012c850e6a420483962c4",
+"group___t_b6612_f_n_g___header.html#ga24a326dcd3c7e7c9d1388c606f73c150",
+"usart_8c.html#a94cd2c58add4f2549895a03bf267622e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

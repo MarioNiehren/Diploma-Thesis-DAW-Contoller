@@ -4,7 +4,7 @@ var searchData=
   ['bitmap_3a_1',['How to generate an array for your Bitmap:',['../group___e_p_d___g_u_i.html#autotoc_md9',1,'']]],
   ['block_5ftscforsomems_2',['block_TSCForSomeMs',['../group___t_s_c_button___source.html#gaa552bcc173468c8f41d4e557c773a6fa',1,'tscButton.c']]],
   ['buffer_3',['Buffer',['../struct_m_i_d_i__struct_td.html#abc2e75bdf5326562c918967ea2e6123f',1,'MIDI_structTd::Buffer'],['../group___e_p_d___buffer.html',1,'Buffer']]],
-  ['buffer_20implementation_4',['Structure of the Buffer implementation.',['../group___buffer___ping_pong.html#autotoc_md40',1,'']]],
+  ['buffer_20implementation_4',['Structure of the Buffer implementation.',['../group___buffer___ping_pong.html#autotoc_md46',1,'']]],
   ['buffer_20used_20for_20data_20transfer_5',['Ping-Pong Buffer used for Data Transfer',['../group___buffer___ping_pong.html',1,'']]],
   ['buffer_5fcounter_5ftypedef_6',['Buffer_Counter_TypeDef',['../struct_buffer___counter___type_def.html',1,'']]],
   ['buffer_5fdescriptor_5ftypedef_7',['Buffer_Descriptor_TypeDef',['../struct_buffer___descriptor___type_def.html',1,'']]],

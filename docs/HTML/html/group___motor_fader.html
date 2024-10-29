@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diploma Thesis DAW-Controller: Button Matrix: Motorized Fader</title>
+<title>Manual for Developing a DAW-Controller: Software Demo Projects: Motorized Fader</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,9 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="mdw_Logo_weiss.jpg"/></td>
   <td id="projectalign">
-   <div id="projectname">Diploma Thesis DAW-Controller: Button Matrix<span id="projectnumber">&#160;Demo Project</span>
+   <div id="projectname">Manual for Developing a DAW-Controller: Software Demo Projects<span id="projectnumber">&#160;Demo Project</span>
    </div>
-   <div id="projectbrief">This Project shows how to setup and use a button matrix.</div>
+   <div id="projectbrief">This is the software module that contains demo projects for the deploma thesis: &quot;Handbuch zur Entwicklung eines DAW-Controllers&quot; (Eng: Manual for Developing a DAW-Controller).</div>
   </td>
  </tr>
  </tbody>
@@ -125,7 +125,7 @@ Topics</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This module can be used to program an Fader with DC-Motor. </p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 How to use:</h1>
 <ol type="1">
 <li>Declare an object of <a class="el" href="struct_motorized_fader__struct_td.html" title="Main structure to store all data for the fader. The user has to declare one object of this data type ...">MotorizedFader_structTd</a> type for each used fader</li>
@@ -183,7 +183,7 @@ How to use:</h1>
 </ul>
 </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Hardware (as used for testing)</h1>
 <ul>
 <li>Code was tested with an 100mm linear 10k ALPS motorized fader</li>
@@ -192,7 +192,7 @@ Hardware (as used for testing)</h1>
 <li>TSC serial resistor on Touch line: 10k</li>
 <li>Motor Supply: 9V</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Tips</h1>
 <ul>
 <li>If the fader starts to resonate, you have to check Kp, Ki, Kd, low pass, Start Force and Stop Range. This module was tested with 100mm linear ALPS faders (RSA0N11M9A07).</li>
@@ -201,7 +201,7 @@ Tips</h1>
 <li>If you hear high frequency noise, check your PWM frequency in Cube MX (PWM-Freuqency = (TIM-CLK / AutoReloadRegister)).</li>
 <li>Take your time to find the right threshold for each Touch line. If the threshold is not accurate, it my get tricky to get the faders stable because the motor stops always when the fader is touched.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Links</h1>
 <ul>
 <li><a class="el" href="group___t_b6612_f_n_g.html#TB6612FNG_Datasheet">TB6612FNG Motor Driver data sheet</a></li>

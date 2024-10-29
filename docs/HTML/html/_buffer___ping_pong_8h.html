@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diploma Thesis DAW-Controller: Button Matrix: E:/Diplomarbeit/F-STM_Workspace_DemoProjects/L053R8T6_DemoProject_MidiOverSTLink/Core/Inc/Buffer_PingPong.h File Reference</title>
+<title>Manual for Developing a DAW-Controller: Software Demo Projects: E:/Diplomarbeit/F-STM_Workspace_DemoProjects/L053R8T6_DemoProject_MidiOverSTLink/Core/Inc/Buffer_PingPong.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,9 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="mdw_Logo_weiss.jpg"/></td>
   <td id="projectalign">
-   <div id="projectname">Diploma Thesis DAW-Controller: Button Matrix<span id="projectnumber">&#160;Demo Project</span>
+   <div id="projectname">Manual for Developing a DAW-Controller: Software Demo Projects<span id="projectnumber">&#160;Demo Project</span>
    </div>
-   <div id="projectbrief">This Project shows how to setup and use a button matrix.</div>
+   <div id="projectbrief">This is the software module that contains demo projects for the deploma thesis: &quot;Handbuch zur Entwicklung eines DAW-Controllers&quot; (Eng: Manual for Developing a DAW-Controller).</div>
   </td>
  </tr>
  </tbody>
@@ -175,7 +175,7 @@ Functions</h2></td></tr>
 <tr class="separator:gac930abb339112617a8c77d49fd46cc56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Rx Buffer on Application Side</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This function are used to access the Buffer in the users application.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md47"></a>
 How to implement</h1>
 <ol type="1">
 <li>Check if new data is available (This has to be checked manually, depending on the way, how the data reception works in the applications environment). Continue, if new data is available.</li>
@@ -196,7 +196,7 @@ How to implement</h1>
 <tr class="separator:ga41cd11b371bd0c90d0283c21f4c0a6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Rx Buffer on Transmission Side</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This function are used to handle the Rx Buffers on transmission side. This can be anything, that actually receives data bytes and stores them in an any buffer.</p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 How to implement</h1>
 <ol type="1">
 <li>Latch the temporary data, that contains data from the previous Rx Cycle, to the regular Rx Buffer. The temporary buffer can get overwritten now. (This step should be skipped for the first rx cycle, because the temporary buffer will be empty)</li>
@@ -222,7 +222,7 @@ How to implement</h1>
 <tr class="separator:gaf82e195b46343a5f3d322ae3c226b974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Tx Buffer on Transmission Side</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>This function are used to handle the Tx Buffers</p>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 How to implement</h1>
 <ol type="1">
 <li>Get the start pointer of the Tx Buffer, that is filled and should be sent</li>

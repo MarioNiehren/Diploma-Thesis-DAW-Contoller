@@ -20,12 +20,13 @@ var searchData=
   ['wiper_5fstructtd_17',['Wiper_structTd',['../struct_wiper__struct_td.html',1,'']]],
   ['wiper_5fupdate_5fall_18',['Wiper_update_All',['../group___wiper___header.html#ga4520e2fb456df3472ea105accd8e29fe',1,'Wiper_update_All(void):&#160;wiper.c'],['../group___wiper___source.html#ga4520e2fb456df3472ea105accd8e29fe',1,'Wiper_update_All(void):&#160;wiper.c']]],
   ['wiperinternal_19',['WiperInternal',['../group___wiper___source.html#gabd56317a66c831f9d7f892101def99ef',1,'wiper.c']]],
-  ['work_20at_20the_20moment_3a_20',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md10',1,'']]],
-  ['work_3a_21',['What does not work:',['../group___e_p_d___g_u_i.html#autotoc_md11',1,'']]],
-  ['write_5fbuffertoram0x24_22',['write_BufferToRAM0x24',['../group___e_p_d___source.html#ga70054806d97c2587f8e5fa37dd2e6793',1,'EPD_1-54inch.c']]],
-  ['write_5fbuffertoram0x26_23',['write_BufferToRAM0x26',['../group___e_p_d___source.html#ga54d794cf416ecba9217028485dfdc673',1,'EPD_1-54inch.c']]],
-  ['write_5ftemperatureregister_24',['write_TemperatureRegister',['../group___e_p_d___source.html#gad160c94006ac15e40ec0fb694926f75e',1,'EPD_1-54inch.c']]],
-  ['write_5fvcomregister_25',['write_VCOMRegister',['../group___e_p_d___source.html#gad5dec0d07839d90968cc755f0a5ed65b',1,'EPD_1-54inch.c']]],
-  ['writepin_5fin1in2stby_26',['writePin_In1In2STBY',['../group___t_b6612_f_n_g___source.html#ga8f21dc5522dfba2cb02093017e752148',1,'TB6612FNG_MotorDriver.c']]],
-  ['writestringdescriptor_5ftypedef_27',['WriteStringDescriptor_TypeDef',['../struct_write_string_descriptor___type_def.html',1,'']]]
+  ['with_20the_20code_20',['With the Code',['../index.html#autotoc_md16',1,'Repository with the Code'],['../todo.html#_todo000008',1,'Repository with the Code']]],
+  ['work_20at_20the_20moment_3a_21',['What should work at the moment:',['../group___e_p_d___g_u_i.html#autotoc_md10',1,'']]],
+  ['work_3a_22',['What does not work:',['../group___e_p_d___g_u_i.html#autotoc_md11',1,'']]],
+  ['write_5fbuffertoram0x24_23',['write_BufferToRAM0x24',['../group___e_p_d___source.html#ga70054806d97c2587f8e5fa37dd2e6793',1,'EPD_1-54inch.c']]],
+  ['write_5fbuffertoram0x26_24',['write_BufferToRAM0x26',['../group___e_p_d___source.html#ga54d794cf416ecba9217028485dfdc673',1,'EPD_1-54inch.c']]],
+  ['write_5ftemperatureregister_25',['write_TemperatureRegister',['../group___e_p_d___source.html#gad160c94006ac15e40ec0fb694926f75e',1,'EPD_1-54inch.c']]],
+  ['write_5fvcomregister_26',['write_VCOMRegister',['../group___e_p_d___source.html#gad5dec0d07839d90968cc755f0a5ed65b',1,'EPD_1-54inch.c']]],
+  ['writepin_5fin1in2stby_27',['writePin_In1In2STBY',['../group___t_b6612_f_n_g___source.html#ga8f21dc5522dfba2cb02093017e752148',1,'TB6612FNG_MotorDriver.c']]],
+  ['writestringdescriptor_5ftypedef_28',['WriteStringDescriptor_TypeDef',['../struct_write_string_descriptor___type_def.html',1,'']]]
 ];
