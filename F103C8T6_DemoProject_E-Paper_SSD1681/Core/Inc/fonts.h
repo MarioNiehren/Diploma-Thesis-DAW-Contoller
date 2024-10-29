@@ -57,16 +57,7 @@ typedef struct
   Fonts_Widthtype_TypeDef Widthtype;
 }Fonts_TypeDef;
 
-/***************************************************************************************************
- * BEGIN: Segoe Script
- ***************************************************************************************************/
-extern Fonts_TypeDef SegoeScript31px;
-
-/***************************************************************************************************
- * BEGIN: Corbel
- ***************************************************************************************************/
-extern Fonts_TypeDef Corbel20px;
-extern Fonts_TypeDef Corbel22px;
+extern Fonts_TypeDef EBGaramond08_28pt;
   
 #endif /* MN_FONTS_H_INC */
 

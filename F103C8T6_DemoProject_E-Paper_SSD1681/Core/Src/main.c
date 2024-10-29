@@ -439,12 +439,10 @@ int main(void)
   }
 
   EPD_set_DrawColor(&Display, EPD_COLOR_WHITE);
-  EPD_set_Font(&Display, SegoeScript31px);
+  EPD_set_Font(&Display, EBGaramond08_28pt);
   EPD_set_PixelStartPosition(&Display, 10, 10);
-  char* txt1 = "Done!";
+  char* txt1 = "Success!";
   EPD_write_String(&Display, txt1, strlen(txt1));
-  char* txt2 = "2nd Text";
-  EPD_write_String(&Display, txt2, strlen(txt2));
 
   EPD_set_PartRefreshMode(&Display);
   EPD_display_Frame(&Display);
