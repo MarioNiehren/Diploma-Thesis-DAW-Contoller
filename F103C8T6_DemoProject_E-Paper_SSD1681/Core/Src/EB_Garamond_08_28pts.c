@@ -23,12 +23,13 @@
 #include <fonts.h>
 
 /***************************************************************************//**
- * @name      Initialize
- * @brief     Use these functions to initialize this module.
+ * @name      Font Bitmaps
+ * @brief     Use these array to display fonts
  * @{
  ******************************************************************************/
-/*
-**  Font data for EB Garamond 08 28pt
+
+/**
+* @brief      Font data for EB Garamond 08 28pt
 */
 
 /* Character bitmaps for EB Garamond 08 28pt */
@@ -3740,6 +3741,17 @@ const uint8_t EBGaramond08_28pt_Bitmap[] =
   0x00, 0x00, //   ------------
 };
 
+/** @} ************************************************************************/
+/* end of name "Font Bitmaps"
+ ******************************************************************************/
+
+
+/***************************************************************************//**
+ * @name      Font Description
+ * @brief     Specifications to display fonts correct
+ * @{
+ ******************************************************************************/
+
 /* Character descriptors for EB Garamond 08 28pt */
 /* { [Char width in bits], [Offset into eBGaramond08_28ptCharBitmaps in bytes] } */
 Fonts_Descriptor_TypeDef EBGaramond08_28pt_Descriptor[] =
@@ -3850,43 +3862,9 @@ Fonts_TypeDef EBGaramond08_28pt = {
   FONTS_VARIABLE_WIDTH,
 };
 
-
 /** @} ************************************************************************/
-/* end of name "Initialize"
+/* end of name "Font Description"
  ******************************************************************************/
 
-
-/***************************************************************************//**
- * @name      Process
- * @brief     Use these functions to process this module
- * @{
- ******************************************************************************/
-
-/** @} ************************************************************************/
-/* end of name "Process"
- ******************************************************************************/
-
-
-/***************************************************************************//**
- * @name      Set Functions
- * @brief     Use these functions to set values
- * @{
- ******************************************************************************/
-
-/** @} ************************************************************************/
-/* end of name "Set Functions"
- ******************************************************************************/
-
-
-/***************************************************************************//**
- * @name      Get Functions
- * @brief     Use these functions to gt values
- * @{
- ******************************************************************************/
-
-/** @} ************************************************************************/
-/* end of name "Get Functions"
- ******************************************************************************/
-
-/**@}*//* end of defgroup "EB_Garamond_08_28pts.c_Source" */
+/**@}*//* end of defgroup "EB_Garamond_08_28pts_Source" */
 /**@}*//* end of defgroup "@todo Add module defgroup here!" */
